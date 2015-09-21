@@ -1,10 +1,16 @@
 {
   "name": "alinex-database",
   "version": "0.0.0",
-  "description": "",
+  "description": "Database abstraction module.",
   "copyright": "Alexander Schilling 2015",
   "private": false,
-  "keywords": [],
+  "keywords": [
+    "database",
+    "mysql",
+    "postgres",
+    "postgresql",
+    "rdbms"
+  ],
   "homepage": "http://alinex.github.io/node-database/",
   "repository": {
     "type": "git",
@@ -26,10 +32,16 @@
   "directories": {
     "lib": "./lib"
   },
-  "dependencies": {},
+  "dependencies": {
+    "alinex-config": "^1.0.5",
+    "mysql": "^2.9.0",
+    "pg": "^4.4.2",
+    "sqlite3": "^3.1.0",
+    "ssh2": "^0.4.11"
+  },
   "devDependencies": {
     "alinex-builder": "1.x",
-    "chai": "2.x"
+    "chai": "^3.3.0"
   },
   "optionalDependencies": {},
   "engines": {
