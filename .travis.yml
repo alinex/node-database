@@ -3,5 +3,9 @@ node_js:
    - "0.10"
    - "0.12"
    - "4"
+env:
+  - MYSQL_HOST=localhost MYSQL_DATABASE=test_db MYSQL_USER=root MYSQL_PASSWORD=
+before_script:
+  - "mysql -e 'create database test_db;'"
 after_success:
    - COVERALLS_SERVICE_NAME=travis-ci COVERALLS_REPO_TOKEN=haQKkRgwLHbwX1dp8ltFXFTPO48c5EEWo node_modules/.bin/builder -c test --coverage --coveralls

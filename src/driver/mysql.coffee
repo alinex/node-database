@@ -10,71 +10,14 @@
 # Node Modules
 # -------------------------------------------------
 
-debug = require('debug')('db')
-chalk = require 'chalk'
-# include more alinex modules
-Config = require 'alinex-config'
-async = require 'alinex-async'
-# internal helpers
-configcheck = require './configcheck'
-
-# Class definition
-# -------------------------------------------------
-class Database
-
-  # ### Initialization
-
-  # set the modules config paths and validation schema
-  @setup: async.once this, (cb) ->
-    # set module search path
-    config.register false, fspath.dirname __dirname
-    # add schema for module's configuration
-    config.setSchema '/database', schema, cb
-
-  # set the modules config paths, validation schema and initialize the configuration
-  @init: async.once this, (cb) ->
-    debug "initialize"
-    # set module search path
-    @setup (err) ->
-      return cb err if err
-      config.init cb
-
-  # ### Factory
-  # Get an instance for the name. This enables the system to use the same
-  # Config instance anywhere.
-  @_instances: {}
-  @instance: (name) ->
-    # start initializing, if not done
-    unless @_instances[name]?
-      @_instances[name] = new Mysql name
-    @_instances[name]
-
-  @close: (cb = ->) ->
-    debug "Close all database connections..."
-    async.each Object.keys(@_instances), (name, cb) =>
-      @_instances[name].close cb
-    , cb
-
-  # ### Create instance
-  # This will also load the data if not already done. Don't call this directly
-  # better use the `instance()` method which implements the factory pattern.
-  constructor: (@name) ->
-    debug "create #{@name} instance"
-    unless @name
-      throw new Error "Could not initialize Mysql class without database alias."
-
-
-
-
-
-
-
 # include base modules
+debug = require('debug')('mysql')
 debugPool = require('debug')('mysql:pool')
 debugQuery = require('debug')('mysql:query')
 debugResult = require('debug')('mysql:result')
 debugData = require('debug')('mysql:data')
 debugCom = require('debug')('mysql:com')
+chalk = require 'chalk'
 util = require 'util'
 path = require 'path'
 mysql = require 'mysql'
@@ -109,6 +52,30 @@ class Mysql
     @configClass.load (err) =>
       console.error err if err
       cb err
+
+  # ### Factory
+  # Get an instance for the name. This enables the system to use the same
+  # Config instance anywhere.
+  @_instances: {}
+  @instance: (name) ->
+    # start initializing, if not done
+    unless @_instances[name]?
+      @_instances[name] = new Mysql name
+    @_instances[name]
+
+  @close: (cb = ->) ->
+    debug "Close all database connections..."
+    async.each Object.keys(@_instances), (name, cb) =>
+      @_instances[name].close cb
+    , cb
+
+  # ### Create instance
+  # This will also load the data if not already done. Don't call this directly
+  # better use the `instance()` method which implements the factory pattern.
+  constructor: (@name) ->
+    debug "create #{@name} instance"
+    unless @name
+      throw new Error "Could not initialize Mysql class without database alias."
 
   connect: (cb, num=0) ->
     Mysql.init null, (err) =>
