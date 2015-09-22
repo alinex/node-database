@@ -49,7 +49,7 @@ class Mysql
     # set init status if configuration is loaded
     return cb() unless @configClass?
     # wait till configuration is loaded
-    @configClass.load (err) =>
+    @configClass.load (err) ->
       console.error err if err
       cb err
 
@@ -63,7 +63,7 @@ class Mysql
       @_instances[name] = new Mysql name
     @_instances[name]
 
-  @close: (cb = ->) ->
+  @close: (cb = -> ) ->
     debug "Close all database connections..."
     async.each Object.keys(@_instances), (name, cb) =>
       @_instances[name].close cb
@@ -89,7 +89,7 @@ class Mysql
         @pool.on 'connection', (conn) =>
           conn.name = chalk.grey "[#{@name}##{conn._socket._handle.fd}]"
           debugPool "#{conn.name} open connection"
-          conn.on 'error', (err) =>
+          conn.on 'error', (err) ->
             debug "#{conn.name} uncatched #{err} on connection"
         @pool.on 'enqueue', =>
           name = chalk.grey "[#{@name}]"
@@ -121,14 +121,15 @@ class Mysql
             else
               debugCom "#{conn.name} #{dir} #{packet.constructor.name} #{chalk.grey msg}"
         conn.release = ->
-          debugPool "#{conn.name} release connection (#{@_pool._freeConnections.length+1}/#{@_pool._allConnections.length} free)"
+          debugPool "#{conn.name} release connection
+          (#{@_pool._freeConnections.length+1}/#{@_pool._allConnections.length} free)"
           # release code copied from original function
           return unless @_pool? and not @_pool._closed
-          @_pool.releaseConnection @
+          @_pool.releaseConnection this
         # return the connection
         cb null, conn
 
-  close: (cb = ->) =>
+  close: (cb = -> ) =>
     debugPool "close connection pool for #{@name}"
     return cb() unless @pool?
     @pool.end (err) =>

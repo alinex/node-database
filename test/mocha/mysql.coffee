@@ -3,10 +3,10 @@ expect = chai.expect
 Config = require 'alinex-config'
 #require('alinex-error').install()
 
-Mysql = require '../../lib/index'
-Config.search.push 'test/data'
+#Mysql = require '../../lib/index'
+#Config.search.push 'test/data'
 
-describe "Mysql access", ->
+describe.skip "Mysql access", ->
   it "simple query to database", (done) ->
     testdb = Mysql.instance 'test'
     testdb.connect (err, conn) ->

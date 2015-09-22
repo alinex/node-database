@@ -33,7 +33,10 @@
     "lib": "./lib"
   },
   "dependencies": {
+    "alinex-async": "^0.2.3",
     "alinex-config": "^1.0.5",
+    "chalk": "^1.1.1",
+    "debug": "^2.2.0",
     "mysql": "^2.9.0",
     "pg": "^4.4.2",
     "sqlite3": "^3.1.0",
@@ -41,6 +44,7 @@
   },
   "devDependencies": {
     "alinex-builder": "1.x",
+    "alinex-validator": "^1.0.3",
     "chai": "^3.3.0"
   },
   "optionalDependencies": {},
