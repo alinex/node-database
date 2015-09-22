@@ -46,7 +46,7 @@ database =
   title: "Access Settings"
   description: "the settings used to connect to the database"
   type: 'object'
-  mandatoryKeys: true
+  allowedKeys: true
   keys:
     type:
       title: "Type"

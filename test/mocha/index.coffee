@@ -6,12 +6,11 @@ describe "Base", ->
   Database = require '../../src/index'
   config = require 'alinex-config'
 
-#  before (cb) ->
-#    @timeout 5000
-#    Database.setup ->
-#      config.pushOrigin
-#        uri: "#{__dirname}/../data/config/database.yml"
-#    Database.init cb
+  before (cb) ->
+    Database.setup ->
+      config.pushOrigin
+        uri: "#{__dirname}/../data/config/database.yml"
+      cb()
 
   describe "config", ->
 
@@ -22,12 +21,11 @@ describe "Base", ->
 
     it "should initialize config", (cb) ->
       @timeout 4000
-      Exec.init (err) ->
+      Database.init (err) ->
         expect(err, 'init error').to.not.exist
         config = require 'alinex-config'
         config.init (err) ->
           expect(err, 'load error').to.not.exist
-          conf = config.get '/exec'
+          conf = config.get '/database'
           expect(conf, 'config').to.exist
-          expect(conf.retry.error.times, 'retry num').to.be.above -1
           cb()
