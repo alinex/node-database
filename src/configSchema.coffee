@@ -47,7 +47,7 @@ database =
   description: "the settings used to connect to the database"
   type: 'object'
   mandatoryKeys: true
-  entries:
+  keys:
     type:
       title: "Type"
       description: "the type of database server"
@@ -114,5 +114,5 @@ module.exports =
   title: "Database Configuration"
   description: "the settings used for accessing the databases"
   type: 'object'
-  entries: database
+  entries: [database]
 
