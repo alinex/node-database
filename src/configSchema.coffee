@@ -22,7 +22,7 @@ ssh =
         type: 'ipaddr'
       ]
     port:
-      title: "Port NUmber"
+      title: "Port Number"
       description: "the port on which to connect using ssh protocol"
       type: 'port'
       default: 22
@@ -40,11 +40,11 @@ ssh =
       description: "the private key file to use for OpenSSH authentication"
       type: 'string'
 
-# Database settings
+# Mysql Database
 # -------------------------------------------------
-database =
-  title: "Access Settings"
-  description: "the settings used to connect to the database"
+mysql =
+  title: "Mysql Access"
+  description: "the settings used to connect to the mysql database"
   type: 'object'
   allowedKeys: true
   keys:
@@ -53,7 +53,7 @@ database =
       description: "the type of database server"
       type: 'string'
       lowerCase: true
-      values: ['mysql', 'postgres', 'sqlite']
+      values: ['mysql']
     host:
       title: "Hostname"
       description: "the hostname or ip address to connect to"
@@ -61,9 +61,9 @@ database =
       default: 'localhost'
     port:
       title: "Port"
-      description: "the port mysql is listening"
+      description: "the port, the database is listening"
       type: 'integer'
-      optional: true
+      default: 3306
     database:
       title: "Database Name"
       description: "the name of the database to use"
@@ -93,26 +93,87 @@ database =
       type: 'interval'
       unit: 'ms'
       optional: true
-    connectionLimit:
-      title: "Connection Pool Limit"
-      description: "the maximum number of parallel used connections"
+
+# Mysql Database
+# -------------------------------------------------
+postgres =
+  title: "PostgreSQL Access"
+  description: "the settings used to connect to the postgres database"
+  type: 'object'
+  allowedKeys: true
+  keys:
+    type:
+      title: "Type"
+      description: "the type of database server"
+      type: 'string'
+      lowerCase: true
+      values: ['postgres']
+    host:
+      title: "Hostname"
+      description: "the hostname or ip address to connect to"
+      type: 'hostname'
+      default: 'localhost'
+    port:
+      title: "Port"
+      description: "the port, the database is listening"
       type: 'integer'
-      default: 10
-    ssh: ssh
-    cluster:
-      title: "Cluster"
-      description: "the clusters to which this database belongs"
-      type: 'array'
-      toArray: true
-      entries:
-        type: 'string'
-        minLength: 3
+      default: 5432
+    database:
+      title: "Database Name"
+      description: "the name of the database to use"
+      type: 'string'
+    user:
+      title: "Username"
+      description: "the name used to log into the database"
+      type: 'string'
+    password:
+      title: "Password"
+      description: "the password to login"
+      type: 'string'
+      optional: true
+    connectTimeout:
+      title: "Connection Timeout"
+      description: "the time till a connection should be established"
+      type: 'interval'
+      unit: 'ms'
+      optional: true
 
 # Export objects
 # -------------------------------------------------
 module.exports =
-  title: "Database Configuration"
-  description: "the settings used for accessing the databases"
+  title: "Connections"
+  description: "the database connections"
   type: 'object'
-  entries: [database]
-
+  entries: [
+    title: "Connection"
+    description: "the connection to one database"
+    type: 'object'
+    allowedKeys: true
+    mandatoryKeys: ['server']
+    keys:
+      ssh: ssh
+      server:
+        title: "Access"
+        description: "the settings used to connect to the database"
+        type: 'or'
+        or: [mysql, postgres]
+      pool:
+        title: "Connection Pool"
+        description: "the connection pool"
+        type: 'object'
+        allowedKeys: true
+        keys:
+          limit:
+            title: "Connection Pool Limit"
+            description: "the maximum number of parallel used connections"
+            type: 'integer'
+            default: 10
+          cluster:
+            title: "Cluster"
+            description: "the clusters to which this database belongs"
+            type: 'array'
+            toArray: true
+            entries:
+              type: 'string'
+              minLength: 3
+  ]
