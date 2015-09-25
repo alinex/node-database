@@ -6,6 +6,9 @@
 # https://github.com/felixge/node-mysql/ -> use
 # https://github.com/brianc/node-postgres/tree/master/lib -> use
 # https://github.com/mapbox/node-sqlite3 -> use
+# https://github.com/elastic/elasticsearch-js
+
+# https://www.npmjs.com/package/json-sql
 
 # Node Modules
 # -------------------------------------------------
