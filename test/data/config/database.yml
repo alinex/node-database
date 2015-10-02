@@ -3,7 +3,7 @@
 
 # MySQL Test database
 # -------------------------------------------------
-test:
+test-mysql:
   server:
     type: mysql
     host: localhost

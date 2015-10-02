@@ -11,18 +11,25 @@
 # -------------------------------------------------
 
 # include base modules
-debug = require('debug')('mysql')
-debugPool = require('debug')('mysql:pool')
-debugQuery = require('debug')('mysql:query')
-debugResult = require('debug')('mysql:result')
-debugData = require('debug')('mysql:data')
-debugCom = require('debug')('mysql:com')
+debug = require('debug')('db:mysql')
+debugPool = require('debug')('db:pool')
+debugQuery = require('debug')('db:query')
+debugResult = require('debug')('db:result')
+debugData = require('debug')('db:data')
+debugCom = require('debug')('db:com')
 chalk = require 'chalk'
 util = require 'util'
 path = require 'path'
 mysql = require 'mysql'
 SqlString = require 'mysql/lib/protocol/SqlString'
 async = require 'alinex-async'
+
+# Database Methods
+# -------------------------------------------------
+
+
+
+
 
 # Database class
 # -------------------------------------------------
