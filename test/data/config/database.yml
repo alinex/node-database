@@ -4,13 +4,47 @@
 # MySQL Test database
 # -------------------------------------------------
 test-mysql:
+
   server:
     type: mysql
-    host: localhost
-    #port: 3306
-    database: test
-    user: test
-    #password:
+    host: <<<env://MYSQL_HOST | localhost>>>
+    #port: <<<env://MYSQL_PORT | 3306>>>
+    database: <<<env://MYSQL_DATABASE | test>>>
+    user: <<<env://MYSQL_USER | test>>>
+    password: <<<env://MYSQL_PASSWORD | >>>
     #charset: UTF8_GENERAL_CI
     #timezone: local
     #connectTimeout: 10s
+
+  pool:
+    limit: 2
+
+# MySQL Test database
+# -------------------------------------------------
+remote-mysql:
+
+  ssh:
+    # hostname or ip to connect to
+    host: 85.25.98.25
+    # connection port
+    port:  ssh
+    # user to login as
+    username: alex
+    # (optionally) private key for login
+    privateKey: <<<file:///home/alex/.ssh/id_rsa>>>
+    # time for sending keepalive packets
+    keepaliveInterval: 1s
+
+  server:
+    type: mysql
+    host: 172.30.22.241
+    port: 80
+    database: mysql
+    user: <<<env://MYSQL_USER | test>>>
+    password: <<<env://MYSQL_PASSWORD | >>>
+    #charset: UTF8_GENERAL_CI
+    #timezone: local
+    #connectTimeout: 10s
+
+  pool:
+    limit: 2

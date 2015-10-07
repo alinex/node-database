@@ -1,16 +1,13 @@
 chai = require 'chai'
 expect = chai.expect
 
+database = require '../../src/index'
+config = require 'alinex-config'
+database.setup ->
+  config.pushOrigin
+    uri: "#{__dirname}/../data/config/database.yml"
+
 describe "Base", ->
-
-  Database = require '../../src/index'
-  config = require 'alinex-config'
-
-  before (cb) ->
-    Database.setup ->
-      config.pushOrigin
-        uri: "#{__dirname}/../data/config/database.yml"
-      cb()
 
   describe "config", ->
 
@@ -21,7 +18,7 @@ describe "Base", ->
 
     it "should initialize config", (cb) ->
       @timeout 4000
-      Database.init (err) ->
+      database.init (err) ->
         expect(err, 'init error').to.not.exist
         config = require 'alinex-config'
         config.init (err) ->

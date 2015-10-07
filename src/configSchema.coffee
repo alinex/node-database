@@ -39,6 +39,30 @@ ssh =
       title: "Private Key"
       description: "the private key file to use for OpenSSH authentication"
       type: 'string'
+    passphrase:
+      title: "Passphrase"
+      description: "the passphrase used to decrypt an encrypted private key"
+      type: 'string'
+    localHostname:
+      title: "Local Hostname"
+      description: "the host used for hostbased user authentication"
+      type: 'string'
+    localUsername:
+      title: "Local User"
+      description: "the username used for hostbased user authentication"
+      type: 'string'
+    keepaliveInterval:
+      title: "Keepalive"
+      description: "the interval for the keepalive packets to be send"
+      type: 'interval'
+      unit: 'ms'
+      default: 1000
+    readyTimeout:
+      title: "Ready TImeout"
+      description: "the time to wait for the ssh handshake to succeed"
+      type: 'interval'
+      unit: 'ms'
+      default: 20000
 
 # Mysql Database
 # -------------------------------------------------

@@ -22,140 +22,114 @@ async = require 'alinex-async'
 # internal helpers
 schema = require './configSchema'
 
-# Class definition
+# Setup and Initialization
 # -------------------------------------------------
-class Database
 
-  # ### Initialization
+# ### Initialization
 
-  # set the modules config paths and validation schema
-  @setup: async.once this, (cb) ->
-    # set module search path
-    config.register false, fspath.dirname __dirname
-    # add schema for module's configuration
-    config.setSchema '/database', schema, cb
+# set the modules config paths and validation schema
+exports.setup = setup = async.once this, (cb) ->
+  # set module search path
+  config.register false, fspath.dirname __dirname
+  # add schema for module's configuration
+  config.setSchema '/database', schema, cb
 
-  # set the modules config paths, validation schema and initialize the configuration
-  @init: async.once this, (cb) ->
-    debug "initialize"
-    # set module search path
-    @setup (err) ->
-      return cb err if err
-      config.init cb
+# set the modules config paths, validation schema and initialize the configuration
+exports.init = init = async.once this, (cb) ->
+  debug "initialize"
+  # set module search path
+  setup (err) ->
+    return cb err if err
+    config.init cb
 
-  # ### Shutdown
-  @close: (cb = -> ) ->
-    debug "Close all database connections..."
-    async.each Object.keys(@_instances), (name, cb) =>
-      @_instances[name].close cb
-    , cb
+# Create Instances
+# -------------------------------------------------
 
-  # ### Factory
-  # Get an instance for the name. This enables the system to use the same
-  # Config instance anywhere.
-  @_instances: {}
-  @instance: (name) ->
+# ### Factory
+# Get an instance for the name. This enables the system to use the same
+# Config instance anywhere.
+instances = {}
+exports.instance = instance = (name, cb) ->
+  init (err) ->
+    return cb err if err
     # start initializing, if not done
-    unless @_instances[name]?
-      debugPool "create new pool for #{name}"
-      @_instances[name] = new Database name
-    @_instances[name]
+    unless instances[name]?
+      return cb new Error "Could not initialize database class without alias." unless name
+      debug "create #{name} connection"
+      conf = config.get "/database/#{name}"
+      # open tunnel
+######      tunnel conf, (err, server) ->
+      debug chalk.grey "#{conf.server.type}://#{conf.server.host}:#{conf.server.port}/\
+      #{conf.server.database} as #{conf.server.user}"
+      return cb new Error "No database under the name #{@name} defined." unless conf
+      # load driver
+      try
+        Driver = require "./driver/#{conf.server.type}"
+      catch err
+        return cb new Error "Could not find driver for #{conf.server.type} database."
+      instances[name] = new Driver name, conf
+    cb null, instances[name]
 
-  # Instance Methods
-  # -------------------------------------------------
+# ### Shutdown
+exports.close = close = (cb = -> ) ->
+  debug "Close all database connections..."
+  async.each Object.keys(instances), (name, cb) ->
+    instances[name].close cb
+  , cb
 
-  # ### Create instance
-  # This will also load the data if not already done. Don't call this directly
-  # better use the `instance()` method which implements the factory pattern.
-  constructor: (@name) ->
-    debug "create #{@name} instance"
-    @conf = config.get "/database/#{@name}"
-    throw new Error "Could not initialize database class without alias." unless @name
-    throw new Error "No database under the name #{@name} defined." unless @conf
-    # load module
-    try
-      @driver = require "./driver/#{@conf.server.type}"
-    catch err
-      throw new Error "Could not find driver for #{@conf.server.type} database."
+tunnel = (conf, cb) ->
+  return cb null, conf.server unless conf.ssh
+  # load ssh modules
+  portfinder = require 'portfinder'
+  ssh = require 'ssh2'
+  # open tunnel
+  debug "open ssh tunnel through #{conf.ssh.host}"
+  portfinder.getPort (err, port) ->
+    return cb err if err
+    debug chalk.grey "using 127.0.0.1:#{port} for the tunnel"
+    conn = new ssh.Client()
+    conn.on 'ready', ->
+      console.log '111111111111111'
+      conn.forwardOut conf.server.host, conf.server.port, '127.0.0.1', port, (err, stream) ->
+        console.log '-------------------------------', err, stream
+        return cb err if err
+        # new server settings
+        #cb null, {}
+    conn.connect conf.ssh
 
-  # ### Close connection pool
-  close: (cb = -> ) ->
-    debugPool "close connection pool for #{@name}"
-    return cb() unless @pool?
-    @pool.end (err) =>
-      # remove pool instance to be reopened on next use
-      @pool = null
-      cb err
-
-  # ### Get connection
-  connect: (cb) ->
-    Mysql.init null, (err) =>
-      return cb err if err
-      # instantiate pool if not already done
-      unless @pool?
-        debugPool "initialize connection pool for #{@name}"
-        unless @constructor.config[@name]
-          return cb new Error "Given database alias '#{@name}' is not defined in configuration."
-        @pool = mysql.createPool @constructor.config[@name]
-        @pool.on 'connection', (conn) =>
-          conn.name = chalk.grey "[#{@name}##{conn._socket._handle.fd}]"
-          debugPool "#{conn.name} open connection"
-          conn.on 'error', (err) ->
-            debug "#{conn.name} uncatched #{err} on connection"
-        @pool.on 'enqueue', =>
-          name = chalk.grey "[#{@name}]"
-          debugPool "{@name} waiting for connection"
-      # get the connection
-      @pool.getConnection (err, conn) =>
-        if err
-          debug chalk.grey("[#{@name}]") + " #{err} while connecting"
-          if num > 10 # max retries to get a connection
-            return cb new Error "#{err.message} while connecting to #{@name} database"
-          return setTimeout =>
-            @connect cb
-          , 1000 # wait a second fbefore retry
-        debugPool "#{conn.name} acquired connection"
-        # switch on debugging wih own method
-        conn.config.debug = true
-        conn._protocol._debugPacket = (incoming, packet) ->
-          dir = if incoming then '<--' else '-->'
-          msg = util.inspect packet
-          switch packet.constructor.name
-            when 'ComQueryPacket'
-              debugQuery "#{conn.name} #{packet.sql}"
-            when 'ResultSetHeaderPacket', 'FieldPacket', 'EofPacket'
-              debugResult "#{conn.name} #{packet.constructor.name} #{chalk.grey msg}"
-            when 'RowDataPacket'
-              debugData "#{conn.name} #{msg}"
-            when 'ComQuitPacket'
-              debugPool "#{conn.name} close connection"
-            else
-              debugCom "#{conn.name} #{dir} #{packet.constructor.name} #{chalk.grey msg}"
-        conn.release = ->
-          debugPool "#{conn.name} release connection
-          (#{@_pool._freeConnections.length+1}/#{@_pool._allConnections.length} free)"
-          # release code copied from original function
-          return unless @_pool? and not @_pool._closed
-          @_pool.releaseConnection this
-        # return the connection
-        cb null, conn
-
-  query: (sql, data, cb) ->
-    unless typeof cb is 'function'
-      cb = data
-      data = null
-    # replace placeholders
-    sql = mysql.format sql, data if data
-    # run the query
-    @connect (err, conn) ->
-      return cb new Error "MySQL Error: #{err.message}" if err
-      conn.query sql, (err, result) ->
-        conn.release()
-        err = new Error "MySQL Error: #{err.message} in #{sql}" if err
-        cb err, result
-
-
-# Exports
+# SSH Connections and tunnel
 # -------------------------------------------------
-# The mysql class is exported directly.
-module.exports = Database
+
+# ### Connect to remote server
+connect = (host, cb) ->
+  conf = config.get 'exec/remote'
+  return cb null, pool[host] if pool[host]
+  unless host in Object.keys conf.server
+    return cb new Error "The remote server '#{host}' is not configured."
+  open host, (err, conn) ->
+    return cb err if err
+    pool[host] = conn
+    cb null, conn
+
+# ### Open a new connection
+open = (host, cb) ->
+  conf = config.get 'exec/remote/server/' + host
+  # make new connection
+  conn = new ssh.Client()
+  conn.name = chalk.grey "ssh://#{conf.username}@#{conf.host}:#{conf.port}"
+  debug "#{conn.name} open ssh connection for #{host}"
+  conn.on 'ready', ->
+    debug chalk.grey "#{conn.name} connection established"
+    cb null, conn
+  .on 'error', (err) ->
+    debug chalk.magenta "#{conn.name} got error: #{err.message}"
+  .on 'end', ->
+    debug chalk.grey "#{conn.name} connection closed"
+  .connect object.extend {}, conf,
+    debug: unless conf.debug then null else (msg) ->
+      debug chalk.grey "#{conn.name} #{msg}"
+
+# ### Close the connection
+close = (host, conn) ->
+  delete pool[host]
+  conn.end()
