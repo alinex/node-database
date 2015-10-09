@@ -20,6 +20,18 @@ describe "Mysql access", ->
             db.close (err) ->
               done()
 
+    it.only "should allow connections through ssh", (done) ->
+      @timeout 30000
+      database.instance 'test-ssh', (err, db) ->
+        throw err if err
+        db.connect (err, conn) ->
+          conn.query 'SELECT 2 + 2 AS solution', (err, rows, fields) ->
+            throw err if err
+            console.log 'The database calculated 2+2 =', rows[0].solution
+            conn.release()
+            db.close (err) ->
+              done()
+
   describe "exec", ->
 
     it "should create a table", (done) ->

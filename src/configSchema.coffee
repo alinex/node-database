@@ -63,6 +63,10 @@ ssh =
       type: 'interval'
       unit: 'ms'
       default: 20000
+    debug:
+      title: "Extended Debug"
+      description: "the DEBUG=exec.ssh messages are extended with server communication"
+      type: 'boolean'
 
 # Mysql Database
 # -------------------------------------------------

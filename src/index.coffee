@@ -19,6 +19,7 @@ fspath = require 'path'
 # include more alinex modules
 config = require 'alinex-config'
 async = require 'alinex-async'
+{object} = require 'alinex-util'
 # internal helpers
 schema = require './configSchema'
 
@@ -58,16 +59,17 @@ exports.instance = instance = (name, cb) ->
       debug "create #{name} connection"
       conf = config.get "/database/#{name}"
       # open tunnel
-######      tunnel conf, (err, server) ->
-      debug chalk.grey "#{conf.server.type}://#{conf.server.host}:#{conf.server.port}/\
-      #{conf.server.database} as #{conf.server.user}"
-      return cb new Error "No database under the name #{@name} defined." unless conf
-      # load driver
-      try
-        Driver = require "./driver/#{conf.server.type}"
-      catch err
-        return cb new Error "Could not find driver for #{conf.server.type} database."
-      instances[name] = new Driver name, conf
+      return tunnel conf, (err, conf) ->
+        debug chalk.grey "#{conf.server.type}://#{conf.server.host}:#{conf.server.port}/\
+        #{conf.server.database} as #{conf.server.user}"
+        return cb new Error "No database under the name #{@name} defined." unless conf
+        # load driver
+        try
+          Driver = require "./driver/#{conf.server.type}"
+        catch err
+          return cb new Error "Could not find driver for #{conf.server.type} database."
+        instances[name] = new Driver name, conf
+        cb null, instances[name]
     cb null, instances[name]
 
 # ### Shutdown
@@ -78,58 +80,16 @@ exports.close = close = (cb = -> ) ->
   , cb
 
 tunnel = (conf, cb) ->
-  return cb null, conf.server unless conf.ssh
+  conf.access = conf.server
+  return cb null, conf unless conf.ssh
   # load ssh modules
-  portfinder = require 'portfinder'
-  ssh = require 'ssh2'
-  # open tunnel
-  debug "open ssh tunnel through #{conf.ssh.host}"
-  portfinder.getPort (err, port) ->
+  sshtunnel = require 'alinex-sshtunnel'
+  sshtunnel
+    ssh: conf.ssh
+    tunnel:
+      host: conf.server.host
+      port: conf.server.port
+  , (err, tunnel) ->
     return cb err if err
-    debug chalk.grey "using 127.0.0.1:#{port} for the tunnel"
-    conn = new ssh.Client()
-    conn.on 'ready', ->
-      console.log '111111111111111'
-      conn.forwardOut conf.server.host, conf.server.port, '127.0.0.1', port, (err, stream) ->
-        console.log '-------------------------------', err, stream
-        return cb err if err
-        # new server settings
-        #cb null, {}
-    conn.connect conf.ssh
-
-# SSH Connections and tunnel
-# -------------------------------------------------
-
-# ### Connect to remote server
-connect = (host, cb) ->
-  conf = config.get 'exec/remote'
-  return cb null, pool[host] if pool[host]
-  unless host in Object.keys conf.server
-    return cb new Error "The remote server '#{host}' is not configured."
-  open host, (err, conn) ->
-    return cb err if err
-    pool[host] = conn
-    cb null, conn
-
-# ### Open a new connection
-open = (host, cb) ->
-  conf = config.get 'exec/remote/server/' + host
-  # make new connection
-  conn = new ssh.Client()
-  conn.name = chalk.grey "ssh://#{conf.username}@#{conf.host}:#{conf.port}"
-  debug "#{conn.name} open ssh connection for #{host}"
-  conn.on 'ready', ->
-    debug chalk.grey "#{conn.name} connection established"
-    cb null, conn
-  .on 'error', (err) ->
-    debug chalk.magenta "#{conn.name} got error: #{err.message}"
-  .on 'end', ->
-    debug chalk.grey "#{conn.name} connection closed"
-  .connect object.extend {}, conf,
-    debug: unless conf.debug then null else (msg) ->
-      debug chalk.grey "#{conn.name} #{msg}"
-
-# ### Close the connection
-close = (host, conn) ->
-  delete pool[host]
-  conn.end()
+    conf.access = object.extend {}, conf.server, tunnel.setup
+    cb null, conf

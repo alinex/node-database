@@ -36,6 +36,7 @@ class Mysql
   # This will also load the data if not already done. Don't call this directly
   # better use the `instance()` method which implements the factory pattern.
   constructor: (@name, @conf) ->
+    @tries = 0
 
   close: (cb = -> ) ->
     return cb() unless @pool?
@@ -50,7 +51,7 @@ class Mysql
     # instantiate pool if not already done
     unless @pool?
       debugPool "initialize connection pool for #{@name}"
-      setup = object.extend {connectionLimit: @conf.pool?.limit}, @conf.server
+      setup = object.extend {connectionLimit: @conf.pool?.limit}, @conf.access
       debugPool chalk.grey "set pool limit to #{setup.connectionLimit}" if setup.connectionLimit
       @pool = mysql.createPool setup
       @pool.on 'connection', (conn) =>
@@ -64,8 +65,8 @@ class Mysql
     # get the connection
     @pool.getConnection (err, conn) =>
       if err
-        debug chalk.grey("[#{@name}]") + " #{err} while connecting"
-        if num > 10 # max retries to get a connection
+        debugCom chalk.grey("[#{@name}]") + " #{err} while connecting"
+        if @tries > 2 # max retries to get a connection
           return cb new Error "#{err.message} while connecting to #{@name} database"
         return setTimeout =>
           @connect cb
