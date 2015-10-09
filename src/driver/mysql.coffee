@@ -19,11 +19,12 @@ debugData = require('debug')('db:data')
 debugCom = require('debug')('db:com')
 chalk = require 'chalk'
 util = require 'util'
-#path = require 'path'
 mysql = require 'mysql'
-#SqlString = require 'mysql/lib/protocol/SqlString'
-#async = require 'alinex-async'
+SqlString = require 'mysql/lib/protocol/SqlString'
+# require alinex modules
 {object} = require 'alinex-util'
+# loading helper modules
+object2sql = require '../object2sql'
 
 # Database class
 # -------------------------------------------------
@@ -37,6 +38,7 @@ class Mysql
   # better use the `instance()` method which implements the factory pattern.
   constructor: (@name, @conf) ->
     @tries = 0
+    @schema = schema
 
   close: (cb = -> ) ->
     return cb() unless @pool?
@@ -169,7 +171,38 @@ class Mysql
         cb err, null
       cb err, result.map (e) -> e[Object.keys(e)[0]]
 
+  # Query creation
+  # -------------------------------------------------
+  escape: SqlString.escape
+  escapeId: SqlString.escapeId
+
+  sql: (sql, data) ->
+    if typeof sql isnt 'string'
+      # object syntax
+      return object2sql sql, this
+    if sql.match /\?(?=([^']*'[^']*')*[^']*$)/
+      # placeholder
+      return SqlString.format sql, data
+    sql
+
 # Exports
 # -------------------------------------------------
 # The mysql class is exported directly.
 module.exports = Mysql
+
+# Object Schema
+# -------------------------------------------------
+
+schema =
+  type: 'object'
+  allowedKeys: true
+  keys:
+    select:
+      type: 'or'
+      or: [
+        type: 'object'
+      ,
+        type: 'string'
+      ,
+        type: 'array'
+      ]
