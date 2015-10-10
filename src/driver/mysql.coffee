@@ -38,7 +38,6 @@ class Mysql
   # better use the `instance()` method which implements the factory pattern.
   constructor: (@name, @conf) ->
     @tries = 0
-    @schema = schema
 
   close: (cb = -> ) ->
     return cb() unless @pool?
@@ -189,20 +188,3 @@ class Mysql
 # -------------------------------------------------
 # The mysql class is exported directly.
 module.exports = Mysql
-
-# Object Schema
-# -------------------------------------------------
-
-schema =
-  type: 'object'
-  allowedKeys: true
-  keys:
-    select:
-      type: 'or'
-      or: [
-        type: 'object'
-      ,
-        type: 'string'
-      ,
-        type: 'array'
-      ]

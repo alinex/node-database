@@ -19,7 +19,7 @@ module.exports = (obj, driver) ->
     validator.check
       name: 'sqlObject'
       value: obj
-      schema: driver.schema
+      schema: require "./driver/#{driver.conf.server.type}Schema"
     , (err, result) ->
       debug chalk.red "Error in SQL Object: #{err.message}" if err
   # select main type
@@ -34,22 +34,38 @@ module.exports = (obj, driver) ->
 type =
   select: (obj, driver) ->
     sql = "SELECT #{selectField obj.select, driver}"
-
+    sql += from obj.from, driver
   update: (obj, driver) ->
 
 selectField = (field, driver) ->
   switch
     when field is '*'
       field
-    when string.ends field, '.*'
-      Driver.escapeID object.select[0..-33] + '.*'
     when typeof field is 'string'
-      Driver.escapeID object.select
+      if string.ends field, '.*'
+        driver.escapeId(field[0..-3]) + '.*'
+      else
+        driver.escapeId field
     when Array.isArray field
       field.map (e) -> selectField e, driver
       .join ', '
     else # object
       Object.keys field
       .map (k) ->
-        selectField(field[k], driver) + ' AS ' + Driver.escapeID k
+        selectField(field[k], driver) + ' AS ' + driver.escapeId k
       .join ', '
+
+from = (obj, driver) ->
+  return '' unless obj?
+  ' FROM ' + switch
+    when typeof obj is 'string'
+      driver.escapeId obj
+    when Array.isArray obj
+      obj.map (e) -> "#{driver.escapeId e}"
+      .join ', '
+    else # object
+      Object.keys obj
+      .map (k) ->
+        driver.escapeId obj[k] + ' AS ' + driver.escapeId k
+      .join ', '
+
