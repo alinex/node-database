@@ -19,20 +19,35 @@ describe.only "object to mysql", ->
     it "should get all fields", ->
       test
         select: '*'
-        from: 'person'
+        from: '@person'
       , "SELECT * FROM `person`"
     it "should get all fields from table", ->
       test
-        select: 'person.*'
-      , "SELECT `person`.*"
+        select: '@person.*'
+        from: '@person'
+      , "SELECT `person`.* FROM `person`"
     it "should get multiple fields", ->
       test
-        select: ['name', 'age']
-      , "SELECT `name`, `age`"
+        select: ['@name', '@age']
+        from: '@person'
+      , "SELECT `name`, `age` FROM `person`"
     it "should get fields with alias", ->
       test
         select:
-          Name: 'name'
-          Age: 'age'
-      , "SELECT `name` AS `Name`, `age` AS `Age`"
+          Name: '@name'
+          Age: '@age'
+        from: '@person'
+      , "SELECT `name` AS `Name`, `age` AS `Age` FROM `person`"
+    it "should read multiple tables", ->
+      test
+        select: '*'
+        from: ['@person', '@address']
+      , "SELECT * FROM `person`, `address`"
+    it "should allow table alias", ->
+      test
+        select: '*'
+        from:
+          p: '@person'
+          a: '@address'
+      , "SELECT * FROM `person` AS `p`, `address` AS `a`"
 

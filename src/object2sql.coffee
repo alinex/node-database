@@ -12,30 +12,47 @@ chalk = require 'chalk'
 # Conversion routines
 # -------------------------------------------------
 
-module.exports = (obj, driver) ->
+module.exports = (data, driver) ->
   # validate
   if debug.enabled
     validator = require 'alinex-validator'
     validator.check
       name: 'sqlObject'
-      value: obj
+      value: data
       schema: require "./driver/#{driver.conf.server.type}Schema"
     , (err, result) ->
       debug chalk.red "Error in SQL Object: #{err.message}" if err
   # select main type
   for name in Object.keys type
-    continue unless obj[name]?
-    return type[name] obj, driver
+    continue unless data[name]?
+    return type[name] data, driver
   # default handling of unknown names
-  Object.keys obj
-  .map (e) -> "#{e} #{obj[e]}"
+  Object.keys data
+  .map (e) -> "#{e} #{data[e]}"
   .join ' '
 
 type =
-  select: (obj, driver) ->
-    sql = "SELECT #{selectField obj.select, driver}"
-    sql += from obj.from, driver
-  update: (obj, driver) ->
+  select: (data, driver) ->
+    sql = "SELECT #{selectField data.select, driver}"
+    sql += from data.from, driver
+  update: (data, driver) ->
+  insert: (data, driver) ->
+  delete: (data, driver) ->
+    sql = "DELETE"
+    sql += from data.from, driver
+
+# value or id
+escape = (value, driver) ->
+  if value[0] is '@'
+    driver.escapeId value[1..]
+  else
+    driver.escape value
+# always an id
+escapeId = (value, driver) ->
+  if value[0] is '@'
+    driver.escapeId value[1..]
+  else
+    driver.escapeId value
 
 selectField = (field, driver) ->
   switch
@@ -43,29 +60,29 @@ selectField = (field, driver) ->
       field
     when typeof field is 'string'
       if string.ends field, '.*'
-        driver.escapeId(field[0..-3]) + '.*'
+        escape(field[0..-3], driver) + '.*'
       else
-        driver.escapeId field
+        escape field, driver
     when Array.isArray field
       field.map (e) -> selectField e, driver
       .join ', '
     else # object
       Object.keys field
       .map (k) ->
-        selectField(field[k], driver) + ' AS ' + driver.escapeId k
+        selectField(field[k], driver) + ' AS ' + escapeId k, driver
       .join ', '
 
 from = (obj, driver) ->
   return '' unless obj?
   ' FROM ' + switch
     when typeof obj is 'string'
-      driver.escapeId obj
+      escape obj, driver
     when Array.isArray obj
-      obj.map (e) -> "#{driver.escapeId e}"
+      obj.map (e) -> "#{escape e, driver}"
       .join ', '
     else # object
       Object.keys obj
       .map (k) ->
-        driver.escapeId obj[k] + ' AS ' + driver.escapeId k
+        escape(obj[k], driver) + ' AS ' + driver.escapeId k, driver
       .join ', '
 
