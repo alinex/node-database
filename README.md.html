@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="doc-style.css" />
+  <script src="doc-filelist.js"></script>
+  <script>
+    var relativeDir = "", thisFile = "home/alex/a3/node-database/READMEmd", defaultSidebar = true;
+  </script>
+  <script src="doc-script.js"></script>
+  <script src="fileSearch.js"></script>
+  <script src="goToLine.js"></script>
+  <link rel="stylesheet" href="fileSearch.css" />
+  <link rel="stylesheet" href="goToLine.css" />
+</head>
+<body>
+  <nav>
+<div class="logo"><a href="http://alinex.github.io" onmouseover="lllogo.src='https://alinex.github.io/images/Alinex-200.png'" onmouseout="lllogo.src='https://alinex.github.io/images/Alinex-black-200.png'">
+  <img name="lllogo" src="https://alinex.github.io/images/Alinex-black-200.png" width="150" title="Alinex Universe Homepage" />
+  </a>
+  <img src="http://alinex.github.io/images/Alinex-200.png" style="display:none" alt="preloading" />
+</div>
+<div class="links">
+  <a href="http://alinex.github.io/blog" class="btn btn-primary"><span class="glyphicon-cog"></span> Blog</a>
+  <a href="http://alinex.github.io/code.html" class="btn btn-warning"><span class="glyphicon-pencil"></span> Code</a>
+</div>
+</nav><div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+      <div class="heading h1">
+        <a href="#package%3A%20alinex-database">Package: alinex-database</a>
+      </div>
+      <div class="heading h2">
+        <a href="#install">Install</a>
+      </div>
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+      <div class="heading h2">
+        <a href="#configuration">Configuration</a>
+      </div>
+      <div class="heading h2">
+        <a href="#databases">Databases</a>
+      </div>
+      <div class="heading h3">
+        <a href="#mysql">MySQL</a>
+      </div>
+      <div class="heading h2">
+        <a href="#placeholder%20syntax">Placeholder Syntax</a>
+      </div>
+      <div class="heading h2">
+        <a href="#object%20to%20query%20language">Object to Query Language</a>
+      </div>
+      <div class="heading h3">
+        <a href="#general%20notation">General Notation</a>
+      </div>
+      <div class="heading h3">
+        <a href="#mysql">MySQL</a>
+      </div>
+      <div class="heading h4">
+        <a href="#select">SELECT</a>
+      </div>
+      <div class="heading h4">
+        <a href="#from">FROM</a>
+      </div>
+      <div class="heading h1">
+        <a href="#named%20column">named column</a>
+      </div>
+      <div class="heading h1">
+        <a href="#named%20table">named table</a>
+      </div>
+      <div class="heading h1">
+        <a href="#function%20%24distinct%20%24count">function $distinct $count</a>
+      </div>
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-database" title="Fork me on GitHub"></a><div class="docs markdown">
+<div class="pilwrap" id="package%3A%20alinex-database">
+  <h1>
+    <a href="#package%3A%20alinex-database" name="package%3A%20alinex-database" class="pilcrow">&#182;</a>
+    Package: alinex-database
+  </h1>
+</div>
+
+
+<p><a href="https://travis-ci.org/alinex/node-database"><img src="https://travis-ci.org/alinex/node-database.svg?branch=master" alt="Build Status" title="" /></a>
+<a href="https://coveralls.io/r/alinex/node-database?branch=master"><img src="https://coveralls.io/repos/alinex/node-database/badge.png?branch=master" alt="Coverage Status" title="" /></a>
+<a href="https://gemnasium.com/alinex/node-database"><img src="https://gemnasium.com/alinex/node-database.png" alt="Dependency Status" title="" /></a></p>
+
+<p>The database module allows connections to different databases easy configurable
+and usable with query language builder.</p>
+
+<p>The main features are:</p>
+
+<ul>
+<li>different rdbms and other databases</li>
+<li>pooling and cluster support</li>
+<li>connections through automatic ssh tunnels</li>
+<li>object to query language bridge</li>
+</ul>
+
+<blockquote>
+  <p>It is one of the modules of the <a href="http://alinex.github.io/code.html">Alinex Universe</a>
+  following the code standards defined in the <a href="http://alinex.github.io/node-alinex">General Docs</a>.</p>
+</blockquote>
+
+
+<div class="pilwrap" id="install">
+  <h2>
+    <a href="#install" name="install" class="pilcrow">&#182;</a>
+    Install
+  </h2>
+</div>
+
+
+<p><a href="https://www.npmjs.com/package/alinex-database"><img src="https://nodei.co/npm/alinex-database.png?downloads=true&amp;downloadRank=true&amp;stars=true" alt="NPM" title="" />
+ <img src="https://nodei.co/npm-dl/alinex-database.png?months=9&amp;height=3" alt="Downloads" title="" />
+</a></p>
+
+<p>The easiest way is to let npm add the module directly to your modules
+(from within you node modules directory):</p>
+
+
+<div class="highlight"><pre><code>npm install alinex-config --save
+</code></pre></div>
+
+
+
+<p>And update it to the latest version later:</p>
+
+
+<div class="highlight"><pre><code>npm update alinex-config --save
+</code></pre></div>
+
+
+
+<p>Always have a look at the latest <a href="Changelog.md.html">changes</a>.</p>
+
+
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow">&#182;</a>
+    Usage
+  </h2>
+</div>
+
+
+<p>The following example shows a complete and simple query transaction using
+a mysql database:</p>
+
+
+<div class="highlight"><pre><code><span class="c1"># load the module</span>
+<span class="nv">database = </span><span class="nx">require</span> <span class="s">&#39;alinex-database&#39;</span>
+
+<span class="c1"># get an instance</span>
+<span class="nx">database</span><span class="p">.</span><span class="nx">instance</span> <span class="s">&#39;test-mysql&#39;</span><span class="p">,</span> <span class="nf">(err, db) -&gt;</span>
+  <span class="k">throw</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+  <span class="c1"># get a new connection from the pool</span>
+  <span class="nx">db</span><span class="p">.</span><span class="nx">connect</span> <span class="nf">(err, conn) -&gt;</span>
+    <span class="c1"># query some values</span>
+    <span class="nx">conn</span><span class="p">.</span><span class="nx">query</span> <span class="s">&#39;SELECT 2 + 2 AS solution&#39;</span><span class="p">,</span> <span class="nf">(err, rows, fields) -&gt;</span>
+      <span class="k">throw</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+      <span class="c1"># do something with the results</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&#39;The database calculated 2+2 =&#39;</span><span class="p">,</span> <span class="nx">rows</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">solution</span>
+      <span class="c1"># give connection back</span>
+      <span class="nx">conn</span><span class="p">.</span><span class="nx">release</span><span class="p">()</span>
+      <span class="c1"># close database</span>
+      <span class="nx">db</span><span class="p">.</span><span class="nx">close</span> <span class="nf">(err) -&gt;</span>
+</code></pre></div>
+
+
+
+<p>The configuration for the connection is done in the <code>database</code> section of the
+configuration used via <a href="http://alinex.github.io/node-config">Config</a>.</p>
+
+<p>To query the database you may also use one of the higher methods:</p>
+
+<ul>
+<li>using placeholder for variables</li>
+<li>definition as object structure</li>
+</ul>
+
+<p>They make it easier readable and helps preventing problems. See the description
+below.</p>
+
+
+<div class="pilwrap" id="configuration">
+  <h2>
+    <a href="#configuration" name="configuration" class="pilcrow">&#182;</a>
+    Configuration
+  </h2>
+</div>
+
+
+
+<div class="highlight"><pre><code><span class="c1"># Database setup</span>
+<span class="c1"># =================================================</span>
+
+<span class="c1"># Specific database</span>
+<span class="c1"># -------------------------------------------------</span>
+<span class="l-Scalar-Plain">&lt;name&gt;</span><span class="p-Indicator">:</span>
+
+  <span class="c1"># optional you may use a ssh tunnel to connect through</span>
+  <span class="l-Scalar-Plain">ssh</span><span class="p-Indicator">:</span>
+
+    <span class="c1"># hostname or ip to connect to</span>
+    <span class="l-Scalar-Plain">host</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">localhost</span>
+    <span class="c1"># connection port</span>
+    <span class="l-Scalar-Plain">port</span><span class="p-Indicator">:</span>  <span class="l-Scalar-Plain">ssh</span>
+    <span class="c1"># user to login as</span>
+    <span class="l-Scalar-Plain">username</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">alex</span>
+    <span class="c1"># (optionally) private key for login</span>
+    <span class="l-Scalar-Plain">privateKey</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">&lt;&lt;&lt;file:///home/alex/.ssh/id_rsa&gt;&gt;&gt;</span>
+    <span class="c1"># time for sending keepalive packets</span>
+    <span class="l-Scalar-Plain">keepaliveInterval</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">1s</span>
+    <span class="c1">#debug: true</span>
+
+  <span class="c1"># database server</span>
+  <span class="l-Scalar-Plain">server</span><span class="p-Indicator">:</span>
+
+    <span class="c1"># type of database (mysql, postgresql, sqlite, mongodb, elasticsearch)</span>
+    <span class="l-Scalar-Plain">type</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">mysql</span>
+
+    <span class="c1"># the host and port of the database, if no port given the default for</span>
+    <span class="c1"># this type is used</span>
+    <span class="l-Scalar-Plain">host</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">&lt;&lt;&lt;env://MYSQL_HOST | localhost&gt;&gt;&gt;</span>
+    <span class="c1">#port: &lt;&lt;&lt;env://MYSQL_PORT | 3306&gt;&gt;&gt;</span>
+
+    <span class="c1"># name of the database or catalog</span>
+    <span class="l-Scalar-Plain">database</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">&lt;&lt;&lt;env://MYSQL_DATABASE | test&gt;&gt;&gt;</span>
+
+    <span class="c1"># authentication on the database server</span>
+    <span class="l-Scalar-Plain">user</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">&lt;&lt;&lt;env://MYSQL_USER | test&gt;&gt;&gt;</span>
+    <span class="l-Scalar-Plain">password</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">&lt;&lt;&lt;env://MYSQL_PASSWORD | &gt;&gt;&gt;</span>
+
+    <span class="c1"># specific database settings</span>
+    <span class="c1">#charset: UTF8_GENERAL_CI</span>
+    <span class="c1">#timezone: local</span>
+
+    <span class="c1"># timeout settings</span>
+    <span class="c1">#connectTimeout: 10s</span>
+
+  <span class="c1"># specific settings for pooling</span>
+  <span class="l-Scalar-Plain">pool</span><span class="p-Indicator">:</span>
+
+    <span class="c1"># limit the parallel connections</span>
+    <span class="l-Scalar-Plain">limit</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">2</span>
+</code></pre></div>
+
+
+
+
+<div class="pilwrap" id="databases">
+  <h2>
+    <a href="#databases" name="databases" class="pilcrow">&#182;</a>
+    Databases
+  </h2>
+</div>
+
+
+
+<div class="pilwrap" id="mysql">
+  <h3>
+    <a href="#mysql" name="mysql" class="pilcrow">&#182;</a>
+    MySQL
+  </h3>
+</div>
+
+
+<p>The first driver implemented was the mysql driver.</p>
+
+
+<div class="pilwrap" id="placeholder%20syntax">
+  <h2>
+    <a href="#placeholder%20syntax" name="placeholder%20syntax" class="pilcrow">&#182;</a>
+    Placeholder Syntax
+  </h2>
+</div>
+
+
+<p>You may write your query like done normal as string but instead inserting the
+values and esacaping them you may use <code>?</code> as a placeholder and give your values
+in an array. They will be automatically replaced with their correct escaped value.</p>
+
+
+<div class="highlight"><pre><code><span class="nx">conn</span><span class="p">.</span><span class="nx">query</span> <span class="s">&#39;SELECT name FROM address WHERE age &gt; ? and name = ?&#39;</span><span class="p">,</span>
+<span class="p">[</span><span class="mi">30</span><span class="p">,</span> <span class="s">&#39;alf&#39;</span><span class="p">]</span>
+</code></pre></div>
+
+
+
+<p>This will also format the date database specific. And you may also replace with
+objects:</p>
+
+
+<div class="highlight"><pre><code><span class="nx">conn</span><span class="p">.</span><span class="nx">query</span> <span class="s">&#39;INSERT INTO address SET ?&#39;</span><span class="p">,</span>
+  <span class="nv">name: </span><span class="s">&#39;Alf&#39;</span>
+  <span class="nv">age: </span><span class="mi">56</span>
+</code></pre></div>
+
+
+
+
+<div class="pilwrap" id="object%20to%20query%20language">
+  <h2>
+    <a href="#object%20to%20query%20language" name="object%20to%20query%20language" class="pilcrow">&#182;</a>
+    Object to Query Language
+  </h2>
+</div>
+
+
+<p>The next possibility is to use a complete object notation instead of a string.</p>
+
+<p>Here you define your query like an object. With mysql this may look like:</p>
+
+
+<div class="highlight"><pre><code>  <span class="nx">conn</span><span class="p">.</span><span class="nx">query</span>
+    <span class="nv">select: </span><span class="s">&#39;*&#39;</span>
+    <span class="nv">from: </span><span class="s">&#39;@person&#39;</span>
+    <span class="nv">where:</span>
+      <span class="nv">age: </span><span class="mi">30</span>
+      <span class="nv">name: </span><span class="s">&#39;Alf&#39;</span>
+  <span class="c1"># SQL: SELECT * FROM `person` WHERE `age` = 30 AND `name` = &#39;Alf&#39;</span>
+</code></pre></div>
+
+
+
+<p>The object notation is easier to read and can be created step by step.
+Also the object will be validated if run with <code>DEBUG=database</code> flag.</p>
+
+
+<div class="pilwrap" id="general%20notation">
+  <h3>
+    <a href="#general%20notation" name="general%20notation" class="pilcrow">&#182;</a>
+    General Notation
+  </h3>
+</div>
+
+
+<p>To make the notation clean and prevent misleading situations the value has to
+be prefixed with:</p>
+
+<ul>
+<li>@... for names like tabel and fields</li>
+<li>$... for functions</li>
+</ul>
+
+<p>All other values are used as is and quoted or converted like needed.</p>
+
+
+<div class="pilwrap" id="mysql_1">
+  <h3>
+    <a href="#mysql_1" name="mysql_1" class="pilcrow">&#182;</a>
+    MySQL
+  </h3>
+</div>
+
+
+<p>The following description will look on single parts of the whole object which
+you may out together as needed.</p>
+
+
+<div class="pilwrap" id="select">
+  <h4>
+    <a href="#select" name="select" class="pilcrow">&#182;</a>
+    SELECT
+  </h4>
+</div>
+
+
+<p>First you can define a single value defining what you want.</p>
+
+
+<div class="highlight"><pre><code><span class="l-Scalar-Plain">select</span><span class="p-Indicator">:</span> <span class="s">&#39;@name&#39;</span>       <span class="c1"># column name</span>
+<span class="l-Scalar-Plain">select</span><span class="p-Indicator">:</span> <span class="s">&#39;*&#39;</span>           <span class="c1"># all columns</span>
+<span class="l-Scalar-Plain">select</span><span class="p-Indicator">:</span> <span class="s">&#39;@person.*&#39;</span>   <span class="c1"># all columns of table person</span>
+</code></pre></div>
+
+
+
+<p>Or give an array with multiple values:</p>
+
+
+<div class="highlight"><pre><code><span class="l-Scalar-Plain">select</span><span class="p-Indicator">:</span> <span class="p-Indicator">[</span><span class="s">&#39;@name&#39;</span><span class="p-Indicator">,</span> <span class="s">&#39;@age&#39;</span><span class="p-Indicator">]</span> <span class="c1"># fields array</span>
+</code></pre></div>
+
+
+
+<p>To give each column a specific alias name use an object:</p>
+
+
+<div class="highlight"><pre><code><span class="l-Scalar-Plain">select</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">PersonName</span><span class="p-Indicator">:</span> <span class="s">&#39;@name&#39;</span>
+</code></pre></div>
+
+
+
+<p>And at last you may also use functions:</p>
+
+
+<div class="highlight"><pre><code><span class="l-Scalar-Plain">select</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">$count</span><span class="p-Indicator">:</span> <span class="s">&#39;*&#39;</span>
+<span class="l-Scalar-Plain">select</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">PersonName</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">$count</span><span class="p-Indicator">:</span> <span class="s">&#39;*&#39;</span>
+</code></pre></div>
+
+
+
+
+<div class="pilwrap" id="from">
+  <h4>
+    <a href="#from" name="from" class="pilcrow">&#182;</a>
+    FROM
+  </h4>
+</div>
+
+
+<p>from: '@person'</p>
+
+<p>select: '*'
+from: '@person'</p>
+
+<p>select:
+  $count: '*'
+from: '@person'</p>
+
+
+<div class="pilwrap" id="named%20column">
+  <h1>
+    <a href="#named%20column" name="named%20column" class="pilcrow">&#182;</a>
+    named column
+  </h1>
+</div>
+
+
+<p>select:
+  PersonName: '@name'
+select:
+  PersonName:
+    $count: '*'</p>
+
+
+<div class="pilwrap" id="named%20table">
+  <h1>
+    <a href="#named%20table" name="named%20table" class="pilcrow">&#182;</a>
+    named table
+  </h1>
+</div>
+
+
+<p>select: '*'
+form:
+  Person: @person</p>
+
+<p>select: '*'
+from:
+  Person: @person
+  Address:
+    address:
+      join: 'left'   # left join (default), right, outer, inner
+      on:            # join criteria
+        ID: '@person.addressID'
+        age:
+          $gt: 5</p>
+
+<p>select: '*'
+from: [
+  '@person'
+,
+  address:
+    join: 'left'   # left join (default), right, outer, inner
+    on:            # join criteria
+      ID: '@person.addressID'
+      age:
+        $gt: 5
+]</p>
+
+
+<div class="pilwrap" id="function%20%24distinct%20%24count">
+  <h1>
+    <a href="#function%20%24distinct%20%24count" name="function%20%24distinct%20%24count" class="pilcrow">&#182;</a>
+    function $distinct $count
+  </h1>
+</div>
+
+
+<p>where:
+  age:
+    $or: [15, 30]
+  name:
+    $like: 'a%' # $or
+  age:
+    $gt: '@maxage'</p>
+
+<p>group: 'age'
+group: [...]</p>
+
+<p>having:</p>
+
+<p>order: 'age'
+order: [...]
+order:
+  num: 'desc'
+order: [
+  $concat: []
+  sort: 'asc'
+,
+  num: 'asc'
+]</p>
+
+<p>limit: 5
+offset: 10</p>
+
+
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow">&#182;</a>
+    License
+  </h2>
+</div>
+
+
+<p>Copyright 2015 Alexander Schilling</p>
+
+<p>Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at</p>
+
+<blockquote>
+  <p><a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a></p>
+</blockquote>
+
+<p>Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.</p></div>
+  </div>
+</body>
+</html>

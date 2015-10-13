@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>index.coffee</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../doc-style.css" />
+  <script src="../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../", thisFile = "home/alex/a3/node-database/src/indexcoffee", defaultSidebar = true;
+  </script>
+  <script src="../doc-script.js"></script>
+  <script src="../fileSearch.js"></script>
+  <script src="../goToLine.js"></script>
+  <link rel="stylesheet" href="../fileSearch.css" />
+  <link rel="stylesheet" href="../goToLine.css" />
+</head>
+<body>
+  <nav>
+<div class="logo"><a href="http://alinex.github.io" onmouseover="lllogo.src='https://alinex.github.io/images/Alinex-200.png'" onmouseout="lllogo.src='https://alinex.github.io/images/Alinex-black-200.png'">
+  <img name="lllogo" src="https://alinex.github.io/images/Alinex-black-200.png" width="150" title="Alinex Universe Homepage" />
+  </a>
+  <img src="http://alinex.github.io/images/Alinex-200.png" style="display:none" alt="preloading" />
+</div>
+<div class="links">
+  <a href="http://alinex.github.io/blog" class="btn btn-primary"><span class="glyphicon-cog"></span> Blog</a>
+  <a href="http://alinex.github.io/code.html" class="btn btn-warning"><span class="glyphicon-pencil"></span> Code</a>
+</div>
+</nav><div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+      <div class="heading h1">
+        <a href="#mysql%20access">Mysql access</a>
+      </div>
+      <div class="heading h2">
+        <a href="#node%20modules">Node Modules</a>
+      </div>
+      <div class="heading h2">
+        <a href="#setup%20and%20initialization">Setup and Initialization</a>
+      </div>
+      <div class="heading h3">
+        <a href="#initialization">Initialization</a>
+      </div>
+      <div class="heading h2">
+        <a href="#create%20instances">Create Instances</a>
+      </div>
+      <div class="heading h3">
+        <a href="#factory">Factory</a>
+      </div>
+      <div class="heading h3">
+        <a href="#shutdown">Shutdown</a>
+      </div>
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-database" title="Fork me on GitHub"></a><div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="mysql%20access">
+  <h1>
+    <a href="#mysql%20access" name="mysql%20access" class="pilcrow">&#182;</a>
+    Mysql access
+  </h1>
+</div>
+
+
+<p>This package will give you an easy and robust way to access mysql databases.</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre></pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2">&#182;</a>
+</div>
+<p><a href='https://github.com/Finanzchef24-GmbH/tunnel-ssh/blob/master/index.js'>https://github.com/Finanzchef24-GmbH/tunnel-ssh/blob/master/index.js</a> -> copy
+<a href='https://github.com/felixge/node-mysql/'>https://github.com/felixge/node-mysql/</a> -> use
+<a href='https://github.com/brianc/node-postgres/tree/master/lib'>https://github.com/brianc/node-postgres/tree/master/lib</a> -> use
+<a href='https://github.com/mapbox/node-sqlite3'>https://github.com/mapbox/node-sqlite3</a> -> use
+<a href='https://github.com/elastic/elasticsearch-js'>https://github.com/elastic/elasticsearch-js</a></p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3">&#182;</a>
+</div>
+<p><a href='https://www.npmjs.com/package/json-sql'>https://www.npmjs.com/package/json-sql</a></p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="node%20modules">
+  <h2>
+    <a href="#node%20modules" name="node%20modules" class="pilcrow">&#182;</a>
+    Node Modules
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+<span class="nv">debug = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;debug&#39;</span><span class="p">)(</span><span class="s">&#39;db&#39;</span><span class="p">)</span>
+<span class="nv">chalk = </span><span class="nx">require</span> <span class="s">&#39;chalk&#39;</span>
+<span class="nv">fspath = </span><span class="nx">require</span> <span class="s">&#39;path&#39;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5">&#182;</a>
+</div>
+<p>include more alinex modules</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">config = </span><span class="nx">require</span> <span class="s">&#39;alinex-config&#39;</span>
+<span class="nv">async = </span><span class="nx">require</span> <span class="s">&#39;alinex-async&#39;</span>
+<span class="p">{</span><span class="nx">object</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span> <span class="s">&#39;alinex-util&#39;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6">&#182;</a>
+</div>
+<p>internal helpers</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">schema = </span><span class="nx">require</span> <span class="s">&#39;./configSchema&#39;</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="setup%20and%20initialization">
+  <h2>
+    <a href="#setup%20and%20initialization" name="setup%20and%20initialization" class="pilcrow">&#182;</a>
+    Setup and Initialization
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="initialization">
+  <h3>
+    <a href="#initialization" name="initialization" class="pilcrow">&#182;</a>
+    Initialization
+  </h3>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-9" id="section-9">&#182;</a>
+</div>
+<p>set the modules config paths and validation schema</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">exports.setup = setup = </span><span class="nx">async</span><span class="p">.</span><span class="nx">once</span> <span class="k">this</span><span class="p">,</span> <span class="nf">(cb) -&gt;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-10" id="section-10">&#182;</a>
+</div>
+<p>set module search path</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nx">config</span><span class="p">.</span><span class="nx">register</span> <span class="kc">false</span><span class="p">,</span> <span class="nx">fspath</span><span class="p">.</span><span class="nx">dirname</span> <span class="nx">__dirname</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-11" id="section-11">&#182;</a>
+</div>
+<p>add schema for module's configuration</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nx">config</span><span class="p">.</span><span class="nx">setSchema</span> <span class="s">&#39;/database&#39;</span><span class="p">,</span> <span class="nx">schema</span><span class="p">,</span> <span class="nx">cb</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-12" id="section-12">&#182;</a>
+</div>
+<p>set the modules config paths, validation schema and initialize the configuration</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">exports.init = init = </span><span class="nx">async</span><span class="p">.</span><span class="nx">once</span> <span class="k">this</span><span class="p">,</span> <span class="nf">(cb) -&gt;</span>
+  <span class="nx">debug</span> <span class="s">&quot;initialize&quot;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-13" id="section-13">&#182;</a>
+</div>
+<p>set module search path</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nx">setup</span> <span class="nf">(err) -&gt;</span>
+    <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+    <span class="nx">config</span><span class="p">.</span><span class="nx">init</span> <span class="nx">cb</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="create%20instances">
+  <h2>
+    <a href="#create%20instances" name="create%20instances" class="pilcrow">&#182;</a>
+    Create Instances
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="factory">
+  <h3>
+    <a href="#factory" name="factory" class="pilcrow">&#182;</a>
+    Factory
+  </h3>
+</div>
+
+
+<p>Get an instance for the name. This enables the system to use the same
+Config instance anywhere.</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">instances = </span><span class="p">{}</span>
+<span class="nv">exports.instance = instance = </span><span class="nf">(name, cb) -&gt;</span>
+  <span class="nx">init</span> <span class="nf">(err) -&gt;</span>
+    <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-16" id="section-16">&#182;</a>
+</div>
+<p>start initializing, if not done</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="k">unless</span> <span class="nx">instances</span><span class="p">[</span><span class="nx">name</span><span class="p">]</span><span class="o">?</span>
+      <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Could not initialize database class without alias.&quot;</span> <span class="k">unless</span> <span class="nx">name</span>
+      <span class="nx">debug</span> <span class="s">&quot;create </span><span class="si">#{</span><span class="nx">name</span><span class="si">}</span><span class="s"> connection&quot;</span>
+      <span class="nv">conf = </span><span class="nx">config</span><span class="p">.</span><span class="nx">get</span> <span class="s">&quot;/database/</span><span class="si">#{</span><span class="nx">name</span><span class="si">}</span><span class="s">&quot;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-17" id="section-17">&#182;</a>
+</div>
+<p>open tunnel</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+      <span class="k">return</span> <span class="nx">tunnel</span> <span class="nx">conf</span><span class="p">,</span> <span class="nf">(err, conf) -&gt;</span>
+        <span class="nx">debug</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">conf</span><span class="p">.</span><span class="nx">server</span><span class="p">.</span><span class="nx">type</span><span class="si">}</span><span class="s">://</span><span class="si">#{</span><span class="nx">conf</span><span class="p">.</span><span class="nx">server</span><span class="p">.</span><span class="nx">host</span><span class="si">}</span><span class="s">:</span><span class="si">#{</span><span class="nx">conf</span><span class="p">.</span><span class="nx">server</span><span class="p">.</span><span class="nx">port</span><span class="si">}</span><span class="s">/\</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-18" id="section-18">&#182;</a>
+</div>
+<p>{conf.server.database} as #{conf.server.user}"</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="s">        return cb new Error &quot;</span><span class="nx">No</span> <span class="nx">database</span> <span class="nx">under</span> <span class="nx">the</span> <span class="nx">name</span> <span class="c1">#{@name} defined.&quot; unless conf</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-19" id="section-19">&#182;</a>
+</div>
+<p>load driver</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+        <span class="k">try</span>
+          <span class="nv">Driver = </span><span class="nx">require</span> <span class="s">&quot;./driver/</span><span class="si">#{</span><span class="nx">conf</span><span class="p">.</span><span class="nx">server</span><span class="p">.</span><span class="nx">type</span><span class="si">}</span><span class="s">&quot;</span>
+        <span class="k">catch</span> <span class="nx">err</span>
+          <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Could not find driver for </span><span class="si">#{</span><span class="nx">conf</span><span class="p">.</span><span class="nx">server</span><span class="p">.</span><span class="nx">type</span><span class="si">}</span><span class="s"> database.&quot;</span>
+        <span class="nx">instances</span><span class="p">[</span><span class="nx">name</span><span class="p">]</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Driver</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">conf</span>
+        <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">instances</span><span class="p">[</span><span class="nx">name</span><span class="p">]</span>
+    <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">instances</span><span class="p">[</span><span class="nx">name</span><span class="p">]</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="shutdown">
+  <h3>
+    <a href="#shutdown" name="shutdown" class="pilcrow">&#182;</a>
+    Shutdown
+  </h3>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">exports.close = close = </span><span class="nf">(cb = -&gt; ) -&gt;</span>
+  <span class="nx">debug</span> <span class="s">&quot;Close all database connections...&quot;</span>
+  <span class="nx">async</span><span class="p">.</span><span class="nx">each</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">instances</span><span class="p">),</span> <span class="nf">(name, cb) -&gt;</span>
+    <span class="nx">instances</span><span class="p">[</span><span class="nx">name</span><span class="p">].</span><span class="nx">close</span> <span class="nx">cb</span>
+  <span class="p">,</span> <span class="nx">cb</span>
+
+<span class="nv">tunnel = </span><span class="nf">(conf, cb) -&gt;</span>
+  <span class="nv">conf.access = </span><span class="nx">conf</span><span class="p">.</span><span class="nx">server</span>
+  <span class="k">return</span> <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">conf</span> <span class="k">unless</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">ssh</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-21" id="section-21">&#182;</a>
+</div>
+<p>load ssh modules</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nv">sshtunnel = </span><span class="nx">require</span> <span class="s">&#39;alinex-sshtunnel&#39;</span>
+  <span class="nx">sshtunnel</span>
+    <span class="nv">ssh: </span><span class="nx">conf</span><span class="p">.</span><span class="nx">ssh</span>
+    <span class="nv">tunnel:</span>
+      <span class="nv">host: </span><span class="nx">conf</span><span class="p">.</span><span class="nx">server</span><span class="p">.</span><span class="nx">host</span>
+      <span class="nv">port: </span><span class="nx">conf</span><span class="p">.</span><span class="nx">server</span><span class="p">.</span><span class="nx">port</span>
+  <span class="p">,</span> <span class="nf">(err, tunnel) -&gt;</span>
+    <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+    <span class="nv">conf.access = </span><span class="nx">object</span><span class="p">.</span><span class="nx">extend</span> <span class="p">{},</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">server</span><span class="p">,</span> <span class="nx">tunnel</span><span class="p">.</span><span class="nx">setup</span>
+    <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">conf</span>
+</pre></div>
+        </td>
+      </tr>
+  </tbody>
+</table>
+  </div>
+</body>
+</html>

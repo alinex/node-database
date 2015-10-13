@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>configSchema.coffee</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../doc-style.css" />
+  <script src="../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../", thisFile = "home/alex/a3/node-database/src/configSchemacoffee", defaultSidebar = true;
+  </script>
+  <script src="../doc-script.js"></script>
+  <script src="../fileSearch.js"></script>
+  <script src="../goToLine.js"></script>
+  <link rel="stylesheet" href="../fileSearch.css" />
+  <link rel="stylesheet" href="../goToLine.css" />
+</head>
+<body>
+  <nav>
+<div class="logo"><a href="http://alinex.github.io" onmouseover="lllogo.src='https://alinex.github.io/images/Alinex-200.png'" onmouseout="lllogo.src='https://alinex.github.io/images/Alinex-black-200.png'">
+  <img name="lllogo" src="https://alinex.github.io/images/Alinex-black-200.png" width="150" title="Alinex Universe Homepage" />
+  </a>
+  <img src="http://alinex.github.io/images/Alinex-200.png" style="display:none" alt="preloading" />
+</div>
+<div class="links">
+  <a href="http://alinex.github.io/blog" class="btn btn-primary"><span class="glyphicon-cog"></span> Blog</a>
+  <a href="http://alinex.github.io/code.html" class="btn btn-warning"><span class="glyphicon-pencil"></span> Code</a>
+</div>
+</nav><div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+      <div class="heading h1">
+        <a href="#check%20definitions">Check definitions</a>
+      </div>
+      <div class="heading h2">
+        <a href="#ssh%20settings">SSH Settings</a>
+      </div>
+      <div class="heading h2">
+        <a href="#mysql%20database">Mysql Database</a>
+      </div>
+      <div class="heading h2">
+        <a href="#mysql%20database">Mysql Database</a>
+      </div>
+      <div class="heading h2">
+        <a href="#export%20objects">Export objects</a>
+      </div>
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-database" title="Fork me on GitHub"></a><div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="check%20definitions">
+  <h1>
+    <a href="#check%20definitions" name="check%20definitions" class="pilcrow">&#182;</a>
+    Check definitions
+  </h1>
+</div>
+
+
+<p>This contains configuration definitions for the
+<a href="http://alinex.github.io/node-validator">alinex-validator</a>.</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre></pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="ssh%20settings">
+  <h2>
+    <a href="#ssh%20settings" name="ssh%20settings" class="pilcrow">&#182;</a>
+    SSH Settings
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">ssh =</span>
+  <span class="nv">title: </span><span class="s">&quot;Remote Server&quot;</span>
+  <span class="nv">description: </span><span class="s">&quot;a remote server ssh connection setup&quot;</span>
+  <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
+  <span class="nv">allowedKeys: </span><span class="kc">true</span>
+  <span class="nv">mandatoryKeys: </span><span class="p">[</span><span class="s">&#39;host&#39;</span><span class="p">,</span> <span class="s">&#39;port&#39;</span><span class="p">,</span> <span class="s">&#39;username&#39;</span><span class="p">]</span>
+  <span class="nv">keys:</span>
+    <span class="nv">host:</span>
+      <span class="nv">title: </span><span class="s">&quot;Hostname or IP Address&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the hostname or IP address to connect to&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;or&#39;</span>
+      <span class="o">or:</span> <span class="p">[</span>
+        <span class="nv">type: </span><span class="s">&#39;hostname&#39;</span>
+      <span class="p">,</span>
+        <span class="nv">type: </span><span class="s">&#39;ipaddr&#39;</span>
+      <span class="p">]</span>
+    <span class="nv">port:</span>
+      <span class="nv">title: </span><span class="s">&quot;Port Number&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the port on which to connect using ssh protocol&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;port&#39;</span>
+      <span class="nv">default: </span><span class="mi">22</span>
+    <span class="nv">username:</span>
+      <span class="nv">title: </span><span class="s">&quot;Username&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the username to use for the connection&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+    <span class="nv">password:</span>
+      <span class="nv">title: </span><span class="s">&quot;Password&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the password to use for connecting&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+      <span class="nv">optional: </span><span class="kc">true</span>
+    <span class="nv">privateKey:</span>
+      <span class="nv">title: </span><span class="s">&quot;Private Key&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the private key file to use for OpenSSH authentication&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+    <span class="nv">passphrase:</span>
+      <span class="nv">title: </span><span class="s">&quot;Passphrase&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the passphrase used to decrypt an encrypted private key&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+    <span class="nv">localHostname:</span>
+      <span class="nv">title: </span><span class="s">&quot;Local Hostname&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the host used for hostbased user authentication&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+    <span class="nv">localUsername:</span>
+      <span class="nv">title: </span><span class="s">&quot;Local User&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the username used for hostbased user authentication&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+    <span class="nv">keepaliveInterval:</span>
+      <span class="nv">title: </span><span class="s">&quot;Keepalive&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the interval for the keepalive packets to be send&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;interval&#39;</span>
+      <span class="nv">unit: </span><span class="s">&#39;ms&#39;</span>
+      <span class="nv">default: </span><span class="mi">1000</span>
+    <span class="nv">readyTimeout:</span>
+      <span class="nv">title: </span><span class="s">&quot;Ready TImeout&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the time to wait for the ssh handshake to succeed&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;interval&#39;</span>
+      <span class="nv">unit: </span><span class="s">&#39;ms&#39;</span>
+      <span class="nv">default: </span><span class="mi">20000</span>
+    <span class="nv">debug:</span>
+      <span class="nv">title: </span><span class="s">&quot;Extended Debug&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the DEBUG=exec.ssh messages are extended with server communication&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;boolean&#39;</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="mysql%20database">
+  <h2>
+    <a href="#mysql%20database" name="mysql%20database" class="pilcrow">&#182;</a>
+    Mysql Database
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">mysql =</span>
+  <span class="nv">title: </span><span class="s">&quot;Mysql Access&quot;</span>
+  <span class="nv">description: </span><span class="s">&quot;the settings used to connect to the mysql database&quot;</span>
+  <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
+  <span class="nv">allowedKeys: </span><span class="kc">true</span>
+  <span class="nv">keys:</span>
+    <span class="nv">type:</span>
+      <span class="nv">title: </span><span class="s">&quot;Type&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the type of database server&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+      <span class="nv">lowerCase: </span><span class="kc">true</span>
+      <span class="nv">values: </span><span class="p">[</span><span class="s">&#39;mysql&#39;</span><span class="p">]</span>
+    <span class="nv">host:</span>
+      <span class="nv">title: </span><span class="s">&quot;Hostname&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the hostname or ip address to connect to&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;hostname&#39;</span>
+      <span class="nv">default: </span><span class="s">&#39;localhost&#39;</span>
+    <span class="nv">port:</span>
+      <span class="nv">title: </span><span class="s">&quot;Port&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the port, the database is listening&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;integer&#39;</span>
+      <span class="nv">default: </span><span class="mi">3306</span>
+    <span class="nv">database:</span>
+      <span class="nv">title: </span><span class="s">&quot;Database Name&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the name of the database to use&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+    <span class="nv">user:</span>
+      <span class="nv">title: </span><span class="s">&quot;Username&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the name used to log into the database&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+    <span class="nv">password:</span>
+      <span class="nv">title: </span><span class="s">&quot;Password&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the password to login&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+      <span class="nv">optional: </span><span class="kc">true</span>
+    <span class="nv">charset:</span>
+      <span class="nv">title: </span><span class="s">&quot;Default Charset&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the charset used if no other given&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+      <span class="nv">optional: </span><span class="kc">true</span>
+    <span class="nv">timezone:</span>
+      <span class="nv">title: </span><span class="s">&quot;Timezone&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the timezone to use&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+      <span class="nv">optional: </span><span class="kc">true</span>
+    <span class="nv">connectTimeout:</span>
+      <span class="nv">title: </span><span class="s">&quot;Connection Timeout&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the time till a connection should be established&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;interval&#39;</span>
+      <span class="nv">unit: </span><span class="s">&#39;ms&#39;</span>
+      <span class="nv">optional: </span><span class="kc">true</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="mysql%20database">
+  <h2>
+    <a href="#mysql%20database" name="mysql%20database" class="pilcrow">&#182;</a>
+    Mysql Database
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">postgres =</span>
+  <span class="nv">title: </span><span class="s">&quot;PostgreSQL Access&quot;</span>
+  <span class="nv">description: </span><span class="s">&quot;the settings used to connect to the postgres database&quot;</span>
+  <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
+  <span class="nv">allowedKeys: </span><span class="kc">true</span>
+  <span class="nv">keys:</span>
+    <span class="nv">type:</span>
+      <span class="nv">title: </span><span class="s">&quot;Type&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the type of database server&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+      <span class="nv">lowerCase: </span><span class="kc">true</span>
+      <span class="nv">values: </span><span class="p">[</span><span class="s">&#39;postgres&#39;</span><span class="p">]</span>
+    <span class="nv">host:</span>
+      <span class="nv">title: </span><span class="s">&quot;Hostname&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the hostname or ip address to connect to&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;hostname&#39;</span>
+      <span class="nv">default: </span><span class="s">&#39;localhost&#39;</span>
+    <span class="nv">port:</span>
+      <span class="nv">title: </span><span class="s">&quot;Port&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the port, the database is listening&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;integer&#39;</span>
+      <span class="nv">default: </span><span class="mi">5432</span>
+    <span class="nv">database:</span>
+      <span class="nv">title: </span><span class="s">&quot;Database Name&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the name of the database to use&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+    <span class="nv">user:</span>
+      <span class="nv">title: </span><span class="s">&quot;Username&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the name used to log into the database&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+    <span class="nv">password:</span>
+      <span class="nv">title: </span><span class="s">&quot;Password&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the password to login&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+      <span class="nv">optional: </span><span class="kc">true</span>
+    <span class="nv">connectTimeout:</span>
+      <span class="nv">title: </span><span class="s">&quot;Connection Timeout&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the time till a connection should be established&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;interval&#39;</span>
+      <span class="nv">unit: </span><span class="s">&#39;ms&#39;</span>
+      <span class="nv">optional: </span><span class="kc">true</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="export%20objects">
+  <h2>
+    <a href="#export%20objects" name="export%20objects" class="pilcrow">&#182;</a>
+    Export objects
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">module.exports =</span>
+  <span class="nv">title: </span><span class="s">&quot;Connections&quot;</span>
+  <span class="nv">description: </span><span class="s">&quot;the database connections&quot;</span>
+  <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
+  <span class="nv">entries: </span><span class="p">[</span>
+    <span class="nv">title: </span><span class="s">&quot;Connection&quot;</span>
+    <span class="nv">description: </span><span class="s">&quot;the connection to one database&quot;</span>
+    <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
+    <span class="nv">allowedKeys: </span><span class="kc">true</span>
+    <span class="nv">mandatoryKeys: </span><span class="p">[</span><span class="s">&#39;server&#39;</span><span class="p">]</span>
+    <span class="nv">keys:</span>
+      <span class="nv">ssh: </span><span class="nx">ssh</span>
+      <span class="nv">server:</span>
+        <span class="nv">title: </span><span class="s">&quot;Access&quot;</span>
+        <span class="nv">description: </span><span class="s">&quot;the settings used to connect to the database&quot;</span>
+        <span class="nv">type: </span><span class="s">&#39;or&#39;</span>
+        <span class="o">or:</span> <span class="p">[</span><span class="nx">mysql</span><span class="p">,</span> <span class="nx">postgres</span><span class="p">]</span>
+      <span class="nv">pool:</span>
+        <span class="nv">title: </span><span class="s">&quot;Connection Pool&quot;</span>
+        <span class="nv">description: </span><span class="s">&quot;the connection pool&quot;</span>
+        <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
+        <span class="nv">allowedKeys: </span><span class="kc">true</span>
+        <span class="nv">keys:</span>
+          <span class="nv">limit:</span>
+            <span class="nv">title: </span><span class="s">&quot;Connection Pool Limit&quot;</span>
+            <span class="nv">description: </span><span class="s">&quot;the maximum number of parallel used connections&quot;</span>
+            <span class="nv">type: </span><span class="s">&#39;integer&#39;</span>
+            <span class="nv">default: </span><span class="mi">10</span>
+          <span class="nv">cluster:</span>
+            <span class="nv">title: </span><span class="s">&quot;Cluster&quot;</span>
+            <span class="nv">description: </span><span class="s">&quot;the clusters to which this database belongs&quot;</span>
+            <span class="nv">type: </span><span class="s">&#39;array&#39;</span>
+            <span class="nv">toArray: </span><span class="kc">true</span>
+            <span class="nv">entries:</span>
+              <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+              <span class="nv">minLength: </span><span class="mi">3</span>
+  <span class="p">]</span>
+</pre></div>
+        </td>
+      </tr>
+  </tbody>
+</table>
+  </div>
+</body>
+</html>

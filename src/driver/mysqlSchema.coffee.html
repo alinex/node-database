@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>mysqlSchema.coffee</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../doc-style.css" />
+  <script src="../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../", thisFile = "home/alex/a3/node-database/src/driver/mysqlSchemacoffee", defaultSidebar = true;
+  </script>
+  <script src="../../doc-script.js"></script>
+  <script src="../../fileSearch.js"></script>
+  <script src="../../goToLine.js"></script>
+  <link rel="stylesheet" href="../../fileSearch.css" />
+  <link rel="stylesheet" href="../../goToLine.css" />
+</head>
+<body>
+  <nav>
+<div class="logo"><a href="http://alinex.github.io" onmouseover="lllogo.src='https://alinex.github.io/images/Alinex-200.png'" onmouseout="lllogo.src='https://alinex.github.io/images/Alinex-black-200.png'">
+  <img name="lllogo" src="https://alinex.github.io/images/Alinex-black-200.png" width="150" title="Alinex Universe Homepage" />
+  </a>
+  <img src="http://alinex.github.io/images/Alinex-200.png" style="display:none" alt="preloading" />
+</div>
+<div class="links">
+  <a href="http://alinex.github.io/blog" class="btn btn-primary"><span class="glyphicon-cog"></span> Blog</a>
+  <a href="http://alinex.github.io/code.html" class="btn btn-warning"><span class="glyphicon-pencil"></span> Code</a>
+</div>
+</nav><div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+      <div class="heading h1">
+        <a href="#object%20schema">Object Schema</a>
+      </div>
+      <div class="heading h2">
+        <a href="#everything%20together">Everything together</a>
+      </div>
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-database" title="Fork me on GitHub"></a><div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="object%20schema">
+  <h1>
+    <a href="#object%20schema" name="object%20schema" class="pilcrow">&#182;</a>
+    Object Schema
+  </h1>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre><span class="nv">select =</span>
+  <span class="nv">type: </span><span class="s">&#39;or&#39;</span>
+  <span class="o">or:</span> <span class="p">[</span>
+    <span class="nv">title: </span><span class="s">&quot;Fieldname&quot;</span>
+    <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+  <span class="p">,</span>
+    <span class="nv">title: </span><span class="s">&quot;List of Fields&quot;</span>
+    <span class="nv">type: </span><span class="s">&#39;array&#39;</span>
+    <span class="nv">entries:</span>
+      <span class="nv">type: </span><span class="s">&#39;or&#39;</span>
+      <span class="o">or:</span> <span class="p">[</span>
+        <span class="nv">title: </span><span class="s">&quot;Fieldname&quot;</span>
+        <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+      <span class="p">,</span>
+        <span class="nv">title: </span><span class="s">&quot;Named Fields&quot;</span>
+        <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
+        <span class="nv">entries: </span><span class="p">[</span>
+          <span class="nv">key: </span><span class="sr">/^$(value)/</span>
+          <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
+        <span class="p">,</span>
+          <span class="nv">key: </span><span class="sr">/^[^$]/</span>
+          <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+        <span class="p">]</span>
+      <span class="p">]</span>
+  <span class="p">,</span>
+    <span class="nv">title: </span><span class="s">&quot;Named Fields&quot;</span>
+    <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
+    <span class="nv">entries: </span><span class="p">[</span>
+      <span class="nv">key: </span><span class="sr">/^$(value)/</span>
+      <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
+    <span class="p">,</span>
+      <span class="nv">key: </span><span class="sr">/^[^$]/</span>
+      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+    <span class="p">]</span>
+  <span class="p">]</span>
+
+<span class="nv">from =</span>
+  <span class="nv">type: </span><span class="s">&#39;or&#39;</span>
+  <span class="o">or:</span> <span class="p">[</span>
+    <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+  <span class="p">,</span>
+    <span class="nv">type: </span><span class="s">&#39;array&#39;</span>
+    <span class="nv">entries:</span>
+      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+  <span class="p">,</span>
+    <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
+    <span class="nv">entries: </span><span class="p">[</span>
+      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+    <span class="p">]</span>
+  <span class="p">]</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="everything%20together">
+  <h2>
+    <a href="#everything%20together" name="everything%20together" class="pilcrow">&#182;</a>
+    Everything together
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+<span class="nv">module.exports =</span>
+  <span class="nv">type: </span><span class="s">&#39;or&#39;</span>
+  <span class="o">or:</span> <span class="p">[</span>
+    <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
+    <span class="nv">allowedKeys: </span><span class="kc">true</span>
+    <span class="nv">mandatoryKeys: </span><span class="p">[</span><span class="s">&#39;select&#39;</span><span class="p">]</span>
+    <span class="nv">keys:</span>
+      <span class="nv">select: </span><span class="nx">select</span>
+      <span class="nv">from: </span><span class="nx">from</span>
+  <span class="p">]</span>
+</pre></div>
+        </td>
+      </tr>
+  </tbody>
+</table>
+  </div>
+</body>
+</html>
