@@ -182,6 +182,8 @@ Object to Query Language
 
 The next possibility is to use a complete object notation instead of a string.
 
+### Relational Databases
+
 Here you define your query like an object. With mysql this may look like:
 
 ``` coffee

@@ -107,7 +107,7 @@ class Mysql
       cb = data
       data = null
     # replace placeholders
-    sql = mysql.format sql, data if data
+    sql = @sql sql, data
     # run the query
     @connect (err, conn) ->
       return cb new Error "MySQL Error: #{err.message}" if err
@@ -122,7 +122,7 @@ class Mysql
       cb = data
       data = null
     # replace placeholders
-    sql = mysql.format sql, data if data
+    sql = @sql sql, data
     # run the query
     @connect (err, conn) ->
       return cb new Error "MySQL Error: #{err.message}" if err

@@ -1,7 +1,12 @@
-# Object Schema
+# Object to SQL  Mapping
 # =================================================
 
-select =
+
+# Conversion of Subparts
+# -------------------------------------------------
+
+# ### SELECT fields
+field =
   type: 'or'
   or: [
     title: "Fieldname"
@@ -37,7 +42,8 @@ select =
     ]
   ]
 
-from =
+# ### FROM table
+table =
   type: 'or'
   or: [
     type: 'string'
@@ -52,16 +58,23 @@ from =
     ]
   ]
 
-# Everything together
+
+# Conversion of Main Types
 # -------------------------------------------------
 
-module.exports =
+# ### SELECT
+select =
+  type: 'object'
+  allowedKeys: true
+  mandatoryKeys: ['select']
+  keys:
+    select: field
+    from: table
+
+
+# Complete
+# -------------------------------------------------
+
+module.exports.schema =
   type: 'or'
-  or: [
-    type: 'object'
-    allowedKeys: true
-    mandatoryKeys: ['select']
-    keys:
-      select: select
-      from: from
-  ]
+  or: [select]

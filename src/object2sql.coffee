@@ -9,39 +9,13 @@ debug = require('debug')('db')
 chalk = require 'chalk'
 {object, string} = require 'alinex-util'
 
-# Conversion routines
+# General Helpers
 # -------------------------------------------------
 
-module.exports = (data, driver) ->
-  # validate
-  if debug.enabled
-    validator = require 'alinex-validator'
-    validator.check
-      name: 'sqlObject'
-      value: data
-      schema: require "./driver/#{driver.conf.server.type}Schema"
-    , (err, result) ->
-      debug chalk.red "Error in SQL Object: #{err.message}" if err
-  # select main type
-  for name in Object.keys type
-    continue unless data[name]?
-    return type[name] data, driver
-  # default handling of unknown names
-  Object.keys data
-  .map (e) -> "#{e} #{data[e]}"
-  .join ' '
-
-type =
-  select: (data, driver) ->
-    sql = "SELECT #{selectField data.select, driver}"
-    sql += from data.from, driver
-  update: (data, driver) ->
-  insert: (data, driver) ->
-  delete: (data, driver) ->
-    sql = "DELETE"
-    sql += from data.from, driver
-
-# value or id
+# ### Escape Value or ID
+# - ? =>  keep placeholder
+# - @... => escape as ID
+# - else escape value
 escape = (value, driver) ->
   if value is '?'
     value
@@ -49,47 +23,50 @@ escape = (value, driver) ->
     driver.escapeId value[1..]
   else
     driver.escape value
-# always an id
+
+# ### Escape ID
 escapeId = (value, driver) ->
   if value[0] is '@'
     driver.escapeId value[1..]
   else
     driver.escapeId value
 
-selectField = (field, driver) ->
+
+# Conversion of Subparts
+# -------------------------------------------------
+
+# ### SELECT field
+field = (obj, driver) ->
   switch
-    when field is '*'
-      field
-    when typeof field is 'string'
-      if string.ends field, '.*'
-        escape(field[0..-3], driver) + '.*'
+    when obj is '*'
+      obj
+    when typeof obj is 'string'
+      if string.ends obj, '.*'
+        escape(obj[0..-3], driver) + '.*'
       else
-        escape field, driver
-    when Array.isArray field
-      field.map (e) -> selectField e, driver
+        escape obj, driver
+    when Array.isArray obj
+      obj.map (e) -> field e, driver
       .join ', '
     else # object
-      Object.keys field
+      Object.keys obj
       .map (k) ->
-        selectField(field[k], driver) + ' AS ' + escapeId k, driver
+        field(obj[k], driver) + ' AS ' + escapeId k, driver
       .join ', '
 
-from = (obj, driver) ->
-  return '' unless obj?
-  ' FROM ' + fromTable obj, driver
-
-fromTable = (table, driver) ->
+# ### FROM table
+table = (obj, driver) ->
   sql = switch
-    when typeof table is 'string'
-      escape table, driver
-    when Array.isArray table
-      table.map (e) -> fromTable e, driver
+    when typeof obj is 'string'
+      escape obj, driver
+    when Array.isArray obj
+      obj.map (e) -> table e, driver
       .join ', '
     else # object
-      Object.keys table
+      Object.keys obj
       .map (k) ->
         base = k
-        e = table[k]
+        e = obj[k]
         if typeof e is 'string'
           return escape(e, driver) + ' AS ' + escapeId k, driver
         sub = Object.keys e
@@ -99,19 +76,76 @@ fromTable = (table, driver) ->
           k = sub[0]
           e = e[k]
         join = "#{(e.join ? 'left').toUpperCase()} JOIN #{escapeId k, driver}#{as}"
-        join += " ON #{whereCondition e.on, driver, base}" if e.on?
+        join += " ON #{condition e.on, driver, base}" if e.on?
       .join ', '
   sql.replace /,( [A-Z]+ JOIN)/, '$1'
 
-whereCondition = (check, driver, base) ->
+# ### WHERE condition
+condition = (obj, driver, base) ->
   switch
-    when typeof check is 'string'
-      "ISSET #{escape check, driver}"
-    when Array.isArray check
-      check.map (e) -> whereCondition e, driver, base
+    when typeof obj is 'string'
+      "ISSET #{escape obj, driver}"
+    when Array.isArray obj
+      obj.map (e) -> condition e, driver, base
       .join ' AND '
     else # object
-      Object.keys check
+      Object.keys obj
       .map (k) ->
-        escapeId("#{base}.#{k}", driver) + ' = ' + escape(check[k], driver)
+        escapeId("#{base}.#{k}", driver) + ' = ' + escape(obj[k], driver)
       .join ' AND '
+
+
+# Conversion of SQL Parts
+# -------------------------------------------------
+
+# #### FROM
+from = (obj, driver) ->
+  return '' unless obj?
+  ' FROM ' + table obj, driver
+
+# Conversion of Main Types
+# -------------------------------------------------
+
+type =
+
+  # ### SELECT
+  select: (obj, driver) ->
+    sql = "SELECT #{field obj.select, driver}"
+    sql += from obj.from, driver
+
+  # ### UPDATE
+  update: (obj, driver) ->
+
+  # ### INSERT
+  insert: (obj, driver) ->
+
+  # ### DELETE
+  delete: (obj, driver) ->
+    sql = "DELETE"
+    sql += from obj.from, driver
+
+
+# Conversion
+# -------------------------------------------------
+
+module.exports = (obj, driver) ->
+  # validate
+  if debug.enabled
+    validator = require 'alinex-validator'
+    validator.check
+      name: 'sqlObject'
+      value: obj
+      schema: require('./object2sql_schema').all
+    , (err, result) ->
+      debug chalk.red "Error in SQL Object: #{err.message}" if err
+  # select main type
+  for name in Object.keys type
+    continue unless obj[name]?
+    return type[name] obj, driver
+  # default handling of unknown names
+  Object.keys obj
+  .map (e) -> "#{e} #{obj[e]}"
+  .join ' '
+
+module.exports.schema = -> require './object2sql_schema'
+

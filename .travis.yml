@@ -2,7 +2,7 @@ language: node_js
 node_js:
    - "0.10"
    - "0.12"
-   - "4"
+   - "4.2"
 env:
   - MYSQL_HOST=localhost MYSQL_DATABASE=test_db MYSQL_USER=root MYSQL_PASSWORD=
 before_script:

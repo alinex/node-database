@@ -5,14 +5,14 @@ Config = require 'alinex-config'
 
 database = require '../../src/index'
 
-after (done) ->
-  database.instance 'test-mysql', (err, db) ->
-    throw err if err
-    db.exec 'DROP TABLE IF EXISTS numbers', (err, num) ->
-      expect(err, 'error after drop').to.not.exist
-      done()
-
 describe "Mysql", ->
+
+  after (done) ->
+    database.instance 'test-mysql', (err, db) ->
+      throw err if err
+      db.exec 'DROP TABLE IF EXISTS numbers', (err, num) ->
+        expect(err, 'error after drop').to.not.exist
+        done()
 
   describe "native", ->
 
@@ -24,8 +24,7 @@ describe "Mysql", ->
             throw err if err
             console.log 'The database calculated 2+2 =', rows[0].solution
             conn.release()
-            db.close (err) ->
-              done()
+            db.close done
 
     it "should allow connections through ssh", (done) ->
       @timeout 30000
@@ -36,8 +35,7 @@ describe "Mysql", ->
             throw err if err
             console.log 'The database calculated 2+2 =', rows[0].solution
             conn.release()
-            db.close (err) ->
-              done()
+            db.close done
 
   describe "exec", ->
 
