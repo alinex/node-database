@@ -2,7 +2,7 @@ chai = require 'chai'
 expect = chai.expect
 
 
-describe "mysql object", ->
+describe "Mysql object", ->
 
   Driver = require '../../src/driver/mysql'
   object2sql = require '../../src/object2sql'
@@ -14,7 +14,7 @@ describe "mysql object", ->
     sql = object2sql obj, driver
     expect(sql, 'created sql').to.equal check
 
-  describe "select", ->
+  describe "SELECT", ->
 
     it "should get all fields", ->
       test
@@ -51,3 +51,49 @@ describe "mysql object", ->
           a: '@address'
       , "SELECT * FROM `person` AS `p`, `address` AS `a`"
 
+
+  describe "FROM", ->
+
+    it "should use one table", ->
+      test
+        select: '*'
+        from: '@person'
+      , "SELECT * FROM `person`"
+    it "should use multiple tables", ->
+      test
+        select: '*'
+        from: ['@person', '@address']
+      , "SELECT * FROM `person`, `address`"
+    it "should support alias", ->
+      test
+        select: '*'
+        from:
+          Person: '@person'
+      , "SELECT * FROM `person` AS `Person`"
+    it "should support left join", ->
+      test
+        select: '*'
+        from:
+          Person: '@person'
+          Address:
+            address:
+              join: 'left'   # left, right, outer, inner
+              on:            # join criteria
+                ID: '@Person.addressID'
+      , "SELECT * FROM `person` AS `Person` LEFT JOIN `address` AS `Address` ON `Address`.`ID` = `Person`.`addressID`"
+    it "should support join in array", ->
+      test
+        select: '*'
+        from: [
+          Person: '@person'
+        ,
+          Address:
+            address:
+              join: 'left'   # left, right, outer, inner
+              on:            # join criteria
+                ID: '@Person.addressID'
+        ]
+      , "SELECT * FROM `person` AS `Person` LEFT JOIN `address` AS `Address` ON `Address`.`ID` = `Person`.`addressID`"
+
+
+  describe "placeholder", ->

@@ -248,49 +248,54 @@ select:
 
 #### FROM
 
+Give the tables or catalogs to use.
+
+``` yaml
 from: '@person'
+```
 
-select: '*'
-from: '@person'
+Or as an array (using a full join):
 
-select:
-  $count: '*'
-from: '@person'
+``` yaml
+from: ['@person', '@address']
+```
 
-# named column
-select:
-  PersonName: '@name'
-select:
-  PersonName:
-    $count: '*'
+Also this may be named:
 
-# named table
-select: '*'
+``` yaml
 form:
   Person: @person
+```
 
-select: '*'
+And with specific joins:
+
+``` yaml
 from:
   Person: @person
   Address:
     address:
-      join: 'left'   # left join (default), right, outer, inner
+      join: 'left'   # left, right, outer, inner
       on:            # join criteria
         ID: '@person.addressID'
         age:
           $gt: 5
-
-select: '*'
+# same defined as array
 from: [
   '@person'
 ,
-  address:
-    join: 'left'   # left join (default), right, outer, inner
-    on:            # join criteria
-      ID: '@person.addressID'
-      age:
-        $gt: 5
+  Address:
+    address:
+      join: 'left'   # left, right, outer, inner
+      on:            # join criteria
+        ID: '@Person.addressID'
+        age:
+          $gt: 5
 ]
+```
+
+
+
+
 
 # function $distinct $count
 

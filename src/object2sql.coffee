@@ -76,15 +76,42 @@ selectField = (field, driver) ->
 
 from = (obj, driver) ->
   return '' unless obj?
-  ' FROM ' + switch
-    when typeof obj is 'string'
-      escape obj, driver
-    when Array.isArray obj
-      obj.map (e) -> "#{escape e, driver}"
+  ' FROM ' + fromTable obj, driver
+
+fromTable = (table, driver) ->
+  sql = switch
+    when typeof table is 'string'
+      escape table, driver
+    when Array.isArray table
+      table.map (e) -> fromTable e, driver
       .join ', '
     else # object
-      Object.keys obj
+      Object.keys table
       .map (k) ->
-        escape(obj[k], driver) + ' AS ' + driver.escapeId k, driver
+        base = k
+        e = table[k]
+        if typeof e is 'string'
+          return escape(e, driver) + ' AS ' + escapeId k, driver
+        sub = Object.keys e
+        as = ''
+        unless 'join' in sub and 'on' in sub
+          as = ' AS ' + escapeId k, driver
+          k = sub[0]
+          e = e[k]
+        join = "#{(e.join ? 'left').toUpperCase()} JOIN #{escapeId k, driver}#{as}"
+        join += " ON #{whereCondition e.on, driver, base}" if e.on?
       .join ', '
+  sql.replace /,( [A-Z]+ JOIN)/, '$1'
 
+whereCondition = (check, driver, base) ->
+  switch
+    when typeof check is 'string'
+      "ISSET #{escape check, driver}"
+    when Array.isArray check
+      check.map (e) -> whereCondition e, driver, base
+      .join ' AND '
+    else # object
+      Object.keys check
+      .map (k) ->
+        escapeId("#{base}.#{k}", driver) + ' = ' + escape(check[k], driver)
+      .join ' AND '
