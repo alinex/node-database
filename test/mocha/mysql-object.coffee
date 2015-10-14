@@ -2,7 +2,7 @@ chai = require 'chai'
 expect = chai.expect
 
 
-describe.only "object to mysql", ->
+describe "mysql object", ->
 
   Driver = require '../../src/driver/mysql'
   object2sql = require '../../src/object2sql'

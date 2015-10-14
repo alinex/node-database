@@ -5,7 +5,14 @@ Config = require 'alinex-config'
 
 database = require '../../src/index'
 
-describe "Mysql access", ->
+after (done) ->
+  database.instance 'test-mysql', (err, db) ->
+    throw err if err
+    db.exec 'DROP TABLE IF EXISTS numbers', (err, num) ->
+      expect(err, 'error after drop').to.not.exist
+      done()
+
+describe "Mysql", ->
 
   describe "native", ->
 
@@ -20,7 +27,7 @@ describe "Mysql access", ->
             db.close (err) ->
               done()
 
-    it.only "should allow connections through ssh", (done) ->
+    it "should allow connections through ssh", (done) ->
       @timeout 30000
       database.instance 'test-ssh', (err, db) ->
         throw err if err
@@ -130,7 +137,7 @@ describe "Mysql access", ->
           ]
           done()
 
-    it "should get complete list of entries", (done) ->
+    it "should get one record", (done) ->
       database.instance 'test-mysql', (err, db) ->
         throw err if err
         db.record '''
@@ -162,4 +169,28 @@ describe "Mysql access", ->
         ''', (err, res) ->
           expect(err, 'error').to.not.exist
           expect(res, 'result').to.deep.equal ['one', 'two', 'three', 'nine']
+          done()
+
+
+  describe "placeholder", ->
+
+    it "should use in query", (done) ->
+      database.instance 'test-mysql', (err, db) ->
+        throw err if err
+        db.value '''
+        SELECT num FROM numbers WHERE comment = ?
+        ''', 'max', (err, res) ->
+          expect(err, 'error').to.not.exist
+          expect(res, 'result').to.equal 9
+          done()
+
+    it "should work for insert", (done) ->
+      database.instance 'test-mysql', (err, db) ->
+        throw err if err
+        db.exec 'INSERT INTO numbers SET ?',
+          num: 6
+          name: 'six'
+        , (err, res) ->
+          expect(err, 'error').to.not.exist
+          expect(res, 'result').to.equal 1
           done()

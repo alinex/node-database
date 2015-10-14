@@ -178,7 +178,7 @@ class Mysql
   sql: (sql, data) ->
     if typeof sql isnt 'string'
       # object syntax
-      return object2sql sql, this
+      sql = object2sql sql, this
     if sql.match /\?(?=([^']*'[^']*')*[^']*$)/
       # placeholder
       return SqlString.format sql, data

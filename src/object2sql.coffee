@@ -43,7 +43,9 @@ type =
 
 # value or id
 escape = (value, driver) ->
-  if value[0] is '@'
+  if value is '?'
+    value
+  else if value[0] is '@'
     driver.escapeId value[1..]
   else
     driver.escape value

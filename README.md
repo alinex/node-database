@@ -79,6 +79,13 @@ To query the database you may also use one of the higher methods:
 They make it easier readable and helps preventing problems. See the description
 below.
 
+And instead of using the `query()` method you may also use some of the higher methods:
+
+- `list()` - egt an array of record objects
+- `record()` - get one record as object
+- `value()` - get the value of the first field
+- `column()` - get an array of values from the first column
+
 
 Configuration
 -------------------------------------------------
@@ -153,6 +160,8 @@ You may write your query like done normal as string but instead inserting the
 values and esacaping them you may use `?` as a placeholder and give your values
 in an array. They will be automatically replaced with their correct escaped value.
 
+Therefore you give the dataset as the second argument:
+
 ``` coffee
 conn.query 'SELECT name FROM address WHERE age > ? and name = ?',
 [30, 'alf']
@@ -196,6 +205,7 @@ be prefixed with:
 
 - @... for names like tabel and fields
 - $... for functions
+- ? used as value will be a placeholder like before and used with the given dataset
 
 All other values are used as is and quoted or converted like needed.
 
