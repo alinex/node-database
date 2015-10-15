@@ -31,12 +31,17 @@ describe "Mysql object", ->
         age: 35
         comment: null
       ]
-      address: [
+    address:
+      struct:
+        id: 'INT AUTO_INCREMENT PRIMARY KEY'
+        person_id: 'INT'
+        city: 'VARCHAR(20)'
+      data: [
         id: 1
         person_id: 1
         city: 'Munich'
       ,
-        id: 1
+        id: 2
         person_id: 1
         city: 'New York'
       ]
