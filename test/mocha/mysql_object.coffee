@@ -3,6 +3,7 @@ expect = chai.expect
 
 database = require '../../src/index'
 async = require 'alinex-async'
+{string} = require 'alinex-util'
 
 describe "Mysql object", ->
 
@@ -12,20 +13,55 @@ describe "Mysql object", ->
     server:
       type: 'mysql'
 
+  example =
+    person:
+      struct:
+        id: 'INT AUTO_INCREMENT PRIMARY KEY'
+        name: 'VARCHAR(10)'
+        age: 'INT'
+        comment: 'VARCHAR(32)'
+      data: [
+        id: 1
+        age: 30
+        name: "Alf"
+        comment: null
+      ,
+        id: 2
+        name: "Egon"
+        age: 35
+        comment: null
+      ]
+      address: [
+        id: 1
+        person_id: 1
+        city: 'Munich'
+      ,
+        id: 1
+        person_id: 1
+        city: 'New York'
+      ]
+
   before (done) ->
     database.instance 'test-mysql', (err, db) ->
       throw err if err
-      async.eachSeries [
-        "CREATE TABLE person (
-          id INT AUTO_INCREMENT PRIMARY KEY,
-          name VARCHAR(10),
-          age INT,
-          comment VARCHAR(32)
-        )"
-        "INSERT INTO person (name, age) VALUES
-        ('Alf', 30),
-        ('Egon', '35');"
-      ], (sql, cb) ->
+      queries = []
+      for table in Object.keys example
+        fields = Object.keys(example[table].struct).map (e) -> "#{e} #{example[table].struct[e]}"
+        .join ', '
+        queries.push "CREATE TABLE #{table} (#{fields})"
+      for e in example[table].data
+        queries.push "INSERT INTO #{table} SET " +  (
+          Object.keys(e).map (k) ->
+            "#{k} = " + switch
+              when not e[k]?
+                'NULL'
+              when typeof e[k] is 'number'
+                e[k]
+              else
+                "'#{e[k]}'"
+          .join ', '
+        )
+      async.eachSeries queries, (sql, cb) ->
         db.exec sql, cb
       , (err) ->
         expect(err, 'error on init data').to.not.exist
@@ -34,10 +70,8 @@ describe "Mysql object", ->
   after (done) ->
     database.instance 'test-mysql', (err, db) ->
       throw err if err
-      async.eachSeries [
-        "DROP TABLE IF EXISTS person"
-      ], (sql, cb) ->
-        db.exec sql, cb
+      async.eachSeries Object.keys(example), (table, cb) ->
+        db.exec "DROP TABLE IF EXISTS #{table}", cb
       , (err) ->
         expect(err, 'error after drop').to.not.exist
         db.close done
@@ -77,17 +111,7 @@ describe "Mysql object", ->
         from: '@person'
       , null
       , "SELECT * FROM `person`"
-      , [
-        "id": 1
-        "age": 30
-        "name": "Alf"
-        "comment": null
-      ,
-        "id": 2
-        "name": "Egon"
-        "age": 35
-        "comment": null
-      ]
+      , example.person.data
       , cb
     it "should get all fields from table", (cb) ->
       list
@@ -95,33 +119,43 @@ describe "Mysql object", ->
         from: '@person'
       , null
       , "SELECT `person`.* FROM `person`"
-      , [{}]
+      , example.person.data
       , cb
     it "should get multiple fields", (cb) ->
-      test
+      list
         select: ['@name', '@age']
         from: '@person'
       , null
       , "SELECT `name`, `age` FROM `person`"
-      , [{}]
+      , example.person.data.map((e) ->
+          n = {}
+          for k, v of e
+            n[k] = v if k in ['name', 'age']
+          n
+        )
       , cb
     it "should get fields with alias", (cb) ->
-      test
+      list
         select:
           Name: '@name'
           Age: '@age'
         from: '@person'
       , null
       , "SELECT `name` AS `Name`, `age` AS `Age` FROM `person`"
-      , [{}]
+      , example.person.data.map((e) ->
+          n = {}
+          for k, v of e
+            n[string.ucFirst k] = v if k in ['name', 'age']
+          n
+        )
       , cb
     it "should read multiple tables", (cb) ->
-      test
+      list
         select: '*'
         from: ['@person', '@address']
       , null
       , "SELECT * FROM `person`, `address`"
-      , [{}]
+      , example.person.data
       , cb
     it "should allow table alias", (cb) ->
       test
@@ -131,7 +165,12 @@ describe "Mysql object", ->
           a: '@address'
       , null
       , "SELECT * FROM `person` AS `p`, `address` AS `a`"
-      , [{}]
+      , example.person.data.map((e) ->
+          n = {}
+          for k, v of e
+            n[k] = v if k in ['name', 'age']
+          n
+        )
       , cb
 
 
