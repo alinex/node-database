@@ -37,9 +37,10 @@ escapeId = (value, driver) ->
 func =
   count: (obj, driver) ->
     sql = field obj, driver
-    parts = sql.split / AS /
+    parts = sql.split /( AS )/
     sql = "COUNT(#{parts[0]})"
-    sql += " AS #{parts[1]}" if parts.length>1
+    sql += parts[1..].join '' if parts.length > 1
+    sql
 
 # Conversion of Subparts
 # -------------------------------------------------
@@ -60,7 +61,10 @@ field = (obj, driver) ->
     else # object
       Object.keys obj
       .map (k) ->
-        field(obj[k], driver) + ' AS ' + escapeId k, driver
+        if k[0] is '$'
+          func[k[1..]] obj[k], driver
+        else
+          field(obj[k], driver) + ' AS ' + escapeId k, driver
       .join ', '
 
 # ### FROM table
@@ -162,4 +166,3 @@ module.exports = (obj, driver) ->
   .join ' '
 
 module.exports.schema = -> require './object2sql_schema'
-

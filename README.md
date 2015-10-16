@@ -153,6 +153,11 @@ Databases
 
 The first driver implemented was the mysql driver.
 
+Here you need to know that if you use '*' as field specifier the same name may
+occur multiple times in the result set, so that they override each over in the
+resulting object and the last one will be visible. To prevent this specify this
+columns with an alias name.
+
 
 Placeholder Syntax
 -------------------------------------------------

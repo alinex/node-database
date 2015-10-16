@@ -7,11 +7,11 @@
 
 # ### SELECT fields
 field =
-  title: "Field"
+  title: "Fields"
   description: "the list of fields to return"
   type: 'or'
   or: [
-    title: "Fieldname"
+    title: "Field"
     type: 'string'
   ,
     title: "List of Fields"
@@ -19,15 +19,17 @@ field =
     entries:
       type: 'or'
       or: [
-        title: "Fieldname"
+        title: "Field"
         type: 'string'
       ,
         title: "Named Fields"
         type: 'object'
         entries: [
-          key: /^$(value)/
+          title: "Value"
+          key: /^\$/
           type: 'object'
         ,
+          title: "Field"
           key: /^[^$]/
           type: 'string'
         ]
@@ -36,7 +38,7 @@ field =
     title: "Named Fields"
     type: 'object'
     entries: [
-      key: /^$(value)/
+      key: /^\$/
       type: 'object'
     ,
       key: /^[^$]/
@@ -50,24 +52,72 @@ distinct =
   description: "a flag triggering remove of duplicate results"
   type: 'boolean'
 
+# ### join definition for tables
+join =
+  type: 'object'
+  allowedKeys: true
+  keys:
+    join:
+      type: 'string'
+      list: ['left', 'right', 'inner', 'outer']
+    on:
+      type: 'object'
+      entries: [
+        type: 'string'
+      ]
+
 # ### FROM table
 table =
-  title: "Table"
+  title: "Tables"
   description: "the table data will be retrieved"
   type: 'or'
   or: [
+    title: "Table"
     type: 'string'
   ,
+    title: "List of Tables"
     type: 'array'
     entries:
-      type: 'string'
+      type: 'or'
+      or: [
+        title: "Table"
+        type: 'string'
+      ,
+        title: "Table Object"
+        type: 'object'
+        entries: [
+          type: 'or'
+          or: [
+            join
+          ,
+            title: "Named Table"
+            type: 'or'
+            or: [
+              join
+            ,
+              type: 'string'
+            ]
+          ]
+        ]
+      ]
   ,
+    title: "Table Object"
     type: 'object'
     entries: [
-      type: 'string'
+      type: 'or'
+      or: [
+        join
+      ,
+        title: "Named Table"
+        type: 'or'
+        or: [
+          join
+        ,
+          type: 'string'
+        ]
+      ]
     ]
   ]
-
 
 # Conversion of Main Types
 # -------------------------------------------------

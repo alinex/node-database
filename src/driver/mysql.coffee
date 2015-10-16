@@ -52,7 +52,10 @@ class Mysql
     # instantiate pool if not already done
     unless @pool?
       debugPool "initialize connection pool for #{@name}"
-      setup = object.extend {connectionLimit: @conf.pool?.limit}, @conf.access
+      setup = object.extend
+        connectionLimit: @conf.pool?.limit
+        multipleStatements: true
+      , @conf.access
       debugPool chalk.grey "set pool limit to #{setup.connectionLimit}" if setup.connectionLimit
       @pool = mysql.createPool setup
       @pool.on 'connection', (conn) =>

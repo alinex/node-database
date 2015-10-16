@@ -205,6 +205,32 @@ describe "Mysql object", ->
         ).map((e) -> return {person_id: e})
       , cb
 
+  describe "functions", ->
+
+    it "should support count", (cb) ->
+      list
+        select:
+          $count: '*'
+        from: '@person'
+      , null
+      , "SELECT COUNT(*) FROM `person`"
+      , [
+        'COUNT(*)': example.person.data.length
+      ]
+      , cb
+    it "should support count as named", (cb) ->
+      list
+        select:
+          $count:
+            sum: '*'
+        from: '@person'
+      , null
+      , "SELECT COUNT(*) AS `sum` FROM `person`"
+      , [
+        'sum': example.person.data.length
+      ]
+      , cb
+
   describe "FROM", ->
 
     it "should use one table", (cb) ->
