@@ -193,7 +193,7 @@ The next possibility is to use a complete object notation instead of a string.
 To make the notation clean and prevent misleading situations the values have to
 be prefixed with:
 
-- @... for names like tabel and fields
+- @... for names like table and fields
 - $... for functions
 - ? used as value will be a placeholder like before and used with the given dataset
 
@@ -308,6 +308,31 @@ from: [
           $gt: 5
 ]
 ```
+
+#### Functions
+
+__Comparison__
+
+- eq - equal
+- ne - not equal
+- gt - greater than
+- lt - lower than
+- ge - greater or equal
+- le - lower or equal
+- like - like given pattern
+- in - in list of values
+- between - the given 'min' and 'max' values
+
+__Group functions__
+
+- count - number of entries
+
+__Special__
+
+- value - used if value is needed on the left side of operator
+
+
+
 ### TODO #############################################################################
 
 # function $distinct $count

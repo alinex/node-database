@@ -35,18 +35,29 @@ escapeId = (value, driver) ->
 # Functions
 # -------------------------------------------------
 func =
-  count: (obj, driver) ->
-    sql = field obj, driver
-    parts = sql.split /( AS )/
-    sql = "COUNT(#{parts[0]})"
-    sql += parts[1..].join '' if parts.length > 1
-    sql
+  # ### Comparison
+  eq: (obj, driver) -> "= #{field obj, driver}"
+  ne: (obj, driver) ->  "<> #{field obj, driver}"
+  gt: (obj, driver) ->  "> #{field obj, driver}"
+  lt: (obj, driver) ->  "< #{field obj, driver}"
+  ge: (obj, driver) ->  ">= #{field obj, driver}"
+  le: (obj, driver) ->  "<= #{field obj, driver}"
+  like: (obj, driver) ->  "LIKE #{field obj, driver}"
+  in: (obj, driver) ->  "IN(#{field obj, driver})"
+  between: (obj, driver) ->
+    "BETWEEN #{field obj.min, driver} AND #{field obj.max, driver}"
+
+  # ### Group functions
+  count: (obj, driver, as) -> "COUNT(#{field obj, driver, as})"
+
+  # ### Special
+  value: (obj, driver) -> "= #{escape obj, driver}"
 
 # Conversion of Subparts
 # -------------------------------------------------
 
 # ### SELECT field
-field = (obj, driver) ->
+field = (obj, driver, as = true) ->
   switch
     when obj is '*'
       obj
@@ -56,16 +67,20 @@ field = (obj, driver) ->
       else
         escape obj, driver
     when Array.isArray obj
-      obj.map (e) -> field e, driver
+      obj.map (e) -> field e, driver, as
       .join ', '
-    else # object
+    when typeof obj is 'object'
       Object.keys obj
       .map (k) ->
         if k[0] is '$'
           func[k[1..]] obj[k], driver
+        else if as
+          field(obj[k], driver, false) + ' AS ' + escapeId k, driver
         else
-          field(obj[k], driver) + ' AS ' + escapeId k, driver
+          escapeId(k, driver) + ' ' + field(obj[k], driver, as)
       .join ', '
+    else
+      escape obj, driver
 
 # ### FROM table
 table = (obj, driver) ->

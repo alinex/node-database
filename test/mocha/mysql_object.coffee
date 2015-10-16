@@ -221,14 +221,25 @@ describe "Mysql object", ->
     it "should support count as named", (cb) ->
       list
         select:
-          $count:
-            sum: '*'
+          sum:
+            $count: '*'
         from: '@person'
       , null
       , "SELECT COUNT(*) AS `sum` FROM `person`"
       , [
         'sum': example.person.data.length
       ]
+      , cb
+    it "should support eq operator", (cb) ->
+      list
+        select:
+          ok:
+            age:
+              $eq: 30
+        from: '@person'
+      , null
+      , "SELECT `age` = 30 AS `ok` FROM `person`"
+      , example.person.data.map((e) -> {ok: if e.age is 30 then 1 else 0})
       , cb
 
   describe "FROM", ->
