@@ -3,7 +3,7 @@ expect = chai.expect
 
 database = require '../../src/index'
 async = require 'alinex-async'
-{string} = require 'alinex-util'
+{string, object} = require 'alinex-util'
 
 describe "Mysql object", ->
 
@@ -54,18 +54,18 @@ describe "Mysql object", ->
         fields = Object.keys(example[table].struct).map (e) -> "#{e} #{example[table].struct[e]}"
         .join ', '
         queries.push "CREATE TABLE #{table} (#{fields})"
-      for e in example[table].data
-        queries.push "INSERT INTO #{table} SET " +  (
-          Object.keys(e).map (k) ->
-            "#{k} = " + switch
-              when not e[k]?
-                'NULL'
-              when typeof e[k] is 'number'
-                e[k]
-              else
-                "'#{e[k]}'"
-          .join ', '
-        )
+        for e in example[table].data
+          queries.push "INSERT INTO #{table} SET " +  (
+            Object.keys(e).map (k) ->
+              "#{k} = " + switch
+                when not e[k]?
+                  'NULL'
+                when typeof e[k] is 'number'
+                  e[k]
+                else
+                  "'#{e[k]}'"
+            .join ', '
+          )
       async.eachSeries queries, (sql, cb) ->
         db.exec sql, cb
       , (err) ->
@@ -160,24 +160,36 @@ describe "Mysql object", ->
         from: ['@person', '@address']
       , null
       , "SELECT * FROM `person`, `address`"
-      , example.person.data
+      , (
+        ->
+          n = []
+          for a in example.address.data
+            for p in example.person.data
+              o = object.extend {}, p, a
+              o.comment ?= null # add because missing else
+              n.push o
+          n
+        )()
       , cb
     it "should allow table alias", (cb) ->
-      test
+      list
         select: '*'
         from:
           p: '@person'
           a: '@address'
       , null
       , "SELECT * FROM `person` AS `p`, `address` AS `a`"
-      , example.person.data.map((e) ->
-          n = {}
-          for k, v of e
-            n[k] = v if k in ['name', 'age']
+      , (
+        ->
+          n = []
+          for a in example.address.data
+            for p in example.person.data
+              o = object.extend {}, p, a
+              o.comment ?= null # add because missing else
+              n.push o
           n
-        )
+        )()
       , cb
-
 
   describe "FROM", ->
 
@@ -187,7 +199,7 @@ describe "Mysql object", ->
         from: '@person'
       , null
       , "SELECT * FROM `person`"
-      , [{}]
+      , example.person.data
       , cb
     it "should use multiple tables", (cb) ->
       list
@@ -195,7 +207,16 @@ describe "Mysql object", ->
         from: ['@person', '@address']
       , null
       , "SELECT * FROM `person`, `address`"
-      , [{}]
+      , (
+        ->
+          n = []
+          for a in example.address.data
+            for p in example.person.data
+              o = object.extend {}, p, a
+              o.comment ?= null # add because missing else
+              n.push o
+          n
+        )()
       , cb
     it "should support alias", (cb) ->
       list
@@ -204,7 +225,7 @@ describe "Mysql object", ->
           Person: '@person'
       , null
       , "SELECT * FROM `person` AS `Person`"
-      , [{}]
+      , example.person.data
       , cb
     it "should support left join", (cb) ->
       list
@@ -215,10 +236,28 @@ describe "Mysql object", ->
             address:
               join: 'left'   # left, right, outer, inner
               on:            # join criteria
-                ID: '@Person.addressID'
+                person_id: '@Person.id'
       , null
-      , "SELECT * FROM `person` AS `Person` LEFT JOIN `address` AS `Address` ON `Address`.`ID` = `Person`.`addressID`"
-      , [{}]
+      , "SELECT * FROM `person` AS `Person` LEFT JOIN `address` AS `Address` ON `Address`.`person_id` = `Person`.`id`"
+      , (
+        ->
+          n = []
+          for p in example.person.data
+            found = false
+            for a in example.address.data
+              continue unless a.person_id is p.id
+              o = object.extend {}, p, a
+              o.comment ?= null # add because missing else
+              n.push o
+              found = true
+            unless found
+              o = object.clone p
+              o.comment ?= null # add because missing else
+              for k of example.address.struct
+                o[k] = null # add because missing else
+              n.push o
+          n
+        )()
       , cb
     it "should support join in array", (cb) ->
       list
@@ -230,11 +269,29 @@ describe "Mysql object", ->
             address:
               join: 'left'   # left, right, outer, inner
               on:            # join criteria
-                ID: '@Person.addressID'
+                person_id: '@Person.id'
         ]
       , null
-      , "SELECT * FROM `person` AS `Person` LEFT JOIN `address` AS `Address` ON `Address`.`ID` = `Person`.`addressID`"
-      , [{}]
+      , "SELECT * FROM `person` AS `Person` LEFT JOIN `address` AS `Address` ON `Address`.`person_id` = `Person`.`id`"
+      , (
+        ->
+          n = []
+          for p in example.person.data
+            found = false
+            for a in example.address.data
+              continue unless a.person_id is p.id
+              o = object.extend {}, p, a
+              o.comment ?= null # add because missing else
+              n.push o
+              found = true
+            unless found
+              o = object.clone p
+              o.comment ?= null # add because missing else
+              for k of example.address.struct
+                o[k] = null # add because missing else
+              n.push o
+          n
+        )()
       , cb
 
 

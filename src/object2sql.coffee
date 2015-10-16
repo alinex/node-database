@@ -135,7 +135,7 @@ module.exports = (obj, driver) ->
     validator.check
       name: 'sqlObject'
       value: obj
-      schema: require('./object2sql_schema').all
+      schema: require('./object2sql_schema').schema
     , (err, result) ->
       debug chalk.red "Error in SQL Object: #{err.message}" if err
   # select main type
