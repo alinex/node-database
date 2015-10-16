@@ -57,6 +57,9 @@
         <a href="#object%20to%20query%20language">Object to Query Language</a>
       </div>
       <div class="heading h3">
+        <a href="#relational%20databases">Relational Databases</a>
+      </div>
+      <div class="heading h3">
         <a href="#general%20notation">General Notation</a>
       </div>
       <div class="heading h3">
@@ -68,11 +71,8 @@
       <div class="heading h4">
         <a href="#from">FROM</a>
       </div>
-      <div class="heading h1">
-        <a href="#named%20column">named column</a>
-      </div>
-      <div class="heading h1">
-        <a href="#named%20table">named table</a>
+      <div class="heading h3">
+        <a href="#todo">TODO</a>
       </div>
       <div class="heading h1">
         <a href="#function%20%24distinct%20%24count">function $distinct $count</a>
@@ -192,6 +192,15 @@ configuration used via <a href="http://alinex.github.io/node-config">Config</a>.
 <p>They make it easier readable and helps preventing problems. See the description
 below.</p>
 
+<p>And instead of using the <code>query()</code> method you may also use some of the higher methods:</p>
+
+<ul>
+<li><code>list()</code> - egt an array of record objects</li>
+<li><code>record()</code> - get one record as object</li>
+<li><code>value()</code> - get the value of the first field</li>
+<li><code>column()</code> - get an array of values from the first column</li>
+</ul>
+
 
 <div class="pilwrap" id="configuration">
   <h2>
@@ -291,6 +300,8 @@ below.</p>
 values and esacaping them you may use <code>?</code> as a placeholder and give your values
 in an array. They will be automatically replaced with their correct escaped value.</p>
 
+<p>Therefore you give the dataset as the second argument:</p>
+
 
 <div class="highlight"><pre><code><span class="nx">conn</span><span class="p">.</span><span class="nx">query</span> <span class="s">&#39;SELECT name FROM address WHERE age &gt; ? and name = ?&#39;</span><span class="p">,</span>
 <span class="p">[</span><span class="mi">30</span><span class="p">,</span> <span class="s">&#39;alf&#39;</span><span class="p">]</span>
@@ -319,6 +330,15 @@ objects:</p>
 
 
 <p>The next possibility is to use a complete object notation instead of a string.</p>
+
+
+<div class="pilwrap" id="relational%20databases">
+  <h3>
+    <a href="#relational%20databases" name="relational%20databases" class="pilcrow">&#182;</a>
+    Relational Databases
+  </h3>
+</div>
+
 
 <p>Here you define your query like an object. With mysql this may look like:</p>
 
@@ -352,6 +372,7 @@ be prefixed with:</p>
 <ul>
 <li>@... for names like tabel and fields</li>
 <li>$... for functions</li>
+<li>? used as value will be a placeholder like before and used with the given dataset</li>
 </ul>
 
 <p>All other values are used as is and quoted or converted like needed.</p>
@@ -425,65 +446,67 @@ you may out together as needed.</p>
 </div>
 
 
-<p>from: '@person'</p>
-
-<p>select: '*'
-from: '@person'</p>
-
-<p>select:
-  $count: '*'
-from: '@person'</p>
+<p>Give the tables or catalogs to use.</p>
 
 
-<div class="pilwrap" id="named%20column">
-  <h1>
-    <a href="#named%20column" name="named%20column" class="pilcrow">&#182;</a>
-    named column
-  </h1>
+<div class="highlight"><pre><code><span class="l-Scalar-Plain">from</span><span class="p-Indicator">:</span> <span class="s">&#39;@person&#39;</span>
+</code></pre></div>
+
+
+
+<p>Or as an array (using a full join):</p>
+
+
+<div class="highlight"><pre><code><span class="l-Scalar-Plain">from</span><span class="p-Indicator">:</span> <span class="p-Indicator">[</span><span class="s">&#39;@person&#39;</span><span class="p-Indicator">,</span> <span class="s">&#39;@address&#39;</span><span class="p-Indicator">]</span>
+</code></pre></div>
+
+
+
+<p>Also this may be named:</p>
+
+
+<div class="highlight"><pre><code><span class="l-Scalar-Plain">form</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">Person</span><span class="p-Indicator">:</span> <span class="err">@</span><span class="l-Scalar-Plain">person</span>
+</code></pre></div>
+
+
+
+<p>And with specific joins:</p>
+
+
+<div class="highlight"><pre><code><span class="l-Scalar-Plain">from</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">Person</span><span class="p-Indicator">:</span> <span class="err">@</span><span class="l-Scalar-Plain">person</span>
+  <span class="l-Scalar-Plain">Address</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">address</span><span class="p-Indicator">:</span>
+      <span class="l-Scalar-Plain">join</span><span class="p-Indicator">:</span> <span class="s">&#39;left&#39;</span>   <span class="c1"># left, right, outer, inner</span>
+      <span class="l-Scalar-Plain">on</span><span class="p-Indicator">:</span>            <span class="c1"># join criteria</span>
+        <span class="l-Scalar-Plain">ID</span><span class="p-Indicator">:</span> <span class="s">&#39;@person.addressID&#39;</span>
+        <span class="l-Scalar-Plain">age</span><span class="p-Indicator">:</span>
+          <span class="l-Scalar-Plain">$gt</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">5</span>
+<span class="c1"># same defined as array</span>
+<span class="l-Scalar-Plain">from</span><span class="p-Indicator">:</span> <span class="p-Indicator">[</span>
+  <span class="s">&#39;@person&#39;</span>
+<span class="p-Indicator">,</span>
+  <span class="nv">Address</span><span class="p-Indicator">:</span>
+    <span class="nv">address</span><span class="p-Indicator">:</span>
+      <span class="nv">join</span><span class="p-Indicator">:</span> <span class="s">&#39;left&#39;</span>   <span class="c1"># left, right, outer, inner</span>
+      <span class="nv">on</span><span class="p-Indicator">:</span>            <span class="c1"># join criteria</span>
+        <span class="nv">ID</span><span class="p-Indicator">:</span> <span class="s">&#39;@Person.addressID&#39;</span>
+        <span class="nv">age</span><span class="p-Indicator">:</span>
+          <span class="nv">$gt</span><span class="p-Indicator">:</span> <span class="nv">5</span>
+<span class="p-Indicator">]</span>
+</code></pre></div>
+
+
+
+
+<div class="pilwrap" id="todo">
+  <h3>
+    <a href="#todo" name="todo" class="pilcrow">&#182;</a>
+    TODO
+  </h3>
 </div>
 
-
-<p>select:
-  PersonName: '@name'
-select:
-  PersonName:
-    $count: '*'</p>
-
-
-<div class="pilwrap" id="named%20table">
-  <h1>
-    <a href="#named%20table" name="named%20table" class="pilcrow">&#182;</a>
-    named table
-  </h1>
-</div>
-
-
-<p>select: '*'
-form:
-  Person: @person</p>
-
-<p>select: '*'
-from:
-  Person: @person
-  Address:
-    address:
-      join: 'left'   # left join (default), right, outer, inner
-      on:            # join criteria
-        ID: '@person.addressID'
-        age:
-          $gt: 5</p>
-
-<p>select: '*'
-from: [
-  '@person'
-,
-  address:
-    join: 'left'   # left join (default), right, outer, inner
-    on:            # join criteria
-      ID: '@person.addressID'
-      age:
-        $gt: 5
-]</p>
 
 
 <div class="pilwrap" id="function%20%24distinct%20%24count">

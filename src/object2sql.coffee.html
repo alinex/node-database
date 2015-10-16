@@ -39,7 +39,49 @@
         <a href="#node%20modules">Node Modules</a>
       </div>
       <div class="heading h2">
-        <a href="#conversion%20routines">Conversion routines</a>
+        <a href="#general%20helpers">General Helpers</a>
+      </div>
+      <div class="heading h3">
+        <a href="#escape%20value%20or%20id">Escape Value or ID</a>
+      </div>
+      <div class="heading h3">
+        <a href="#escape%20id">Escape ID</a>
+      </div>
+      <div class="heading h2">
+        <a href="#conversion%20of%20subparts">Conversion of Subparts</a>
+      </div>
+      <div class="heading h3">
+        <a href="#select%20field">SELECT field</a>
+      </div>
+      <div class="heading h3">
+        <a href="#from%20table">FROM table</a>
+      </div>
+      <div class="heading h3">
+        <a href="#where%20condition">WHERE condition</a>
+      </div>
+      <div class="heading h2">
+        <a href="#conversion%20of%20sql%20parts">Conversion of SQL Parts</a>
+      </div>
+      <div class="heading h4">
+        <a href="#from">FROM</a>
+      </div>
+      <div class="heading h2">
+        <a href="#conversion%20of%20main%20types">Conversion of Main Types</a>
+      </div>
+      <div class="heading h3">
+        <a href="#select">SELECT</a>
+      </div>
+      <div class="heading h3">
+        <a href="#update">UPDATE</a>
+      </div>
+      <div class="heading h3">
+        <a href="#insert">INSERT</a>
+      </div>
+      <div class="heading h3">
+        <a href="#delete">DELETE</a>
+      </div>
+      <div class="heading h2">
+        <a href="#conversion">Conversion</a>
       </div>
     </div>
   </div>
@@ -94,17 +136,328 @@
       </tr>
       <tr>
         <td class="docs">
-<div class="pilwrap" id="conversion%20routines">
+<div class="pilwrap" id="general%20helpers">
   <h2>
-    <a href="#conversion%20routines" name="conversion%20routines" class="pilcrow">&#182;</a>
-    Conversion routines
+    <a href="#general%20helpers" name="general%20helpers" class="pilcrow">&#182;</a>
+    General Helpers
   </h2>
 </div>
 
         </td>
         <td class="code highlight"><div class="highlight"><pre>
 
-<span class="nv">module.exports = </span><span class="nf">(data, driver) -&gt;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="escape%20value%20or%20id">
+  <h3>
+    <a href="#escape%20value%20or%20id" name="escape%20value%20or%20id" class="pilcrow">&#182;</a>
+    Escape Value or ID
+  </h3>
+</div>
+
+
+<ul>
+<li>? =>  keep placeholder</li>
+<li>@... => escape as ID</li>
+<li>else escape value</li>
+</ul>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">escape = </span><span class="nf">(value, driver) -&gt;</span>
+  <span class="k">if</span> <span class="nx">value</span> <span class="o">is</span> <span class="s">&#39;?&#39;</span>
+    <span class="nx">value</span>
+  <span class="k">else</span> <span class="k">if</span> <span class="nx">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">is</span> <span class="s">&#39;@&#39;</span>
+    <span class="nx">driver</span><span class="p">.</span><span class="nx">escapeId</span> <span class="nx">value</span><span class="p">[</span><span class="mi">1</span><span class="p">..]</span>
+  <span class="k">else</span>
+    <span class="nx">driver</span><span class="p">.</span><span class="nx">escape</span> <span class="nx">value</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="escape%20id">
+  <h3>
+    <a href="#escape%20id" name="escape%20id" class="pilcrow">&#182;</a>
+    Escape ID
+  </h3>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">escapeId = </span><span class="nf">(value, driver) -&gt;</span>
+  <span class="k">if</span> <span class="nx">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">is</span> <span class="s">&#39;@&#39;</span>
+    <span class="nx">driver</span><span class="p">.</span><span class="nx">escapeId</span> <span class="nx">value</span><span class="p">[</span><span class="mi">1</span><span class="p">..]</span>
+  <span class="k">else</span>
+    <span class="nx">driver</span><span class="p">.</span><span class="nx">escapeId</span> <span class="nx">value</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="conversion%20of%20subparts">
+  <h2>
+    <a href="#conversion%20of%20subparts" name="conversion%20of%20subparts" class="pilcrow">&#182;</a>
+    Conversion of Subparts
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="select%20field">
+  <h3>
+    <a href="#select%20field" name="select%20field" class="pilcrow">&#182;</a>
+    SELECT field
+  </h3>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">field = </span><span class="nf">(obj, driver) -&gt;</span>
+  <span class="k">switch</span>
+    <span class="k">when</span> <span class="nx">obj</span> <span class="o">is</span> <span class="s">&#39;*&#39;</span>
+      <span class="nx">obj</span>
+    <span class="k">when</span> <span class="k">typeof</span> <span class="nx">obj</span> <span class="o">is</span> <span class="s">&#39;string&#39;</span>
+      <span class="k">if</span> <span class="nx">string</span><span class="p">.</span><span class="nx">ends</span> <span class="nx">obj</span><span class="p">,</span> <span class="s">&#39;.*&#39;</span>
+        <span class="nx">escape</span><span class="p">(</span><span class="nx">obj</span><span class="p">[</span><span class="mi">0</span><span class="p">..</span><span class="o">-</span><span class="mi">3</span><span class="p">],</span> <span class="nx">driver</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39;.*&#39;</span>
+      <span class="k">else</span>
+        <span class="nx">escape</span> <span class="nx">obj</span><span class="p">,</span> <span class="nx">driver</span>
+    <span class="k">when</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">isArray</span> <span class="nx">obj</span>
+      <span class="nx">obj</span><span class="p">.</span><span class="nx">map</span> <span class="nf">(e) -&gt;</span> <span class="nx">field</span> <span class="nx">e</span><span class="p">,</span> <span class="nx">driver</span>
+      <span class="p">.</span><span class="nx">join</span> <span class="s">&#39;, &#39;</span>
+    <span class="k">else</span> <span class="c1"># object</span>
+      <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span> <span class="nx">obj</span>
+      <span class="p">.</span><span class="nx">map</span> <span class="nf">(k) -&gt;</span>
+        <span class="nx">field</span><span class="p">(</span><span class="nx">obj</span><span class="p">[</span><span class="nx">k</span><span class="p">],</span> <span class="nx">driver</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39; AS &#39;</span> <span class="o">+</span> <span class="nx">escapeId</span> <span class="nx">k</span><span class="p">,</span> <span class="nx">driver</span>
+      <span class="p">.</span><span class="nx">join</span> <span class="s">&#39;, &#39;</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="from%20table">
+  <h3>
+    <a href="#from%20table" name="from%20table" class="pilcrow">&#182;</a>
+    FROM table
+  </h3>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">table = </span><span class="nf">(obj, driver) -&gt;</span>
+  <span class="nv">sql = </span><span class="k">switch</span>
+    <span class="k">when</span> <span class="k">typeof</span> <span class="nx">obj</span> <span class="o">is</span> <span class="s">&#39;string&#39;</span>
+      <span class="nx">escape</span> <span class="nx">obj</span><span class="p">,</span> <span class="nx">driver</span>
+    <span class="k">when</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">isArray</span> <span class="nx">obj</span>
+      <span class="nx">obj</span><span class="p">.</span><span class="nx">map</span> <span class="nf">(e) -&gt;</span> <span class="nx">table</span> <span class="nx">e</span><span class="p">,</span> <span class="nx">driver</span>
+      <span class="p">.</span><span class="nx">join</span> <span class="s">&#39;, &#39;</span>
+    <span class="k">else</span> <span class="c1"># object</span>
+      <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span> <span class="nx">obj</span>
+      <span class="p">.</span><span class="nx">map</span> <span class="nf">(k) -&gt;</span>
+        <span class="nv">base = </span><span class="nx">k</span>
+        <span class="nv">e = </span><span class="nx">obj</span><span class="p">[</span><span class="nx">k</span><span class="p">]</span>
+        <span class="k">if</span> <span class="k">typeof</span> <span class="nx">e</span> <span class="o">is</span> <span class="s">&#39;string&#39;</span>
+          <span class="k">return</span> <span class="nx">escape</span><span class="p">(</span><span class="nx">e</span><span class="p">,</span> <span class="nx">driver</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39; AS &#39;</span> <span class="o">+</span> <span class="nx">escapeId</span> <span class="nx">k</span><span class="p">,</span> <span class="nx">driver</span>
+        <span class="nv">sub = </span><span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span> <span class="nx">e</span>
+        <span class="nv">as = </span><span class="s">&#39;&#39;</span>
+        <span class="k">unless</span> <span class="s">&#39;join&#39;</span> <span class="k">in</span> <span class="nx">sub</span> <span class="o">and</span> <span class="s">&#39;on&#39;</span> <span class="k">in</span> <span class="nx">sub</span>
+          <span class="nv">as = </span><span class="s">&#39; AS &#39;</span> <span class="o">+</span> <span class="nx">escapeId</span> <span class="nx">k</span><span class="p">,</span> <span class="nx">driver</span>
+          <span class="nv">k = </span><span class="nx">sub</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+          <span class="nv">e = </span><span class="nx">e</span><span class="p">[</span><span class="nx">k</span><span class="p">]</span>
+        <span class="nv">join = </span><span class="s">&quot;</span><span class="si">#{</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">join</span> <span class="o">?</span> <span class="s">&#39;left&#39;</span><span class="p">).</span><span class="nx">toUpperCase</span><span class="p">()</span><span class="si">}</span><span class="s"> JOIN </span><span class="si">#{</span><span class="nx">escapeId</span> <span class="nx">k</span><span class="p">,</span> <span class="nx">driver</span><span class="si">}#{</span><span class="nx">as</span><span class="si">}</span><span class="s">&quot;</span>
+        <span class="nx">join</span> <span class="o">+=</span> <span class="s">&quot; ON </span><span class="si">#{</span><span class="nx">condition</span> <span class="nx">e</span><span class="p">.</span><span class="nx">on</span><span class="p">,</span> <span class="nx">driver</span><span class="p">,</span> <span class="nx">base</span><span class="si">}</span><span class="s">&quot;</span> <span class="k">if</span> <span class="nx">e</span><span class="p">.</span><span class="nx">on</span><span class="o">?</span>
+      <span class="p">.</span><span class="nx">join</span> <span class="s">&#39;, &#39;</span>
+  <span class="nx">sql</span><span class="p">.</span><span class="nx">replace</span> <span class="sr">/,( [A-Z]+ JOIN)/</span><span class="p">,</span> <span class="s">&#39;$1&#39;</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="where%20condition">
+  <h3>
+    <a href="#where%20condition" name="where%20condition" class="pilcrow">&#182;</a>
+    WHERE condition
+  </h3>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">condition = </span><span class="nf">(obj, driver, base) -&gt;</span>
+  <span class="k">switch</span>
+    <span class="k">when</span> <span class="k">typeof</span> <span class="nx">obj</span> <span class="o">is</span> <span class="s">&#39;string&#39;</span>
+      <span class="s">&quot;ISSET </span><span class="si">#{</span><span class="nx">escape</span> <span class="nx">obj</span><span class="p">,</span> <span class="nx">driver</span><span class="si">}</span><span class="s">&quot;</span>
+    <span class="k">when</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">isArray</span> <span class="nx">obj</span>
+      <span class="nx">obj</span><span class="p">.</span><span class="nx">map</span> <span class="nf">(e) -&gt;</span> <span class="nx">condition</span> <span class="nx">e</span><span class="p">,</span> <span class="nx">driver</span><span class="p">,</span> <span class="nx">base</span>
+      <span class="p">.</span><span class="nx">join</span> <span class="s">&#39; AND &#39;</span>
+    <span class="k">else</span> <span class="c1"># object</span>
+      <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span> <span class="nx">obj</span>
+      <span class="p">.</span><span class="nx">map</span> <span class="nf">(k) -&gt;</span>
+        <span class="nx">escapeId</span><span class="p">(</span><span class="s">&quot;</span><span class="si">#{</span><span class="nx">base</span><span class="si">}</span><span class="s">.</span><span class="si">#{</span><span class="nx">k</span><span class="si">}</span><span class="s">&quot;</span><span class="p">,</span> <span class="nx">driver</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39; = &#39;</span> <span class="o">+</span> <span class="nx">escape</span><span class="p">(</span><span class="nx">obj</span><span class="p">[</span><span class="nx">k</span><span class="p">],</span> <span class="nx">driver</span><span class="p">)</span>
+      <span class="p">.</span><span class="nx">join</span> <span class="s">&#39; AND &#39;</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="conversion%20of%20sql%20parts">
+  <h2>
+    <a href="#conversion%20of%20sql%20parts" name="conversion%20of%20sql%20parts" class="pilcrow">&#182;</a>
+    Conversion of SQL Parts
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="from">
+  <h4>
+    <a href="#from" name="from" class="pilcrow">&#182;</a>
+    FROM
+  </h4>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">from = </span><span class="nf">(obj, driver) -&gt;</span>
+  <span class="k">return</span> <span class="s">&#39;&#39;</span> <span class="k">unless</span> <span class="nx">obj</span><span class="o">?</span>
+  <span class="s">&#39; FROM &#39;</span> <span class="o">+</span> <span class="nx">table</span> <span class="nx">obj</span><span class="p">,</span> <span class="nx">driver</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="conversion%20of%20main%20types">
+  <h2>
+    <a href="#conversion%20of%20main%20types" name="conversion%20of%20main%20types" class="pilcrow">&#182;</a>
+    Conversion of Main Types
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+<span class="nv">type =</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="select">
+  <h3>
+    <a href="#select" name="select" class="pilcrow">&#182;</a>
+    SELECT
+  </h3>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nv">select: </span><span class="nf">(obj, driver) -&gt;</span>
+    <span class="nv">sql = </span><span class="s">&quot;SELECT </span><span class="si">#{</span><span class="nx">field</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">select</span><span class="p">,</span> <span class="nx">driver</span><span class="si">}</span><span class="s">&quot;</span>
+    <span class="nx">sql</span> <span class="o">+=</span> <span class="nx">from</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">from</span><span class="p">,</span> <span class="nx">driver</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="update">
+  <h3>
+    <a href="#update" name="update" class="pilcrow">&#182;</a>
+    UPDATE
+  </h3>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nv">update: </span><span class="nf">(obj, driver) -&gt;</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="insert">
+  <h3>
+    <a href="#insert" name="insert" class="pilcrow">&#182;</a>
+    INSERT
+  </h3>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nv">insert: </span><span class="nf">(obj, driver) -&gt;</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="delete">
+  <h3>
+    <a href="#delete" name="delete" class="pilcrow">&#182;</a>
+    DELETE
+  </h3>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="k">delete</span><span class="o">:</span> <span class="nf">(obj, driver) -&gt;</span>
+    <span class="nv">sql = </span><span class="s">&quot;DELETE&quot;</span>
+    <span class="nx">sql</span> <span class="o">+=</span> <span class="nx">from</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">from</span><span class="p">,</span> <span class="nx">driver</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="conversion">
+  <h2>
+    <a href="#conversion" name="conversion" class="pilcrow">&#182;</a>
+    Conversion
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+<span class="nv">module.exports = </span><span class="nf">(obj, driver) -&gt;</span>
 
 </pre></div>
         </td>
@@ -112,7 +465,7 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-5" id="section-5">&#182;</a>
+  <a class="pilcrow" href="#section-19" id="section-19">&#182;</a>
 </div>
 <p>validate</p>
         </td>
@@ -121,8 +474,8 @@
     <span class="nv">validator = </span><span class="nx">require</span> <span class="s">&#39;alinex-validator&#39;</span>
     <span class="nx">validator</span><span class="p">.</span><span class="nx">check</span>
       <span class="nv">name: </span><span class="s">&#39;sqlObject&#39;</span>
-      <span class="nv">value: </span><span class="nx">data</span>
-      <span class="nv">schema: </span><span class="nx">require</span> <span class="s">&quot;./driver/</span><span class="si">#{</span><span class="nx">driver</span><span class="p">.</span><span class="nx">conf</span><span class="p">.</span><span class="nx">server</span><span class="p">.</span><span class="nx">type</span><span class="si">}</span><span class="s">Schema&quot;</span>
+      <span class="nv">value: </span><span class="nx">obj</span>
+      <span class="nv">schema: </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;./object2sql_schema&#39;</span><span class="p">).</span><span class="nx">schema</span>
     <span class="p">,</span> <span class="nf">(err, result) -&gt;</span>
       <span class="nx">debug</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">red</span> <span class="s">&quot;Error in SQL Object: </span><span class="si">#{</span><span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="si">}</span><span class="s">&quot;</span> <span class="k">if</span> <span class="nx">err</span>
 
@@ -132,14 +485,14 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-6" id="section-6">&#182;</a>
+  <a class="pilcrow" href="#section-20" id="section-20">&#182;</a>
 </div>
 <p>select main type</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
   <span class="k">for</span> <span class="nx">name</span> <span class="k">in</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span> <span class="nx">type</span>
-    <span class="k">continue</span> <span class="k">unless</span> <span class="nx">data</span><span class="p">[</span><span class="nx">name</span><span class="p">]</span><span class="o">?</span>
-    <span class="k">return</span> <span class="nx">type</span><span class="p">[</span><span class="nx">name</span><span class="p">]</span> <span class="nx">data</span><span class="p">,</span> <span class="nx">driver</span>
+    <span class="k">continue</span> <span class="k">unless</span> <span class="nx">obj</span><span class="p">[</span><span class="nx">name</span><span class="p">]</span><span class="o">?</span>
+    <span class="k">return</span> <span class="nx">type</span><span class="p">[</span><span class="nx">name</span><span class="p">]</span> <span class="nx">obj</span><span class="p">,</span> <span class="nx">driver</span>
 
 </pre></div>
         </td>
@@ -147,91 +500,16 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-7" id="section-7">&#182;</a>
+  <a class="pilcrow" href="#section-21" id="section-21">&#182;</a>
 </div>
 <p>default handling of unknown names</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-  <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span> <span class="nx">data</span>
-  <span class="p">.</span><span class="nx">map</span> <span class="nf">(e) -&gt;</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">e</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">data</span><span class="p">[</span><span class="nx">e</span><span class="p">]</span><span class="si">}</span><span class="s">&quot;</span>
+  <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span> <span class="nx">obj</span>
+  <span class="p">.</span><span class="nx">map</span> <span class="nf">(e) -&gt;</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">e</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">obj</span><span class="p">[</span><span class="nx">e</span><span class="p">]</span><span class="si">}</span><span class="s">&quot;</span>
   <span class="p">.</span><span class="nx">join</span> <span class="s">&#39; &#39;</span>
 
-<span class="nv">type =</span>
-  <span class="nv">select: </span><span class="nf">(data, driver) -&gt;</span>
-    <span class="nv">sql = </span><span class="s">&quot;SELECT </span><span class="si">#{</span><span class="nx">selectField</span> <span class="nx">data</span><span class="p">.</span><span class="nx">select</span><span class="p">,</span> <span class="nx">driver</span><span class="si">}</span><span class="s">&quot;</span>
-    <span class="nx">sql</span> <span class="o">+=</span> <span class="nx">from</span> <span class="nx">data</span><span class="p">.</span><span class="nx">from</span><span class="p">,</span> <span class="nx">driver</span>
-  <span class="nv">update: </span><span class="nf">(data, driver) -&gt;</span>
-  <span class="nv">insert: </span><span class="nf">(data, driver) -&gt;</span>
-  <span class="k">delete</span><span class="o">:</span> <span class="nf">(data, driver) -&gt;</span>
-    <span class="nv">sql = </span><span class="s">&quot;DELETE&quot;</span>
-    <span class="nx">sql</span> <span class="o">+=</span> <span class="nx">from</span> <span class="nx">data</span><span class="p">.</span><span class="nx">from</span><span class="p">,</span> <span class="nx">driver</span>
-
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-8" id="section-8">&#182;</a>
-</div>
-<p>value or id</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">escape = </span><span class="nf">(value, driver) -&gt;</span>
-  <span class="k">if</span> <span class="nx">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">is</span> <span class="s">&#39;@&#39;</span>
-    <span class="nx">driver</span><span class="p">.</span><span class="nx">escapeId</span> <span class="nx">value</span><span class="p">[</span><span class="mi">1</span><span class="p">..]</span>
-  <span class="k">else</span>
-    <span class="nx">driver</span><span class="p">.</span><span class="nx">escape</span> <span class="nx">value</span>
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-9" id="section-9">&#182;</a>
-</div>
-<p>always an id</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">escapeId = </span><span class="nf">(value, driver) -&gt;</span>
-  <span class="k">if</span> <span class="nx">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">is</span> <span class="s">&#39;@&#39;</span>
-    <span class="nx">driver</span><span class="p">.</span><span class="nx">escapeId</span> <span class="nx">value</span><span class="p">[</span><span class="mi">1</span><span class="p">..]</span>
-  <span class="k">else</span>
-    <span class="nx">driver</span><span class="p">.</span><span class="nx">escapeId</span> <span class="nx">value</span>
-
-<span class="nv">selectField = </span><span class="nf">(field, driver) -&gt;</span>
-  <span class="k">switch</span>
-    <span class="k">when</span> <span class="nx">field</span> <span class="o">is</span> <span class="s">&#39;*&#39;</span>
-      <span class="nx">field</span>
-    <span class="k">when</span> <span class="k">typeof</span> <span class="nx">field</span> <span class="o">is</span> <span class="s">&#39;string&#39;</span>
-      <span class="k">if</span> <span class="nx">string</span><span class="p">.</span><span class="nx">ends</span> <span class="nx">field</span><span class="p">,</span> <span class="s">&#39;.*&#39;</span>
-        <span class="nx">escape</span><span class="p">(</span><span class="nx">field</span><span class="p">[</span><span class="mi">0</span><span class="p">..</span><span class="o">-</span><span class="mi">3</span><span class="p">],</span> <span class="nx">driver</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39;.*&#39;</span>
-      <span class="k">else</span>
-        <span class="nx">escape</span> <span class="nx">field</span><span class="p">,</span> <span class="nx">driver</span>
-    <span class="k">when</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">isArray</span> <span class="nx">field</span>
-      <span class="nx">field</span><span class="p">.</span><span class="nx">map</span> <span class="nf">(e) -&gt;</span> <span class="nx">selectField</span> <span class="nx">e</span><span class="p">,</span> <span class="nx">driver</span>
-      <span class="p">.</span><span class="nx">join</span> <span class="s">&#39;, &#39;</span>
-    <span class="k">else</span> <span class="c1"># object</span>
-      <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span> <span class="nx">field</span>
-      <span class="p">.</span><span class="nx">map</span> <span class="nf">(k) -&gt;</span>
-        <span class="nx">selectField</span><span class="p">(</span><span class="nx">field</span><span class="p">[</span><span class="nx">k</span><span class="p">],</span> <span class="nx">driver</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39; AS &#39;</span> <span class="o">+</span> <span class="nx">escapeId</span> <span class="nx">k</span><span class="p">,</span> <span class="nx">driver</span>
-      <span class="p">.</span><span class="nx">join</span> <span class="s">&#39;, &#39;</span>
-
-<span class="nv">from = </span><span class="nf">(obj, driver) -&gt;</span>
-  <span class="k">return</span> <span class="s">&#39;&#39;</span> <span class="k">unless</span> <span class="nx">obj</span><span class="o">?</span>
-  <span class="s">&#39; FROM &#39;</span> <span class="o">+</span> <span class="k">switch</span>
-    <span class="k">when</span> <span class="k">typeof</span> <span class="nx">obj</span> <span class="o">is</span> <span class="s">&#39;string&#39;</span>
-      <span class="nx">escape</span> <span class="nx">obj</span><span class="p">,</span> <span class="nx">driver</span>
-    <span class="k">when</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">isArray</span> <span class="nx">obj</span>
-      <span class="nx">obj</span><span class="p">.</span><span class="nx">map</span> <span class="nf">(e) -&gt;</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">escape</span> <span class="nx">e</span><span class="p">,</span> <span class="nx">driver</span><span class="si">}</span><span class="s">&quot;</span>
-      <span class="p">.</span><span class="nx">join</span> <span class="s">&#39;, &#39;</span>
-    <span class="k">else</span> <span class="c1"># object</span>
-      <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span> <span class="nx">obj</span>
-      <span class="p">.</span><span class="nx">map</span> <span class="nf">(k) -&gt;</span>
-        <span class="nx">escape</span><span class="p">(</span><span class="nx">obj</span><span class="p">[</span><span class="nx">k</span><span class="p">],</span> <span class="nx">driver</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39; AS &#39;</span> <span class="o">+</span> <span class="nx">driver</span><span class="p">.</span><span class="nx">escapeId</span> <span class="nx">k</span><span class="p">,</span> <span class="nx">driver</span>
-      <span class="p">.</span><span class="nx">join</span> <span class="s">&#39;, &#39;</span>
+<span class="nv">module.exports.schema = </span><span class="nf">-&gt;</span> <span class="nx">require</span> <span class="s">&#39;./object2sql_schema&#39;</span>
 </pre></div>
         </td>
       </tr>

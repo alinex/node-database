@@ -55,13 +55,13 @@
 <span class="l-Scalar-Plain">node_js</span><span class="p-Indicator">:</span>
    <span class="p-Indicator">-</span> <span class="s">&quot;0.10&quot;</span>
    <span class="p-Indicator">-</span> <span class="s">&quot;0.12&quot;</span>
-   <span class="p-Indicator">-</span> <span class="s">&quot;4&quot;</span>
+   <span class="p-Indicator">-</span> <span class="s">&quot;4.2&quot;</span>
 <span class="l-Scalar-Plain">env</span><span class="p-Indicator">:</span>
   <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">MYSQL_HOST=localhost MYSQL_DATABASE=test_db MYSQL_USER=root MYSQL_PASSWORD=</span>
 <span class="l-Scalar-Plain">before_script</span><span class="p-Indicator">:</span>
   <span class="p-Indicator">-</span> <span class="s">&quot;mysql</span><span class="nv"> </span><span class="s">-e</span><span class="nv"> </span><span class="s">&#39;create</span><span class="nv"> </span><span class="s">database</span><span class="nv"> </span><span class="s">test_db;&#39;&quot;</span>
 <span class="l-Scalar-Plain">after_success</span><span class="p-Indicator">:</span>
-   <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">COVERALLS_SERVICE_NAME=travis-ci COVERALLS_REPO_TOKEN=haQKkRgwLHbwX1dp8ltFXFTPO48c5EEWo node_modules/.bin/builder -c test --coverage --coveralls</span>
+   <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">COVERALLS_SERVICE_NAME=travis-ci COVERALLS_REPO_TOKEN=7lmtywEWb8VitLviZro6EfJTu4Kfy0mXI node_modules/.bin/builder -c test --coverage --coveralls</span>
 </pre></div>
         </td>
       </tr>

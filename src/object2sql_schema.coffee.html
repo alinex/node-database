@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>mysqlSchema.coffee</title>
+  <title>object2sql_schema.coffee</title>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-  <link rel="stylesheet" media="all" href="../../doc-style.css" />
-  <script src="../../doc-filelist.js"></script>
+  <link rel="stylesheet" media="all" href="../doc-style.css" />
+  <script src="../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../../", thisFile = "home/alex/a3/node-database/src/driver/mysqlSchemacoffee", defaultSidebar = true;
+    var relativeDir = "../", thisFile = "home/alex/a3/node-database/src/object2sql_schemacoffee", defaultSidebar = true;
   </script>
-  <script src="../../doc-script.js"></script>
-  <script src="../../fileSearch.js"></script>
-  <script src="../../goToLine.js"></script>
-  <link rel="stylesheet" href="../../fileSearch.css" />
-  <link rel="stylesheet" href="../../goToLine.css" />
+  <script src="../doc-script.js"></script>
+  <script src="../fileSearch.js"></script>
+  <script src="../goToLine.js"></script>
+  <link rel="stylesheet" href="../fileSearch.css" />
+  <link rel="stylesheet" href="../goToLine.css" />
 </head>
 <body>
   <nav>
@@ -33,10 +33,25 @@
     <div id="tree"></div>
     <div id="headings">
       <div class="heading h1">
-        <a href="#object%20schema">Object Schema</a>
+        <a href="#object%20to%20sql%20%20mapping">Object to SQL  Mapping</a>
       </div>
       <div class="heading h2">
-        <a href="#everything%20together">Everything together</a>
+        <a href="#conversion%20of%20subparts">Conversion of Subparts</a>
+      </div>
+      <div class="heading h3">
+        <a href="#select%20fields">SELECT fields</a>
+      </div>
+      <div class="heading h3">
+        <a href="#from%20table">FROM table</a>
+      </div>
+      <div class="heading h2">
+        <a href="#conversion%20of%20main%20types">Conversion of Main Types</a>
+      </div>
+      <div class="heading h3">
+        <a href="#select">SELECT</a>
+      </div>
+      <div class="heading h2">
+        <a href="#complete">Complete</a>
       </div>
     </div>
   </div>
@@ -46,15 +61,45 @@
   <tbody>
       <tr>
         <td class="docs">
-<div class="pilwrap" id="object%20schema">
+<div class="pilwrap" id="object%20to%20sql%20%20mapping">
   <h1>
-    <a href="#object%20schema" name="object%20schema" class="pilcrow">&#182;</a>
-    Object Schema
+    <a href="#object%20to%20sql%20%20mapping" name="object%20to%20sql%20%20mapping" class="pilcrow">&#182;</a>
+    Object to SQL  Mapping
   </h1>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre><span class="nv">select =</span>
+        <td class="code highlight"><div class="highlight"><pre></pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="conversion%20of%20subparts">
+  <h2>
+    <a href="#conversion%20of%20subparts" name="conversion%20of%20subparts" class="pilcrow">&#182;</a>
+    Conversion of Subparts
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="select%20fields">
+  <h3>
+    <a href="#select%20fields" name="select%20fields" class="pilcrow">&#182;</a>
+    SELECT fields
+  </h3>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">field =</span>
   <span class="nv">type: </span><span class="s">&#39;or&#39;</span>
   <span class="o">or:</span> <span class="p">[</span>
     <span class="nv">title: </span><span class="s">&quot;Fieldname&quot;</span>
@@ -90,7 +135,22 @@
     <span class="p">]</span>
   <span class="p">]</span>
 
-<span class="nv">from =</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="from%20table">
+  <h3>
+    <a href="#from%20table" name="from%20table" class="pilcrow">&#182;</a>
+    FROM table
+  </h3>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">table =</span>
   <span class="nv">type: </span><span class="s">&#39;or&#39;</span>
   <span class="o">or:</span> <span class="p">[</span>
     <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
@@ -106,31 +166,65 @@
   <span class="p">]</span>
 
 
+
 </pre></div>
         </td>
       </tr>
       <tr>
         <td class="docs">
-<div class="pilwrap" id="everything%20together">
+<div class="pilwrap" id="conversion%20of%20main%20types">
   <h2>
-    <a href="#everything%20together" name="everything%20together" class="pilcrow">&#182;</a>
-    Everything together
+    <a href="#conversion%20of%20main%20types" name="conversion%20of%20main%20types" class="pilcrow">&#182;</a>
+    Conversion of Main Types
   </h2>
 </div>
 
         </td>
         <td class="code highlight"><div class="highlight"><pre>
 
-<span class="nv">module.exports =</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="select">
+  <h3>
+    <a href="#select" name="select" class="pilcrow">&#182;</a>
+    SELECT
+  </h3>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">select =</span>
+  <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
+  <span class="nv">allowedKeys: </span><span class="kc">true</span>
+  <span class="nv">mandatoryKeys: </span><span class="p">[</span><span class="s">&#39;select&#39;</span><span class="p">]</span>
+  <span class="nv">keys:</span>
+    <span class="nv">select: </span><span class="nx">field</span>
+    <span class="nv">from: </span><span class="nx">table</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="complete">
+  <h2>
+    <a href="#complete" name="complete" class="pilcrow">&#182;</a>
+    Complete
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+<span class="nv">module.exports.schema =</span>
   <span class="nv">type: </span><span class="s">&#39;or&#39;</span>
-  <span class="o">or:</span> <span class="p">[</span>
-    <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
-    <span class="nv">allowedKeys: </span><span class="kc">true</span>
-    <span class="nv">mandatoryKeys: </span><span class="p">[</span><span class="s">&#39;select&#39;</span><span class="p">]</span>
-    <span class="nv">keys:</span>
-      <span class="nv">select: </span><span class="nx">select</span>
-      <span class="nv">from: </span><span class="nx">from</span>
-  <span class="p">]</span>
+  <span class="o">or:</span> <span class="p">[</span><span class="nx">select</span><span class="p">]</span>
 </pre></div>
         </td>
       </tr>
