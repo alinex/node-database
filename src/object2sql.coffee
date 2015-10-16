@@ -32,6 +32,15 @@ escapeId = (value, driver) ->
     driver.escapeId value
 
 
+# Functions
+# -------------------------------------------------
+func =
+  count: (obj, driver) ->
+    sql = field obj, driver
+    parts = sql.split / AS /
+    sql = "COUNT(#{parts[0]})"
+    sql += " AS #{parts[1]}" if parts.length>1
+
 # Conversion of Subparts
 # -------------------------------------------------
 
