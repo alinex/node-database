@@ -30,7 +30,7 @@ The easiest way is to let npm add the module directly to your modules
 (from within you node modules directory):
 
 ``` sh
-npm install alinex-config --save
+npm install alinex-config - -save
 ```
 
 And update it to the latest version later:
@@ -182,9 +182,23 @@ Object to Query Language
 
 The next possibility is to use a complete object notation instead of a string.
 
+
+### General Notation
+
+To make the notation clean and prevent misleading situations the values have to
+be prefixed with:
+
+- @... for names like tabel and fields
+- $... for functions
+- ? used as value will be a placeholder like before and used with the given dataset
+
+All other values are used as is and quoted or converted like needed.
+
+
 ### Relational Databases
 
-Here you define your query like an object. With mysql this may look like:
+Here you define your query like an object. The structure looks much like the
+SQL dialect itself to make it easy:
 
 ``` coffee
   conn.query
@@ -197,24 +211,11 @@ Here you define your query like an object. With mysql this may look like:
 ```
 
 The object notation is easier to read and can be created step by step.
-Also the object will be validated if run with `DEBUG=database` flag.
+Also the object will be validated if run with `DEBUG=database*` flag.
 
+The following description will explain all the possible keys (uppermost level)
+of the object structure you give to create the SQL string.
 
-### General Notation
-
-To make the notation clean and prevent misleading situations the value has to
-be prefixed with:
-
-- @... for names like tabel and fields
-- $... for functions
-- ? used as value will be a placeholder like before and used with the given dataset
-
-All other values are used as is and quoted or converted like needed.
-
-### MySQL
-
-The following description will look on single parts of the whole object which
-you may out together as needed.
 
 #### SELECT
 
@@ -246,6 +247,14 @@ select:
 select:
   PersonName:
     $count: '*'
+```
+
+#### DISTINCT
+
+If set the query will only return distinct (different) records:
+
+``` yaml
+distinct: true
 ```
 
 #### FROM

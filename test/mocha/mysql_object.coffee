@@ -3,7 +3,7 @@ expect = chai.expect
 
 database = require '../../src/index'
 async = require 'alinex-async'
-{string, object} = require 'alinex-util'
+{string, array, object} = require 'alinex-util'
 
 describe "Mysql object", ->
 
@@ -189,6 +189,20 @@ describe "Mysql object", ->
               n.push o
           n
         )()
+      , cb
+
+  describe "DISTINCT", ->
+
+    it "should get distinct records", (cb) ->
+      list
+        select: '@person_id'
+        distinct: true
+        from: '@address'
+      , null
+      , "SELECT DISTINCT `person_id` FROM `address`"
+      , array.unique(
+        example.address.data.map((e) -> e.person_id)
+        ).map((e) -> return {person_id: e})
       , cb
 
   describe "FROM", ->

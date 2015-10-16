@@ -109,8 +109,11 @@ condition = (obj, driver, base) ->
 
 # #### FROM
 from = (obj, driver) ->
-  return '' unless obj?
-  ' FROM ' + table obj, driver
+  if obj? then " FROM #{table obj, driver}" else ''
+
+# ### DISTINCT
+distinct = (obj) ->
+  if obj? then " DISTINCT" else ''
 
 # Conversion of Main Types
 # -------------------------------------------------
@@ -119,7 +122,9 @@ type =
 
   # ### SELECT
   select: (obj, driver) ->
-    sql = "SELECT #{field obj.select, driver}"
+    sql = "SELECT"
+    sql += distinct obj.distinct, driver
+    sql += " #{field obj.select, driver}"
     sql += from obj.from, driver
 
   # ### UPDATE
