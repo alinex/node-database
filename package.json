@@ -1,6 +1,6 @@
 {
   "name": "alinex-database",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Database abstraction module.",
   "copyright": "Alexander Schilling 2015",
   "private": false,
