@@ -13,7 +13,7 @@
 # Node Modules
 # -------------------------------------------------
 
-debug = require('debug')('db')
+debug = require('debug')('database')
 chalk = require 'chalk'
 fspath = require 'path'
 # include more alinex modules

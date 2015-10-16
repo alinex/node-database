@@ -12,11 +12,11 @@
 
 # include base modules
 #debug = require('debug')('db:mysql')
-debugPool = require('debug')('db:pool')
-debugCmd = require('debug')('db:cmd')
-debugResult = require('debug')('db:result')
-debugData = require('debug')('db:data')
-debugCom = require('debug')('db:com')
+debugPool = require('debug')('database:pool')
+debugCmd = require('debug')('database:cmd')
+debugResult = require('debug')('database:result')
+debugData = require('debug')('database:data')
+debugCom = require('debug')('database:com')
 chalk = require 'chalk'
 util = require 'util'
 mysql = require 'mysql'
