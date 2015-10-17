@@ -145,6 +145,7 @@ type =
     sql += distinct obj.distinct, driver
     sql += " #{field obj.select, driver}"
     sql += from obj.from, driver
+    sql += ';'
 
   # ### UPDATE
   update: (obj, driver) ->
@@ -156,6 +157,7 @@ type =
   delete: (obj, driver) ->
     sql = "DELETE"
     sql += from obj.from, driver
+    sql += ';'
 
 
 # Conversion
@@ -176,8 +178,9 @@ module.exports = (obj, driver) ->
     continue unless obj[name]?
     return type[name] obj, driver
   # default handling of unknown names
-  Object.keys obj
+  (Object.keys obj
   .map (e) -> "#{e} #{obj[e]}"
   .join ' '
+  ) + ';'
 
 module.exports.schema = -> require './object2sql_schema'

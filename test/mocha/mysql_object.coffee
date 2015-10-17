@@ -115,7 +115,7 @@ describe "Mysql object", ->
         select: '*'
         from: '@person'
       , null
-      , "SELECT * FROM `person`"
+      , "SELECT * FROM `person`;"
       , example.person.data
       , cb
     it "should get all fields from table", (cb) ->
@@ -123,7 +123,7 @@ describe "Mysql object", ->
         select: '@person.*'
         from: '@person'
       , null
-      , "SELECT `person`.* FROM `person`"
+      , "SELECT `person`.* FROM `person`;"
       , example.person.data
       , cb
     it "should get multiple fields", (cb) ->
@@ -131,7 +131,7 @@ describe "Mysql object", ->
         select: ['@name', '@age']
         from: '@person'
       , null
-      , "SELECT `name`, `age` FROM `person`"
+      , "SELECT `name`, `age` FROM `person`;"
       , example.person.data.map((e) ->
           n = {}
           for k, v of e
@@ -146,7 +146,7 @@ describe "Mysql object", ->
           Age: '@age'
         from: '@person'
       , null
-      , "SELECT `name` AS `Name`, `age` AS `Age` FROM `person`"
+      , "SELECT `name` AS `Name`, `age` AS `Age` FROM `person`;"
       , example.person.data.map((e) ->
           n = {}
           for k, v of e
@@ -159,7 +159,7 @@ describe "Mysql object", ->
         select: '*'
         from: ['@person', '@address']
       , null
-      , "SELECT * FROM `person`, `address`"
+      , "SELECT * FROM `person`, `address`;"
       , (
         ->
           n = []
@@ -178,7 +178,7 @@ describe "Mysql object", ->
           p: '@person'
           a: '@address'
       , null
-      , "SELECT * FROM `person` AS `p`, `address` AS `a`"
+      , "SELECT * FROM `person` AS `p`, `address` AS `a`;"
       , (
         ->
           n = []
@@ -199,7 +199,7 @@ describe "Mysql object", ->
         distinct: true
         from: '@address'
       , null
-      , "SELECT DISTINCT `person_id` FROM `address`"
+      , "SELECT DISTINCT `person_id` FROM `address`;"
       , array.unique(
         example.address.data.map((e) -> e.person_id)
         ).map((e) -> return {person_id: e})
@@ -213,7 +213,7 @@ describe "Mysql object", ->
           $count: '*'
         from: '@person'
       , null
-      , "SELECT COUNT(*) FROM `person`"
+      , "SELECT COUNT(*) FROM `person`;"
       , [
         'COUNT(*)': example.person.data.length
       ]
@@ -225,7 +225,7 @@ describe "Mysql object", ->
             $count: '*'
         from: '@person'
       , null
-      , "SELECT COUNT(*) AS `sum` FROM `person`"
+      , "SELECT COUNT(*) AS `sum` FROM `person`;"
       , [
         'sum': example.person.data.length
       ]
@@ -238,7 +238,7 @@ describe "Mysql object", ->
               $eq: 30
         from: '@person'
       , null
-      , "SELECT `age` = 30 AS `ok` FROM `person`"
+      , "SELECT `age` = 30 AS `ok` FROM `person`;"
       , example.person.data.map((e) -> {ok: if e.age is 30 then 1 else 0})
       , cb
 
@@ -249,7 +249,7 @@ describe "Mysql object", ->
         select: '*'
         from: '@person'
       , null
-      , "SELECT * FROM `person`"
+      , "SELECT * FROM `person`;"
       , example.person.data
       , cb
     it "should use multiple tables", (cb) ->
@@ -257,7 +257,7 @@ describe "Mysql object", ->
         select: '*'
         from: ['@person', '@address']
       , null
-      , "SELECT * FROM `person`, `address`"
+      , "SELECT * FROM `person`, `address`;"
       , (
         ->
           n = []
@@ -275,7 +275,7 @@ describe "Mysql object", ->
         from:
           Person: '@person'
       , null
-      , "SELECT * FROM `person` AS `Person`"
+      , "SELECT * FROM `person` AS `Person`;"
       , example.person.data
       , cb
     it "should support left join", (cb) ->
@@ -289,7 +289,7 @@ describe "Mysql object", ->
               on:            # join criteria
                 person_id: '@Person.id'
       , null
-      , "SELECT * FROM `person` AS `Person` LEFT JOIN `address` AS `Address` ON `Address`.`person_id` = `Person`.`id`"
+      , "SELECT * FROM `person` AS `Person` LEFT JOIN `address` AS `Address` ON `Address`.`person_id` = `Person`.`id`;"
       , (
         ->
           n = []
@@ -323,7 +323,7 @@ describe "Mysql object", ->
                 person_id: '@Person.id'
         ]
       , null
-      , "SELECT * FROM `person` AS `Person` LEFT JOIN `address` AS `Address` ON `Address`.`person_id` = `Person`.`id`"
+      , "SELECT * FROM `person` AS `Person` LEFT JOIN `address` AS `Address` ON `Address`.`person_id` = `Person`.`id`;"
       , (
         ->
           n = []
