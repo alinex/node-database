@@ -119,7 +119,7 @@ condition = (obj, driver, base) ->
     else # object
       Object.keys obj
       .map (k) ->
-        escapeId("#{base}.#{k}", driver) + ' = ' + escape(obj[k], driver)
+        escapeId("#{if base then base+'.' else ''}#{k}", driver) + ' = ' + escape(obj[k], driver)
       .join ' AND '
 
 
@@ -127,8 +127,10 @@ condition = (obj, driver, base) ->
 # -------------------------------------------------
 
 # #### FROM
-from = (obj, driver) ->
-  if obj? then " FROM #{table obj, driver}" else ''
+from = (obj, driver) -> " FROM #{table obj, driver}"
+
+# #### FROM
+where = (obj, driver) -> " WHERE #{condition obj, driver}"
 
 # ### DISTINCT
 distinct = (obj) ->
@@ -144,7 +146,8 @@ type =
     sql = "SELECT"
     sql += distinct obj.distinct, driver
     sql += " #{field obj.select, driver}"
-    sql += from obj.from, driver
+    sql += from obj.from, driver if obj.from
+    sql += where obj.where, driver if obj.where
     sql += ';'
 
   # ### UPDATE

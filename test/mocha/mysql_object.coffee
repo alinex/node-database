@@ -345,5 +345,17 @@ describe "Mysql object", ->
         )()
       , cb
 
+  describe "WHILE", ->
+
+    it "should allow conditions", (cb) ->
+      list
+        select: '*'
+        from: '@person'
+        where:
+          age: 30
+      , null
+      , "SELECT * FROM `person` WHERE `age` = 30;"
+      , example.person.data.filter((e) -> e.age is 30)
+      , cb
 
   describe "placeholder", ->

@@ -133,6 +133,8 @@ select =
     select: field
     distinct: distinct
     from: table
+    while:
+      type: 'object'
 
 
 # Complete

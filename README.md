@@ -309,6 +309,24 @@ from: [
 ]
 ```
 
+#### WHERE
+
+Constraints can be defined using where. If no operator is given the field is
+checked against equality to the given value:
+
+``` yaml
+where:
+  age: 30
+```
+
+But you also can give any comparison operator of the ones listed below:
+
+``` yaml
+where:
+  age:
+    $gt: 30
+```
+
 #### Functions
 
 __Comparison__
@@ -330,42 +348,6 @@ __Group functions__
 __Special__
 
 - value - used if value is needed on the left side of operator
-
-
-
-### TODO #############################################################################
-
-# function $distinct $count
-
-where:
-  age:
-    $or: [15, 30]
-  name:
-    $like: 'a%' # $or
-  age:
-    $gt: '@maxage'
-
-group: 'age'
-group: [...]
-
-having:
-
-order: 'age'
-order: [...]
-order:
-  num: 'desc'
-order: [
-  $concat: []
-  sort: 'asc'
-,
-  num: 'asc'
-]
-
-limit: 5
-offset: 10
-
-
-
 
 
 License
