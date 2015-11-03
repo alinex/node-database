@@ -5,25 +5,25 @@ Config = require 'alinex-config'
 
 database = require '../../src/index'
 
-describe "Mysql", ->
+describe "PostgreSQL", ->
 
-  after (done) ->
-    database.instance 'test-mysql', (err, db) ->
-      throw err if err
-      db.exec 'DROP TABLE IF EXISTS numbers', (err, num) ->
-        expect(err, 'error after drop').to.not.exist
-        done()
+#  after (done) ->
+#    database.instance 'test-postgresql', (err, db) ->
+#      throw err if err
+#      db.exec 'DROP TABLE IF EXISTS numbers', (err, num) ->
+#        expect(err, 'error after drop').to.not.exist
+#        done()
 
   describe "native", ->
 
-    it "should allow connections to database", (done) ->
-      database.instance 'test-mysql', (err, db) ->
+    it.only "should allow connections to database", (done) ->
+      database.instance 'test-postgresql', (err, db) ->
         throw err if err
         db.connect (err, conn) ->
           expect(err, 'error on connection').to.not.exist
-          conn.query 'SELECT 2 + 2 AS solution', (err, rows, fields) ->
+          conn.query 'SELECT 2 + 2 AS solution', (err, result) ->
             throw err if err
-            console.log 'The database calculated 2+2 =', rows[0].solution
+            console.log 'The database calculated 2+2 =', result.rows[0].solution
             conn.release()
             db.close done
 
@@ -42,7 +42,7 @@ describe "Mysql", ->
   describe "exec", ->
 
     it "should create a table", (done) ->
-      database.instance 'test-mysql', (err, db) ->
+      database.instance 'test-postgresql', (err, db) ->
         throw err if err
         db.exec 'DROP TABLE IF EXISTS numbers', (err, num) ->
           expect(err, 'error after drop').to.not.exist
@@ -58,7 +58,7 @@ describe "Mysql", ->
             done()
 
     it "should execute multiple inserts", (done) ->
-      database.instance 'test-mysql', (err, db) ->
+      database.instance 'test-postgresql', (err, db) ->
         throw err if err
         db.exec '''
         INSERT INTO numbers (num, name) VALUES (1, 'one'), (2, 'two'), (3, 'three')
@@ -68,7 +68,7 @@ describe "Mysql", ->
           done()
 
     it "should execute multiple inserts", (done) ->
-      database.instance 'test-mysql', (err, db) ->
+      database.instance 'test-postgresql', (err, db) ->
         throw err if err
         db.exec '''
         INSERT INTO numbers SET num=9, name='nine'
@@ -79,7 +79,7 @@ describe "Mysql", ->
           done()
 
     it "should update one record", (done) ->
-      database.instance 'test-mysql', (err, db) ->
+      database.instance 'test-postgresql', (err, db) ->
         throw err if err
         db.exec '''
         UPDATE numbers SET comment='max' WHERE num=9
@@ -89,7 +89,7 @@ describe "Mysql", ->
           done()
 
     it "should update multiple records", (done) ->
-      database.instance 'test-mysql', (err, db) ->
+      database.instance 'test-postgresql', (err, db) ->
         throw err if err
         db.exec '''
         UPDATE numbers SET comment='ok' WHERE num<9
@@ -108,7 +108,7 @@ describe "Mysql", ->
   describe "query", ->
 
     it "should get complete list of entries", (done) ->
-      database.instance 'test-mysql', (err, db) ->
+      database.instance 'test-postgresql', (err, db) ->
         throw err if err
         db.list '''
         SELECT * FROM numbers
@@ -138,7 +138,7 @@ describe "Mysql", ->
           done()
 
     it "should get one record", (done) ->
-      database.instance 'test-mysql', (err, db) ->
+      database.instance 'test-postgresql', (err, db) ->
         throw err if err
         db.record '''
         SELECT * FROM numbers WHERE num=2
@@ -152,7 +152,7 @@ describe "Mysql", ->
           done()
 
     it "should get one value", (done) ->
-      database.instance 'test-mysql', (err, db) ->
+      database.instance 'test-postgresql', (err, db) ->
         throw err if err
         db.value '''
         SELECT comment FROM numbers WHERE num=9
@@ -162,7 +162,7 @@ describe "Mysql", ->
           done()
 
     it "should get one column", (done) ->
-      database.instance 'test-mysql', (err, db) ->
+      database.instance 'test-postgresql', (err, db) ->
         throw err if err
         db.column '''
         SELECT name FROM numbers
@@ -175,7 +175,7 @@ describe "Mysql", ->
   describe "placeholder", ->
 
     it "should use in query", (done) ->
-      database.instance 'test-mysql', (err, db) ->
+      database.instance 'test-postgresql', (err, db) ->
         throw err if err
         db.value '''
         SELECT num FROM numbers WHERE comment = ?
@@ -185,7 +185,7 @@ describe "Mysql", ->
           done()
 
     it "should work for insert", (done) ->
-      database.instance 'test-mysql', (err, db) ->
+      database.instance 'test-postgresql', (err, db) ->
         throw err if err
         db.exec 'INSERT INTO numbers SET ?',
           num: 6

@@ -67,7 +67,8 @@ exports.instance = instance = (name, cb) ->
         try
           Driver = require "./driver/#{conf.server.type}"
         catch err
-          return cb new Error "Could not find driver for #{conf.server.type} database."
+          return cb new Error "Could not find driver for #{conf.server.type} database:
+          #{err.message}"
         instances[name] = new Driver name, conf
         cb null, instances[name]
     cb null, instances[name]

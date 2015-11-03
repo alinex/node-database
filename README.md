@@ -158,6 +158,10 @@ occur multiple times in the result set, so that they override each over in the
 resulting object and the last one will be visible. To prevent this specify this
 columns with an alias name.
 
+### PostgreSQL
+
+Just being implemented, now.....
+
 
 Placeholder Syntax
 -------------------------------------------------

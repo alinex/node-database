@@ -124,7 +124,7 @@ mysql =
 
 # Mysql Database
 # -------------------------------------------------
-postgres =
+postgresql =
   title: "PostgreSQL Access"
   description: "the settings used to connect to the postgres database"
   type: 'object'
@@ -135,7 +135,7 @@ postgres =
       description: "the type of database server"
       type: 'string'
       lowerCase: true
-      values: ['postgres']
+      values: ['postgresql']
     host:
       title: "Hostname"
       description: "the hostname or ip address to connect to"
@@ -184,7 +184,7 @@ module.exports =
         title: "Access"
         description: "the settings used to connect to the database"
         type: 'or'
-        or: [mysql, postgres]
+        or: [mysql, postgresql]
       pool:
         title: "Connection Pool"
         description: "the connection pool"
