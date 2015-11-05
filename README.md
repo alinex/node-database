@@ -172,16 +172,20 @@ look at the API behind each abstraction layer.
 Use the (Driver API)[https://github.com/felixge/node-mysql] if you want to work
 directly on the retrieved connections.
 
+You can also use ? and ?? placeholder syntax from the driver.
+
 Here you need to know that if you use '*' as field specifier the same name may
 occur multiple times in the result set, so that they override each over in the
 resulting object and the last one will be visible. To prevent this specify this
 columns with an alias name.
+
 
 ### PostgreSQL
 
 Use the (Driver API)[https://github.com/brianc/node-postgres] if you want to work
 directly on the retrieved connections.
 
+You can also use $1... placeholder syntax from the driver.
 
 
 Placeholder Syntax

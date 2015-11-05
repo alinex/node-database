@@ -14,7 +14,7 @@ describe "Mysql", ->
         expect(err, 'error after drop').to.not.exist
         done()
 
-  describe "native", ->
+  describe "driver", ->
 
     it "should allow connections to database", (done) ->
       database.instance 'test-mysql', (err, db) ->
@@ -67,7 +67,7 @@ describe "Mysql", ->
           expect(num, 'affectedRows').to.equal 3
           done()
 
-    it "should execute multiple inserts", (done) ->
+    it "should execute with last insert id", (done) ->
       database.instance 'test-mysql', (err, db) ->
         throw err if err
         db.exec '''

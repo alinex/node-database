@@ -19,6 +19,14 @@ pg = require 'pg'
 # loading helper modules
 object2sql = require '../object2sql'
 
+# Setup
+# -------------------------------------------------
+# Return int8 values as integer -> maybe problematic on large values because
+# javascript can't handle this.
+#pg.setTypeParser 20, (val) ->
+#  # remember: all values returned from the server are either NULL or a string
+#  return val === null ? null : parseInt val
+
 # Database class
 # -------------------------------------------------
 class Postgresql
@@ -63,40 +71,44 @@ class Postgresql
       conn.release = ->
         debugPool "#{conn.name} release connection"
         done()
-      query = conn.query
-      conn.query = (sql, data, cb) ->
-        unless typeof cb is 'function'
-          cb = data
-          data = null
-        debugCmd "#{conn.name} #{sql}"
-        if cb
-          query.apply conn, [sql, data, (err, result) ->
-            if err
-              debugResult "#{conn.name} #{chalk.grey err.message}"
-            if result.fields.length
-              debugResult "#{conn.name} fields: #{result.fields}"
-            if result.rows.length
-              debugData "#{conn.name} #{row}" for row in result.rows
-#            console.log result
-            cb err, result
-          ]
-          return
-        # called using events
-        fn = query.apply conn, [sql, data]
-        fn.on? 'row', (row, result) ->
-          debugData "#{conn.name} #{row}"
-        fn.on? 'error', (err) ->
-          debugResult "#{conn.name} #{chalk.grey err.message}"
-        fn.on? 'end', ->
-          debugCom chalk.grey "#{conn.name} end query"
-        fn
-      conn.on 'drain', ->
-        debugCom chalk.grey "#{conn.name} drained"
-      conn.on 'error', (err) ->
-        debugCom chalk.magenta "#{conn.name} error: #{err.message}"
-      conn.on 'notice', (msg) ->
-        debugCom chalk.grey "#{conn.name} notice: #{msg}"
-      conn.alinex = true
+      if debugCmd.enabled or debugData.enabled or debug.Result.enabled
+        query = conn.query
+        conn.query = (sql, data, cb) ->
+          unless typeof cb is 'function'
+            cb = data
+            data = null
+          data = [data] if typeof data is 'string'
+          debugCmd "#{conn.name} #{sql}#{
+            if data then chalk.grey(' with ') + util.inspect data else ''
+            }"
+          if cb
+            query.apply conn, [sql, data, (err, result) ->
+              if err
+                debugResult "#{conn.name} #{chalk.grey err.message}"
+              if result.fields.length
+                debugResult "#{conn.name} fields: #{util.inspect result.fields}"
+              if result.rows.length
+                debugData "#{conn.name} #{util.inspect row}" for row in result.rows
+#              console.log result
+              cb err, result
+            ]
+            return
+          # called using events
+          fn = query.apply conn, [sql, data]
+          fn.on? 'row', (row, result) ->
+            debugData "#{conn.name} #{row}"
+          fn.on? 'error', (err) ->
+            debugResult "#{conn.name} #{chalk.grey err.message}"
+          fn.on? 'end', ->
+            debugCom chalk.grey "#{conn.name} end query"
+          fn
+        conn.on 'drain', ->
+          debugCom chalk.grey "#{conn.name} drained"
+        conn.on 'error', (err) ->
+          debugCom chalk.magenta "#{conn.name} error: #{err.message}"
+        conn.on 'notice', (msg) ->
+          debugCom chalk.grey "#{conn.name} notice: #{msg}"
+        conn.alinex = true
       cb null, conn
 
   # Shortcut functions
@@ -115,7 +127,9 @@ class Postgresql
       conn.query sql, (err, result) ->
         conn.release()
         return cb new Error "PostgreSQL Error: #{err.message} in #{sql}" if err
-        cb err, result.affectedRows, result.insertId
+        match = sql.match /\sRETURNING\s+(\S+)/
+        lastId = result.rows[0]?[match[1]] if match?[1]?
+        cb err, result.rowCount, lastId
 
   # ## get all data as object
   list: (sql, data, cb) ->
@@ -127,10 +141,10 @@ class Postgresql
     # run the query
     @connect (err, conn) ->
       return cb new Error "PostgreSQL Error: #{err.message}" if err
-      conn.query sql, (err, result) ->
+      conn.query sql, data, (err, result) ->
         conn.release()
         err = new Error "PostgreSQL Error: #{err.message} in #{sql}" if err
-        cb err, result
+        cb err, result.rows
 
   # ## get one record as object
   record: (sql, data, cb) ->
