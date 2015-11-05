@@ -16,7 +16,7 @@ describe "PostgreSQL", ->
 
   describe "native", ->
 
-    it.only "should allow connections to database", (done) ->
+    it "should allow connections to database", (done) ->
       database.instance 'test-postgresql', (err, db) ->
         throw err if err
         db.connect (err, conn) ->
@@ -27,28 +27,16 @@ describe "PostgreSQL", ->
             conn.release()
             db.close done
 
-    it "should allow connections through ssh", (done) ->
-      @timeout 30000
-      database.instance 'test-ssh', (err, db) ->
-        throw err if err
-        db.connect (err, conn) ->
-          expect(err, 'error on connection').to.not.exist
-          conn.query 'SELECT 2 + 2 AS solution', (err, rows, fields) ->
-            throw err if err
-            console.log 'The database calculated 2+2 =', rows[0].solution
-            conn.release()
-            db.close done
-
   describe "exec", ->
 
-    it "should create a table", (done) ->
+    it.only "should create a table", (done) ->
       database.instance 'test-postgresql', (err, db) ->
         throw err if err
         db.exec 'DROP TABLE IF EXISTS numbers', (err, num) ->
           expect(err, 'error after drop').to.not.exist
           db.exec '''
             CREATE TABLE numbers (
-              id INT AUTO_INCREMENT PRIMARY KEY,
+              id BIGSERIAL PRIMARY KEY,
               num INT,
               name VARCHAR(10),
               comment VARCHAR(32)

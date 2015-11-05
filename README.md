@@ -45,6 +45,10 @@ Always have a look at the latest [changes](Changelog.md).
 Usage
 -------------------------------------------------
 
+You can use different level of abstraction as you like.
+
+### Only connection handling
+
 The following example shows a complete and simple query transaction using
 a mysql database:
 
@@ -71,7 +75,17 @@ database.instance 'test-mysql', (err, db) ->
 The configuration for the connection is done in the `database` section of the
 configuration used via [Config](http://alinex.github.io/node-config).
 
-To query the database you may also use one of the higher methods:
+### SQL Access
+
+Instead of using the connection directly you may use the higher methods:
+
+- `list()` - get an array of record objects
+- `record()` - get one record as object
+- `value()` - get the value of the first field
+- `column()` - get an array of values from the first column
+- `exec()` - update/insert or other execution statements
+
+With this methods you can also use one of the higher SQL Builders:
 
 - using placeholder for variables
 - definition as object structure
@@ -79,12 +93,10 @@ To query the database you may also use one of the higher methods:
 They make it easier readable and helps preventing problems. See the description
 below.
 
-And instead of using the `query()` method you may also use some of the higher methods:
+### Streaming
 
-- `list()` - egt an array of record objects
-- `record()` - get one record as object
-- `value()` - get the value of the first field
-- `column()` - get an array of values from the first column
+For large data sets, please use the native streaming possibilities till we can
+implement some common behavior here.
 
 
 Configuration
@@ -149,9 +161,16 @@ Configuration
 Databases
 -------------------------------------------------
 
+The different supported databases have a lot in common, but differ in some ways.
+
+In general you always can use only the connection handling using `db.connect()`
+to get a connection of the database driver behind. If you want to use this directly
+look at the API behind each abstraction layer.
+
 ### MySQL
 
-The first driver implemented was the mysql driver.
+Use the (Driver API)[https://github.com/felixge/node-mysql] if you want to work
+directly on the retrieved connections.
 
 Here you need to know that if you use '*' as field specifier the same name may
 occur multiple times in the result set, so that they override each over in the
@@ -160,7 +179,9 @@ columns with an alias name.
 
 ### PostgreSQL
 
-Just being implemented, now.....
+Use the (Driver API)[https://github.com/brianc/node-postgres] if you want to work
+directly on the retrieved connections.
+
 
 
 Placeholder Syntax

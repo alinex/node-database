@@ -31,6 +31,8 @@ class Postgresql
   # better use the `instance()` method which implements the factory pattern.
   constructor: (@name, @conf) ->
     @tries = 0
+    @connectionNum = 0
+    pg.defaults.poolSize = @conf.pool?.limit
 
   close: (cb = -> ) ->
     return cb() unless @pool?
@@ -43,7 +45,6 @@ class Postgresql
   # ### Get connection
   connect: (cb) ->
     setup = object.extend
-#      connectionLimit: @conf.pool?.limit
       application_name: process.title
       fallback_application_name: 'alinex-database'
     , @conf.access
@@ -53,10 +54,49 @@ class Postgresql
       if err
         done()
         return cb err
-      conn.name = chalk.grey "[#{@name}]"
+      if conn.alinex?
+        debugPool "#{conn.name} reuse connection"
+        return cb null, conn
+      conn.name = chalk.grey "[#{@name}##{++@connectionNum}]" unless conn.name?
+      debugPool "#{conn.name} opened new connection"
+      # add debugging
       conn.release = ->
         debugPool "#{conn.name} release connection"
         done()
+      query = conn.query
+      conn.query = (sql, data, cb) ->
+        unless typeof cb is 'function'
+          cb = data
+          data = null
+        debugCmd "#{conn.name} #{sql}"
+        if cb
+          query.apply conn, [sql, data, (err, result) ->
+            if err
+              debugResult "#{conn.name} #{chalk.grey err.message}"
+            if result.fields.length
+              debugResult "#{conn.name} fields: #{result.fields}"
+            if result.rows.length
+              debugData "#{conn.name} #{row}" for row in result.rows
+#            console.log result
+            cb err, result
+          ]
+          return
+        # called using events
+        fn = query.apply conn, [sql, data]
+        fn.on? 'row', (row, result) ->
+          debugData "#{conn.name} #{row}"
+        fn.on? 'error', (err) ->
+          debugResult "#{conn.name} #{chalk.grey err.message}"
+        fn.on? 'end', ->
+          debugCom chalk.grey "#{conn.name} end query"
+        fn
+      conn.on 'drain', ->
+        debugCom chalk.grey "#{conn.name} drained"
+      conn.on 'error', (err) ->
+        debugCom chalk.magenta "#{conn.name} error: #{err.message}"
+      conn.on 'notice', (msg) ->
+        debugCom chalk.grey "#{conn.name} notice: #{msg}"
+      conn.alinex = true
       cb null, conn
 
   # Shortcut functions
@@ -75,7 +115,6 @@ class Postgresql
       conn.query sql, (err, result) ->
         conn.release()
         return cb new Error "PostgreSQL Error: #{err.message} in #{sql}" if err
-        console.log result
         cb err, result.affectedRows, result.insertId
 
   # ## get all data as object
