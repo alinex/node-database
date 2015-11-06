@@ -116,7 +116,7 @@
         </td>
         <td class="code highlight"><div class="highlight"><pre>
 
-<span class="nv">debug = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;debug&#39;</span><span class="p">)(</span><span class="s">&#39;db&#39;</span><span class="p">)</span>
+<span class="nv">debug = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;debug&#39;</span><span class="p">)(</span><span class="s">&#39;database&#39;</span><span class="p">)</span>
 <span class="nv">chalk = </span><span class="nx">require</span> <span class="s">&#39;chalk&#39;</span>
 <span class="nv">fspath = </span><span class="nx">require</span> <span class="s">&#39;path&#39;</span>
 
@@ -346,10 +346,22 @@ Config instance anywhere.</p>
         <span class="k">try</span>
           <span class="nv">Driver = </span><span class="nx">require</span> <span class="s">&quot;./driver/</span><span class="si">#{</span><span class="nx">conf</span><span class="p">.</span><span class="nx">server</span><span class="p">.</span><span class="nx">type</span><span class="si">}</span><span class="s">&quot;</span>
         <span class="k">catch</span> <span class="nx">err</span>
-          <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Could not find driver for </span><span class="si">#{</span><span class="nx">conf</span><span class="p">.</span><span class="nx">server</span><span class="p">.</span><span class="nx">type</span><span class="si">}</span><span class="s"> database.&quot;</span>
-        <span class="nx">instances</span><span class="p">[</span><span class="nx">name</span><span class="p">]</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Driver</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">conf</span>
-        <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">instances</span><span class="p">[</span><span class="nx">name</span><span class="p">]</span>
-    <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">instances</span><span class="p">[</span><span class="nx">name</span><span class="p">]</span>
+          <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Could not find driver for </span><span class="si">#{</span><span class="nx">conf</span><span class="p">.</span><span class="nx">server</span><span class="p">.</span><span class="nx">type</span><span class="si">}</span><span class="s"> database:</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-20" id="section-20">&#182;</a>
+</div>
+<p>{err.message}"</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="s">        instances[name] = new Driver name, conf</span>
+<span class="s">        cb null, instances[name]</span>
+<span class="s">    cb null, instances[name]</span>
 
 
 </pre></div>
@@ -366,15 +378,15 @@ Config instance anywhere.</p>
 
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">exports.close = close = </span><span class="nf">(cb = -&gt; ) -&gt;</span>
-  <span class="nx">debug</span> <span class="s">&quot;Close all database connections...&quot;</span>
-  <span class="nx">async</span><span class="p">.</span><span class="nx">each</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">instances</span><span class="p">),</span> <span class="nf">(name, cb) -&gt;</span>
-    <span class="nx">instances</span><span class="p">[</span><span class="nx">name</span><span class="p">].</span><span class="nx">close</span> <span class="nx">cb</span>
-  <span class="p">,</span> <span class="nx">cb</span>
+<span class="s">exports.close = close = (cb = -&gt; ) -&gt;</span>
+<span class="s">  debug &quot;</span><span class="nx">Close</span> <span class="nx">all</span> <span class="nx">database</span> <span class="nx">connections</span><span class="p">...</span><span class="s">&quot;</span>
+<span class="s">  async.each Object.keys(instances), (name, cb) -&gt;</span>
+<span class="s">    instances[name].close cb</span>
+<span class="s">  , cb</span>
 
-<span class="nv">tunnel = </span><span class="nf">(conf, cb) -&gt;</span>
-  <span class="nv">conf.access = </span><span class="nx">conf</span><span class="p">.</span><span class="nx">server</span>
-  <span class="k">return</span> <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">conf</span> <span class="k">unless</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">ssh</span>
+<span class="s">tunnel = (conf, cb) -&gt;</span>
+<span class="s">  conf.access = conf.server</span>
+<span class="s">  return cb null, conf unless conf.ssh</span>
 
 </pre></div>
         </td>
@@ -382,21 +394,21 @@ Config instance anywhere.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-21" id="section-21">&#182;</a>
+  <a class="pilcrow" href="#section-22" id="section-22">&#182;</a>
 </div>
 <p>load ssh modules</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">sshtunnel = </span><span class="nx">require</span> <span class="s">&#39;alinex-sshtunnel&#39;</span>
-  <span class="nx">sshtunnel</span>
-    <span class="nv">ssh: </span><span class="nx">conf</span><span class="p">.</span><span class="nx">ssh</span>
-    <span class="nv">tunnel:</span>
-      <span class="nv">host: </span><span class="nx">conf</span><span class="p">.</span><span class="nx">server</span><span class="p">.</span><span class="nx">host</span>
-      <span class="nv">port: </span><span class="nx">conf</span><span class="p">.</span><span class="nx">server</span><span class="p">.</span><span class="nx">port</span>
-  <span class="p">,</span> <span class="nf">(err, tunnel) -&gt;</span>
-    <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
-    <span class="nv">conf.access = </span><span class="nx">object</span><span class="p">.</span><span class="nx">extend</span> <span class="p">{},</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">server</span><span class="p">,</span> <span class="nx">tunnel</span><span class="p">.</span><span class="nx">setup</span>
-    <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">conf</span>
+<span class="s">  sshtunnel = require &#39;alinex-sshtunnel&#39;</span>
+<span class="s">  sshtunnel</span>
+<span class="s">    ssh: conf.ssh</span>
+<span class="s">    tunnel:</span>
+<span class="s">      host: conf.server.host</span>
+<span class="s">      port: conf.server.port</span>
+<span class="s">  , (err, tunnel) -&gt;</span>
+<span class="s">    return cb err if err</span>
+<span class="s">    conf.access = object.extend {}, conf.server, tunnel.setup</span>
+<span class="s">    cb null, conf</span>
 </pre></div>
         </td>
       </tr>

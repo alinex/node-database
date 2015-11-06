@@ -42,6 +42,12 @@
         <a href="#select%20fields">SELECT fields</a>
       </div>
       <div class="heading h3">
+        <a href="#distinct">DISTINCT</a>
+      </div>
+      <div class="heading h3">
+        <a href="#join%20definition%20for%20tables">join definition for tables</a>
+      </div>
+      <div class="heading h3">
         <a href="#from%20table">FROM table</a>
       </div>
       <div class="heading h2">
@@ -100,9 +106,11 @@
         </td>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="nv">field =</span>
+  <span class="nv">title: </span><span class="s">&quot;Fields&quot;</span>
+  <span class="nv">description: </span><span class="s">&quot;the list of fields to return&quot;</span>
   <span class="nv">type: </span><span class="s">&#39;or&#39;</span>
   <span class="o">or:</span> <span class="p">[</span>
-    <span class="nv">title: </span><span class="s">&quot;Fieldname&quot;</span>
+    <span class="nv">title: </span><span class="s">&quot;Field&quot;</span>
     <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
   <span class="p">,</span>
     <span class="nv">title: </span><span class="s">&quot;List of Fields&quot;</span>
@@ -110,15 +118,17 @@
     <span class="nv">entries:</span>
       <span class="nv">type: </span><span class="s">&#39;or&#39;</span>
       <span class="o">or:</span> <span class="p">[</span>
-        <span class="nv">title: </span><span class="s">&quot;Fieldname&quot;</span>
+        <span class="nv">title: </span><span class="s">&quot;Field&quot;</span>
         <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
       <span class="p">,</span>
         <span class="nv">title: </span><span class="s">&quot;Named Fields&quot;</span>
         <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
         <span class="nv">entries: </span><span class="p">[</span>
-          <span class="nv">key: </span><span class="sr">/^$(value)/</span>
+          <span class="nv">title: </span><span class="s">&quot;Value&quot;</span>
+          <span class="nv">key: </span><span class="sr">/^\$/</span>
           <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
         <span class="p">,</span>
+          <span class="nv">title: </span><span class="s">&quot;Field&quot;</span>
           <span class="nv">key: </span><span class="sr">/^[^$]/</span>
           <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
         <span class="p">]</span>
@@ -127,13 +137,61 @@
     <span class="nv">title: </span><span class="s">&quot;Named Fields&quot;</span>
     <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
     <span class="nv">entries: </span><span class="p">[</span>
-      <span class="nv">key: </span><span class="sr">/^$(value)/</span>
+      <span class="nv">key: </span><span class="sr">/^\$/</span>
       <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
     <span class="p">,</span>
       <span class="nv">key: </span><span class="sr">/^[^$]/</span>
       <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
     <span class="p">]</span>
   <span class="p">]</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="distinct">
+  <h3>
+    <a href="#distinct" name="distinct" class="pilcrow">&#182;</a>
+    DISTINCT
+  </h3>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">distinct =</span>
+  <span class="nv">title: </span><span class="s">&quot;Distinct Row&quot;</span>
+  <span class="nv">description: </span><span class="s">&quot;a flag triggering remove of duplicate results&quot;</span>
+  <span class="nv">type: </span><span class="s">&#39;boolean&#39;</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="join%20definition%20for%20tables">
+  <h3>
+    <a href="#join%20definition%20for%20tables" name="join%20definition%20for%20tables" class="pilcrow">&#182;</a>
+    join definition for tables
+  </h3>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">join =</span>
+  <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
+  <span class="nv">allowedKeys: </span><span class="kc">true</span>
+  <span class="nv">keys:</span>
+    <span class="nv">join:</span>
+      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+      <span class="nv">list: </span><span class="p">[</span><span class="s">&#39;left&#39;</span><span class="p">,</span> <span class="s">&#39;right&#39;</span><span class="p">,</span> <span class="s">&#39;inner&#39;</span><span class="p">,</span> <span class="s">&#39;outer&#39;</span><span class="p">]</span>
+    <span class="kc">on</span><span class="o">:</span>
+      <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
+      <span class="nv">entries: </span><span class="p">[</span>
+        <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+      <span class="p">]</span>
 
 
 </pre></div>
@@ -151,20 +209,56 @@
         </td>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="nv">table =</span>
+  <span class="nv">title: </span><span class="s">&quot;Tables&quot;</span>
+  <span class="nv">description: </span><span class="s">&quot;the table data will be retrieved&quot;</span>
   <span class="nv">type: </span><span class="s">&#39;or&#39;</span>
   <span class="o">or:</span> <span class="p">[</span>
+    <span class="nv">title: </span><span class="s">&quot;Table&quot;</span>
     <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
   <span class="p">,</span>
+    <span class="nv">title: </span><span class="s">&quot;List of Tables&quot;</span>
     <span class="nv">type: </span><span class="s">&#39;array&#39;</span>
     <span class="nv">entries:</span>
-      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+      <span class="nv">type: </span><span class="s">&#39;or&#39;</span>
+      <span class="o">or:</span> <span class="p">[</span>
+        <span class="nv">title: </span><span class="s">&quot;Table&quot;</span>
+        <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+      <span class="p">,</span>
+        <span class="nv">title: </span><span class="s">&quot;Table Object&quot;</span>
+        <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
+        <span class="nv">entries: </span><span class="p">[</span>
+          <span class="nv">type: </span><span class="s">&#39;or&#39;</span>
+          <span class="o">or:</span> <span class="p">[</span>
+            <span class="nx">join</span>
+          <span class="p">,</span>
+            <span class="nv">title: </span><span class="s">&quot;Named Table&quot;</span>
+            <span class="nv">type: </span><span class="s">&#39;or&#39;</span>
+            <span class="o">or:</span> <span class="p">[</span>
+              <span class="nx">join</span>
+            <span class="p">,</span>
+              <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+            <span class="p">]</span>
+          <span class="p">]</span>
+        <span class="p">]</span>
+      <span class="p">]</span>
   <span class="p">,</span>
+    <span class="nv">title: </span><span class="s">&quot;Table Object&quot;</span>
     <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
     <span class="nv">entries: </span><span class="p">[</span>
-      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+      <span class="nv">type: </span><span class="s">&#39;or&#39;</span>
+      <span class="o">or:</span> <span class="p">[</span>
+        <span class="nx">join</span>
+      <span class="p">,</span>
+        <span class="nv">title: </span><span class="s">&quot;Named Table&quot;</span>
+        <span class="nv">type: </span><span class="s">&#39;or&#39;</span>
+        <span class="o">or:</span> <span class="p">[</span>
+          <span class="nx">join</span>
+        <span class="p">,</span>
+          <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+        <span class="p">]</span>
+      <span class="p">]</span>
     <span class="p">]</span>
   <span class="p">]</span>
-
 
 
 </pre></div>
@@ -198,12 +292,17 @@
         </td>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="nv">select =</span>
+  <span class="nv">title: </span><span class="s">&quot;Selection&quot;</span>
+  <span class="nv">description: </span><span class="s">&quot;the setup of what to retrieve from the database&quot;</span>
   <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
   <span class="nv">allowedKeys: </span><span class="kc">true</span>
   <span class="nv">mandatoryKeys: </span><span class="p">[</span><span class="s">&#39;select&#39;</span><span class="p">]</span>
   <span class="nv">keys:</span>
     <span class="nv">select: </span><span class="nx">field</span>
+    <span class="nv">distinct: </span><span class="nx">distinct</span>
     <span class="nv">from: </span><span class="nx">table</span>
+    <span class="k">while</span><span class="o">:</span>
+      <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
 
 
 
@@ -223,6 +322,8 @@
         <td class="code highlight"><div class="highlight"><pre>
 
 <span class="nv">module.exports.schema =</span>
+  <span class="nv">title: </span><span class="s">&quot;SQL Object&quot;</span>
+  <span class="nv">selection: </span><span class="s">&quot;the SQL as object notation&quot;</span>
   <span class="nv">type: </span><span class="s">&#39;or&#39;</span>
   <span class="o">or:</span> <span class="p">[</span><span class="nx">select</span><span class="p">]</span>
 </pre></div>

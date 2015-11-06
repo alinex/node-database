@@ -56,10 +56,21 @@
    <span class="p-Indicator">-</span> <span class="s">&quot;0.10&quot;</span>
    <span class="p-Indicator">-</span> <span class="s">&quot;0.12&quot;</span>
    <span class="p-Indicator">-</span> <span class="s">&quot;4.2&quot;</span>
+<span class="l-Scalar-Plain">addons</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">postgresql</span><span class="p-Indicator">:</span> <span class="s">&quot;9.4&quot;</span>
 <span class="l-Scalar-Plain">env</span><span class="p-Indicator">:</span>
-  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">MYSQL_HOST=localhost MYSQL_DATABASE=test_db MYSQL_USER=root MYSQL_PASSWORD=</span>
+  <span class="l-Scalar-Plain">global</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">MYSQL_HOST=localhost</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">MYSQL_DATABASE=test_db</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">MYSQL_USER=root</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">MYSQL_PASSWORD=</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">POSTGRES_HOST=localhost</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">POSTGRES_DATABASE=test_db</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">OOSTGRES_USER=postgres</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">POSTGRES_PASSWORD=</span>
 <span class="l-Scalar-Plain">before_script</span><span class="p-Indicator">:</span>
-  <span class="p-Indicator">-</span> <span class="s">&quot;mysql</span><span class="nv"> </span><span class="s">-e</span><span class="nv"> </span><span class="s">&#39;create</span><span class="nv"> </span><span class="s">database</span><span class="nv"> </span><span class="s">test_db;&#39;&quot;</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">mysql -e &#39;create database test_db;&#39;</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">psql -c &#39;create database test_db;&#39; -U postgres</span>
 <span class="l-Scalar-Plain">after_success</span><span class="p-Indicator">:</span>
    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">COVERALLS_SERVICE_NAME=travis-ci COVERALLS_REPO_TOKEN=7lmtywEWb8VitLviZro6EfJTu4Kfy0mXI node_modules/.bin/builder -c test --coverage --coveralls</span>
 </pre></div>

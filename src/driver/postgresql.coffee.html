@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>mysql.coffee</title>
+  <title>postgresql.coffee</title>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <link rel="stylesheet" media="all" href="../../doc-style.css" />
   <script src="../../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../../", thisFile = "home/alex/a3/node-database/src/driver/mysqlcoffee", defaultSidebar = true;
+    var relativeDir = "../../", thisFile = "home/alex/a3/node-database/src/driver/postgresqlcoffee", defaultSidebar = true;
   </script>
   <script src="../../doc-script.js"></script>
   <script src="../../fileSearch.js"></script>
@@ -33,10 +33,13 @@
     <div id="tree"></div>
     <div id="headings">
       <div class="heading h1">
-        <a href="#mysql%20access">Mysql access</a>
+        <a href="#postgresql%20access">PostgreSQL access</a>
       </div>
       <div class="heading h2">
         <a href="#node%20modules">Node Modules</a>
+      </div>
+      <div class="heading h2">
+        <a href="#setup">Setup</a>
       </div>
       <div class="heading h2">
         <a href="#database%20class">Database class</a>
@@ -91,33 +94,17 @@
   <tbody>
       <tr>
         <td class="docs">
-<div class="pilwrap" id="mysql%20access">
+<div class="pilwrap" id="postgresql%20access">
   <h1>
-    <a href="#mysql%20access" name="mysql%20access" class="pilcrow">&#182;</a>
-    Mysql access
+    <a href="#postgresql%20access" name="postgresql%20access" class="pilcrow">&#182;</a>
+    PostgreSQL access
   </h1>
 </div>
 
 
-<p>This package will give you an easy and robust way to access mysql databases.</p>
+<p>This package will give you an easy and robust way to access PostgreSQL databases.</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre></pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-2" id="section-2">&#182;</a>
-</div>
-<p><a href='https://github.com/Finanzchef24-GmbH/tunnel-ssh/blob/master/index.js'>https://github.com/Finanzchef24-GmbH/tunnel-ssh/blob/master/index.js</a> -> copy
-<a href='https://github.com/felixge/node-mysql/'>https://github.com/felixge/node-mysql/</a> -> use
-<a href='https://github.com/brianc/node-postgres/tree/master/lib'>https://github.com/brianc/node-postgres/tree/master/lib</a> -> use
-<a href='https://github.com/mapbox/node-sqlite3'>https://github.com/mapbox/node-sqlite3</a> -> use</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-
-
-</pre></div>
         </td>
       </tr>
       <tr>
@@ -139,10 +126,9 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-4" id="section-4">&#182;</a>
+  <a class="pilcrow" href="#section-3" id="section-3">&#182;</a>
 </div>
-<p>include base modules
-debug = require('debug')('db:mysql')</p>
+<p>include base modules</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="nv">debugPool = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;debug&#39;</span><span class="p">)(</span><span class="s">&#39;database:pool&#39;</span><span class="p">)</span>
@@ -152,8 +138,7 @@ debug = require('debug')('db:mysql')</p>
 <span class="nv">debugCom = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;debug&#39;</span><span class="p">)(</span><span class="s">&#39;database:com&#39;</span><span class="p">)</span>
 <span class="nv">chalk = </span><span class="nx">require</span> <span class="s">&#39;chalk&#39;</span>
 <span class="nv">util = </span><span class="nx">require</span> <span class="s">&#39;util&#39;</span>
-<span class="nv">mysql = </span><span class="nx">require</span> <span class="s">&#39;mysql&#39;</span>
-<span class="nv">SqlString = </span><span class="nx">require</span> <span class="s">&#39;mysql/lib/protocol/SqlString&#39;</span>
+<span class="nv">pg = </span><span class="nx">require</span> <span class="s">&#39;pg&#39;</span>
 
 </pre></div>
         </td>
@@ -161,7 +146,7 @@ debug = require('debug')('db:mysql')</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-5" id="section-5">&#182;</a>
+  <a class="pilcrow" href="#section-4" id="section-4">&#182;</a>
 </div>
 <p>require alinex modules</p>
         </td>
@@ -174,12 +159,34 @@ debug = require('debug')('db:mysql')</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-6" id="section-6">&#182;</a>
+  <a class="pilcrow" href="#section-5" id="section-5">&#182;</a>
 </div>
 <p>loading helper modules</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="nv">object2sql = </span><span class="nx">require</span> <span class="s">&#39;../object2sql&#39;</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="setup">
+  <h2>
+    <a href="#setup" name="setup" class="pilcrow">&#182;</a>
+    Setup
+  </h2>
+</div>
+
+
+<p>Return int8 values as integer -> maybe problematic on large values because
+javascript can't handle this.
+pg.setTypeParser 20, (val) ->
+ # remember: all values returned from the server are either NULL or a string
+ return val === null ? null : parseInt val</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
 
 
 </pre></div>
@@ -196,7 +203,7 @@ debug = require('debug')('db:mysql')</p>
 
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="k">class</span> <span class="nx">Mysql</span>
+<span class="k">class</span> <span class="nx">Postgresql</span>
 
 
 </pre></div>
@@ -234,6 +241,8 @@ better use the <code>instance()</code> method which implements the factory patte
         <td class="code highlight"><div class="highlight"><pre>
   <span class="nv">constructor: </span><span class="nf">(@name, @conf) -&gt;</span>
     <span class="vi">@tries = </span><span class="mi">0</span>
+    <span class="vi">@connectionNum = </span><span class="mi">0</span>
+    <span class="nv">pg.defaults.poolSize = </span><span class="nx">@conf</span><span class="p">.</span><span class="nx">pool</span><span class="o">?</span><span class="p">.</span><span class="nx">limit</span>
 
   <span class="nv">close: </span><span class="nf">(cb = -&gt; ) -&gt;</span>
     <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">unless</span> <span class="nx">@pool</span><span class="o">?</span>
@@ -270,6 +279,10 @@ better use the <code>instance()</code> method which implements the factory patte
         </td>
         <td class="code highlight"><div class="highlight"><pre>
   <span class="nv">connect: </span><span class="nf">(cb) -&gt;</span>
+    <span class="nv">setup = </span><span class="nx">object</span><span class="p">.</span><span class="nx">extend</span>
+      <span class="nv">application_name: </span><span class="nx">process</span><span class="p">.</span><span class="nx">title</span>
+      <span class="nv">fallback_application_name: </span><span class="s">&#39;alinex-database&#39;</span>
+    <span class="p">,</span> <span class="nx">@conf</span><span class="p">.</span><span class="nx">access</span>
 
 </pre></div>
         </td>
@@ -279,25 +292,19 @@ better use the <code>instance()</code> method which implements the factory patte
 <div class="pilwrap">
   <a class="pilcrow" href="#section-12" id="section-12">&#182;</a>
 </div>
-<p>instantiate pool if not already done</p>
+<p>console.log 'client', util.inspect client, {depth:null}</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-    <span class="k">unless</span> <span class="nx">@pool</span><span class="o">?</span>
-      <span class="nx">debugPool</span> <span class="s">&quot;initialize connection pool for </span><span class="si">#{</span><span class="nx">@name</span><span class="si">}</span><span class="s">&quot;</span>
-      <span class="nv">setup = </span><span class="nx">object</span><span class="p">.</span><span class="nx">extend</span>
-        <span class="nv">connectionLimit: </span><span class="nx">@conf</span><span class="p">.</span><span class="nx">pool</span><span class="o">?</span><span class="p">.</span><span class="nx">limit</span>
-        <span class="nv">multipleStatements: </span><span class="kc">true</span>
-      <span class="p">,</span> <span class="nx">@conf</span><span class="p">.</span><span class="nx">access</span>
-      <span class="nx">debugPool</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;set pool limit to </span><span class="si">#{</span><span class="nx">setup</span><span class="p">.</span><span class="nx">connectionLimit</span><span class="si">}</span><span class="s">&quot;</span> <span class="k">if</span> <span class="nx">setup</span><span class="p">.</span><span class="nx">connectionLimit</span>
-      <span class="vi">@pool = </span><span class="nx">mysql</span><span class="p">.</span><span class="nx">createPool</span> <span class="nx">setup</span>
-      <span class="nx">@pool</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;connection&#39;</span><span class="p">,</span> <span class="nf">(conn) =&gt;</span>
-        <span class="nv">conn.name = </span><span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;[</span><span class="si">#{</span><span class="nx">@name</span><span class="si">}</span><span class="err">#</span><span class="si">#{</span><span class="nx">conn</span><span class="p">.</span><span class="nx">_socket</span><span class="p">.</span><span class="nx">_handle</span><span class="p">.</span><span class="nx">fd</span><span class="si">}</span><span class="s">]&quot;</span>
-        <span class="nx">debugPool</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">conn</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="s"> open connection&quot;</span>
-        <span class="nx">conn</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;error&#39;</span><span class="p">,</span> <span class="nf">(err) -&gt;</span>
-          <span class="nx">debug</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">conn</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="s"> uncatched </span><span class="si">#{</span><span class="nx">err</span><span class="si">}</span><span class="s"> on connection&quot;</span>
-      <span class="nx">@pool</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;enqueue&#39;</span><span class="p">,</span> <span class="o">=&gt;</span>
-        <span class="nv">name = </span><span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;[</span><span class="si">#{</span><span class="nx">@name</span><span class="si">}</span><span class="s">]&quot;</span>
-        <span class="nx">debugPool</span> <span class="s">&quot;{@name} waiting for connection&quot;</span>
+    <span class="nx">debugPool</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="nx">@name</span><span class="si">}</span><span class="s"> retrieve connection&quot;</span>
+    <span class="nx">pg</span><span class="p">.</span><span class="nx">connect</span> <span class="nx">setup</span><span class="p">,</span> <span class="nf">(err, conn, done) =&gt;</span>
+      <span class="k">if</span> <span class="nx">err</span>
+        <span class="nx">done</span><span class="p">()</span>
+        <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span>
+      <span class="k">if</span> <span class="nx">conn</span><span class="p">.</span><span class="nx">alinex</span><span class="o">?</span>
+        <span class="nx">debugPool</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">conn</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="s"> reuse connection&quot;</span>
+        <span class="k">return</span> <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">conn</span>
+      <span class="nv">conn.name = </span><span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;[</span><span class="si">#{</span><span class="nx">@name</span><span class="si">}</span><span class="err">#</span><span class="si">#{</span><span class="o">++</span><span class="nx">@connectionNum</span><span class="si">}</span><span class="s">]&quot;</span> <span class="k">unless</span> <span class="nx">conn</span><span class="p">.</span><span class="nx">name</span><span class="o">?</span>
+      <span class="nx">debugPool</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">conn</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="s"> opened new connection&quot;</span>
 
 </pre></div>
         </td>
@@ -307,18 +314,29 @@ better use the <code>instance()</code> method which implements the factory patte
 <div class="pilwrap">
   <a class="pilcrow" href="#section-13" id="section-13">&#182;</a>
 </div>
-<p>get the connection</p>
+<p>add debugging</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-    <span class="nx">@pool</span><span class="p">.</span><span class="nx">getConnection</span> <span class="nf">(err, conn) =&gt;</span>
-      <span class="k">if</span> <span class="nx">err</span>
-        <span class="nx">debugCom</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span><span class="p">(</span><span class="s">&quot;[</span><span class="si">#{</span><span class="nx">@name</span><span class="si">}</span><span class="s">]&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot; </span><span class="si">#{</span><span class="nx">err</span><span class="si">}</span><span class="s"> while connecting&quot;</span>
-        <span class="k">if</span> <span class="nx">@tries</span> <span class="o">&gt;</span> <span class="mi">2</span> <span class="c1"># max retries to get a connection</span>
-          <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="si">}</span><span class="s"> while connecting to </span><span class="si">#{</span><span class="nx">@name</span><span class="si">}</span><span class="s"> database&quot;</span>
-        <span class="k">return</span> <span class="nx">setTimeout</span> <span class="o">=&gt;</span>
-          <span class="nx">@connect</span> <span class="nx">cb</span>
-        <span class="p">,</span> <span class="mi">1000</span> <span class="c1"># wait a second fbefore retry</span>
-      <span class="nx">debugPool</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">conn</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="s"> acquired connection&quot;</span>
+      <span class="nv">conn.release = </span><span class="nf">-&gt;</span>
+        <span class="nx">debugPool</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">conn</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="s"> release connection&quot;</span>
+        <span class="nx">done</span><span class="p">()</span>
+        <span class="nv">query = </span><span class="nx">conn</span><span class="p">.</span><span class="nx">query</span>
+        <span class="nv">conn.query = </span><span class="nf">(sql, data, cb) -&gt;</span>
+          <span class="k">unless</span> <span class="k">typeof</span> <span class="nx">cb</span> <span class="o">is</span> <span class="s">&#39;function&#39;</span>
+            <span class="nv">cb = </span><span class="nx">data</span>
+            <span class="nv">data = </span><span class="kc">null</span>
+          <span class="nv">data = </span><span class="p">[</span><span class="nx">data</span><span class="p">]</span> <span class="k">if</span> <span class="k">typeof</span> <span class="nx">data</span> <span class="o">is</span> <span class="s">&#39;string&#39;</span>
+          <span class="nx">debugCmd</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">conn</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">sql</span><span class="si">}#{</span>
+            <span class="k">if</span> <span class="nx">data</span> <span class="k">then</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span><span class="p">(</span><span class="s">&#39; with &#39;</span><span class="p">)</span> <span class="o">+</span> <span class="nx">util</span><span class="p">.</span><span class="nx">inspect</span> <span class="nx">data</span> <span class="k">else</span> <span class="s">&#39;&#39;</span>
+            <span class="si">}</span><span class="s">&quot;</span>
+          <span class="k">if</span> <span class="nx">cb</span>
+            <span class="nx">query</span><span class="p">.</span><span class="nx">apply</span> <span class="nx">conn</span><span class="p">,</span> <span class="p">[</span><span class="nx">sql</span><span class="p">,</span> <span class="nx">data</span><span class="p">,</span> <span class="nf">(err, result) -&gt;</span>
+              <span class="k">if</span> <span class="nx">err</span>
+                <span class="nx">debugResult</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">conn</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="si">}</span><span class="s">&quot;</span>
+              <span class="k">if</span> <span class="nx">result</span><span class="p">.</span><span class="nx">fields</span><span class="p">.</span><span class="nx">length</span>
+                <span class="nx">debugResult</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">conn</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="s"> fields: </span><span class="si">#{</span><span class="nx">util</span><span class="p">.</span><span class="nx">inspect</span> <span class="nx">result</span><span class="p">.</span><span class="nx">fields</span><span class="si">}</span><span class="s">&quot;</span>
+              <span class="k">if</span> <span class="nx">result</span><span class="p">.</span><span class="nx">rows</span><span class="p">.</span><span class="nx">length</span>
+                <span class="nx">debugData</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">conn</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">util</span><span class="p">.</span><span class="nx">inspect</span> <span class="nx">row</span><span class="si">}</span><span class="s">&quot;</span> <span class="k">for</span> <span class="nx">row</span> <span class="k">in</span> <span class="nx">result</span><span class="p">.</span><span class="nx">rows</span>
 
 </pre></div>
         </td>
@@ -328,27 +346,16 @@ better use the <code>instance()</code> method which implements the factory patte
 <div class="pilwrap">
   <a class="pilcrow" href="#section-14" id="section-14">&#182;</a>
 </div>
-<p>switch on debugging wih own method</p>
+
+<div class="highlight"><pre><code>         <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">result</span>
+</code></pre></div>
+
+
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-      <span class="nv">conn.config.debug = </span><span class="kc">true</span>
-      <span class="nv">conn._protocol._debugPacket = </span><span class="nf">(incoming, packet) -&gt;</span>
-        <span class="nv">dir = </span><span class="k">if</span> <span class="nx">incoming</span> <span class="k">then</span> <span class="s">&#39;&lt;--&#39;</span> <span class="k">else</span> <span class="s">&#39;--&gt;&#39;</span>
-        <span class="nv">msg = </span><span class="nx">util</span><span class="p">.</span><span class="nx">inspect</span> <span class="nx">packet</span>
-        <span class="k">switch</span> <span class="nx">packet</span><span class="p">.</span><span class="nx">constructor</span><span class="p">.</span><span class="nx">name</span>
-          <span class="k">when</span> <span class="s">&#39;ComQueryPacket&#39;</span>
-            <span class="nx">debugCmd</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">conn</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">packet</span><span class="p">.</span><span class="nx">sql</span><span class="si">}</span><span class="s">&quot;</span>
-          <span class="k">when</span> <span class="s">&#39;ResultSetHeaderPacket&#39;</span><span class="p">,</span> <span class="s">&#39;FieldPacket&#39;</span><span class="p">,</span> <span class="s">&#39;EofPacket&#39;</span>
-            <span class="nx">debugResult</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">conn</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">packet</span><span class="p">.</span><span class="nx">constructor</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="nx">msg</span><span class="si">}</span><span class="s">&quot;</span>
-          <span class="k">when</span> <span class="s">&#39;RowDataPacket&#39;</span>
-            <span class="nx">debugData</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">conn</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">msg</span><span class="si">}</span><span class="s">&quot;</span>
-          <span class="k">when</span> <span class="s">&#39;ComQuitPacket&#39;</span>
-            <span class="nx">debugPool</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">conn</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="s"> close connection&quot;</span>
-          <span class="k">else</span>
-            <span class="nx">debugCom</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">conn</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">dir</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">packet</span><span class="p">.</span><span class="nx">constructor</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="nx">msg</span><span class="si">}</span><span class="s">&quot;</span>
-      <span class="nv">conn.release = </span><span class="nf">-&gt;</span>
-        <span class="nx">debugPool</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">conn</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="s"> release connection</span>
-<span class="s">        (</span><span class="si">#{</span><span class="nx">@_pool</span><span class="p">.</span><span class="nx">_freeConnections</span><span class="p">.</span><span class="nx">length</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s">/</span><span class="si">#{</span><span class="nx">@_pool</span><span class="p">.</span><span class="nx">_allConnections</span><span class="p">.</span><span class="nx">length</span><span class="si">}</span><span class="s"> free)&quot;</span>
+              <span class="nx">cb</span> <span class="nx">err</span><span class="p">,</span> <span class="nx">result</span>
+            <span class="p">]</span>
+            <span class="k">return</span>
 
 </pre></div>
         </td>
@@ -358,23 +365,26 @@ better use the <code>instance()</code> method which implements the factory patte
 <div class="pilwrap">
   <a class="pilcrow" href="#section-15" id="section-15">&#182;</a>
 </div>
-<p>release code copied from original function</p>
+<p>called using events</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-        <span class="k">return</span> <span class="k">unless</span> <span class="nx">@_pool</span><span class="o">?</span> <span class="o">and</span> <span class="o">not</span> <span class="nx">@_pool</span><span class="p">.</span><span class="nx">_closed</span>
-        <span class="nx">@_pool</span><span class="p">.</span><span class="nx">releaseConnection</span> <span class="k">this</span>
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-16" id="section-16">&#182;</a>
-</div>
-<p>return the connection</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
+          <span class="nv">fn = </span><span class="nx">query</span><span class="p">.</span><span class="nx">apply</span> <span class="nx">conn</span><span class="p">,</span> <span class="p">[</span><span class="nx">sql</span><span class="p">,</span> <span class="nx">data</span><span class="p">]</span>
+          <span class="k">if</span> <span class="nx">debugCmd</span><span class="p">.</span><span class="nx">enabled</span> <span class="o">or</span> <span class="nx">debugData</span><span class="p">.</span><span class="nx">enabled</span> <span class="o">or</span> <span class="nx">debugResult</span><span class="p">.</span><span class="nx">enabled</span>
+            <span class="nx">fn</span><span class="p">.</span><span class="nx">on</span><span class="o">?</span> <span class="s">&#39;row&#39;</span><span class="p">,</span> <span class="nf">(row, result) -&gt;</span>
+              <span class="nx">debugData</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">conn</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">row</span><span class="si">}</span><span class="s">&quot;</span>
+            <span class="nx">fn</span><span class="p">.</span><span class="nx">on</span><span class="o">?</span> <span class="s">&#39;error&#39;</span><span class="p">,</span> <span class="nf">(err) -&gt;</span>
+              <span class="nx">debugResult</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">conn</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="si">}</span><span class="s">&quot;</span>
+            <span class="nx">fn</span><span class="p">.</span><span class="nx">on</span><span class="o">?</span> <span class="s">&#39;end&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span>
+              <span class="nx">debugCom</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">conn</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="s"> end query&quot;</span>
+          <span class="nx">fn</span>
+        <span class="k">if</span> <span class="nx">debugCom</span><span class="p">.</span><span class="nx">enabled</span>
+          <span class="nx">conn</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;drain&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span>
+            <span class="nx">debugCom</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">conn</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="s"> drained&quot;</span>
+          <span class="nx">conn</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;error&#39;</span><span class="p">,</span> <span class="nf">(err) -&gt;</span>
+            <span class="nx">debugCom</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">magenta</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">conn</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="s"> error: </span><span class="si">#{</span><span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="si">}</span><span class="s">&quot;</span>
+          <span class="nx">conn</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;notice&#39;</span><span class="p">,</span> <span class="nf">(msg) -&gt;</span>
+            <span class="nx">debugCom</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">conn</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="s"> notice: </span><span class="si">#{</span><span class="nx">msg</span><span class="si">}</span><span class="s">&quot;</span>
+        <span class="nv">conn.alinex = </span><span class="kc">true</span>
       <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">conn</span>
 
 
@@ -419,7 +429,7 @@ better use the <code>instance()</code> method which implements the factory patte
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-19" id="section-19">&#182;</a>
+  <a class="pilcrow" href="#section-18" id="section-18">&#182;</a>
 </div>
 <p>replace placeholders</p>
         </td>
@@ -432,17 +442,19 @@ better use the <code>instance()</code> method which implements the factory patte
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-20" id="section-20">&#182;</a>
+  <a class="pilcrow" href="#section-19" id="section-19">&#182;</a>
 </div>
 <p>run the query</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
     <span class="nx">@connect</span> <span class="nf">(err, conn) -&gt;</span>
-      <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;MySQL Error: </span><span class="si">#{</span><span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="si">}</span><span class="s">&quot;</span> <span class="k">if</span> <span class="nx">err</span>
+      <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;PostgreSQL Error: </span><span class="si">#{</span><span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="si">}</span><span class="s">&quot;</span> <span class="k">if</span> <span class="nx">err</span>
       <span class="nx">conn</span><span class="p">.</span><span class="nx">query</span> <span class="nx">sql</span><span class="p">,</span> <span class="nf">(err, result) -&gt;</span>
         <span class="nx">conn</span><span class="p">.</span><span class="nx">release</span><span class="p">()</span>
-        <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;MySQL Error: </span><span class="si">#{</span><span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="si">}</span><span class="s"> in </span><span class="si">#{</span><span class="nx">sql</span><span class="si">}</span><span class="s">&quot;</span> <span class="k">if</span> <span class="nx">err</span>
-        <span class="nx">cb</span> <span class="nx">err</span><span class="p">,</span> <span class="nx">result</span><span class="p">.</span><span class="nx">affectedRows</span><span class="p">,</span> <span class="nx">result</span><span class="p">.</span><span class="nx">insertId</span>
+        <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;PostgreSQL Error: </span><span class="si">#{</span><span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="si">}</span><span class="s"> in </span><span class="si">#{</span><span class="nx">sql</span><span class="si">}</span><span class="s">&quot;</span> <span class="k">if</span> <span class="nx">err</span>
+        <span class="nv">match = </span><span class="nx">sql</span><span class="p">.</span><span class="nx">match</span> <span class="sr">/\sRETURNING\s+(\S+)/</span>
+        <span class="nv">lastId = </span><span class="nx">result</span><span class="p">.</span><span class="nx">rows</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">?</span><span class="p">[</span><span class="nx">match</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span> <span class="k">if</span> <span class="nx">match</span><span class="o">?</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">?</span>
+        <span class="nx">cb</span> <span class="nx">err</span><span class="p">,</span> <span class="nx">result</span><span class="p">.</span><span class="nx">rowCount</span><span class="p">,</span> <span class="nx">lastId</span>
 
 
 </pre></div>
@@ -470,7 +482,7 @@ better use the <code>instance()</code> method which implements the factory patte
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-22" id="section-22">&#182;</a>
+  <a class="pilcrow" href="#section-21" id="section-21">&#182;</a>
 </div>
 <p>replace placeholders</p>
         </td>
@@ -483,17 +495,17 @@ better use the <code>instance()</code> method which implements the factory patte
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-23" id="section-23">&#182;</a>
+  <a class="pilcrow" href="#section-22" id="section-22">&#182;</a>
 </div>
 <p>run the query</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
     <span class="nx">@connect</span> <span class="nf">(err, conn) -&gt;</span>
-      <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;MySQL Error: </span><span class="si">#{</span><span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="si">}</span><span class="s">&quot;</span> <span class="k">if</span> <span class="nx">err</span>
-      <span class="nx">conn</span><span class="p">.</span><span class="nx">query</span> <span class="nx">sql</span><span class="p">,</span> <span class="nf">(err, result) -&gt;</span>
+      <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;PostgreSQL Error: </span><span class="si">#{</span><span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="si">}</span><span class="s">&quot;</span> <span class="k">if</span> <span class="nx">err</span>
+      <span class="nx">conn</span><span class="p">.</span><span class="nx">query</span> <span class="nx">sql</span><span class="p">,</span> <span class="nx">data</span><span class="p">,</span> <span class="nf">(err, result) -&gt;</span>
         <span class="nx">conn</span><span class="p">.</span><span class="nx">release</span><span class="p">()</span>
-        <span class="nv">err = </span><span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;MySQL Error: </span><span class="si">#{</span><span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="si">}</span><span class="s"> in </span><span class="si">#{</span><span class="nx">sql</span><span class="si">}</span><span class="s">&quot;</span> <span class="k">if</span> <span class="nx">err</span>
-        <span class="nx">cb</span> <span class="nx">err</span><span class="p">,</span> <span class="nx">result</span>
+        <span class="nv">err = </span><span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;PostgreSQL Error: </span><span class="si">#{</span><span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="si">}</span><span class="s"> in </span><span class="si">#{</span><span class="nx">sql</span><span class="si">}</span><span class="s">&quot;</span> <span class="k">if</span> <span class="nx">err</span>
+        <span class="nx">cb</span> <span class="nx">err</span><span class="p">,</span> <span class="nx">result</span><span class="o">?</span><span class="p">.</span><span class="nx">rows</span>
 
 
 </pre></div>
@@ -633,8 +645,8 @@ better use the <code>instance()</code> method which implements the factory patte
 
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">escape: </span><span class="nx">SqlString</span><span class="p">.</span><span class="nx">escape</span>
-  <span class="nv">escapeId: </span><span class="nx">SqlString</span><span class="p">.</span><span class="nx">escapeId</span>
+  <span class="nv">escape: </span><span class="nf">-&gt;</span><span class="c1">#SqlString.escape</span>
+  <span class="nv">escapeId: </span><span class="nf">-&gt;</span><span class="c1">#SqlString.escapeId</span>
 
   <span class="nv">sql: </span><span class="nf">(sql, data) -&gt;</span>
     <span class="k">if</span> <span class="k">typeof</span> <span class="nx">sql</span> <span class="o">isnt</span> <span class="s">&#39;string&#39;</span>
@@ -645,7 +657,7 @@ better use the <code>instance()</code> method which implements the factory patte
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-31" id="section-31">&#182;</a>
+  <a class="pilcrow" href="#section-30" id="section-30">&#182;</a>
 </div>
 <p>object syntax</p>
         </td>
@@ -659,13 +671,15 @@ better use the <code>instance()</code> method which implements the factory patte
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-32" id="section-32">&#182;</a>
+  <a class="pilcrow" href="#section-31" id="section-31">&#182;</a>
 </div>
 <p>placeholder</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-      <span class="k">return</span> <span class="nx">SqlString</span><span class="p">.</span><span class="nx">format</span> <span class="nx">sql</span><span class="p">,</span> <span class="nx">data</span>
+      <span class="k">return</span> <span class="c1">#SqlString.format sql, data</span>
     <span class="nx">sql</span>
+
+
 
 
 </pre></div>
@@ -681,10 +695,10 @@ better use the <code>instance()</code> method which implements the factory patte
 </div>
 
 
-<p>The mysql class is exported directly.</p>
+<p>The postgresql class is exported directly.</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">module.exports = </span><span class="nx">Mysql</span>
+<span class="nv">module.exports = </span><span class="nx">Postgresql</span>
 </pre></div>
         </td>
       </tr>

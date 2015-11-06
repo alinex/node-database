@@ -41,6 +41,15 @@
       <div class="heading h2">
         <a href="#usage">Usage</a>
       </div>
+      <div class="heading h3">
+        <a href="#only%20connection%20handling">Only connection handling</a>
+      </div>
+      <div class="heading h3">
+        <a href="#sql%20access">SQL Access</a>
+      </div>
+      <div class="heading h3">
+        <a href="#streaming">Streaming</a>
+      </div>
       <div class="heading h2">
         <a href="#configuration">Configuration</a>
       </div>
@@ -50,6 +59,9 @@
       <div class="heading h3">
         <a href="#mysql">MySQL</a>
       </div>
+      <div class="heading h3">
+        <a href="#postgresql">PostgreSQL</a>
+      </div>
       <div class="heading h2">
         <a href="#placeholder%20syntax">Placeholder Syntax</a>
       </div>
@@ -57,25 +69,25 @@
         <a href="#object%20to%20query%20language">Object to Query Language</a>
       </div>
       <div class="heading h3">
-        <a href="#relational%20databases">Relational Databases</a>
-      </div>
-      <div class="heading h3">
         <a href="#general%20notation">General Notation</a>
       </div>
       <div class="heading h3">
-        <a href="#mysql">MySQL</a>
+        <a href="#relational%20databases">Relational Databases</a>
       </div>
       <div class="heading h4">
         <a href="#select">SELECT</a>
       </div>
       <div class="heading h4">
+        <a href="#distinct">DISTINCT</a>
+      </div>
+      <div class="heading h4">
         <a href="#from">FROM</a>
       </div>
-      <div class="heading h3">
-        <a href="#todo">TODO</a>
+      <div class="heading h4">
+        <a href="#where">WHERE</a>
       </div>
-      <div class="heading h1">
-        <a href="#function%20%24distinct%20%24count">function $distinct $count</a>
+      <div class="heading h4">
+        <a href="#functions">Functions</a>
       </div>
       <div class="heading h2">
         <a href="#license">License</a>
@@ -130,7 +142,7 @@ and usable with query language builder.</p>
 (from within you node modules directory):</p>
 
 
-<div class="highlight"><pre><code>npm install alinex-config --save
+<div class="highlight"><pre><code>npm install alinex-config - -save
 </code></pre></div>
 
 
@@ -151,6 +163,17 @@ and usable with query language builder.</p>
     <a href="#usage" name="usage" class="pilcrow">&#182;</a>
     Usage
   </h2>
+</div>
+
+
+<p>You can use different level of abstraction as you like.</p>
+
+
+<div class="pilwrap" id="only%20connection%20handling">
+  <h3>
+    <a href="#only%20connection%20handling" name="only%20connection%20handling" class="pilcrow">&#182;</a>
+    Only connection handling
+  </h3>
 </div>
 
 
@@ -182,7 +205,26 @@ a mysql database:</p>
 <p>The configuration for the connection is done in the <code>database</code> section of the
 configuration used via <a href="http://alinex.github.io/node-config">Config</a>.</p>
 
-<p>To query the database you may also use one of the higher methods:</p>
+
+<div class="pilwrap" id="sql%20access">
+  <h3>
+    <a href="#sql%20access" name="sql%20access" class="pilcrow">&#182;</a>
+    SQL Access
+  </h3>
+</div>
+
+
+<p>Instead of using the connection directly you may use the higher methods:</p>
+
+<ul>
+<li><code>list()</code> - get an array of record objects</li>
+<li><code>record()</code> - get one record as object</li>
+<li><code>value()</code> - get the value of the first field</li>
+<li><code>column()</code> - get an array of values from the first column</li>
+<li><code>exec()</code> - update/insert or other execution statements</li>
+</ul>
+
+<p>With this methods you can also use one of the higher SQL Builders:</p>
 
 <ul>
 <li>using placeholder for variables</li>
@@ -192,14 +234,17 @@ configuration used via <a href="http://alinex.github.io/node-config">Config</a>.
 <p>They make it easier readable and helps preventing problems. See the description
 below.</p>
 
-<p>And instead of using the <code>query()</code> method you may also use some of the higher methods:</p>
 
-<ul>
-<li><code>list()</code> - egt an array of record objects</li>
-<li><code>record()</code> - get one record as object</li>
-<li><code>value()</code> - get the value of the first field</li>
-<li><code>column()</code> - get an array of values from the first column</li>
-</ul>
+<div class="pilwrap" id="streaming">
+  <h3>
+    <a href="#streaming" name="streaming" class="pilcrow">&#182;</a>
+    Streaming
+  </h3>
+</div>
+
+
+<p>For large data sets, please use the native streaming possibilities till we can
+implement some common behavior here.</p>
 
 
 <div class="pilwrap" id="configuration">
@@ -276,6 +321,12 @@ below.</p>
 </div>
 
 
+<p>The different supported databases have a lot in common, but differ in some ways.</p>
+
+<p>In general you always can use only the connection handling using <code>db.connect()</code>
+to get a connection of the database driver behind. If you want to use this directly
+look at the API behind each abstraction layer.</p>
+
 
 <div class="pilwrap" id="mysql">
   <h3>
@@ -285,7 +336,29 @@ below.</p>
 </div>
 
 
-<p>The first driver implemented was the mysql driver.</p>
+<p>Use the (Driver API)[<a href='https://github.com/felixge/node-mysql'>https://github.com/felixge/node-mysql</a>] if you want to work
+directly on the retrieved connections.</p>
+
+<p>You can also use ? and ?? placeholder syntax from the driver.</p>
+
+<p>Here you need to know that if you use '*' as field specifier the same name may
+occur multiple times in the result set, so that they override each over in the
+resulting object and the last one will be visible. To prevent this specify this
+columns with an alias name.</p>
+
+
+<div class="pilwrap" id="postgresql">
+  <h3>
+    <a href="#postgresql" name="postgresql" class="pilcrow">&#182;</a>
+    PostgreSQL
+  </h3>
+</div>
+
+
+<p>Use the (Driver API)[<a href='https://github.com/brianc/node-postgres'>https://github.com/brianc/node-postgres</a>] if you want to work
+directly on the retrieved connections.</p>
+
+<p>You can also use $1... placeholder syntax from the driver.</p>
 
 
 <div class="pilwrap" id="placeholder%20syntax">
@@ -332,6 +405,26 @@ objects:</p>
 <p>The next possibility is to use a complete object notation instead of a string.</p>
 
 
+<div class="pilwrap" id="general%20notation">
+  <h3>
+    <a href="#general%20notation" name="general%20notation" class="pilcrow">&#182;</a>
+    General Notation
+  </h3>
+</div>
+
+
+<p>To make the notation clean and prevent misleading situations the values have to
+be prefixed with:</p>
+
+<ul>
+<li>@... for names like table and fields</li>
+<li>$... for functions</li>
+<li>? used as value will be a placeholder like before and used with the given dataset</li>
+</ul>
+
+<p>All other values are used as is and quoted or converted like needed.</p>
+
+
 <div class="pilwrap" id="relational%20databases">
   <h3>
     <a href="#relational%20databases" name="relational%20databases" class="pilcrow">&#182;</a>
@@ -340,7 +433,8 @@ objects:</p>
 </div>
 
 
-<p>Here you define your query like an object. With mysql this may look like:</p>
+<p>Here you define your query like an object. The structure looks much like the
+SQL dialect itself to make it easy:</p>
 
 
 <div class="highlight"><pre><code>  <span class="nx">conn</span><span class="p">.</span><span class="nx">query</span>
@@ -355,39 +449,10 @@ objects:</p>
 
 
 <p>The object notation is easier to read and can be created step by step.
-Also the object will be validated if run with <code>DEBUG=database</code> flag.</p>
+Also the object will be validated if run with <code>DEBUG=database*</code> flag.</p>
 
-
-<div class="pilwrap" id="general%20notation">
-  <h3>
-    <a href="#general%20notation" name="general%20notation" class="pilcrow">&#182;</a>
-    General Notation
-  </h3>
-</div>
-
-
-<p>To make the notation clean and prevent misleading situations the value has to
-be prefixed with:</p>
-
-<ul>
-<li>@... for names like tabel and fields</li>
-<li>$... for functions</li>
-<li>? used as value will be a placeholder like before and used with the given dataset</li>
-</ul>
-
-<p>All other values are used as is and quoted or converted like needed.</p>
-
-
-<div class="pilwrap" id="mysql_1">
-  <h3>
-    <a href="#mysql_1" name="mysql_1" class="pilcrow">&#182;</a>
-    MySQL
-  </h3>
-</div>
-
-
-<p>The following description will look on single parts of the whole object which
-you may out together as needed.</p>
+<p>The following description will explain all the possible keys (uppermost level)
+of the object structure you give to create the SQL string.</p>
 
 
 <div class="pilwrap" id="select">
@@ -433,6 +498,23 @@ you may out together as needed.</p>
 <span class="l-Scalar-Plain">select</span><span class="p-Indicator">:</span>
   <span class="l-Scalar-Plain">PersonName</span><span class="p-Indicator">:</span>
     <span class="l-Scalar-Plain">$count</span><span class="p-Indicator">:</span> <span class="s">&#39;*&#39;</span>
+</code></pre></div>
+
+
+
+
+<div class="pilwrap" id="distinct">
+  <h4>
+    <a href="#distinct" name="distinct" class="pilcrow">&#182;</a>
+    DISTINCT
+  </h4>
+</div>
+
+
+<p>If set the query will only return distinct (different) records:</p>
+
+
+<div class="highlight"><pre><code><span class="l-Scalar-Plain">distinct</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">true</span>
 </code></pre></div>
 
 
@@ -500,49 +582,68 @@ you may out together as needed.</p>
 
 
 
-<div class="pilwrap" id="todo">
-  <h3>
-    <a href="#todo" name="todo" class="pilcrow">&#182;</a>
-    TODO
-  </h3>
+<div class="pilwrap" id="where">
+  <h4>
+    <a href="#where" name="where" class="pilcrow">&#182;</a>
+    WHERE
+  </h4>
 </div>
 
 
+<p>Constraints can be defined using where. If no operator is given the field is
+checked against equality to the given value:</p>
 
-<div class="pilwrap" id="function%20%24distinct%20%24count">
-  <h1>
-    <a href="#function%20%24distinct%20%24count" name="function%20%24distinct%20%24count" class="pilcrow">&#182;</a>
-    function $distinct $count
-  </h1>
+
+<div class="highlight"><pre><code><span class="l-Scalar-Plain">where</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">age</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">30</span>
+</code></pre></div>
+
+
+
+<p>But you also can give any comparison operator of the ones listed below:</p>
+
+
+<div class="highlight"><pre><code><span class="l-Scalar-Plain">where</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">age</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">$gt</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">30</span>
+</code></pre></div>
+
+
+
+
+<div class="pilwrap" id="functions">
+  <h4>
+    <a href="#functions" name="functions" class="pilcrow">&#182;</a>
+    Functions
+  </h4>
 </div>
 
 
-<p>where:
-  age:
-    $or: [15, 30]
-  name:
-    $like: 'a%' # $or
-  age:
-    $gt: '@maxage'</p>
+<p><strong>Comparison</strong></p>
 
-<p>group: 'age'
-group: [...]</p>
+<ul>
+<li>eq - equal</li>
+<li>ne - not equal</li>
+<li>gt - greater than</li>
+<li>lt - lower than</li>
+<li>ge - greater or equal</li>
+<li>le - lower or equal</li>
+<li>like - like given pattern</li>
+<li>in - in list of values</li>
+<li>between - the given 'min' and 'max' values</li>
+</ul>
 
-<p>having:</p>
+<p><strong>Group functions</strong></p>
 
-<p>order: 'age'
-order: [...]
-order:
-  num: 'desc'
-order: [
-  $concat: []
-  sort: 'asc'
-,
-  num: 'asc'
-]</p>
+<ul>
+<li>count - number of entries</li>
+</ul>
 
-<p>limit: 5
-offset: 10</p>
+<p><strong>Special</strong></p>
+
+<ul>
+<li>value - used if value is needed on the left side of operator</li>
+</ul>
 
 
 <div class="pilwrap" id="license">

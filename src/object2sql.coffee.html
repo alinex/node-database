@@ -48,6 +48,18 @@
         <a href="#escape%20id">Escape ID</a>
       </div>
       <div class="heading h2">
+        <a href="#functions">Functions</a>
+      </div>
+      <div class="heading h3">
+        <a href="#comparison">Comparison</a>
+      </div>
+      <div class="heading h3">
+        <a href="#group%20functions">Group functions</a>
+      </div>
+      <div class="heading h3">
+        <a href="#special">Special</a>
+      </div>
+      <div class="heading h2">
         <a href="#conversion%20of%20subparts">Conversion of Subparts</a>
       </div>
       <div class="heading h3">
@@ -64,6 +76,12 @@
       </div>
       <div class="heading h4">
         <a href="#from">FROM</a>
+      </div>
+      <div class="heading h4">
+        <a href="#from">FROM</a>
+      </div>
+      <div class="heading h3">
+        <a href="#distinct">DISTINCT</a>
       </div>
       <div class="heading h2">
         <a href="#conversion%20of%20main%20types">Conversion of Main Types</a>
@@ -203,6 +221,82 @@
       </tr>
       <tr>
         <td class="docs">
+<div class="pilwrap" id="functions">
+  <h2>
+    <a href="#functions" name="functions" class="pilcrow">&#182;</a>
+    Functions
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">func =</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="comparison">
+  <h3>
+    <a href="#comparison" name="comparison" class="pilcrow">&#182;</a>
+    Comparison
+  </h3>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nv">eq: </span><span class="nf">(obj, driver) -&gt;</span> <span class="s">&quot;= </span><span class="si">#{</span><span class="nx">field</span> <span class="nx">obj</span><span class="p">,</span> <span class="nx">driver</span><span class="si">}</span><span class="s">&quot;</span>
+  <span class="nv">ne: </span><span class="nf">(obj, driver) -&gt;</span>  <span class="s">&quot;&lt;&gt; </span><span class="si">#{</span><span class="nx">field</span> <span class="nx">obj</span><span class="p">,</span> <span class="nx">driver</span><span class="si">}</span><span class="s">&quot;</span>
+  <span class="nv">gt: </span><span class="nf">(obj, driver) -&gt;</span>  <span class="s">&quot;&gt; </span><span class="si">#{</span><span class="nx">field</span> <span class="nx">obj</span><span class="p">,</span> <span class="nx">driver</span><span class="si">}</span><span class="s">&quot;</span>
+  <span class="nv">lt: </span><span class="nf">(obj, driver) -&gt;</span>  <span class="s">&quot;&lt; </span><span class="si">#{</span><span class="nx">field</span> <span class="nx">obj</span><span class="p">,</span> <span class="nx">driver</span><span class="si">}</span><span class="s">&quot;</span>
+  <span class="nv">ge: </span><span class="nf">(obj, driver) -&gt;</span>  <span class="s">&quot;&gt;= </span><span class="si">#{</span><span class="nx">field</span> <span class="nx">obj</span><span class="p">,</span> <span class="nx">driver</span><span class="si">}</span><span class="s">&quot;</span>
+  <span class="nv">le: </span><span class="nf">(obj, driver) -&gt;</span>  <span class="s">&quot;&lt;= </span><span class="si">#{</span><span class="nx">field</span> <span class="nx">obj</span><span class="p">,</span> <span class="nx">driver</span><span class="si">}</span><span class="s">&quot;</span>
+  <span class="nv">like: </span><span class="nf">(obj, driver) -&gt;</span>  <span class="s">&quot;LIKE </span><span class="si">#{</span><span class="nx">field</span> <span class="nx">obj</span><span class="p">,</span> <span class="nx">driver</span><span class="si">}</span><span class="s">&quot;</span>
+  <span class="k">in</span><span class="o">:</span> <span class="nf">(obj, driver) -&gt;</span>  <span class="s">&quot;IN(</span><span class="si">#{</span><span class="nx">field</span> <span class="nx">obj</span><span class="p">,</span> <span class="nx">driver</span><span class="si">}</span><span class="s">)&quot;</span>
+  <span class="nv">between: </span><span class="nf">(obj, driver) -&gt;</span>
+    <span class="s">&quot;BETWEEN </span><span class="si">#{</span><span class="nx">field</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">min</span><span class="p">,</span> <span class="nx">driver</span><span class="si">}</span><span class="s"> AND </span><span class="si">#{</span><span class="nx">field</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">max</span><span class="p">,</span> <span class="nx">driver</span><span class="si">}</span><span class="s">&quot;</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="group%20functions">
+  <h3>
+    <a href="#group%20functions" name="group%20functions" class="pilcrow">&#182;</a>
+    Group functions
+  </h3>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nv">count: </span><span class="nf">(obj, driver, as) -&gt;</span> <span class="s">&quot;COUNT(</span><span class="si">#{</span><span class="nx">field</span> <span class="nx">obj</span><span class="p">,</span> <span class="nx">driver</span><span class="p">,</span> <span class="nx">as</span><span class="si">}</span><span class="s">)&quot;</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="special">
+  <h3>
+    <a href="#special" name="special" class="pilcrow">&#182;</a>
+    Special
+  </h3>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nv">value: </span><span class="nf">(obj, driver) -&gt;</span> <span class="s">&quot;= </span><span class="si">#{</span><span class="nx">escape</span> <span class="nx">obj</span><span class="p">,</span> <span class="nx">driver</span><span class="si">}</span><span class="s">&quot;</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
 <div class="pilwrap" id="conversion%20of%20subparts">
   <h2>
     <a href="#conversion%20of%20subparts" name="conversion%20of%20subparts" class="pilcrow">&#182;</a>
@@ -228,7 +322,7 @@
 
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">field = </span><span class="nf">(obj, driver) -&gt;</span>
+<span class="nv">field = </span><span class="nf">(obj, driver, as = true) -&gt;</span>
   <span class="k">switch</span>
     <span class="k">when</span> <span class="nx">obj</span> <span class="o">is</span> <span class="s">&#39;*&#39;</span>
       <span class="nx">obj</span>
@@ -238,13 +332,20 @@
       <span class="k">else</span>
         <span class="nx">escape</span> <span class="nx">obj</span><span class="p">,</span> <span class="nx">driver</span>
     <span class="k">when</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">isArray</span> <span class="nx">obj</span>
-      <span class="nx">obj</span><span class="p">.</span><span class="nx">map</span> <span class="nf">(e) -&gt;</span> <span class="nx">field</span> <span class="nx">e</span><span class="p">,</span> <span class="nx">driver</span>
+      <span class="nx">obj</span><span class="p">.</span><span class="nx">map</span> <span class="nf">(e) -&gt;</span> <span class="nx">field</span> <span class="nx">e</span><span class="p">,</span> <span class="nx">driver</span><span class="p">,</span> <span class="nx">as</span>
       <span class="p">.</span><span class="nx">join</span> <span class="s">&#39;, &#39;</span>
-    <span class="k">else</span> <span class="c1"># object</span>
+    <span class="k">when</span> <span class="k">typeof</span> <span class="nx">obj</span> <span class="o">is</span> <span class="s">&#39;object&#39;</span>
       <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span> <span class="nx">obj</span>
       <span class="p">.</span><span class="nx">map</span> <span class="nf">(k) -&gt;</span>
-        <span class="nx">field</span><span class="p">(</span><span class="nx">obj</span><span class="p">[</span><span class="nx">k</span><span class="p">],</span> <span class="nx">driver</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39; AS &#39;</span> <span class="o">+</span> <span class="nx">escapeId</span> <span class="nx">k</span><span class="p">,</span> <span class="nx">driver</span>
+        <span class="k">if</span> <span class="nx">k</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">is</span> <span class="s">&#39;$&#39;</span>
+          <span class="nx">func</span><span class="p">[</span><span class="nx">k</span><span class="p">[</span><span class="mi">1</span><span class="p">..]]</span> <span class="nx">obj</span><span class="p">[</span><span class="nx">k</span><span class="p">],</span> <span class="nx">driver</span>
+        <span class="k">else</span> <span class="k">if</span> <span class="nx">as</span>
+          <span class="nx">field</span><span class="p">(</span><span class="nx">obj</span><span class="p">[</span><span class="nx">k</span><span class="p">],</span> <span class="nx">driver</span><span class="p">,</span> <span class="kc">false</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39; AS &#39;</span> <span class="o">+</span> <span class="nx">escapeId</span> <span class="nx">k</span><span class="p">,</span> <span class="nx">driver</span>
+        <span class="k">else</span>
+          <span class="nx">escapeId</span><span class="p">(</span><span class="nx">k</span><span class="p">,</span> <span class="nx">driver</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39; &#39;</span> <span class="o">+</span> <span class="nx">field</span><span class="p">(</span><span class="nx">obj</span><span class="p">[</span><span class="nx">k</span><span class="p">],</span> <span class="nx">driver</span><span class="p">,</span> <span class="nx">as</span><span class="p">)</span>
       <span class="p">.</span><span class="nx">join</span> <span class="s">&#39;, &#39;</span>
+    <span class="k">else</span>
+      <span class="nx">escape</span> <span class="nx">obj</span><span class="p">,</span> <span class="nx">driver</span>
 
 
 </pre></div>
@@ -311,7 +412,7 @@
     <span class="k">else</span> <span class="c1"># object</span>
       <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span> <span class="nx">obj</span>
       <span class="p">.</span><span class="nx">map</span> <span class="nf">(k) -&gt;</span>
-        <span class="nx">escapeId</span><span class="p">(</span><span class="s">&quot;</span><span class="si">#{</span><span class="nx">base</span><span class="si">}</span><span class="s">.</span><span class="si">#{</span><span class="nx">k</span><span class="si">}</span><span class="s">&quot;</span><span class="p">,</span> <span class="nx">driver</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39; = &#39;</span> <span class="o">+</span> <span class="nx">escape</span><span class="p">(</span><span class="nx">obj</span><span class="p">[</span><span class="nx">k</span><span class="p">],</span> <span class="nx">driver</span><span class="p">)</span>
+        <span class="nx">escapeId</span><span class="p">(</span><span class="s">&quot;</span><span class="si">#{</span><span class="k">if</span> <span class="nx">base</span> <span class="k">then</span> <span class="nx">base</span><span class="o">+</span><span class="s">&#39;.&#39;</span> <span class="k">else</span> <span class="s">&#39;&#39;</span><span class="si">}#{</span><span class="nx">k</span><span class="si">}</span><span class="s">&quot;</span><span class="p">,</span> <span class="nx">driver</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39; = &#39;</span> <span class="o">+</span> <span class="nx">escape</span><span class="p">(</span><span class="nx">obj</span><span class="p">[</span><span class="nx">k</span><span class="p">],</span> <span class="nx">driver</span><span class="p">)</span>
       <span class="p">.</span><span class="nx">join</span> <span class="s">&#39; AND &#39;</span>
 
 
@@ -346,9 +447,42 @@
 
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">from = </span><span class="nf">(obj, driver) -&gt;</span>
-  <span class="k">return</span> <span class="s">&#39;&#39;</span> <span class="k">unless</span> <span class="nx">obj</span><span class="o">?</span>
-  <span class="s">&#39; FROM &#39;</span> <span class="o">+</span> <span class="nx">table</span> <span class="nx">obj</span><span class="p">,</span> <span class="nx">driver</span>
+<span class="nv">from = </span><span class="nf">(obj, driver) -&gt;</span> <span class="s">&quot; FROM </span><span class="si">#{</span><span class="nx">table</span> <span class="nx">obj</span><span class="p">,</span> <span class="nx">driver</span><span class="si">}</span><span class="s">&quot;</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="from">
+  <h4>
+    <a href="#from" name="from" class="pilcrow">&#182;</a>
+    FROM
+  </h4>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">where = </span><span class="nf">(obj, driver) -&gt;</span> <span class="s">&quot; WHERE </span><span class="si">#{</span><span class="nx">condition</span> <span class="nx">obj</span><span class="p">,</span> <span class="nx">driver</span><span class="si">}</span><span class="s">&quot;</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="distinct">
+  <h3>
+    <a href="#distinct" name="distinct" class="pilcrow">&#182;</a>
+    DISTINCT
+  </h3>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">distinct = </span><span class="nf">(obj) -&gt;</span>
+  <span class="k">if</span> <span class="nx">obj</span><span class="o">?</span> <span class="k">then</span> <span class="s">&quot; DISTINCT&quot;</span> <span class="k">else</span> <span class="s">&#39;&#39;</span>
 
 
 </pre></div>
@@ -384,8 +518,12 @@
         </td>
         <td class="code highlight"><div class="highlight"><pre>
   <span class="nv">select: </span><span class="nf">(obj, driver) -&gt;</span>
-    <span class="nv">sql = </span><span class="s">&quot;SELECT </span><span class="si">#{</span><span class="nx">field</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">select</span><span class="p">,</span> <span class="nx">driver</span><span class="si">}</span><span class="s">&quot;</span>
-    <span class="nx">sql</span> <span class="o">+=</span> <span class="nx">from</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">from</span><span class="p">,</span> <span class="nx">driver</span>
+    <span class="nv">sql = </span><span class="s">&quot;SELECT&quot;</span>
+    <span class="nx">sql</span> <span class="o">+=</span> <span class="nx">distinct</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">distinct</span><span class="p">,</span> <span class="nx">driver</span>
+    <span class="nx">sql</span> <span class="o">+=</span> <span class="s">&quot; </span><span class="si">#{</span><span class="nx">field</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">select</span><span class="p">,</span> <span class="nx">driver</span><span class="si">}</span><span class="s">&quot;</span>
+    <span class="nx">sql</span> <span class="o">+=</span> <span class="nx">from</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">from</span><span class="p">,</span> <span class="nx">driver</span> <span class="k">if</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">from</span>
+    <span class="nx">sql</span> <span class="o">+=</span> <span class="nx">where</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">where</span><span class="p">,</span> <span class="nx">driver</span> <span class="k">if</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">where</span>
+    <span class="nx">sql</span> <span class="o">+=</span> <span class="s">&#39;;&#39;</span>
 
 
 </pre></div>
@@ -439,6 +577,7 @@
   <span class="k">delete</span><span class="o">:</span> <span class="nf">(obj, driver) -&gt;</span>
     <span class="nv">sql = </span><span class="s">&quot;DELETE&quot;</span>
     <span class="nx">sql</span> <span class="o">+=</span> <span class="nx">from</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">from</span><span class="p">,</span> <span class="nx">driver</span>
+    <span class="nx">sql</span> <span class="o">+=</span> <span class="s">&#39;;&#39;</span>
 
 
 
@@ -465,7 +604,7 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-19" id="section-19">&#182;</a>
+  <a class="pilcrow" href="#section-25" id="section-25">&#182;</a>
 </div>
 <p>validate</p>
         </td>
@@ -485,7 +624,7 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-20" id="section-20">&#182;</a>
+  <a class="pilcrow" href="#section-26" id="section-26">&#182;</a>
 </div>
 <p>select main type</p>
         </td>
@@ -500,14 +639,15 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-21" id="section-21">&#182;</a>
+  <a class="pilcrow" href="#section-27" id="section-27">&#182;</a>
 </div>
 <p>default handling of unknown names</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-  <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span> <span class="nx">obj</span>
+  <span class="p">(</span><span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span> <span class="nx">obj</span>
   <span class="p">.</span><span class="nx">map</span> <span class="nf">(e) -&gt;</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">e</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">obj</span><span class="p">[</span><span class="nx">e</span><span class="p">]</span><span class="si">}</span><span class="s">&quot;</span>
   <span class="p">.</span><span class="nx">join</span> <span class="s">&#39; &#39;</span>
+  <span class="p">)</span> <span class="o">+</span> <span class="s">&#39;;&#39;</span>
 
 <span class="nv">module.exports.schema = </span><span class="nf">-&gt;</span> <span class="nx">require</span> <span class="s">&#39;./object2sql_schema&#39;</span>
 </pre></div>
