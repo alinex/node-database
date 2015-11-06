@@ -71,7 +71,6 @@ class Postgresql
       conn.release = ->
         debugPool "#{conn.name} release connection"
         done()
-      if debugCmd.enabled or debugData.enabled or debug.Result.enabled
         query = conn.query
         conn.query = (sql, data, cb) ->
           unless typeof cb is 'function'
@@ -95,19 +94,21 @@ class Postgresql
             return
           # called using events
           fn = query.apply conn, [sql, data]
-          fn.on? 'row', (row, result) ->
-            debugData "#{conn.name} #{row}"
-          fn.on? 'error', (err) ->
-            debugResult "#{conn.name} #{chalk.grey err.message}"
-          fn.on? 'end', ->
-            debugCom chalk.grey "#{conn.name} end query"
+          if debugCmd.enabled or debugData.enabled or debugResult.enabled
+            fn.on? 'row', (row, result) ->
+              debugData "#{conn.name} #{row}"
+            fn.on? 'error', (err) ->
+              debugResult "#{conn.name} #{chalk.grey err.message}"
+            fn.on? 'end', ->
+              debugCom chalk.grey "#{conn.name} end query"
           fn
-        conn.on 'drain', ->
-          debugCom chalk.grey "#{conn.name} drained"
-        conn.on 'error', (err) ->
-          debugCom chalk.magenta "#{conn.name} error: #{err.message}"
-        conn.on 'notice', (msg) ->
-          debugCom chalk.grey "#{conn.name} notice: #{msg}"
+        if debugCom.enabled
+          conn.on 'drain', ->
+            debugCom chalk.grey "#{conn.name} drained"
+          conn.on 'error', (err) ->
+            debugCom chalk.magenta "#{conn.name} error: #{err.message}"
+          conn.on 'notice', (msg) ->
+            debugCom chalk.grey "#{conn.name} notice: #{msg}"
         conn.alinex = true
       cb null, conn
 
@@ -144,7 +145,7 @@ class Postgresql
       conn.query sql, data, (err, result) ->
         conn.release()
         err = new Error "PostgreSQL Error: #{err.message} in #{sql}" if err
-        cb err, result.rows
+        cb err, result?.rows
 
   # ## get one record as object
   record: (sql, data, cb) ->
