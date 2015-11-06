@@ -4,6 +4,21 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 0.1.0 (2015-11-06)
+-------------------------------------------------
+- Fix bug preventing query call because of debug optimization.
+- Finished support fro short function syntax in postgresql driver.
+- Added propper debugging for connection handling and query protocol.
+- Added postgresql driver with working nativ handling.
+- Set travis for postgresql.
+- Added where support in object notation.
+- Add semicolon after created queries.
+- Implemented more functions in the object2sql conversion.
+- Multistatement handling allowed.
+- Added distinct modifier.
+- Change debug flag to database instead 'db' to be common in the alinex scheme.
+- Start implementing function.
+
 Version 0.0.1 (2015-10-16)
 -------------------------------------------------
 - Remove postgres/sqlite till used.
