@@ -58,6 +58,7 @@ exports.instance = instance = (name, cb) ->
       return cb new Error "Could not initialize database class without alias." unless name
       debug "create #{name} connection"
       conf = config.get "/database/#{name}"
+      return cb new Error "No database for name '#{name}' defined" unless conf?
       # open tunnel
       return tunnel conf, (err, conf) ->
         debug chalk.grey "#{conf.server.type}://#{conf.server.host}:#{conf.server.port}/\

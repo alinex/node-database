@@ -26,3 +26,9 @@ describe "Base", ->
           conf = config.get '/database'
           expect(conf, 'config').to.exist
           cb()
+
+    it "should throw error if no database defined", (cb) ->
+      @timeout 4000
+      database.instance 'not-existent-db', (err, db) ->
+        expect(err, 'config error').to.exist
+        cb()
