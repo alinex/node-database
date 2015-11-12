@@ -73,6 +73,22 @@ exports.instance = instance = (name, cb) ->
         cb null, instances[name]
     cb null, instances[name]
 
+#for fn in ['exec', 'list', 'record', 'column', 'value']
+#  exports[fn] = (name, query, data, cb) -> call fn, name, query, data, cb
+exports.exec = (name, query, data, cb) -> call 'exec', name, query, data, cb
+exports.list = (name, query, data, cb) -> call 'list', name, query, data, cb
+exports.record = (name, query, data, cb) -> call 'record', name, query, data, cb
+exports.column = (name, query, data, cb) -> call 'column', name, query, data, cb
+exports.value = (name, query, data, cb) -> call 'value', name, query, data, cb
+
+call = (fn, name, query, data, cb) ->
+  unless typeof cb is 'function'
+    cb = data
+    data = null
+  instance name, (err, db) ->
+    return cb err if err
+    db[fn] query, data, cb
+
 # ### Shutdown
 exports.close = close = (cb = -> ) ->
   debug "Close all database connections..."
