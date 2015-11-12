@@ -71,37 +71,37 @@ class Postgresql
       conn.release = ->
         debugPool "#{conn.name} release connection"
         done()
-        query = conn.query
-        conn.query = (sql, data, cb) ->
-          unless typeof cb is 'function'
-            cb = data
-            data = null
-          data = [data] if typeof data is 'string'
-          debugCmd "#{conn.name} #{sql}#{
-            if data then chalk.grey(' with ') + util.inspect data else ''
-            }"
-          if cb
-            query.apply conn, [sql, data, (err, result) ->
-              if err
-                debugResult "#{conn.name} #{chalk.grey err.message}"
-              if result.fields.length
-                debugResult "#{conn.name} fields: #{util.inspect result.fields}"
-              if result.rows.length
-                debugData "#{conn.name} #{util.inspect row}" for row in result.rows
-#              console.log result
-              cb err, result
-            ]
-            return
-          # called using events
-          fn = query.apply conn, [sql, data]
-          if debugCmd.enabled or debugData.enabled or debugResult.enabled
-            fn.on? 'row', (row, result) ->
-              debugData "#{conn.name} #{row}"
-            fn.on? 'error', (err) ->
+      query = conn.query
+      conn.query = (sql, data, cb) ->
+        unless typeof cb is 'function'
+          cb = data
+          data = null
+        data = [data] if typeof data is 'string'
+        debugCmd "#{conn.name} #{sql}#{
+          if data then chalk.grey(' with ') + util.inspect data else ''
+          }"
+        if cb
+          query.apply conn, [sql, data, (err, result) ->
+            if err
               debugResult "#{conn.name} #{chalk.grey err.message}"
-            fn.on? 'end', ->
-              debugCom chalk.grey "#{conn.name} end query"
-          fn
+            if result.fields.length
+              debugResult "#{conn.name} fields: #{util.inspect result.fields}"
+            if result.rows.length
+              debugData "#{conn.name} #{util.inspect row}" for row in result.rows
+#              console.log result
+            cb err, result
+          ]
+          return
+        # called using events
+        fn = query.apply conn, [sql, data]
+        if debugCmd.enabled or debugData.enabled or debugResult.enabled
+          fn.on? 'row', (row, result) ->
+            debugData "#{conn.name} #{row}"
+          fn.on? 'error', (err) ->
+            debugResult "#{conn.name} #{chalk.grey err.message}"
+          fn.on? 'end', ->
+            debugCom chalk.grey "#{conn.name} end query"
+        fn
         if debugCom.enabled
           conn.on 'drain', ->
             debugCom chalk.grey "#{conn.name} drained"

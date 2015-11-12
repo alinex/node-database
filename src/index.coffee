@@ -63,7 +63,6 @@ exports.instance = instance = (name, cb) ->
       return tunnel conf, (err, conf) ->
         debug chalk.grey "#{conf.server.type}://#{conf.server.host}:#{conf.server.port}/\
         #{conf.server.database} as #{conf.server.user}"
-        return cb new Error "No database under the name #{@name} defined." unless conf
         # load driver
         try
           Driver = require "./driver/#{conf.server.type}"

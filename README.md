@@ -169,7 +169,7 @@ look at the API behind each abstraction layer.
 
 ### MySQL
 
-Use the (Driver API)[https://github.com/felixge/node-mysql] if you want to work
+Use the [Driver API](https://github.com/felixge/node-mysql) if you want to work
 directly on the retrieved connections.
 
 You can also use ? and ?? placeholder syntax from the driver.
@@ -182,7 +182,7 @@ columns with an alias name.
 
 ### PostgreSQL
 
-Use the (Driver API)[https://github.com/brianc/node-postgres] if you want to work
+Use the [Driver API}(https://github.com/brianc/node-postgres) if you want to work
 directly on the retrieved connections.
 
 You can also use $1... placeholder syntax from the driver.
