@@ -12,6 +12,7 @@ The main features are:
 
 - different rdbms and other databases
 - pooling and cluster support
+- easy access functions
 - connections through automatic ssh tunnels
 - object to query language bridge
 
@@ -75,7 +76,7 @@ database.instance 'test-mysql', (err, db) ->
 The configuration for the connection is done in the `database` section of the
 configuration used via [Config](http://alinex.github.io/node-config).
 
-### SQL Access
+### Easy Access
 
 Instead of using the connection directly you may use the higher methods:
 
@@ -85,6 +86,15 @@ Instead of using the connection directly you may use the higher methods:
 - `column()` - get an array of values from the first column
 - `exec()` - update/insert or other execution statements
 
+__Example:__
+
+``` coffee
+database.instance 'my-database', (err, db) ->
+  return cb err if err
+  db.record 'SELECT * FROM user WHERE ID=5', (err, record) ->
+    return cb err if err
+```
+
 With this methods you can also use one of the higher SQL Builders:
 
 - using placeholder for variables
@@ -92,6 +102,23 @@ With this methods you can also use one of the higher SQL Builders:
 
 They make it easier readable and helps preventing problems. See the description
 below.
+
+### Direct Access
+
+To make it even more easy if only one or two accesses to the database are done
+you can use all the methods from above also on the `database` object directly
+with the database name as additional first parameter. Then an instance will be
+fetched automatically to do the transaction:
+
+__Example:__
+
+``` coffee
+database.record 'my-database', 'SELECT * FROM user WHERE ID=5', (err, record) ->
+  return cb err if err
+```
+
+For performance reason it is slightly faster to work on the instance if lots of
+queries are called on it.
 
 ### Streaming
 
