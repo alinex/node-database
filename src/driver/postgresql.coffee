@@ -61,6 +61,7 @@ class Postgresql
     pg.connect setup, (err, conn, done) =>
       if err
         done()
+        err.message += " at #{@name}"
         return cb err
       if conn.alinex?
         debugPool "#{conn.name} reuse connection"
