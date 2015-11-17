@@ -304,6 +304,7 @@ Config instance anywhere.</p>
       <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Could not initialize database class without alias.&quot;</span> <span class="k">unless</span> <span class="nx">name</span>
       <span class="nx">debug</span> <span class="s">&quot;create </span><span class="si">#{</span><span class="nx">name</span><span class="si">}</span><span class="s"> connection&quot;</span>
       <span class="nv">conf = </span><span class="nx">config</span><span class="p">.</span><span class="nx">get</span> <span class="s">&quot;/database/</span><span class="si">#{</span><span class="nx">name</span><span class="si">}</span><span class="s">&quot;</span>
+      <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;No database for name &#39;</span><span class="si">#{</span><span class="nx">name</span><span class="si">}</span><span class="s">&#39; defined&quot;</span> <span class="k">unless</span> <span class="nx">conf</span><span class="o">?</span>
 
 </pre></div>
         </td>
@@ -327,24 +328,12 @@ Config instance anywhere.</p>
 <div class="pilwrap">
   <a class="pilcrow" href="#section-18" id="section-18">&#182;</a>
 </div>
-<p>{conf.server.database} as #{conf.server.user}"</p>
+<p>{conf.server.database} as #{conf.server.user}"
+load driver</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="s">        return cb new Error &quot;</span><span class="nx">No</span> <span class="nx">database</span> <span class="nx">under</span> <span class="nx">the</span> <span class="nx">name</span> <span class="c1">#{@name} defined.&quot; unless conf</span>
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-19" id="section-19">&#182;</a>
-</div>
-<p>load driver</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-        <span class="k">try</span>
-          <span class="nv">Driver = </span><span class="nx">require</span> <span class="s">&quot;./driver/</span><span class="si">#{</span><span class="nx">conf</span><span class="p">.</span><span class="nx">server</span><span class="p">.</span><span class="nx">type</span><span class="si">}</span><span class="s">&quot;</span>
+<span class="s">        try</span>
+<span class="s">          Driver = require &quot;</span><span class="p">.</span><span class="o">/</span><span class="nx">driver</span><span class="o">/</span><span class="c1">#{conf.server.type}&quot;</span>
         <span class="k">catch</span> <span class="nx">err</span>
           <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Could not find driver for </span><span class="si">#{</span><span class="nx">conf</span><span class="p">.</span><span class="nx">server</span><span class="p">.</span><span class="nx">type</span><span class="si">}</span><span class="s"> database:</span>
 
@@ -354,7 +343,7 @@ Config instance anywhere.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-20" id="section-20">&#182;</a>
+  <a class="pilcrow" href="#section-19" id="section-19">&#182;</a>
 </div>
 <p>{err.message}"</p>
         </td>
@@ -362,6 +351,33 @@ Config instance anywhere.</p>
 <span class="s">        instances[name] = new Driver name, conf</span>
 <span class="s">        cb null, instances[name]</span>
 <span class="s">    cb null, instances[name]</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-20" id="section-20">&#182;</a>
+</div>
+<p>for fn in ['exec', 'list', 'record', 'column', 'value']
+ exports[fn] = (name, query, data, cb) -> call fn, name, query, data, cb</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="s">exports.exec = (name, query, data, cb) -&gt; call &#39;exec&#39;, name, query, data, cb</span>
+<span class="s">exports.list = (name, query, data, cb) -&gt; call &#39;list&#39;, name, query, data, cb</span>
+<span class="s">exports.record = (name, query, data, cb) -&gt; call &#39;record&#39;, name, query, data, cb</span>
+<span class="s">exports.column = (name, query, data, cb) -&gt; call &#39;column&#39;, name, query, data, cb</span>
+<span class="s">exports.value = (name, query, data, cb) -&gt; call &#39;value&#39;, name, query, data, cb</span>
+
+<span class="s">call = (fn, name, query, data, cb) -&gt;</span>
+<span class="s">  unless typeof cb is &#39;function&#39;</span>
+<span class="s">    cb = data</span>
+<span class="s">    data = null</span>
+<span class="s">  instance name, (err, db) -&gt;</span>
+<span class="s">    return cb err if err</span>
+<span class="s">    db[fn] query, data, cb</span>
 
 
 </pre></div>

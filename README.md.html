@@ -45,7 +45,10 @@
         <a href="#only%20connection%20handling">Only connection handling</a>
       </div>
       <div class="heading h3">
-        <a href="#sql%20access">SQL Access</a>
+        <a href="#easy%20access">Easy Access</a>
+      </div>
+      <div class="heading h3">
+        <a href="#direct%20access">Direct Access</a>
       </div>
       <div class="heading h3">
         <a href="#streaming">Streaming</a>
@@ -116,6 +119,7 @@ and usable with query language builder.</p>
 <ul>
 <li>different rdbms and other databases</li>
 <li>pooling and cluster support</li>
+<li>easy access functions</li>
 <li>connections through automatic ssh tunnels</li>
 <li>object to query language bridge</li>
 </ul>
@@ -206,10 +210,10 @@ a mysql database:</p>
 configuration used via <a href="http://alinex.github.io/node-config">Config</a>.</p>
 
 
-<div class="pilwrap" id="sql%20access">
+<div class="pilwrap" id="easy%20access">
   <h3>
-    <a href="#sql%20access" name="sql%20access" class="pilcrow">&#182;</a>
-    SQL Access
+    <a href="#easy%20access" name="easy%20access" class="pilcrow">&#182;</a>
+    Easy Access
   </h3>
 </div>
 
@@ -224,6 +228,17 @@ configuration used via <a href="http://alinex.github.io/node-config">Config</a>.
 <li><code>exec()</code> - update/insert or other execution statements</li>
 </ul>
 
+<p><strong>Example:</strong></p>
+
+
+<div class="highlight"><pre><code><span class="nx">database</span><span class="p">.</span><span class="nx">instance</span> <span class="s">&#39;my-database&#39;</span><span class="p">,</span> <span class="nf">(err, db) -&gt;</span>
+  <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+  <span class="nx">db</span><span class="p">.</span><span class="nx">record</span> <span class="s">&#39;SELECT * FROM user WHERE ID=5&#39;</span><span class="p">,</span> <span class="nf">(err, record) -&gt;</span>
+    <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+</code></pre></div>
+
+
+
 <p>With this methods you can also use one of the higher SQL Builders:</p>
 
 <ul>
@@ -233,6 +248,32 @@ configuration used via <a href="http://alinex.github.io/node-config">Config</a>.
 
 <p>They make it easier readable and helps preventing problems. See the description
 below.</p>
+
+
+<div class="pilwrap" id="direct%20access">
+  <h3>
+    <a href="#direct%20access" name="direct%20access" class="pilcrow">&#182;</a>
+    Direct Access
+  </h3>
+</div>
+
+
+<p>To make it even more easy if only one or two accesses to the database are done
+you can use all the methods from above also on the <code>database</code> object directly
+with the database name as additional first parameter. Then an instance will be
+fetched automatically to do the transaction:</p>
+
+<p><strong>Example:</strong></p>
+
+
+<div class="highlight"><pre><code><span class="nx">database</span><span class="p">.</span><span class="nx">record</span> <span class="s">&#39;my-database&#39;</span><span class="p">,</span> <span class="s">&#39;SELECT * FROM user WHERE ID=5&#39;</span><span class="p">,</span> <span class="nf">(err, record) -&gt;</span>
+  <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+</code></pre></div>
+
+
+
+<p>For performance reason it is slightly faster to work on the instance if lots of
+queries are called on it.</p>
 
 
 <div class="pilwrap" id="streaming">
@@ -336,7 +377,7 @@ look at the API behind each abstraction layer.</p>
 </div>
 
 
-<p>Use the (Driver API)[<a href='https://github.com/felixge/node-mysql'>https://github.com/felixge/node-mysql</a>] if you want to work
+<p>Use the <a href="https://github.com/felixge/node-mysql">Driver API</a> if you want to work
 directly on the retrieved connections.</p>
 
 <p>You can also use ? and ?? placeholder syntax from the driver.</p>
@@ -355,7 +396,7 @@ columns with an alias name.</p>
 </div>
 
 
-<p>Use the (Driver API)[<a href='https://github.com/brianc/node-postgres'>https://github.com/brianc/node-postgres</a>] if you want to work
+<p>Use the [Driver API}(<a href='https://github.com/brianc/node-postgres'>https://github.com/brianc/node-postgres</a>) if you want to work
 directly on the retrieved connections.</p>
 
 <p>You can also use $1... placeholder syntax from the driver.</p>
