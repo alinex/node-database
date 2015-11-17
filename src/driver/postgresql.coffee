@@ -85,13 +85,15 @@ class Postgresql
           query.apply conn, [sql, data, (err, result) ->
             if err
               debugResult "#{conn.name} #{chalk.grey err.message}"
-            if result.fields.length
-              debugResult "#{conn.name} fields: #{util.inspect result.fields}"
-            if result.rows.length
-              debugData "#{conn.name} #{util.inspect row}" for row in result.rows
+            if result?
+              if result.fields.length
+                debugResult "#{conn.name} fields: #{util.inspect result.fields}"
+              if result.rows.length
+                debugData "#{conn.name} #{util.inspect row}" for row in result.rows
 #              console.log result
             cb err, result
           ]
+          conn.alinex = true
           return
         # called using events
         fn = query.apply conn, [sql, data]
