@@ -61,6 +61,7 @@ class Postgresql
     pg.connect setup, (err, conn, done) =>
       if err
         done()
+        err.message += " at #{@name}"
         return cb err
       if conn.alinex?
         debugPool "#{conn.name} reuse connection"
@@ -84,13 +85,15 @@ class Postgresql
           query.apply conn, [sql, data, (err, result) ->
             if err
               debugResult "#{conn.name} #{chalk.grey err.message}"
-            if result.fields.length
-              debugResult "#{conn.name} fields: #{util.inspect result.fields}"
-            if result.rows.length
-              debugData "#{conn.name} #{util.inspect row}" for row in result.rows
+            if result?
+              if result.fields.length
+                debugResult "#{conn.name} fields: #{util.inspect result.fields}"
+              if result.rows.length
+                debugData "#{conn.name} #{util.inspect row}" for row in result.rows
 #              console.log result
             cb err, result
           ]
+          conn.alinex = true
           return
         # called using events
         fn = query.apply conn, [sql, data]
@@ -135,7 +138,7 @@ class Postgresql
     # run the query
     @connConnect conn, (err, conn) ->
       return cb new Error "PostgreSQL Error: #{err.message}" if err
-      conn.query sql, (err, result) ->
+      conn.query sql, data, (err, result) ->
         conn.release()
         return cb new Error "PostgreSQL Error: #{err.message} in #{sql}" if err
         match = sql.match /\sRETURNING\s+(\S+)/

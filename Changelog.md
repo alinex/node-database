@@ -4,6 +4,15 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 0.1.1 (2015-11-17)
+-------------------------------------------------
+- Fix syntax error after reporting of error.
+- Added database name to connection error message.
+- Document the direct access with examples.
+- Optimized code.
+- Fixed postgres driver to run queries correctly, again.
+- Add Error message if given database is not defined.
+
 Version 0.1.0 (2015-11-06)
 -------------------------------------------------
 - Fix bug preventing query call because of debug optimization.
