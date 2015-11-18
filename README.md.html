@@ -48,9 +48,6 @@
         <a href="#easy%20access">Easy Access</a>
       </div>
       <div class="heading h3">
-        <a href="#direct%20access">Direct Access</a>
-      </div>
-      <div class="heading h3">
         <a href="#streaming">Streaming</a>
       </div>
       <div class="heading h2">
@@ -218,7 +215,7 @@ configuration used via <a href="http://alinex.github.io/node-config">Config</a>.
 </div>
 
 
-<p>Instead of using the connection directly you may use the higher methods:</p>
+<p>Instead of using the native <code>conn...</code> directly you may use the higher methods:</p>
 
 <ul>
 <li><code>list()</code> - get an array of record objects</li>
@@ -228,7 +225,36 @@ configuration used via <a href="http://alinex.github.io/node-config">Config</a>.
 <li><code>exec()</code> - update/insert or other execution statements</li>
 </ul>
 
+<p>This may be called in three ways:</p>
+
+<ol>
+<li>call them on the database module:
+Therefore give the database alias as first parameter like:
+<code>database.exec 'my-db', 'SELECT...', [data], (err) -&gt; ...</code></li>
+<li>call them on the database instance:
+So you can remove the first parameter:
+<code>db.exec 'SELECT...', [data], (err) -&gt; ...</code></li>
+<li>also give a connection instance as first argument:
+This way you may run multiple commands on the same connection:
+<code>db.exec conn, 'SELECT...', [data], (err) -&gt; ...</code></li>
+</ol>
+
+<p>If you run multiple queries on the same database better use solution (2) and
+if you have statements which use common variables or transactions you need to
+use (3).</p>
+
 <p><strong>Example:</strong></p>
+
+<p>Call with method (1) using the database module:</p>
+
+
+<div class="highlight"><pre><code><span class="nx">database</span><span class="p">.</span><span class="nx">record</span> <span class="s">&#39;my-database&#39;</span><span class="p">,</span> <span class="s">&#39;SELECT * FROM user WHERE ID=5&#39;</span><span class="p">,</span> <span class="nf">(err, record) -&gt;</span>
+  <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+</code></pre></div>
+
+
+
+<p>Call after method (2) with using the db instance:</p>
 
 
 <div class="highlight"><pre><code><span class="nx">database</span><span class="p">.</span><span class="nx">instance</span> <span class="s">&#39;my-database&#39;</span><span class="p">,</span> <span class="nf">(err, db) -&gt;</span>
@@ -239,6 +265,22 @@ configuration used via <a href="http://alinex.github.io/node-config">Config</a>.
 
 
 
+<p>Call on connection (3):</p>
+
+
+<div class="highlight"><pre><code><span class="nx">database</span><span class="p">.</span><span class="nx">instance</span> <span class="s">&#39;my-database&#39;</span><span class="p">,</span> <span class="nf">(err, db) -&gt;</span>
+  <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+  <span class="c1"># get a new connection from the pool</span>
+  <span class="nx">db</span><span class="p">.</span><span class="nx">connect</span> <span class="nf">(err, conn) -&gt;</span>
+    <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+    <span class="nx">db</span><span class="p">.</span><span class="nx">record</span> <span class="nx">conn</span><span class="p">,</span> <span class="s">&#39;SELECT * FROM user WHERE ID=5&#39;</span><span class="p">,</span> <span class="nf">(err, record) -&gt;</span>
+      <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+</code></pre></div>
+
+
+
+<p><strong>Additional Possibilities:</strong></p>
+
 <p>With this methods you can also use one of the higher SQL Builders:</p>
 
 <ul>
@@ -248,32 +290,6 @@ configuration used via <a href="http://alinex.github.io/node-config">Config</a>.
 
 <p>They make it easier readable and helps preventing problems. See the description
 below.</p>
-
-
-<div class="pilwrap" id="direct%20access">
-  <h3>
-    <a href="#direct%20access" name="direct%20access" class="pilcrow">&#182;</a>
-    Direct Access
-  </h3>
-</div>
-
-
-<p>To make it even more easy if only one or two accesses to the database are done
-you can use all the methods from above also on the <code>database</code> object directly
-with the database name as additional first parameter. Then an instance will be
-fetched automatically to do the transaction:</p>
-
-<p><strong>Example:</strong></p>
-
-
-<div class="highlight"><pre><code><span class="nx">database</span><span class="p">.</span><span class="nx">record</span> <span class="s">&#39;my-database&#39;</span><span class="p">,</span> <span class="s">&#39;SELECT * FROM user WHERE ID=5&#39;</span><span class="p">,</span> <span class="nf">(err, record) -&gt;</span>
-  <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
-</code></pre></div>
-
-
-
-<p>For performance reason it is slightly faster to work on the instance if lots of
-queries are called on it.</p>
 
 
 <div class="pilwrap" id="streaming">
