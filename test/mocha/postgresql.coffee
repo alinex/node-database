@@ -86,12 +86,6 @@ describe "PostgreSQL", ->
           expect(num, 'affectedRows').to.equal 3
           done()
 
-  describe "analysis", ->
-
-#analysis:
-#SHOW tables
-#SHOW columns FROM numbers
-#
 
   describe "query", ->
 
@@ -158,6 +152,81 @@ describe "PostgreSQL", ->
           expect(err, 'error').to.not.exist
           expect(res, 'result').to.deep.equal ['one', 'two', 'three', 'nine']
           done()
+
+
+  describe "connection", ->
+
+    it "should get complete list of entries", (done) ->
+      database.instance 'test-postgresql', (err, db) ->
+        throw err if err
+        db.connect (err, conn) ->
+          return cb err if err
+          db.list conn, '''
+          SELECT * FROM numbers
+          ''', (err, res) ->
+            expect(err, 'error').to.not.exist
+            expect(res, 'results').to.deep.equal [
+              id: 1
+              num: 1
+              name: "one"
+              comment: "ok"
+            ,
+              id: 2
+              num: 2
+              name: "two"
+              comment: "ok"
+            ,
+              id: 3
+              num: 3
+              name: "three"
+              comment: "ok"
+            ,
+              id: 4
+              num: 9
+              name: "nine"
+              comment: "max"
+            ]
+            done()
+
+    it "should get one record", (done) ->
+      database.instance 'test-postgresql', (err, db) ->
+        throw err if err
+        db.connect (err, conn) ->
+          return cb err if err
+          db.record conn, '''
+          SELECT * FROM numbers WHERE num=2
+          ''', (err, res) ->
+            expect(err, 'error').to.not.exist
+            expect(res, 'results').to.deep.equal
+              id: 2
+              num: 2
+              name: "two"
+              comment: "ok"
+            done()
+
+    it "should get one value", (done) ->
+      database.instance 'test-postgresql', (err, db) ->
+        throw err if err
+        db.connect (err, conn) ->
+          return cb err if err
+          db.value conn, '''
+          SELECT comment FROM numbers WHERE num=9
+          ''', (err, res) ->
+            expect(err, 'error').to.not.exist
+            expect(res, 'result').to.equal 'max'
+            done()
+
+    it "should get one column", (done) ->
+      database.instance 'test-postgresql', (err, db) ->
+        throw err if err
+        db.connect (err, conn) ->
+          return cb err if err
+          db.column conn, '''
+          SELECT name FROM numbers
+          ''', (err, res) ->
+            expect(err, 'error').to.not.exist
+            expect(res, 'result').to.deep.equal ['one', 'two', 'three', 'nine']
+            done()
 
 
   describe "placeholder", ->
