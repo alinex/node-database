@@ -241,6 +241,16 @@ describe "PostgreSQL", ->
           expect(res, 'result').to.equal 9
           done()
 
+    it "should allow '?' in query", (done) ->
+      database.instance 'test-postgresql', (err, db) ->
+        throw err if err
+        db.value '''
+        SELECT num FROM numbers WHERE comment = ?
+        ''', 'max', (err, res) ->
+          expect(err, 'error').to.not.exist
+          expect(res, 'result').to.equal 9
+          done()
+
     it.skip "should work for insert", (done) ->
       database.instance 'test-postgresql', (err, db) ->
         throw err if err

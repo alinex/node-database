@@ -224,10 +224,10 @@ class Postgresql
     if typeof sql isnt 'string'
       # object syntax
       sql = object2sql sql, this
-    if sql.match /\?(?=([^']*'[^']*')*[^']*$)/
-      # placeholder
-      return #SqlString.format sql, data
-    sql
+#    if sql.match /\?(?=([^']*'[^']*')*[^']*$)/
+    # replace ? with $1...
+    num = 0
+    sql.replace /\?(?=([^']*'[^']*')*[^']*$)/g, -> "$#{++num}"
 
 
 # Exports
