@@ -128,7 +128,7 @@ class Postgresql
     # run the query
     @connect (err, conn) ->
       return cb new Error "PostgreSQL Error: #{err.message}" if err
-      conn.query sql, (err, result) ->
+      conn.query sql, data, (err, result) ->
         conn.release()
         return cb new Error "PostgreSQL Error: #{err.message} in #{sql}" if err
         match = sql.match /\sRETURNING\s+(\S+)/
