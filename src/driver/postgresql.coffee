@@ -115,15 +115,24 @@ class Postgresql
   # Shortcut functions
   # -------------------------------------------------
 
+  connConnect: (conn, cb) ->
+    return cb null, conn if conn
+    @connect cb
+
   # ## update, insert or delete something and return count of changes
   exec: (sql, data, cb) ->
+    args = Array.prototype.slice.call arguments
+    conn = null
+    if typeof conn is 'object' and conn.constructor.name isnt 'Object'
+      conn = args.shift()
+      [sql, data, cb] = args
     unless typeof cb is 'function'
       cb = data
       data = null
     # replace placeholders
     sql = @sql sql, data
     # run the query
-    @connect (err, conn) ->
+    @connConnect conn, (err, conn) ->
       return cb new Error "PostgreSQL Error: #{err.message}" if err
       conn.query sql, (err, result) ->
         conn.release()
@@ -134,13 +143,18 @@ class Postgresql
 
   # ## get all data as object
   list: (sql, data, cb) ->
+    args = Array.prototype.slice.call arguments
+    conn = null
+    if typeof conn is 'object' and conn.constructor.name isnt 'Object'
+      conn = args.shift()
+      [sql, data, cb] = args
     unless typeof cb is 'function'
       cb = data
       data = null
     # replace placeholders
     sql = @sql sql, data
     # run the query
-    @connect (err, conn) ->
+    @connConnect conn, (err, conn) ->
       return cb new Error "PostgreSQL Error: #{err.message}" if err
       conn.query sql, data, (err, result) ->
         conn.release()
@@ -149,6 +163,11 @@ class Postgresql
 
   # ## get one record as object
   record: (sql, data, cb) ->
+    args = Array.prototype.slice.call arguments
+    conn = null
+    if typeof conn is 'object' and conn.constructor.name isnt 'Object'
+      conn = args.shift()
+      [sql, data, cb] = args
     unless typeof cb is 'function'
       cb = data
       data = null
@@ -162,6 +181,11 @@ class Postgresql
 
   # ## get value of one field
   value: (sql, data, cb) ->
+    args = Array.prototype.slice.call arguments
+    conn = null
+    if typeof conn is 'object' and conn.constructor.name isnt 'Object'
+      conn = args.shift()
+      [sql, data, cb] = args
     unless typeof cb is 'function'
       cb = data
       data = null
@@ -175,10 +199,14 @@ class Postgresql
 
   # ## get value of one field
   column: (sql, data, cb) ->
+    args = Array.prototype.slice.call arguments
+    conn = null
+    if typeof conn is 'object' and conn.constructor.name isnt 'Object'
+      conn = args.shift()
+      [sql, data, cb] = args
     unless typeof cb is 'function'
       cb = data
       data = null
-    ######### add LIMIT 1 through json
     @list sql, data, (err, result) ->
       return cb err if err
       return cb() unless result?.length

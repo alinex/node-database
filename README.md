@@ -78,7 +78,7 @@ configuration used via [Config](http://alinex.github.io/node-config).
 
 ### Easy Access
 
-Instead of using the connection directly you may use the higher methods:
+Instead of using the native `conn...` directly you may use the higher methods:
 
 - `list()` - get an array of record objects
 - `record()` - get one record as object
@@ -86,7 +86,32 @@ Instead of using the connection directly you may use the higher methods:
 - `column()` - get an array of values from the first column
 - `exec()` - update/insert or other execution statements
 
+This may be called in three ways:
+
+1.  call them on the database module:
+    Therefore give the database alias as first parameter like:
+    `database.exec 'my-db', 'SELECT...', [data], (err) -> ...`
+2.  call them on the database instance:
+    So you can remove the first parameter:
+    `db.exec 'SELECT...', [data], (err) -> ...`
+3.  also give a connection instance as first argument:
+    This way you may run multiple commands on the same connection:
+    `db.exec conn, 'SELECT...', [data], (err) -> ...`
+
+If you run multiple queries on the same database better use solution (2) and
+if you have statements which use common variables or transactions you need to
+use (3).
+
 __Example:__
+
+Call with method (1) using the database module:
+
+``` coffee
+database.record 'my-database', 'SELECT * FROM user WHERE ID=5', (err, record) ->
+  return cb err if err
+```
+
+Call after method (2) with using the db instance:
 
 ``` coffee
 database.instance 'my-database', (err, db) ->
@@ -95,6 +120,20 @@ database.instance 'my-database', (err, db) ->
     return cb err if err
 ```
 
+Call on connection (3):
+
+``` coffee
+database.instance 'my-database', (err, db) ->
+  return cb err if err
+  # get a new connection from the pool
+  db.connect (err, conn) ->
+    return cb err if err
+    db.record conn, 'SELECT * FROM user WHERE ID=5', (err, record) ->
+      return cb err if err
+```
+
+__Additional Possibilities:__
+
 With this methods you can also use one of the higher SQL Builders:
 
 - using placeholder for variables
@@ -102,23 +141,6 @@ With this methods you can also use one of the higher SQL Builders:
 
 They make it easier readable and helps preventing problems. See the description
 below.
-
-### Direct Access
-
-To make it even more easy if only one or two accesses to the database are done
-you can use all the methods from above also on the `database` object directly
-with the database name as additional first parameter. Then an instance will be
-fetched automatically to do the transaction:
-
-__Example:__
-
-``` coffee
-database.record 'my-database', 'SELECT * FROM user WHERE ID=5', (err, record) ->
-  return cb err if err
-```
-
-For performance reason it is slightly faster to work on the instance if lots of
-queries are called on it.
 
 ### Streaming
 

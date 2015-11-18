@@ -5,7 +5,7 @@ Config = require 'alinex-config'
 
 database = require '../../src/index'
 
-describe "Mysql", ->
+describe.only "Mysql", ->
 
   after (done) ->
     database.instance 'test-mysql', (err, db) ->
@@ -20,6 +20,7 @@ describe "Mysql", ->
       database.instance 'test-mysql', (err, db) ->
         throw err if err
         db.connect (err, conn) ->
+          console.log '-----------------------------', conn.constructor.name
           expect(err, 'error on connection').to.not.exist
           conn.query 'SELECT 2 + 2 AS solution', (err, rows, fields) ->
             throw err if err
