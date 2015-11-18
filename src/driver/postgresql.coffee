@@ -115,11 +115,12 @@ class Postgresql
   # Shortcut functions
   # -------------------------------------------------
 
+  # ### connect only if no connection given
   connConnect: (conn, cb) ->
     return cb null, conn if conn
     @connect cb
 
-  # ## update, insert or delete something and return count of changes
+  # ### update, insert or delete something and return count of changes
   exec: (sql, data, cb) ->
     args = Array.prototype.slice.call arguments
     conn = null
@@ -141,7 +142,7 @@ class Postgresql
         lastId = result.rows[0]?[match[1]] if match?[1]?
         cb err, result.rowCount, lastId
 
-  # ## get all data as object
+  # ### get all data as object
   list: (sql, data, cb) ->
     args = Array.prototype.slice.call arguments
     conn = null
@@ -161,7 +162,7 @@ class Postgresql
         err = new Error "PostgreSQL Error: #{err.message} in #{sql}" if err
         cb err, result?.rows
 
-  # ## get one record as object
+  # ### get one record as object
   record: (sql, data, cb) ->
     args = Array.prototype.slice.call arguments
     conn = null
@@ -179,7 +180,7 @@ class Postgresql
         cb err, null
       cb err, result[0]
 
-  # ## get value of one field
+  # ### get value of one field
   value: (sql, data, cb) ->
     args = Array.prototype.slice.call arguments
     conn = null
@@ -197,7 +198,7 @@ class Postgresql
         cb err, null
       cb err, result[0][Object.keys(result[0])]
 
-  # ## get value of one field
+  # ### get value of one field
   column: (sql, data, cb) ->
     args = Array.prototype.slice.call arguments
     conn = null
@@ -227,7 +228,6 @@ class Postgresql
       # placeholder
       return #SqlString.format sql, data
     sql
-
 
 
 # Exports

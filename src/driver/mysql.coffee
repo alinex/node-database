@@ -104,7 +104,12 @@ class Mysql
   # Shortcut functions
   # -------------------------------------------------
 
-  # ## update, insert or delete something and return count of changes
+  # ### connect only if no connection given
+  connConnect: (conn, cb) ->
+    return cb null, conn if conn
+    @connect cb
+
+  # ### update, insert or delete something and return count of changes
   exec: (sql, data, cb) ->
     args = Array.prototype.slice.call arguments
     conn = null
@@ -124,7 +129,7 @@ class Mysql
         return cb new Error "MySQL Error: #{err.message} in #{sql}" if err
         cb err, result.affectedRows, result.insertId
 
-  # ## get all data as object
+  # ### get all data as object
   list: (sql, data, cb) ->
     args = Array.prototype.slice.call arguments
     conn = null
@@ -144,7 +149,7 @@ class Mysql
         err = new Error "MySQL Error: #{err.message} in #{sql}" if err
         cb err, result
 
-  # ## get one record as object
+  # ### get one record as object
   record: (sql, data, cb) ->
     args = Array.prototype.slice.call arguments
     conn = null
@@ -162,7 +167,7 @@ class Mysql
         cb err, null
       cb err, result[0]
 
-  # ## get value of one field
+  # ### get value of one field
   value: (sql, data, cb) ->
     args = Array.prototype.slice.call arguments
     conn = null
@@ -180,7 +185,7 @@ class Mysql
         cb err, null
       cb err, result[0][Object.keys(result[0])]
 
-  # ## get value of one field
+  # ### get value of one field
   column: (sql, data, cb) ->
     args = Array.prototype.slice.call arguments
     conn = null

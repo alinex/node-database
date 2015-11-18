@@ -231,7 +231,7 @@ columns with an alias name.
 
 ### PostgreSQL
 
-Use the [Driver API}(https://github.com/brianc/node-postgres) if you want to work
+Use the [Driver API](https://github.com/brianc/node-postgres) if you want to work
 directly on the retrieved connections.
 
 You can also use $1... placeholder syntax from the driver.
@@ -240,8 +240,9 @@ You can also use $1... placeholder syntax from the driver.
 Placeholder Syntax
 -------------------------------------------------
 You may write your query like done normal as string but instead inserting the
-values and esacaping them you may use `?` as a placeholder and give your values
-in an array. They will be automatically replaced with their correct escaped value.
+values and esacaping them you may use `?` or '$1...' (depending on your database)
+as a placeholder and give your values in an array. They will be automatically
+replaced with their correct escaped value.
 
 Therefore you give the dataset as the second argument:
 
