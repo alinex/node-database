@@ -127,7 +127,7 @@ class Postgresql
   exec: (sql, data, cb) ->
     args = Array.prototype.slice.call arguments
     conn = null
-    if typeof conn is 'object' and conn.constructor.name isnt 'Object'
+    if typeof args[0] is 'object' and args[0].constructor.name isnt 'Object'
       conn = args.shift()
       [sql, data, cb] = args
     unless typeof cb is 'function'
@@ -149,7 +149,7 @@ class Postgresql
   list: (sql, data, cb) ->
     args = Array.prototype.slice.call arguments
     conn = null
-    if typeof conn is 'object' and conn.constructor.name isnt 'Object'
+    if typeof args[0] is 'object' and args[0].constructor.name isnt 'Object'
       conn = args.shift()
       [sql, data, cb] = args
     unless typeof cb is 'function'
@@ -169,7 +169,7 @@ class Postgresql
   record: (sql, data, cb) ->
     args = Array.prototype.slice.call arguments
     conn = null
-    if typeof conn is 'object' and conn.constructor.name isnt 'Object'
+    if typeof args[0] is 'object' and args[0].constructor.name isnt 'Object'
       conn = args.shift()
       [sql, data, cb] = args
     unless typeof cb is 'function'
@@ -187,7 +187,7 @@ class Postgresql
   value: (sql, data, cb) ->
     args = Array.prototype.slice.call arguments
     conn = null
-    if typeof conn is 'object' and conn.constructor.name isnt 'Object'
+    if typeof args[0] is 'object' and args[0].constructor.name isnt 'Object'
       conn = args.shift()
       [sql, data, cb] = args
     unless typeof cb is 'function'
@@ -205,7 +205,7 @@ class Postgresql
   column: (sql, data, cb) ->
     args = Array.prototype.slice.call arguments
     conn = null
-    if typeof conn is 'object' and conn.constructor.name isnt 'Object'
+    if typeof args[0] is 'object' and args[0].constructor.name isnt 'Object'
       conn = args.shift()
       [sql, data, cb] = args
     unless typeof cb is 'function'

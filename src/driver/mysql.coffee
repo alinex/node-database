@@ -65,7 +65,7 @@ class Mysql
           debug "#{conn.name} uncatched #{err} on connection"
       @pool.on 'enqueue', =>
         name = chalk.grey "[#{@name}]"
-        debugPool "{@name} waiting for connection"
+        debugPool "#{name} waiting for connection"
     # get the connection
     @pool.getConnection (err, conn) =>
       if err
@@ -113,7 +113,7 @@ class Mysql
   exec: (sql, data, cb) ->
     args = Array.prototype.slice.call arguments
     conn = null
-    if typeof conn is 'object' and conn.constructor.name isnt 'Object'
+    if typeof args[0] is 'object' and args[0].constructor.name isnt 'Object'
       conn = args.shift()
       [sql, data, cb] = args
     unless typeof cb is 'function'
@@ -133,7 +133,7 @@ class Mysql
   list: (sql, data, cb) ->
     args = Array.prototype.slice.call arguments
     conn = null
-    if typeof conn is 'object' and conn.constructor.name isnt 'Object'
+    if typeof args[0] is 'object' and args[0]?.constructor.name isnt 'Object'
       conn = args.shift()
       [sql, data, cb] = args
     unless typeof cb is 'function'
@@ -153,14 +153,14 @@ class Mysql
   record: (sql, data, cb) ->
     args = Array.prototype.slice.call arguments
     conn = null
-    if typeof conn is 'object' and conn.constructor.name isnt 'Object'
+    if typeof args[0] is 'object' and args[0]?.constructor.name isnt 'Object'
       conn = args.shift()
       [sql, data, cb] = args
     unless typeof cb is 'function'
       cb = data
       data = null
     ######### add LIMIT 1 through json
-    @list sql, data, (err, result) ->
+    @list conn, sql, data, (err, result) ->
       return cb err if err
       return cb() unless result?.length
       unless result[0]? or Object.keys result[0]
@@ -171,14 +171,14 @@ class Mysql
   value: (sql, data, cb) ->
     args = Array.prototype.slice.call arguments
     conn = null
-    if typeof conn is 'object' and conn.constructor.name isnt 'Object'
+    if typeof args[0] is 'object' and args[0]?.constructor.name isnt 'Object'
       conn = args.shift()
       [sql, data, cb] = args
     unless typeof cb is 'function'
       cb = data
       data = null
     ######### add LIMIT 1 through json
-    @list sql, data, (err, result) ->
+    @list conn, sql, data, (err, result) ->
       return cb err if err
       return cb() unless result?.length
       unless result[0]? or Object.keys result[0]
@@ -189,13 +189,13 @@ class Mysql
   column: (sql, data, cb) ->
     args = Array.prototype.slice.call arguments
     conn = null
-    if typeof conn is 'object' and conn.constructor.name isnt 'Object'
+    if typeof args[0] is 'object' and args[0]?.constructor.name isnt 'Object'
       conn = args.shift()
       [sql, data, cb] = args
     unless typeof cb is 'function'
       cb = data
       data = null
-    @list sql, data, (err, result) ->
+    @list conn, sql, data, (err, result) ->
       return cb err if err
       return cb() unless result?.length
       unless result[0]? or Object.keys result[0]
