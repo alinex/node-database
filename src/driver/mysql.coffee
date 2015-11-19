@@ -2,11 +2,6 @@
 # =================================================
 # This package will give you an easy and robust way to access mysql databases.
 
-# https://github.com/Finanzchef24-GmbH/tunnel-ssh/blob/master/index.js -> copy
-# https://github.com/felixge/node-mysql/ -> use
-# https://github.com/brianc/node-postgres/tree/master/lib -> use
-# https://github.com/mapbox/node-sqlite3 -> use
-
 # Node Modules
 # -------------------------------------------------
 
@@ -104,63 +99,26 @@ class Mysql
   # Shortcut functions
   # -------------------------------------------------
 
-  # ### connect only if no connection given
-  connConnect: (conn, cb) ->
-    return cb null, conn if conn
-    @connect cb
-
   # ### update, insert or delete something and return count of changes
-  exec: (sql, data, cb) ->
-    args = Array.prototype.slice.call arguments
-    conn = null
-    if typeof args[0] is 'object' and args[0].constructor.name isnt 'Object'
-      conn = args.shift()
-      [sql, data, cb] = args
-    unless typeof cb is 'function'
-      cb = data
-      data = null
-    # replace placeholders
-    sql = @sql sql, data
+  exec: -> @prepare arguments, (conn, sql, data, cb) =>
     # run the query
-    @connConnect conn, (err, conn) ->
-      return cb new Error "MySQL Error: #{err.message}" if err
-      conn.query sql, (err, result) ->
-        conn.release()
-        return cb new Error "MySQL Error: #{err.message} in #{sql}" if err
-        cb err, result.affectedRows, result.insertId
+    @query conn, sql, data, (err, result) ->
+      cb err, result?.affectedRows, result?.insertId
 
   # ### get all data as object
-  list: (sql, data, cb) ->
-    args = Array.prototype.slice.call arguments
-    conn = null
-    if typeof args[0] is 'object' and args[0]?.constructor.name isnt 'Object'
-      conn = args.shift()
-      [sql, data, cb] = args
-    unless typeof cb is 'function'
-      cb = data
-      data = null
-    # replace placeholders
-    sql = @sql sql, data
+  list: -> @prepare arguments, (conn, sql, data, cb) =>
     # run the query
-    @connConnect conn, (err, conn) ->
-      return cb new Error "MySQL Error: #{err.message}" if err
-      conn.query sql, (err, result) ->
-        conn.release()
-        err = new Error "MySQL Error: #{err.message} in #{sql}" if err
-        cb err, result
+    @query conn, sql, data, cb
 
   # ### get one record as object
-  record: (sql, data, cb) ->
-    args = Array.prototype.slice.call arguments
-    conn = null
-    if typeof args[0] is 'object' and args[0]?.constructor.name isnt 'Object'
-      conn = args.shift()
-      [sql, data, cb] = args
-    unless typeof cb is 'function'
-      cb = data
-      data = null
-    ######### add LIMIT 1 through json
-    @list conn, sql, data, (err, result) ->
+  record: -> @prepare arguments, (conn, sql, data, cb) =>
+    # get only one row
+    if typeof sql is 'object'
+      sql.limit = 1
+    else unless sql.match /\slimit\s+\d/i
+      sql += " LIMIT 1"
+    # run the query
+    @query conn, sql, data, (err, result) ->
       return cb err if err
       return cb() unless result?.length
       unless result[0]? or Object.keys result[0]
@@ -168,17 +126,14 @@ class Mysql
       cb err, result[0]
 
   # ### get value of one field
-  value: (sql, data, cb) ->
-    args = Array.prototype.slice.call arguments
-    conn = null
-    if typeof args[0] is 'object' and args[0]?.constructor.name isnt 'Object'
-      conn = args.shift()
-      [sql, data, cb] = args
-    unless typeof cb is 'function'
-      cb = data
-      data = null
-    ######### add LIMIT 1 through json
-    @list conn, sql, data, (err, result) ->
+  value: -> @prepare arguments, (conn, sql, data, cb) =>
+    # get only one row
+    if typeof sql is 'object'
+      sql.limit = 1
+    else unless sql.match /\slimit\s+\d/i
+      sql += " LIMIT 1"
+    # run the query
+    @query conn, sql, data, (err, result) ->
       return cb err if err
       return cb() unless result?.length
       unless result[0]? or Object.keys result[0]
@@ -186,27 +141,53 @@ class Mysql
       cb err, result[0][Object.keys(result[0])]
 
   # ### get value of one field
-  column: (sql, data, cb) ->
-    args = Array.prototype.slice.call arguments
-    conn = null
-    if typeof args[0] is 'object' and args[0]?.constructor.name isnt 'Object'
-      conn = args.shift()
-      [sql, data, cb] = args
-    unless typeof cb is 'function'
-      cb = data
-      data = null
-    @list conn, sql, data, (err, result) ->
+  column: -> getArgs arguments, (conn, sql, data, cb) ->
+    # run the query
+    @query conn, sql, data, (err, result) ->
       return cb err if err
       return cb() unless result?.length
       unless result[0]? or Object.keys result[0]
         cb err, null
       cb err, result.map (e) -> e[Object.keys(e)[0]]
 
+  # Query helper
+  # -------------------------------------------------
+
+  # ### prepare parameter
+  # This will also open a self closing connection if none given.
+  prepare: (args, cb) ->
+    args = Array.prototype.slice.call args
+    # defaultd
+    conn = null
+    done = ->
+    if typeof args[0] is 'object' and args[0].constructor.name isnt 'Object'
+      conn = args.shift()
+    last = args.length - 1
+    if typeof args[last] is 'function'
+      done = args.pop()
+    [sql, data] = args
+    return cb null, conn, sql, data, done if conn
+    @connect (err, conn) ->
+      cb err, conn, sql, data, (err, x, y) ->
+        return cb new Error "MySQL Error: #{err.message}" if err
+        conn.release()
+        done()
+
+  # ### Run the query on the wrapped driver
+  query: (conn, sql, data, cb) ->
+    # replace placeholder and interpret object structure
+    sql = @sql sql, data
+    # run the query
+    conn.query sql, data, (err, result) ->
+      return cb new Error "MySQL Error: #{err.message} in #{sql}" if err
+      cb null, result
+
   # Query creation
   # -------------------------------------------------
   escape: SqlString.escape
   escapeId: SqlString.escapeId
 
+  # ### Replace placeholder and object structure
   sql: (sql, data) ->
     if typeof sql isnt 'string'
       # object syntax

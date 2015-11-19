@@ -87,6 +87,8 @@ call = (fn, name, query, data, cb) ->
     data = null
   instance name, (err, db) ->
     return cb err if err
+    unless db[fn]?
+      return cb new Error "The #{db.constructor.name} driver didn't support the #{fn}() method."
     db[fn] query, data, cb
 
 # ### Shutdown
@@ -96,6 +98,7 @@ exports.close = close = (cb = -> ) ->
     instances[name].close cb
   , cb
 
+# ### Open SSH Tunnel if needed
 tunnel = (conf, cb) ->
   conf.access = conf.server
   return cb null, conf unless conf.ssh
