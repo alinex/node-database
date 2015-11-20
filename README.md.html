@@ -275,6 +275,8 @@ use (3).</p>
     <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
     <span class="nx">db</span><span class="p">.</span><span class="nx">record</span> <span class="nx">conn</span><span class="p">,</span> <span class="s">&#39;SELECT * FROM user WHERE ID=5&#39;</span><span class="p">,</span> <span class="nf">(err, record) -&gt;</span>
       <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+      <span class="c1"># if you acquire a connection yourself don&#39;t forget to release it</span>
+      <span class="nx">conn</span><span class="p">.</span><span class="nx">release</span><span class="p">()</span>
 </code></pre></div>
 
 
@@ -412,10 +414,11 @@ columns with an alias name.</p>
 </div>
 
 
-<p>Use the [Driver API}(<a href='https://github.com/brianc/node-postgres'>https://github.com/brianc/node-postgres</a>) if you want to work
+<p>Use the <a href="https://github.com/brianc/node-postgres">Driver API</a> if you want to work
 directly on the retrieved connections.</p>
 
-<p>You can also use $1... placeholder syntax from the driver.</p>
+<p>You can use the native $1... placeholder syntax or the common supported '?' syntax
+from the driver.</p>
 
 
 <div class="pilwrap" id="placeholder%20syntax">
@@ -428,7 +431,7 @@ directly on the retrieved connections.</p>
 
 <p>You may write your query like done normal as string but instead inserting the
 values and esacaping them you may use <code>?</code> as a placeholder and give your values
-in an array. They will be automatically replaced with their correct escaped value.</p>
+in an array. They will be automatically be replaced with their correct escaped value.</p>
 
 <p>Therefore you give the dataset as the second argument:</p>
 

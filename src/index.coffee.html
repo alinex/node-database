@@ -53,6 +53,9 @@
       <div class="heading h3">
         <a href="#shutdown">Shutdown</a>
       </div>
+      <div class="heading h3">
+        <a href="#open%20ssh%20tunnel%20if%20needed">Open SSH Tunnel if needed</a>
+      </div>
     </div>
   </div>
   <div id="sidebar-toggle"></div>
@@ -377,7 +380,9 @@ load driver</p>
 <span class="s">    data = null</span>
 <span class="s">  instance name, (err, db) -&gt;</span>
 <span class="s">    return cb err if err</span>
-<span class="s">    db[fn] query, data, cb</span>
+<span class="s">    unless db[fn]?</span>
+<span class="s">      return cb new Error &quot;</span><span class="nx">The</span> <span class="c1">#{db.constructor.name} driver didn&#39;t support the #{fn}() method.&quot;</span>
+    <span class="nx">db</span><span class="p">[</span><span class="nx">fn</span><span class="p">]</span> <span class="nx">query</span><span class="p">,</span> <span class="nx">data</span><span class="p">,</span> <span class="nx">cb</span>
 
 
 </pre></div>
@@ -394,15 +399,30 @@ load driver</p>
 
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="s">exports.close = close = (cb = -&gt; ) -&gt;</span>
-<span class="s">  debug &quot;</span><span class="nx">Close</span> <span class="nx">all</span> <span class="nx">database</span> <span class="nx">connections</span><span class="p">...</span><span class="s">&quot;</span>
-<span class="s">  async.each Object.keys(instances), (name, cb) -&gt;</span>
-<span class="s">    instances[name].close cb</span>
-<span class="s">  , cb</span>
+<span class="nv">exports.close = close = </span><span class="nf">(cb = -&gt; ) -&gt;</span>
+  <span class="nx">debug</span> <span class="s">&quot;Close all database connections...&quot;</span>
+  <span class="nx">async</span><span class="p">.</span><span class="nx">each</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">instances</span><span class="p">),</span> <span class="nf">(name, cb) -&gt;</span>
+    <span class="nx">instances</span><span class="p">[</span><span class="nx">name</span><span class="p">].</span><span class="nx">close</span> <span class="nx">cb</span>
+  <span class="p">,</span> <span class="nx">cb</span>
 
-<span class="s">tunnel = (conf, cb) -&gt;</span>
-<span class="s">  conf.access = conf.server</span>
-<span class="s">  return cb null, conf unless conf.ssh</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="open%20ssh%20tunnel%20if%20needed">
+  <h3>
+    <a href="#open%20ssh%20tunnel%20if%20needed" name="open%20ssh%20tunnel%20if%20needed" class="pilcrow">&#182;</a>
+    Open SSH Tunnel if needed
+  </h3>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">tunnel = </span><span class="nf">(conf, cb) -&gt;</span>
+  <span class="nv">conf.access = </span><span class="nx">conf</span><span class="p">.</span><span class="nx">server</span>
+  <span class="k">return</span> <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">conf</span> <span class="k">unless</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">ssh</span>
 
 </pre></div>
         </td>
@@ -410,21 +430,21 @@ load driver</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-22" id="section-22">&#182;</a>
+  <a class="pilcrow" href="#section-23" id="section-23">&#182;</a>
 </div>
 <p>load ssh modules</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="s">  sshtunnel = require &#39;alinex-sshtunnel&#39;</span>
-<span class="s">  sshtunnel</span>
-<span class="s">    ssh: conf.ssh</span>
-<span class="s">    tunnel:</span>
-<span class="s">      host: conf.server.host</span>
-<span class="s">      port: conf.server.port</span>
-<span class="s">  , (err, tunnel) -&gt;</span>
-<span class="s">    return cb err if err</span>
-<span class="s">    conf.access = object.extend {}, conf.server, tunnel.setup</span>
-<span class="s">    cb null, conf</span>
+  <span class="nv">sshtunnel = </span><span class="nx">require</span> <span class="s">&#39;alinex-sshtunnel&#39;</span>
+  <span class="nx">sshtunnel</span>
+    <span class="nv">ssh: </span><span class="nx">conf</span><span class="p">.</span><span class="nx">ssh</span>
+    <span class="nv">tunnel:</span>
+      <span class="nv">host: </span><span class="nx">conf</span><span class="p">.</span><span class="nx">server</span><span class="p">.</span><span class="nx">host</span>
+      <span class="nv">port: </span><span class="nx">conf</span><span class="p">.</span><span class="nx">server</span><span class="p">.</span><span class="nx">port</span>
+  <span class="p">,</span> <span class="nf">(err, tunnel) -&gt;</span>
+    <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+    <span class="nv">conf.access = </span><span class="nx">object</span><span class="p">.</span><span class="nx">extend</span> <span class="p">{},</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">server</span><span class="p">,</span> <span class="nx">tunnel</span><span class="p">.</span><span class="nx">setup</span>
+    <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">conf</span>
 </pre></div>
         </td>
       </tr>
