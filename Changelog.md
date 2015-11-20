@@ -4,6 +4,19 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 0.1.2 (2015-11-20)
+-------------------------------------------------
+- Allow all tests to run.
+- Finished mysql driver optimization and did the same for postgresql.
+- Simplified mysql driver functions.
+- Fix call with connections on mysql driver.
+- Merge branch 'master' of https://github.com/alinex/node-database
+- Support ? placeholder for postgresql.
+- Connection tests on postgresql.
+- Added test cases for connection based methods in mysql.
+- Allow use of given connection in easy access methods.
+- Bug fixed: postgres exec() parameter data were not transmitted.
+
 Version 0.1.1 (2015-11-17)
 -------------------------------------------------
 - Fix syntax error after reporting of error.
