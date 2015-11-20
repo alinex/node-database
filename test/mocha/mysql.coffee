@@ -5,7 +5,7 @@ Config = require 'alinex-config'
 
 database = require '../../src/index'
 
-describe.only "Mysql", ->
+describe "Mysql", ->
 
   after (done) ->
     database.instance 'test-mysql', (err, db) ->
@@ -197,6 +197,7 @@ describe.only "Mysql", ->
               name: "nine"
               comment: "max"
             ]
+            conn.release()
             done()
 
     it "should get one record", (done) ->
@@ -213,6 +214,7 @@ describe.only "Mysql", ->
               num: 2
               name: "two"
               comment: "ok"
+            conn.release()
             done()
 
     it "should get one value", (done) ->
@@ -225,6 +227,7 @@ describe.only "Mysql", ->
           ''', (err, res) ->
             expect(err, 'error').to.not.exist
             expect(res, 'result').to.equal 'max'
+            conn.release()
             done()
 
     it "should get one column", (done) ->
@@ -237,6 +240,7 @@ describe.only "Mysql", ->
           ''', (err, res) ->
             expect(err, 'error').to.not.exist
             expect(res, 'result').to.deep.equal ['one', 'two', 'three', 'nine']
+            conn.release()
             done()
 
 

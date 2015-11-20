@@ -5,7 +5,7 @@ Config = require 'alinex-config'
 
 database = require '../../src/index'
 
-describe "PostgreSQL", ->
+describe.only "PostgreSQL", ->
 
   after (done) ->
     database.instance 'test-postgresql', (err, db) ->
@@ -162,7 +162,7 @@ describe "PostgreSQL", ->
         db.connect (err, conn) ->
           return cb err if err
           db.list conn, '''
-          SELECT * FROM numbers
+          SELECT * FROM numbers ORDER BY id
           ''', (err, res) ->
             expect(err, 'error').to.not.exist
             expect(res, 'results').to.deep.equal [
@@ -186,6 +186,7 @@ describe "PostgreSQL", ->
               name: "nine"
               comment: "max"
             ]
+            conn.release()
             done()
 
     it "should get one record", (done) ->
@@ -202,6 +203,7 @@ describe "PostgreSQL", ->
               num: 2
               name: "two"
               comment: "ok"
+            conn.release()
             done()
 
     it "should get one value", (done) ->
@@ -214,6 +216,7 @@ describe "PostgreSQL", ->
           ''', (err, res) ->
             expect(err, 'error').to.not.exist
             expect(res, 'result').to.equal 'max'
+            conn.release()
             done()
 
     it "should get one column", (done) ->
@@ -222,10 +225,11 @@ describe "PostgreSQL", ->
         db.connect (err, conn) ->
           return cb err if err
           db.column conn, '''
-          SELECT name FROM numbers
+          SELECT name FROM numbers ORDER BY id
           ''', (err, res) ->
             expect(err, 'error').to.not.exist
             expect(res, 'result').to.deep.equal ['one', 'two', 'three', 'nine']
+            conn.release()
             done()
 
 

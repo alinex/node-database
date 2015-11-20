@@ -100,18 +100,21 @@ class Mysql
   # -------------------------------------------------
 
   # ### update, insert or delete something and return count of changes
-  exec: -> @prepare arguments, (conn, sql, data, cb) =>
+  exec: -> @prepare arguments, (err, conn, sql, data, cb) =>
+    return cb err if err
     # run the query
     @query conn, sql, data, (err, result) ->
       cb err, result?.affectedRows, result?.insertId
 
   # ### get all data as object
-  list: -> @prepare arguments, (conn, sql, data, cb) =>
+  list: -> @prepare arguments, (err, conn, sql, data, cb) =>
+    return cb err if err
     # run the query
     @query conn, sql, data, cb
 
   # ### get one record as object
-  record: -> @prepare arguments, (conn, sql, data, cb) =>
+  record: -> @prepare arguments, (err, conn, sql, data, cb) =>
+    return cb err if err
     # get only one row
     if typeof sql is 'object'
       sql.limit = 1
@@ -126,7 +129,8 @@ class Mysql
       cb err, result[0]
 
   # ### get value of one field
-  value: -> @prepare arguments, (conn, sql, data, cb) =>
+  value: -> @prepare arguments, (err, conn, sql, data, cb) =>
+    return cb err if err
     # get only one row
     if typeof sql is 'object'
       sql.limit = 1
@@ -141,7 +145,8 @@ class Mysql
       cb err, result[0][Object.keys(result[0])]
 
   # ### get value of one field
-  column: -> getArgs arguments, (conn, sql, data, cb) ->
+  column: -> @prepare arguments, (err, conn, sql, data, cb) =>
+    return cb err if err
     # run the query
     @query conn, sql, data, (err, result) ->
       return cb err if err
@@ -168,10 +173,10 @@ class Mysql
     [sql, data] = args
     return cb null, conn, sql, data, done if conn
     @connect (err, conn) ->
-      cb err, conn, sql, data, (err, x, y) ->
+      cb err, conn, sql, data, (err) ->
         return cb new Error "MySQL Error: #{err.message}" if err
         conn.release()
-        done()
+        done.apply this, arguments
 
   # ### Run the query on the wrapped driver
   query: (conn, sql, data, cb) ->

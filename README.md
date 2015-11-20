@@ -130,6 +130,9 @@ database.instance 'my-database', (err, db) ->
     return cb err if err
     db.record conn, 'SELECT * FROM user WHERE ID=5', (err, record) ->
       return cb err if err
+      # if you acquire a connection yourself don't forget to release it
+      conn.release()
+
 ```
 
 __Additional Possibilities:__
