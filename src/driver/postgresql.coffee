@@ -125,6 +125,7 @@ class Postgresql
     @query conn, sql, data, (err, result) ->
       match = sql.match /\sRETURNING\s+(\S+)/
       lastId = result.rows[0]?[match[1]] if match?[1]?
+      console.log result
       cb err, result.rowCount, lastId
 
   # ### get all data as object
@@ -145,10 +146,9 @@ class Postgresql
     # run the query
     @query conn, sql, data, (err, result) ->
       return cb err if err
-      return cb() unless result?.rows
       rows = result.rows
-      unless rows[0]? or Object.keys rows[0]
-        cb err, null
+      return cb() unless rows.length
+      # parse result
       cb err, rows[0]
 
   # ### get value of one field
@@ -162,10 +162,9 @@ class Postgresql
     # run the query
     @query conn, sql, data, (err, result) ->
       return cb err if err
-      return cb() unless result?.rows
       rows = result.rows
-      unless rows[0] or Object.keys rows[0]
-        cb err, null
+      return cb() unless rows.length
+      # parse result
       cb err, rows[0][Object.keys(rows[0])]
 
   # ### get value of one field
@@ -174,10 +173,9 @@ class Postgresql
     # run the query
     @query conn, sql, data, (err, result) ->
       return cb err if err
-      return cb() unless result?.rows
       rows = result.rows
-      unless rows[0]? or Object.keys rows[0]
-        cb err, null
+      return cb() unless rows.length
+      # parse result
       cb err, rows.map (e) -> e[Object.keys(e)[0]]
 
   # Query helper

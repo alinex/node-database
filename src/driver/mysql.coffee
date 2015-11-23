@@ -124,8 +124,6 @@ class Mysql
     @query conn, sql, data, (err, result) ->
       return cb err if err
       return cb() unless result?.length
-      unless result[0]? or Object.keys result[0]
-        cb err, null
       cb err, result[0]
 
   # ### get value of one field
@@ -140,8 +138,6 @@ class Mysql
     @query conn, sql, data, (err, result) ->
       return cb err if err
       return cb() unless result?.length
-      unless result[0]? or Object.keys result[0]
-        cb err, null
       cb err, result[0][Object.keys(result[0])]
 
   # ### get value of one field
@@ -151,8 +147,6 @@ class Mysql
     @query conn, sql, data, (err, result) ->
       return cb err if err
       return cb() unless result?.length
-      unless result[0]? or Object.keys result[0]
-        cb err, null
       cb err, result.map (e) -> e[Object.keys(e)[0]]
 
   # Query helper
