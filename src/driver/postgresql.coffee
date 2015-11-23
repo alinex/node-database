@@ -123,9 +123,9 @@ class Postgresql
     return cb err if err
     # run the query
     @query conn, sql, data, (err, result) ->
+      return cb err if err
       match = sql.match /\sRETURNING\s+(\S+)/
       lastId = result.rows[0]?[match[1]] if match?[1]?
-      console.log result
       cb err, result.rowCount, lastId
 
   # ### get all data as object
@@ -197,7 +197,7 @@ class Postgresql
     return cb null, conn, sql, data, done if conn
     @connect (err, conn) ->
       cb err, conn, sql, data, (err) ->
-        return cb new Error "PostgreSQL Error: #{err.message}" if err
+        return done new Error "PostgreSQL Error: #{err.message}" if err
         conn.release()
         done.apply this, arguments
 
