@@ -138,7 +138,7 @@ class Mysql
     @query conn, sql, data, (err, result) ->
       return cb err if err
       return cb() unless result?.length
-      cb err, result[0][Object.keys(result[0])]
+      cb err, result[0][Object.keys(result[0])[0]]
 
   # ### get value of one field
   column: -> @prepare arguments, (err, conn, sql, data, cb) =>

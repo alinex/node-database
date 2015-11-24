@@ -165,7 +165,7 @@ class Postgresql
       rows = result.rows
       return cb() unless rows.length
       # parse result
-      cb err, rows[0][Object.keys(rows[0])]
+      cb err, rows[0][Object.keys(rows[0])[0]]
 
   # ### get value of one field
   column: -> @prepare arguments, (err, conn, sql, data, cb) =>
