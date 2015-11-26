@@ -4,6 +4,12 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 0.1.3 (2015-11-26)
+-------------------------------------------------
+- Fix retrieve of first value.
+- Fixed error reporting in podtgres driver.
+- Fix bug in query result parsing with empty results.
+
 Version 0.1.2 (2015-11-20)
 -------------------------------------------------
 - Allow all tests to run.
