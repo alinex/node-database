@@ -491,8 +491,6 @@ better use the <code>instance()</code> method which implements the factory patte
     <span class="nx">@query</span> <span class="nx">conn</span><span class="p">,</span> <span class="nx">sql</span><span class="p">,</span> <span class="nx">data</span><span class="p">,</span> <span class="nf">(err, result) -&gt;</span>
       <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
       <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">unless</span> <span class="nx">result</span><span class="o">?</span><span class="p">.</span><span class="nx">length</span>
-      <span class="k">unless</span> <span class="nx">result</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">?</span> <span class="o">or</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span> <span class="nx">result</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="nx">cb</span> <span class="nx">err</span><span class="p">,</span> <span class="kc">null</span>
       <span class="nx">cb</span> <span class="nx">err</span><span class="p">,</span> <span class="nx">result</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
 
@@ -543,9 +541,7 @@ better use the <code>instance()</code> method which implements the factory patte
     <span class="nx">@query</span> <span class="nx">conn</span><span class="p">,</span> <span class="nx">sql</span><span class="p">,</span> <span class="nx">data</span><span class="p">,</span> <span class="nf">(err, result) -&gt;</span>
       <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
       <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">unless</span> <span class="nx">result</span><span class="o">?</span><span class="p">.</span><span class="nx">length</span>
-      <span class="k">unless</span> <span class="nx">result</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">?</span> <span class="o">or</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span> <span class="nx">result</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="nx">cb</span> <span class="nx">err</span><span class="p">,</span> <span class="kc">null</span>
-      <span class="nx">cb</span> <span class="nx">err</span><span class="p">,</span> <span class="nx">result</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">result</span><span class="p">[</span><span class="mi">0</span><span class="p">])]</span>
+      <span class="nx">cb</span> <span class="nx">err</span><span class="p">,</span> <span class="nx">result</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">result</span><span class="p">[</span><span class="mi">0</span><span class="p">])[</span><span class="mi">0</span><span class="p">]]</span>
 
 
 </pre></div>
@@ -579,8 +575,6 @@ better use the <code>instance()</code> method which implements the factory patte
     <span class="nx">@query</span> <span class="nx">conn</span><span class="p">,</span> <span class="nx">sql</span><span class="p">,</span> <span class="nx">data</span><span class="p">,</span> <span class="nf">(err, result) -&gt;</span>
       <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
       <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">unless</span> <span class="nx">result</span><span class="o">?</span><span class="p">.</span><span class="nx">length</span>
-      <span class="k">unless</span> <span class="nx">result</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">?</span> <span class="o">or</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span> <span class="nx">result</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="nx">cb</span> <span class="nx">err</span><span class="p">,</span> <span class="kc">null</span>
       <span class="nx">cb</span> <span class="nx">err</span><span class="p">,</span> <span class="nx">result</span><span class="p">.</span><span class="nx">map</span> <span class="nf">(e) -&gt;</span> <span class="nx">e</span><span class="p">[</span><span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">e</span><span class="p">)[</span><span class="mi">0</span><span class="p">]]</span>
 
 
