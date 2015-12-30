@@ -111,7 +111,7 @@ database.record 'my-database', 'SELECT * FROM user WHERE ID=5', (err, record) ->
   return cb err if err
 ```
 
-Call after method (2) with using the db instance:
+Call with method (2) using the db instance:
 
 ``` coffee
 database.instance 'my-database', (err, db) ->
@@ -120,7 +120,7 @@ database.instance 'my-database', (err, db) ->
     return cb err if err
 ```
 
-Call on connection (3):
+Call with method (3) on connection:
 
 ``` coffee
 database.instance 'my-database', (err, db) ->
