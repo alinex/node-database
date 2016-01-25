@@ -57,7 +57,7 @@ class Mysql
         conn.name = chalk.grey "[#{@name}##{conn._socket._handle.fd}]"
         debugPool "#{conn.name} open connection"
         conn.on 'error', (err) ->
-          debug "#{conn.name} uncatched #{err} on connection"
+          debugPool "#{conn.name} uncatched #{err} on connection"
       @pool.on 'enqueue', =>
         name = chalk.grey "[#{@name}]"
         debugPool "#{name} waiting for connection"

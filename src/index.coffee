@@ -92,7 +92,7 @@ call = (fn, name, query, data, cb) ->
     db[fn] query, data, cb
 
 # ### Shutdown
-exports.close = close = (cb = -> ) ->
+exports.close = (cb = -> ) ->
   debug "Close all database connections..."
   async.each Object.keys(instances), (name, cb) ->
     instances[name].close cb

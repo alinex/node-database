@@ -57,21 +57,30 @@ class Postgresql
       fallback_application_name: 'alinex-database'
     , @conf.access
 #    console.log 'client', util.inspect client, {depth:null}
-    debugPool "#{chalk.grey @name} retrieve connection"
+    pool = pg.pools.getOrCreate setup
+    debugPool "#{chalk.grey @name} retrieve connection" +
+      chalk.grey " (pool #{pool.availableObjectsCount()}/#{pool.getPoolSize()})"
     pg.connect setup, (err, conn, done) =>
       if err
-        done()
+        done err
+        debugPool "#{conn.name} error #{err.message}"
         err.message += " at #{@name}"
         return cb err
       if conn.alinex?
-        debugPool "#{conn.name} reuse connection"
+        debugPool "#{conn.name} reuse connection" +
+          chalk.grey " (pool #{pool.availableObjectsCount()}/#{pool.getPoolSize()})"
         return cb null, conn
       conn.name = chalk.grey "[#{@name}##{++@connectionNum}]" unless conn.name?
-      debugPool "#{conn.name} opened new connection"
+      debugPool "#{conn.name} opened new connection" +
+        chalk.grey " (pool #{pool.availableObjectsCount()}/#{pool.getPoolSize()})"
       # add debugging
       conn.release = ->
-        debugPool "#{conn.name} release connection"
         done()
+        debugPool "#{conn.name} release connection" +
+          chalk.grey " (pool #{pool.availableObjectsCount()}/#{pool.getPoolSize()})"
+      conn.on 'error', (err) ->
+        done err
+        debugPool "#{conn.name} failure #{err.message}"
       query = conn.query
       conn.query = (sql, data, cb) ->
         unless typeof cb is 'function'
@@ -98,7 +107,7 @@ class Postgresql
         # called using events
         fn = query.apply conn, [sql, data]
         if debugCmd.enabled or debugData.enabled or debugResult.enabled
-          fn.on? 'row', (row, result) ->
+          fn.on? 'row', (row) ->
             debugData "#{conn.name} #{row}"
           fn.on? 'error', (err) ->
             debugResult "#{conn.name} #{chalk.grey err.message}"
@@ -215,7 +224,7 @@ class Postgresql
   escape: ->#SqlString.escape
   escapeId: ->#SqlString.escapeId
 
-  sql: (sql, data) ->
+  sql: (sql) ->
     if typeof sql isnt 'string'
       # object syntax
       sql = object2sql sql, this

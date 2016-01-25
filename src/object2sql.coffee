@@ -7,7 +7,7 @@
 # include base modules
 debug = require('debug')('db')
 chalk = require 'chalk'
-{object, string} = require 'alinex-util'
+{string} = require 'alinex-util'
 
 # General Helpers
 # -------------------------------------------------
@@ -174,7 +174,7 @@ module.exports = (obj, driver) ->
       name: 'sqlObject'
       value: obj
       schema: require('./object2sql_schema').schema
-    , (err, result) ->
+    , (err) ->
       debug chalk.red "Error in SQL Object: #{err.message}" if err
   # select main type
   for name in Object.keys type
