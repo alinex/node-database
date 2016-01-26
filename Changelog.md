@@ -4,6 +4,13 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 0.1.4 (2016-01-26)
+-------------------------------------------------
+- Compressed debug of sql parameters in postgres.
+- added debug level for error reporting.
+- Better pool information in debug mode of postgresql.
+- Fixed typo in documentation.
+
 Version 0.1.3 (2015-11-26)
 -------------------------------------------------
 - Fix retrieve of first value.
