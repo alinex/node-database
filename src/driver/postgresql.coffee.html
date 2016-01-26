@@ -6,7 +6,7 @@
   <link rel="stylesheet" media="all" href="../../doc-style.css" />
   <script src="../../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../../", thisFile = "home/alex/a3/node-database/src/driver/postgresqlcoffee", defaultSidebar = true;
+    var relativeDir = "../../", thisFile = "home/alex/github/node-database/src/driver/postgresqlcoffee", defaultSidebar = true;
   </script>
   <script src="../../doc-script.js"></script>
   <script src="../../fileSearch.js"></script>
@@ -136,6 +136,7 @@
 <span class="nv">debugResult = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;debug&#39;</span><span class="p">)(</span><span class="s">&#39;database:result&#39;</span><span class="p">)</span>
 <span class="nv">debugData = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;debug&#39;</span><span class="p">)(</span><span class="s">&#39;database:data&#39;</span><span class="p">)</span>
 <span class="nv">debugCom = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;debug&#39;</span><span class="p">)(</span><span class="s">&#39;database:com&#39;</span><span class="p">)</span>
+<span class="nv">debugError = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;debug&#39;</span><span class="p">)(</span><span class="s">&#39;database:error&#39;</span><span class="p">)</span>
 <span class="nv">chalk = </span><span class="nx">require</span> <span class="s">&#39;chalk&#39;</span>
 <span class="nv">util = </span><span class="nx">require</span> <span class="s">&#39;util&#39;</span>
 <span class="nv">pg = </span><span class="nx">require</span> <span class="s">&#39;pg&#39;</span>
@@ -295,17 +296,22 @@ better use the <code>instance()</code> method which implements the factory patte
 <p>console.log 'client', util.inspect client, {depth:null}</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-    <span class="nx">debugPool</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="nx">@name</span><span class="si">}</span><span class="s"> retrieve connection&quot;</span>
+    <span class="nv">pool = </span><span class="nx">pg</span><span class="p">.</span><span class="nx">pools</span><span class="p">.</span><span class="nx">getOrCreate</span> <span class="nx">setup</span>
+    <span class="nx">debugPool</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="nx">@name</span><span class="si">}</span><span class="s"> retrieve connection&quot;</span> <span class="o">+</span>
+      <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot; (pool </span><span class="si">#{</span><span class="nx">pool</span><span class="p">.</span><span class="nx">availableObjectsCount</span><span class="p">()</span><span class="si">}</span><span class="s">/</span><span class="si">#{</span><span class="nx">pool</span><span class="p">.</span><span class="nx">getPoolSize</span><span class="p">()</span><span class="si">}</span><span class="s">)&quot;</span>
     <span class="nx">pg</span><span class="p">.</span><span class="nx">connect</span> <span class="nx">setup</span><span class="p">,</span> <span class="nf">(err, conn, done) =&gt;</span>
       <span class="k">if</span> <span class="nx">err</span>
-        <span class="nx">done</span><span class="p">()</span>
+        <span class="nx">done</span> <span class="nx">err</span>
+        <span class="nx">debugError</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">conn</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="s"> error </span><span class="si">#{</span><span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="si">}</span><span class="s">&quot;</span>
         <span class="nx">err</span><span class="p">.</span><span class="nx">message</span> <span class="o">+=</span> <span class="s">&quot; at </span><span class="si">#{</span><span class="nx">@name</span><span class="si">}</span><span class="s">&quot;</span>
         <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span>
       <span class="k">if</span> <span class="nx">conn</span><span class="p">.</span><span class="nx">alinex</span><span class="o">?</span>
-        <span class="nx">debugPool</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">conn</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="s"> reuse connection&quot;</span>
+        <span class="nx">debugPool</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">conn</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="s"> reuse connection&quot;</span> <span class="o">+</span>
+          <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot; (pool </span><span class="si">#{</span><span class="nx">pool</span><span class="p">.</span><span class="nx">availableObjectsCount</span><span class="p">()</span><span class="si">}</span><span class="s">/</span><span class="si">#{</span><span class="nx">pool</span><span class="p">.</span><span class="nx">getPoolSize</span><span class="p">()</span><span class="si">}</span><span class="s">)&quot;</span>
         <span class="k">return</span> <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">conn</span>
       <span class="nv">conn.name = </span><span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;[</span><span class="si">#{</span><span class="nx">@name</span><span class="si">}</span><span class="err">#</span><span class="si">#{</span><span class="o">++</span><span class="nx">@connectionNum</span><span class="si">}</span><span class="s">]&quot;</span> <span class="k">unless</span> <span class="nx">conn</span><span class="p">.</span><span class="nx">name</span><span class="o">?</span>
-      <span class="nx">debugPool</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">conn</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="s"> opened new connection&quot;</span>
+      <span class="nx">debugPool</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">conn</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="s"> opened new connection&quot;</span> <span class="o">+</span>
+        <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot; (pool </span><span class="si">#{</span><span class="nx">pool</span><span class="p">.</span><span class="nx">availableObjectsCount</span><span class="p">()</span><span class="si">}</span><span class="s">/</span><span class="si">#{</span><span class="nx">pool</span><span class="p">.</span><span class="nx">getPoolSize</span><span class="p">()</span><span class="si">}</span><span class="s">)&quot;</span>
 
 </pre></div>
         </td>
@@ -319,8 +325,12 @@ better use the <code>instance()</code> method which implements the factory patte
         </td>
         <td class="code highlight"><div class="highlight"><pre>
       <span class="nv">conn.release = </span><span class="nf">-&gt;</span>
-        <span class="nx">debugPool</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">conn</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="s"> release connection&quot;</span>
         <span class="nx">done</span><span class="p">()</span>
+        <span class="nx">debugPool</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">conn</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="s"> release connection&quot;</span> <span class="o">+</span>
+          <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot; (pool </span><span class="si">#{</span><span class="nx">pool</span><span class="p">.</span><span class="nx">availableObjectsCount</span><span class="p">()</span><span class="si">}</span><span class="s">/</span><span class="si">#{</span><span class="nx">pool</span><span class="p">.</span><span class="nx">getPoolSize</span><span class="p">()</span><span class="si">}</span><span class="s">)&quot;</span>
+      <span class="nx">conn</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;error&#39;</span><span class="p">,</span> <span class="nf">(err) -&gt;</span>
+        <span class="nx">done</span> <span class="nx">err</span>
+        <span class="nx">debugError</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">conn</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="s"> failure </span><span class="si">#{</span><span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="si">}</span><span class="s">&quot;</span>
       <span class="nv">query = </span><span class="nx">conn</span><span class="p">.</span><span class="nx">query</span>
       <span class="nv">conn.query = </span><span class="nf">(sql, data, cb) -&gt;</span>
         <span class="k">unless</span> <span class="k">typeof</span> <span class="nx">cb</span> <span class="o">is</span> <span class="s">&#39;function&#39;</span>
@@ -328,12 +338,12 @@ better use the <code>instance()</code> method which implements the factory patte
           <span class="nv">data = </span><span class="kc">null</span>
         <span class="nv">data = </span><span class="p">[</span><span class="nx">data</span><span class="p">]</span> <span class="k">if</span> <span class="k">typeof</span> <span class="nx">data</span> <span class="o">is</span> <span class="s">&#39;string&#39;</span>
         <span class="nx">debugCmd</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">conn</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">sql</span><span class="si">}#{</span>
-          <span class="k">if</span> <span class="nx">data</span> <span class="k">then</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span><span class="p">(</span><span class="s">&#39; with &#39;</span><span class="p">)</span> <span class="o">+</span> <span class="nx">util</span><span class="p">.</span><span class="nx">inspect</span> <span class="nx">data</span> <span class="k">else</span> <span class="s">&#39;&#39;</span>
+          <span class="k">if</span> <span class="nx">data</span> <span class="k">then</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span><span class="p">(</span><span class="s">&#39; with &#39;</span><span class="p">)</span> <span class="o">+</span> <span class="nx">util</span><span class="p">.</span><span class="nx">inspect</span><span class="p">(</span><span class="nx">data</span><span class="p">).</span><span class="nx">replace</span> <span class="sr">/\s+/g</span><span class="p">,</span> <span class="s">&#39; &#39;</span> <span class="k">else</span> <span class="s">&#39;&#39;</span>
           <span class="si">}</span><span class="s">&quot;</span>
         <span class="k">if</span> <span class="nx">cb</span>
           <span class="nx">query</span><span class="p">.</span><span class="nx">apply</span> <span class="nx">conn</span><span class="p">,</span> <span class="p">[</span><span class="nx">sql</span><span class="p">,</span> <span class="nx">data</span><span class="p">,</span> <span class="nf">(err, result) -&gt;</span>
             <span class="k">if</span> <span class="nx">err</span>
-              <span class="nx">debugResult</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">conn</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="si">}</span><span class="s">&quot;</span>
+              <span class="nx">debugError</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">conn</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="si">}</span><span class="s">&quot;</span>
             <span class="k">if</span> <span class="nx">result</span><span class="o">?</span>
               <span class="k">if</span> <span class="nx">result</span><span class="p">.</span><span class="nx">fields</span><span class="p">.</span><span class="nx">length</span>
                 <span class="nx">debugResult</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">conn</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="s"> fields: </span><span class="si">#{</span><span class="nx">util</span><span class="p">.</span><span class="nx">inspect</span> <span class="nx">result</span><span class="p">.</span><span class="nx">fields</span><span class="si">}</span><span class="s">&quot;</span>
@@ -372,11 +382,11 @@ better use the <code>instance()</code> method which implements the factory patte
         </td>
         <td class="code highlight"><div class="highlight"><pre>
         <span class="nv">fn = </span><span class="nx">query</span><span class="p">.</span><span class="nx">apply</span> <span class="nx">conn</span><span class="p">,</span> <span class="p">[</span><span class="nx">sql</span><span class="p">,</span> <span class="nx">data</span><span class="p">]</span>
-        <span class="k">if</span> <span class="nx">debugCmd</span><span class="p">.</span><span class="nx">enabled</span> <span class="o">or</span> <span class="nx">debugData</span><span class="p">.</span><span class="nx">enabled</span> <span class="o">or</span> <span class="nx">debugResult</span><span class="p">.</span><span class="nx">enabled</span>
-          <span class="nx">fn</span><span class="p">.</span><span class="nx">on</span><span class="o">?</span> <span class="s">&#39;row&#39;</span><span class="p">,</span> <span class="nf">(row, result) -&gt;</span>
+        <span class="k">if</span> <span class="nx">debugCmd</span><span class="p">.</span><span class="nx">enabled</span> <span class="o">or</span> <span class="nx">debugData</span><span class="p">.</span><span class="nx">enabled</span> <span class="o">or</span> <span class="nx">debugResult</span><span class="p">.</span><span class="nx">enabled</span> <span class="o">or</span> <span class="nx">debugError</span><span class="p">.</span><span class="nx">enabled</span>
+          <span class="nx">fn</span><span class="p">.</span><span class="nx">on</span><span class="o">?</span> <span class="s">&#39;row&#39;</span><span class="p">,</span> <span class="nf">(row) -&gt;</span>
             <span class="nx">debugData</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">conn</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">row</span><span class="si">}</span><span class="s">&quot;</span>
           <span class="nx">fn</span><span class="p">.</span><span class="nx">on</span><span class="o">?</span> <span class="s">&#39;error&#39;</span><span class="p">,</span> <span class="nf">(err) -&gt;</span>
-            <span class="nx">debugResult</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">conn</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="si">}</span><span class="s">&quot;</span>
+            <span class="nx">debugError</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">conn</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">red</span><span class="p">.</span><span class="nx">bold</span> <span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="si">}</span><span class="s">&quot;</span>
           <span class="nx">fn</span><span class="p">.</span><span class="nx">on</span><span class="o">?</span> <span class="s">&#39;end&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span>
             <span class="nx">debugCom</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">conn</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="s"> end query&quot;</span>
         <span class="nx">fn</span>
@@ -704,8 +714,8 @@ better use the <code>instance()</code> method which implements the factory patte
     <span class="k">return</span> <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">conn</span><span class="p">,</span> <span class="nx">sql</span><span class="p">,</span> <span class="nx">data</span><span class="p">,</span> <span class="nx">done</span> <span class="k">if</span> <span class="nx">conn</span>
     <span class="nx">@connect</span> <span class="nf">(err, conn) -&gt;</span>
       <span class="nx">cb</span> <span class="nx">err</span><span class="p">,</span> <span class="nx">conn</span><span class="p">,</span> <span class="nx">sql</span><span class="p">,</span> <span class="nx">data</span><span class="p">,</span> <span class="nf">(err) -&gt;</span>
-        <span class="k">return</span> <span class="nx">done</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;PostgreSQL Error: </span><span class="si">#{</span><span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="si">}</span><span class="s">&quot;</span> <span class="k">if</span> <span class="nx">err</span>
         <span class="nx">conn</span><span class="p">.</span><span class="nx">release</span><span class="p">()</span>
+        <span class="k">return</span> <span class="nx">done</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;PostgreSQL Error: </span><span class="si">#{</span><span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="si">}</span><span class="s">&quot;</span> <span class="k">if</span> <span class="nx">err</span>
         <span class="nx">done</span><span class="p">.</span><span class="nx">apply</span> <span class="k">this</span><span class="p">,</span> <span class="nx">arguments</span>
 
 
@@ -771,7 +781,7 @@ better use the <code>instance()</code> method which implements the factory patte
   <span class="nv">escape: </span><span class="nf">-&gt;</span><span class="c1">#SqlString.escape</span>
   <span class="nv">escapeId: </span><span class="nf">-&gt;</span><span class="c1">#SqlString.escapeId</span>
 
-  <span class="nv">sql: </span><span class="nf">(sql, data) -&gt;</span>
+  <span class="nv">sql: </span><span class="nf">(sql) -&gt;</span>
     <span class="k">if</span> <span class="k">typeof</span> <span class="nx">sql</span> <span class="o">isnt</span> <span class="s">&#39;string&#39;</span>
 
 </pre></div>

@@ -6,7 +6,7 @@
   <link rel="stylesheet" media="all" href="../doc-style.css" />
   <script src="../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../", thisFile = "home/alex/a3/node-database/src/object2sqlcoffee", defaultSidebar = true;
+    var relativeDir = "../", thisFile = "home/alex/github/node-database/src/object2sqlcoffee", defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
   <script src="../fileSearch.js"></script>
@@ -146,7 +146,7 @@
         <td class="code highlight"><div class="highlight"><pre>
 <span class="nv">debug = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;debug&#39;</span><span class="p">)(</span><span class="s">&#39;db&#39;</span><span class="p">)</span>
 <span class="nv">chalk = </span><span class="nx">require</span> <span class="s">&#39;chalk&#39;</span>
-<span class="p">{</span><span class="nx">object</span><span class="p">,</span> <span class="nx">string</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span> <span class="s">&#39;alinex-util&#39;</span>
+<span class="p">{</span><span class="nx">string</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span> <span class="s">&#39;alinex-util&#39;</span>
 
 
 </pre></div>
@@ -615,7 +615,7 @@
       <span class="nv">name: </span><span class="s">&#39;sqlObject&#39;</span>
       <span class="nv">value: </span><span class="nx">obj</span>
       <span class="nv">schema: </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;./object2sql_schema&#39;</span><span class="p">).</span><span class="nx">schema</span>
-    <span class="p">,</span> <span class="nf">(err, result) -&gt;</span>
+    <span class="p">,</span> <span class="nf">(err) -&gt;</span>
       <span class="nx">debug</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">red</span> <span class="s">&quot;Error in SQL Object: </span><span class="si">#{</span><span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="si">}</span><span class="s">&quot;</span> <span class="k">if</span> <span class="nx">err</span>
 
 </pre></div>

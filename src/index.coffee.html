@@ -6,7 +6,7 @@
   <link rel="stylesheet" media="all" href="../doc-style.css" />
   <script src="../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../", thisFile = "home/alex/a3/node-database/src/indexcoffee", defaultSidebar = true;
+    var relativeDir = "../", thisFile = "home/alex/github/node-database/src/indexcoffee", defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
   <script src="../fileSearch.js"></script>
@@ -399,7 +399,7 @@ load driver</p>
 
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">exports.close = close = </span><span class="nf">(cb = -&gt; ) -&gt;</span>
+<span class="nv">exports.close = </span><span class="nf">(cb = -&gt; ) -&gt;</span>
   <span class="nx">debug</span> <span class="s">&quot;Close all database connections...&quot;</span>
   <span class="nx">async</span><span class="p">.</span><span class="nx">each</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">instances</span><span class="p">),</span> <span class="nf">(name, cb) -&gt;</span>
     <span class="nx">instances</span><span class="p">[</span><span class="nx">name</span><span class="p">].</span><span class="nx">close</span> <span class="nx">cb</span>
