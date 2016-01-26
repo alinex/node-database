@@ -11,6 +11,7 @@ debugCmd = require('debug')('database:cmd')
 debugResult = require('debug')('database:result')
 debugData = require('debug')('database:data')
 debugCom = require('debug')('database:com')
+debugError = require('debug')('database:error')
 chalk = require 'chalk'
 util = require 'util'
 pg = require 'pg'
@@ -63,7 +64,7 @@ class Postgresql
     pg.connect setup, (err, conn, done) =>
       if err
         done err
-        debugPool "#{conn.name} error #{err.message}"
+        debugError "#{conn.name} error #{err.message}"
         err.message += " at #{@name}"
         return cb err
       if conn.alinex?
@@ -80,7 +81,7 @@ class Postgresql
           chalk.grey " (pool #{pool.availableObjectsCount()}/#{pool.getPoolSize()})"
       conn.on 'error', (err) ->
         done err
-        debugPool "#{conn.name} failure #{err.message}"
+        debugError "#{conn.name} failure #{err.message}"
       query = conn.query
       conn.query = (sql, data, cb) ->
         unless typeof cb is 'function'
@@ -93,7 +94,7 @@ class Postgresql
         if cb
           query.apply conn, [sql, data, (err, result) ->
             if err
-              debugResult "#{conn.name} #{chalk.grey err.message}"
+              debugError "#{conn.name} #{chalk.grey err.message}"
             if result?
               if result.fields.length
                 debugResult "#{conn.name} fields: #{util.inspect result.fields}"
@@ -106,11 +107,11 @@ class Postgresql
           return
         # called using events
         fn = query.apply conn, [sql, data]
-        if debugCmd.enabled or debugData.enabled or debugResult.enabled
+        if debugCmd.enabled or debugData.enabled or debugResult.enabled or debugError.enabled
           fn.on? 'row', (row) ->
             debugData "#{conn.name} #{row}"
           fn.on? 'error', (err) ->
-            debugResult "#{conn.name} #{chalk.grey err.message}"
+            debugError "#{conn.name} #{chalk.red.bold err.message}"
           fn.on? 'end', ->
             debugCom chalk.grey "#{conn.name} end query"
         fn
@@ -206,8 +207,8 @@ class Postgresql
     return cb null, conn, sql, data, done if conn
     @connect (err, conn) ->
       cb err, conn, sql, data, (err) ->
-        return done new Error "PostgreSQL Error: #{err.message}" if err
         conn.release()
+        return done new Error "PostgreSQL Error: #{err.message}" if err
         done.apply this, arguments
 
   # ### Run the query on the wrapped driver

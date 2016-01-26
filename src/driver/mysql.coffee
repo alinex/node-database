@@ -12,6 +12,7 @@ debugCmd = require('debug')('database:cmd')
 debugResult = require('debug')('database:result')
 debugData = require('debug')('database:data')
 debugCom = require('debug')('database:com')
+debugError = require('debug')('database:error')
 chalk = require 'chalk'
 util = require 'util'
 mysql = require 'mysql'
@@ -57,14 +58,14 @@ class Mysql
         conn.name = chalk.grey "[#{@name}##{conn._socket._handle.fd}]"
         debugPool "#{conn.name} open connection"
         conn.on 'error', (err) ->
-          debugPool "#{conn.name} uncatched #{err} on connection"
+          debugError "#{conn.name} uncatched #{err} on connection"
       @pool.on 'enqueue', =>
         name = chalk.grey "[#{@name}]"
         debugPool "#{name} waiting for connection"
     # get the connection
     @pool.getConnection (err, conn) =>
       if err
-        debugCom chalk.grey("[#{@name}]") + " #{err} while connecting"
+        debugError chalk.grey("[#{@name}]") + " #{err} while connecting"
         if @tries > 2 # max retries to get a connection
           return cb new Error "#{err.message} while connecting to #{@name} database"
         return setTimeout =>
