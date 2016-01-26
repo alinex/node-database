@@ -89,7 +89,7 @@ class Postgresql
           data = null
         data = [data] if typeof data is 'string'
         debugCmd "#{conn.name} #{sql}#{
-          if data then chalk.grey(' with ') + util.inspect data else ''
+          if data then chalk.grey(' with ') + util.inspect(data).replace /\s+/g, ' ' else ''
           }"
         if cb
           query.apply conn, [sql, data, (err, result) ->
