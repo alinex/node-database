@@ -1,7 +1,6 @@
 chai = require 'chai'
 expect = chai.expect
-Config = require 'alinex-config'
-#require('alinex-error').install()
+### eslint-env node, mocha ###
 
 database = require '../../src/index'
 
@@ -10,7 +9,7 @@ describe "Mysql", ->
   after (done) ->
     database.instance 'test-mysql', (err, db) ->
       throw err if err
-      db.exec 'DROP TABLE IF EXISTS numbers', (err, num) ->
+      db.exec 'DROP TABLE IF EXISTS numbers', (err) ->
         expect(err, 'error after drop').to.not.exist
         done()
 
@@ -21,7 +20,7 @@ describe "Mysql", ->
         throw err if err
         db.connect (err, conn) ->
           expect(err, 'error on connection').to.not.exist
-          conn.query 'SELECT 2 + 2 AS solution', (err, rows, fields) ->
+          conn.query 'SELECT 2 + 2 AS solution', (err, rows) ->
             throw err if err
             console.log 'The database calculated 2+2 =', rows[0].solution
             conn.release()
@@ -33,7 +32,7 @@ describe "Mysql", ->
         throw err if err
         db.connect (err, conn) ->
           expect(err, 'error on connection').to.not.exist
-          conn.query 'SELECT 2 + 2 AS solution', (err, rows, fields) ->
+          conn.query 'SELECT 2 + 2 AS solution', (err, rows) ->
             throw err if err
             console.log 'The database calculated 2+2 =', rows[0].solution
             conn.release()
@@ -44,7 +43,7 @@ describe "Mysql", ->
     it "should create a table", (done) ->
       database.instance 'test-mysql', (err, db) ->
         throw err if err
-        db.exec 'DROP TABLE IF EXISTS numbers', (err, num) ->
+        db.exec 'DROP TABLE IF EXISTS numbers', (err) ->
           expect(err, 'error after drop').to.not.exist
           db.exec '''
             CREATE TABLE numbers (
@@ -53,7 +52,7 @@ describe "Mysql", ->
               name VARCHAR(10),
               comment VARCHAR(32)
             )
-            ''', (err, num) ->
+            ''', (err) ->
             expect(err, 'error').to.not.exist
             done()
 
@@ -167,7 +166,7 @@ describe "Mysql", ->
 
   describe "connection", ->
 
-    it "should get complete list of entries", (done) ->
+    it "should get complete list of entries", (cb) ->
       database.instance 'test-mysql', (err, db) ->
         throw err if err
         db.connect (err, conn) ->
@@ -198,9 +197,9 @@ describe "Mysql", ->
               comment: "max"
             ]
             conn.release()
-            done()
+            cb()
 
-    it "should get one record", (done) ->
+    it "should get one record", (cb) ->
       database.instance 'test-mysql', (err, db) ->
         throw err if err
         db.connect (err, conn) ->
@@ -215,9 +214,9 @@ describe "Mysql", ->
               name: "two"
               comment: "ok"
             conn.release()
-            done()
+            cb()
 
-    it "should get one value", (done) ->
+    it "should get one value", (cb) ->
       database.instance 'test-mysql', (err, db) ->
         throw err if err
         db.connect (err, conn) ->
@@ -228,9 +227,9 @@ describe "Mysql", ->
             expect(err, 'error').to.not.exist
             expect(res, 'result').to.equal 'max'
             conn.release()
-            done()
+            cb()
 
-    it "should get one column", (done) ->
+    it "should get one column", (cb) ->
       database.instance 'test-mysql', (err, db) ->
         throw err if err
         db.connect (err, conn) ->
@@ -241,12 +240,12 @@ describe "Mysql", ->
             expect(err, 'error').to.not.exist
             expect(res, 'result').to.deep.equal ['one', 'two', 'three', 'nine']
             conn.release()
-            done()
+            cb()
 
 
   describe "placeholder", ->
 
-    it "should use in query", (done) ->
+    it "should use in query", (cb) ->
       database.instance 'test-mysql', (err, db) ->
         throw err if err
         db.value '''
@@ -254,9 +253,9 @@ describe "Mysql", ->
         ''', 'max', (err, res) ->
           expect(err, 'error').to.not.exist
           expect(res, 'result').to.equal 9
-          done()
+          cb()
 
-    it "should work for insert", (done) ->
+    it "should work for insert", (cb) ->
       database.instance 'test-mysql', (err, db) ->
         throw err if err
         db.exec 'INSERT INTO numbers SET ?',
@@ -265,4 +264,4 @@ describe "Mysql", ->
         , (err, res) ->
           expect(err, 'error').to.not.exist
           expect(res, 'result').to.equal 1
-          done()
+          cb()

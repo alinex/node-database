@@ -1,7 +1,6 @@
 chai = require 'chai'
 expect = chai.expect
-Config = require 'alinex-config'
-#require('alinex-error').install()
+### eslint-env node, mocha ###
 
 database = require '../../src/index'
 
@@ -10,7 +9,7 @@ describe "PostgreSQL", ->
   after (done) ->
     database.instance 'test-postgresql', (err, db) ->
       throw err if err
-      db.exec 'DROP TABLE IF EXISTS numbers', (err, num) ->
+      db.exec 'DROP TABLE IF EXISTS numbers', (err) ->
         expect(err, 'error after drop').to.not.exist
         done()
 
@@ -32,7 +31,7 @@ describe "PostgreSQL", ->
     it "should create a table", (done) ->
       database.instance 'test-postgresql', (err, db) ->
         throw err if err
-        db.exec 'DROP TABLE IF EXISTS numbers', (err, num) ->
+        db.exec 'DROP TABLE IF EXISTS numbers', (err) ->
           expect(err, 'error after drop').to.not.exist
           db.exec '''
             CREATE TABLE numbers (
@@ -41,7 +40,7 @@ describe "PostgreSQL", ->
               name VARCHAR(10),
               comment VARCHAR(32)
             )
-            ''', (err, num) ->
+            ''', (err) ->
             expect(err, 'error').to.not.exist
             done()
 
@@ -156,7 +155,7 @@ describe "PostgreSQL", ->
 
   describe "connection", ->
 
-    it "should get complete list of entries", (done) ->
+    it "should get complete list of entries", (cb) ->
       database.instance 'test-postgresql', (err, db) ->
         throw err if err
         db.connect (err, conn) ->
@@ -187,9 +186,9 @@ describe "PostgreSQL", ->
               comment: "max"
             ]
             conn.release()
-            done()
+            cb()
 
-    it "should get one record", (done) ->
+    it "should get one record", (cb) ->
       database.instance 'test-postgresql', (err, db) ->
         throw err if err
         db.connect (err, conn) ->
@@ -204,9 +203,9 @@ describe "PostgreSQL", ->
               name: "two"
               comment: "ok"
             conn.release()
-            done()
+            cb()
 
-    it "should get one value", (done) ->
+    it "should get one value", (cb) ->
       database.instance 'test-postgresql', (err, db) ->
         throw err if err
         db.connect (err, conn) ->
@@ -217,9 +216,9 @@ describe "PostgreSQL", ->
             expect(err, 'error').to.not.exist
             expect(res, 'result').to.equal 'max'
             conn.release()
-            done()
+            cb()
 
-    it "should get one column", (done) ->
+    it "should get one column", (cb) ->
       database.instance 'test-postgresql', (err, db) ->
         throw err if err
         db.connect (err, conn) ->
@@ -230,7 +229,7 @@ describe "PostgreSQL", ->
             expect(err, 'error').to.not.exist
             expect(res, 'result').to.deep.equal ['one', 'two', 'three', 'nine']
             conn.release()
-            done()
+            cb()
 
 
   describe "placeholder", ->

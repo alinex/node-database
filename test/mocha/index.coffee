@@ -1,5 +1,6 @@
 chai = require 'chai'
 expect = chai.expect
+### eslint-env node, mocha ###
 
 database = require '../../src/index'
 config = require 'alinex-config'
@@ -29,6 +30,6 @@ describe "Base", ->
 
     it "should throw error if no database defined", (cb) ->
       @timeout 4000
-      database.instance 'not-existent-db', (err, db) ->
+      database.instance 'not-existent-db', (err) ->
         expect(err, 'config error').to.exist
         cb()
