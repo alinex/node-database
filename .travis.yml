@@ -1,8 +1,9 @@
 language: node_js
 node_js:
-   - "0.10"
-   - "0.12"
-   - "4.2"
+   - "0.10" # from 2013-03 maintenance till 2016-10
+   - "0.12" # from 2015-02 maintenance till 2017-04
+   - "4.2"  # LTS from 2015-10  maintenance till 2018-04
+   - "5.5"  # current
 addons:
   postgresql: "9.4"
 env:
