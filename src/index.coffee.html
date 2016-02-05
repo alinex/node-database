@@ -9,10 +9,6 @@
     var relativeDir = "../", thisFile = "home/alex/github/node-database/src/indexcoffee", defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
-  <script src="../fileSearch.js"></script>
-  <script src="../goToLine.js"></script>
-  <link rel="stylesheet" href="../fileSearch.css" />
-  <link rel="stylesheet" href="../goToLine.css" />
 </head>
 <body>
   <nav>
@@ -337,7 +333,7 @@ load driver</p>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="s">        try</span>
 <span class="s">          Driver = require &quot;</span><span class="p">.</span><span class="o">/</span><span class="nx">driver</span><span class="o">/</span><span class="c1">#{conf.server.type}&quot;</span>
-        <span class="k">catch</span> <span class="nx">err</span>
+        <span class="k">catch</span> <span class="nx">error</span>
           <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Could not find driver for </span><span class="si">#{</span><span class="nx">conf</span><span class="p">.</span><span class="nx">server</span><span class="p">.</span><span class="nx">type</span><span class="si">}</span><span class="s"> database:</span>
 
 </pre></div>
@@ -348,7 +344,7 @@ load driver</p>
 <div class="pilwrap">
   <a class="pilcrow" href="#section-19" id="section-19">&#182;</a>
 </div>
-<p>{err.message}"</p>
+<p>{error.message}"</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="s">        instances[name] = new Driver name, conf</span>
