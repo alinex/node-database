@@ -33,19 +33,19 @@
     "lib": "./lib"
   },
   "dependencies": {
-    "alinex-async": "^0.2.3",
-    "alinex-config": "^1.0.5",
-    "alinex-sshtunnel": "^1.0.0",
-    "alinex-util": "^0.3.6",
+    "alinex-async": "^1.0.0",
+    "alinex-config": "^1.0.11",
+    "alinex-sshtunnel": "^1.1.1",
+    "alinex-util": "^0.3.15",
     "chalk": "^1.1.1",
     "debug": "^2.2.0",
     "mysql": "^2.9.0",
-    "pg": "^4.4.3"
+    "pg": "^4.4.4"
   },
   "devDependencies": {
-    "alinex-builder": "1.x",
-    "alinex-validator": "^1.0.3",
-    "chai": "^3.3.0"
+    "alinex-builder": "^1.2.0",
+    "alinex-validator": "^1.2.4",
+    "chai": "^3.5.0"
   },
   "optionalDependencies": {},
   "engines": {
