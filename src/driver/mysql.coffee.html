@@ -6,20 +6,31 @@
   <link rel="stylesheet" media="all" href="../../doc-style.css" />
   <script src="../../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../../", thisFile = "home/alex/github/node-database/src/driver/mysqlcoffee", defaultSidebar = true;
+    var relativeDir = "../../";
+    var thisFile = "home/alex/github/node-database/src/driver/mysql.coffee";
+    var defaultSidebar = true;
   </script>
   <script src="../../doc-script.js"></script>
-</head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0" /></head
 <body>
   <nav>
-<div class="logo"><a href="http://alinex.github.io" onmouseover="lllogo.src='https://alinex.github.io/images/Alinex-200.png'" onmouseout="lllogo.src='https://alinex.github.io/images/Alinex-black-200.png'">
-  <img name="lllogo" src="https://alinex.github.io/images/Alinex-black-200.png" width="150" title="Alinex Universe Homepage" />
+<div class="logo"><a href="http://alinex.github.io"
+  onmouseover="logo.src='https://alinex.github.io/images/Alinex-200.png'"
+  onmouseout="logo.src='https://alinex.github.io/images/Alinex-black-200.png'">
+  <img name="logo" src="https://alinex.github.io/images/Alinex-black-200.png"
+    width="150" title="Alinex Universe Homepage" />
   </a>
-  <img src="http://alinex.github.io/images/Alinex-200.png" style="display:none" alt="preloading" />
+  <img src="http://alinex.github.io/images/Alinex-200.png"
+    style="display:none" alt="preloading" />
 </div>
 <div class="links">
-  <a href="http://alinex.github.io/blog" class="btn btn-primary"><span class="glyphicon-cog"></span> Blog</a>
-  <a href="http://alinex.github.io/code.html" class="btn btn-warning"><span class="glyphicon-pencil"></span> Code</a>
+  <a href="http://alinex.github.io/blog"
+    class="btn btn-primary"><span class="glyphicon-pencil"></span> Blog</a>
+  <a href="http://alinex.github.io/develop"
+    class="btn btn-primary"><span class="glyphicon-book"></span> Develop</a>
+  <a href="http://alinex.github.io/code.html"
+    class="btn btn-warning"><span class="glyphicon-cog"></span> Code</a>
 </div>
 </nav><div id="sidebar_wrapper">
     <div id="sidebar_switch">
@@ -28,746 +39,791 @@
     </div>
     <div id="tree"></div>
     <div id="headings">
+
       <div class="heading h1">
-        <a href="#mysql%20access">Mysql access</a>
+        <a href="#mysql-access">Mysql access</a>
       </div>
+
       <div class="heading h2">
-        <a href="#node%20modules">Node Modules</a>
+        <a href="#node-modules">Node Modules</a>
       </div>
+
       <div class="heading h2">
-        <a href="#database%20class">Database class</a>
+        <a href="#database-class">Database class</a>
       </div>
+
       <div class="heading h2">
-        <a href="#connection%20handling">Connection handling</a>
+        <a href="#connection-handling">Connection handling</a>
       </div>
+
       <div class="heading h3">
-        <a href="#create%20instance">Create instance</a>
+        <a href="#create-instance">Create instance</a>
       </div>
+
       <div class="heading h3">
-        <a href="#get%20connection">Get connection</a>
+        <a href="#get-connection">Get connection</a>
       </div>
+
       <div class="heading h2">
-        <a href="#shortcut%20functions">Shortcut functions</a>
+        <a href="#shortcut-functions">Shortcut functions</a>
       </div>
+
       <div class="heading h3">
-        <a href="#update%2C%20insert%20or%20delete%20something%20and%20return%20count%20of%20changes">update, insert or delete something and return count of changes</a>
+        <a href="#update-insert-or-delete-something-and-return-count-of-changes">update, insert or delete something and return count of changes</a>
       </div>
+
       <div class="heading h3">
-        <a href="#get%20all%20data%20as%20object">get all data as object</a>
+        <a href="#get-all-data-as-object">get all data as object</a>
       </div>
+
       <div class="heading h3">
-        <a href="#get%20one%20record%20as%20object">get one record as object</a>
+        <a href="#get-one-record-as-object">get one record as object</a>
       </div>
+
       <div class="heading h3">
-        <a href="#get%20value%20of%20one%20field">get value of one field</a>
+        <a href="#get-value-of-one-field">get value of one field</a>
       </div>
+
       <div class="heading h3">
-        <a href="#get%20value%20of%20one%20field">get value of one field</a>
+        <a href="#get-value-of-one-field-1">get value of one field</a>
       </div>
+
       <div class="heading h2">
-        <a href="#query%20helper">Query helper</a>
+        <a href="#query-helper">Query helper</a>
       </div>
+
       <div class="heading h3">
-        <a href="#prepare%20parameter">prepare parameter</a>
+        <a href="#prepare-parameter">prepare parameter</a>
       </div>
+
       <div class="heading h3">
-        <a href="#run%20the%20query%20on%20the%20wrapped%20driver">Run the query on the wrapped driver</a>
+        <a href="#run-the-query-on-the-wrapped-driver">Run the query on the wrapped driver</a>
       </div>
+
       <div class="heading h2">
-        <a href="#query%20creation">Query creation</a>
+        <a href="#query-creation">Query creation</a>
       </div>
+
       <div class="heading h3">
-        <a href="#replace%20placeholder%20and%20object%20structure">Replace placeholder and object structure</a>
+        <a href="#replace-placeholder-and-object-structure">Replace placeholder and object structure</a>
       </div>
+
       <div class="heading h2">
         <a href="#exports">Exports</a>
       </div>
+
     </div>
   </div>
   <div id="sidebar-toggle"></div>
-  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-database" title="Fork me on GitHub"></a><div class="background highlight"></div>
+  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-database" title="Fork me on GitHub"></a>
+    <div class="background highlight"></div>
 <table cellpadding="0" cellspacing="0">
   <tbody>
+    
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="mysql%20access">
+          <div class="pilwrap" id="mysql-access">
   <h1>
-    <a href="#mysql%20access" name="mysql%20access" class="pilcrow">&#182;</a>
-    Mysql access
+    <a href="#mysql-access" name="mysql-access" class="pilcrow"></a>
+Mysql access
   </h1>
 </div>
-
-
 <p>This package will give you an easy and robust way to access mysql databases.</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre></pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="node%20modules">
+          <div class="pilwrap" id="node-modules">
   <h2>
-    <a href="#node%20modules" name="node%20modules" class="pilcrow">&#182;</a>
-    Node Modules
+    <a href="#node-modules" name="node-modules" class="pilcrow"></a>
+Node Modules
   </h2>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-3" id="section-3">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
 </div>
 <p>include base modules
 debug = require('debug')('db:mysql')</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">debugPool = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;debug&#39;</span><span class="p">)(</span><span class="s">&#39;database:pool&#39;</span><span class="p">)</span>
-<span class="nv">debugCmd = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;debug&#39;</span><span class="p">)(</span><span class="s">&#39;database:cmd&#39;</span><span class="p">)</span>
-<span class="nv">debugResult = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;debug&#39;</span><span class="p">)(</span><span class="s">&#39;database:result&#39;</span><span class="p">)</span>
-<span class="nv">debugData = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;debug&#39;</span><span class="p">)(</span><span class="s">&#39;database:data&#39;</span><span class="p">)</span>
-<span class="nv">debugCom = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;debug&#39;</span><span class="p">)(</span><span class="s">&#39;database:com&#39;</span><span class="p">)</span>
-<span class="nv">debugError = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;debug&#39;</span><span class="p">)(</span><span class="s">&#39;database:error&#39;</span><span class="p">)</span>
-<span class="nv">chalk = </span><span class="nx">require</span> <span class="s">&#39;chalk&#39;</span>
-<span class="nv">util = </span><span class="nx">require</span> <span class="s">&#39;util&#39;</span>
-<span class="nv">mysql = </span><span class="nx">require</span> <span class="s">&#39;mysql&#39;</span>
-<span class="nv">SqlString = </span><span class="nx">require</span> <span class="s">&#39;mysql/lib/protocol/SqlString&#39;</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">debugPool = <span class="hljs-built_in">require</span>(<span class="hljs-string">'debug'</span>)(<span class="hljs-string">'database:pool'</span>)
+debugCmd = <span class="hljs-built_in">require</span>(<span class="hljs-string">'debug'</span>)(<span class="hljs-string">'database:cmd'</span>)
+debugResult = <span class="hljs-built_in">require</span>(<span class="hljs-string">'debug'</span>)(<span class="hljs-string">'database:result'</span>)
+debugData = <span class="hljs-built_in">require</span>(<span class="hljs-string">'debug'</span>)(<span class="hljs-string">'database:data'</span>)
+debugCom = <span class="hljs-built_in">require</span>(<span class="hljs-string">'debug'</span>)(<span class="hljs-string">'database:com'</span>)
+debugError = <span class="hljs-built_in">require</span>(<span class="hljs-string">'debug'</span>)(<span class="hljs-string">'database:error'</span>)
+chalk = <span class="hljs-built_in">require</span> <span class="hljs-string">'chalk'</span>
+util = <span class="hljs-built_in">require</span> <span class="hljs-string">'util'</span>
+mysql = <span class="hljs-built_in">require</span> <span class="hljs-string">'mysql'</span>
+SqlString = <span class="hljs-built_in">require</span> <span class="hljs-string">'mysql/lib/protocol/SqlString'</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-4" id="section-4">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
 </div>
 <p>require alinex modules</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="p">{</span><span class="nx">object</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span> <span class="s">&#39;alinex-util&#39;</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">{object} = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-util'</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-5" id="section-5">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5"></a>
 </div>
 <p>loading helper modules</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">object2sql = </span><span class="nx">require</span> <span class="s">&#39;../object2sql&#39;</span>
+        <td class="code highlight">
+          <pre class="coffeescript">object2sql = <span class="hljs-built_in">require</span> <span class="hljs-string">'../object2sql'</span>
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="database%20class">
+          <div class="pilwrap" id="database-class">
   <h2>
-    <a href="#database%20class" name="database%20class" class="pilcrow">&#182;</a>
-    Database class
+    <a href="#database-class" name="database-class" class="pilcrow"></a>
+Database class
   </h2>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="k">class</span> <span class="nx">Mysql</span>
+        <td class="code highlight">
+          <pre class="coffeescript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Mysql</span></span>
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="connection%20handling">
+          <div class="pilwrap" id="connection-handling">
   <h2>
-    <a href="#connection%20handling" name="connection%20handling" class="pilcrow">&#182;</a>
-    Connection handling
+    <a href="#connection-handling" name="connection-handling" class="pilcrow"></a>
+Connection handling
   </h2>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="create%20instance">
+          <div class="pilwrap" id="create-instance">
   <h3>
-    <a href="#create%20instance" name="create%20instance" class="pilcrow">&#182;</a>
-    Create instance
+    <a href="#create-instance" name="create-instance" class="pilcrow"></a>
+Create instance
   </h3>
 </div>
-
-
 <p>This will also load the data if not already done. Don't call this directly
 better use the <code>instance()</code> method which implements the factory pattern.</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">constructor: </span><span class="nf">(@name, @conf) -&gt;</span>
-    <span class="vi">@tries = </span><span class="mi">0</span>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-attribute">constructor</span>: <span class="hljs-function"><span class="hljs-params">(<span class="hljs-property">@name</span>, <span class="hljs-property">@conf</span>)</span> -&gt;</span>
+    <span class="hljs-property">@tries</span> = <span class="hljs-number">0</span>
 
-  <span class="nv">close: </span><span class="nf">(cb = -&gt; ) -&gt;</span>
-    <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">unless</span> <span class="nx">@pool</span><span class="o">?</span>
-    <span class="nx">debugPool</span> <span class="s">&quot;close connection pool for </span><span class="si">#{</span><span class="nx">@name</span><span class="si">}</span><span class="s">&quot;</span>
-    <span class="nx">@pool</span><span class="p">.</span><span class="nx">end</span> <span class="nf">(err) =&gt;</span>
-
-</pre></div>
+  <span class="hljs-attribute">close</span>: <span class="hljs-function"><span class="hljs-params">(cb = -&gt; )</span> -&gt;</span>
+    <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">unless</span> <span class="hljs-property">@pool</span>?
+    debugPool <span class="hljs-string">"close connection pool for <span class="hljs-subst">#{<span class="hljs-property">@name</span>}</span>"</span>
+    <span class="hljs-property">@pool</span>.end (err) =&gt;
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-9" id="section-9">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-9" id="section-9"></a>
 </div>
 <p>remove pool instance to be reopened on next use</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-      <span class="vi">@pool = </span><span class="kc">null</span>
-      <span class="nx">cb</span> <span class="nx">err</span>
+        <td class="code highlight">
+          <pre class="coffeescript">      <span class="hljs-property">@pool</span> = <span class="hljs-literal">null</span>
+      cb err
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="get%20connection">
+          <div class="pilwrap" id="get-connection">
   <h3>
-    <a href="#get%20connection" name="get%20connection" class="pilcrow">&#182;</a>
-    Get connection
+    <a href="#get-connection" name="get-connection" class="pilcrow"></a>
+Get connection
   </h3>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">connect: </span><span class="nf">(cb) -&gt;</span>
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-attribute">connect</span>: <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-11" id="section-11">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-11" id="section-11"></a>
 </div>
 <p>instantiate pool if not already done</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="k">unless</span> <span class="nx">@pool</span><span class="o">?</span>
-      <span class="nx">debugPool</span> <span class="s">&quot;initialize connection pool for </span><span class="si">#{</span><span class="nx">@name</span><span class="si">}</span><span class="s">&quot;</span>
-      <span class="nv">setup = </span><span class="nx">object</span><span class="p">.</span><span class="nx">extend</span>
-        <span class="nv">connectionLimit: </span><span class="nx">@conf</span><span class="p">.</span><span class="nx">pool</span><span class="o">?</span><span class="p">.</span><span class="nx">limit</span>
-        <span class="nv">multipleStatements: </span><span class="kc">true</span>
-      <span class="p">,</span> <span class="nx">@conf</span><span class="p">.</span><span class="nx">access</span>
-      <span class="nx">debugPool</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;set pool limit to </span><span class="si">#{</span><span class="nx">setup</span><span class="p">.</span><span class="nx">connectionLimit</span><span class="si">}</span><span class="s">&quot;</span> <span class="k">if</span> <span class="nx">setup</span><span class="p">.</span><span class="nx">connectionLimit</span>
-      <span class="vi">@pool = </span><span class="nx">mysql</span><span class="p">.</span><span class="nx">createPool</span> <span class="nx">setup</span>
-      <span class="nx">@pool</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;connection&#39;</span><span class="p">,</span> <span class="nf">(conn) =&gt;</span>
-        <span class="nv">conn.name = </span><span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;[</span><span class="si">#{</span><span class="nx">@name</span><span class="si">}</span><span class="err">#</span><span class="si">#{</span><span class="nx">conn</span><span class="p">.</span><span class="nx">_socket</span><span class="p">.</span><span class="nx">_handle</span><span class="p">.</span><span class="nx">fd</span><span class="si">}</span><span class="s">]&quot;</span>
-        <span class="nx">debugPool</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">conn</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="s"> open connection&quot;</span>
-        <span class="nx">conn</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;error&#39;</span><span class="p">,</span> <span class="nf">(err) -&gt;</span>
-          <span class="nx">debugError</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">conn</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="s"> uncatched </span><span class="si">#{</span><span class="nx">err</span><span class="si">}</span><span class="s"> on connection&quot;</span>
-      <span class="nx">@pool</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;enqueue&#39;</span><span class="p">,</span> <span class="o">=&gt;</span>
-        <span class="nv">name = </span><span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;[</span><span class="si">#{</span><span class="nx">@name</span><span class="si">}</span><span class="s">]&quot;</span>
-        <span class="nx">debugPool</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">name</span><span class="si">}</span><span class="s"> waiting for connection&quot;</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    <span class="hljs-keyword">unless</span> <span class="hljs-property">@pool</span>?
+      debugPool <span class="hljs-string">"initialize connection pool for <span class="hljs-subst">#{<span class="hljs-property">@name</span>}</span>"</span>
+      setup = object.extend
+        <span class="hljs-attribute">connectionLimit</span>: <span class="hljs-property">@conf</span>.pool?.limit
+        <span class="hljs-attribute">multipleStatements</span>: <span class="hljs-literal">true</span>
+      , <span class="hljs-property">@conf</span>.access
+      debugPool chalk.grey <span class="hljs-string">"set pool limit to <span class="hljs-subst">#{setup.connectionLimit}</span>"</span> <span class="hljs-keyword">if</span> setup.connectionLimit
+      <span class="hljs-property">@pool</span> = mysql.createPool setup
+      <span class="hljs-property">@pool</span>.<span class="hljs-literal">on</span> <span class="hljs-string">'connection'</span>, <span class="hljs-function"><span class="hljs-params">(conn)</span> =&gt;</span>
+        conn.name = chalk.grey <span class="hljs-string">"[<span class="hljs-subst">#{<span class="hljs-property">@name</span>}</span>#<span class="hljs-subst">#{conn._socket._handle.fd}</span>]"</span>
+        debugPool <span class="hljs-string">"<span class="hljs-subst">#{conn.name}</span> open connection"</span>
+        conn.<span class="hljs-literal">on</span> <span class="hljs-string">'error'</span>, <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
+          debugError <span class="hljs-string">"<span class="hljs-subst">#{conn.name}</span> uncatched <span class="hljs-subst">#{err}</span> on connection"</span>
+      <span class="hljs-property">@pool</span>.<span class="hljs-literal">on</span> <span class="hljs-string">'enqueue'</span>, <span class="hljs-function">=&gt;</span>
+        name = chalk.grey <span class="hljs-string">"[<span class="hljs-subst">#{<span class="hljs-property">@name</span>}</span>]"</span>
+        debugPool <span class="hljs-string">"<span class="hljs-subst">#{name}</span> waiting for connection"</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-12" id="section-12">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-12" id="section-12"></a>
 </div>
 <p>get the connection</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="nx">@pool</span><span class="p">.</span><span class="nx">getConnection</span> <span class="nf">(err, conn) =&gt;</span>
-      <span class="k">if</span> <span class="nx">err</span>
-        <span class="nx">debugError</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span><span class="p">(</span><span class="s">&quot;[</span><span class="si">#{</span><span class="nx">@name</span><span class="si">}</span><span class="s">]&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot; </span><span class="si">#{</span><span class="nx">err</span><span class="si">}</span><span class="s"> while connecting&quot;</span>
-        <span class="k">if</span> <span class="nx">@tries</span> <span class="o">&gt;</span> <span class="mi">2</span> <span class="c1"># max retries to get a connection</span>
-          <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="si">}</span><span class="s"> while connecting to </span><span class="si">#{</span><span class="nx">@name</span><span class="si">}</span><span class="s"> database&quot;</span>
-        <span class="k">return</span> <span class="nx">setTimeout</span> <span class="o">=&gt;</span>
-          <span class="nx">@connect</span> <span class="nx">cb</span>
-        <span class="p">,</span> <span class="mi">1000</span> <span class="c1"># wait a second fbefore retry</span>
-      <span class="nx">debugPool</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">conn</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="s"> acquired connection&quot;</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    <span class="hljs-property">@pool</span>.getConnection (err, conn) =&gt;
+      <span class="hljs-keyword">if</span> err
+        debugError chalk.grey(<span class="hljs-string">"[<span class="hljs-subst">#{<span class="hljs-property">@name</span>}</span>]"</span>) + <span class="hljs-string">" <span class="hljs-subst">#{err}</span> while connecting"</span>
+        <span class="hljs-keyword">if</span> <span class="hljs-property">@tries</span> &gt; <span class="hljs-number">2</span> <span class="hljs-comment"># max retries to get a connection</span>
+          <span class="hljs-keyword">return</span> cb <span class="hljs-keyword">new</span> Error <span class="hljs-string">"<span class="hljs-subst">#{err.message}</span> while connecting to <span class="hljs-subst">#{<span class="hljs-property">@name</span>}</span> database"</span>
+        <span class="hljs-keyword">return</span> setTimeout =&gt;
+          <span class="hljs-property">@connect</span> cb
+        , <span class="hljs-number">1000</span> <span class="hljs-comment"># wait a second fbefore retry</span>
+      debugPool <span class="hljs-string">"<span class="hljs-subst">#{conn.name}</span> acquired connection"</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-13" id="section-13">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-13" id="section-13"></a>
 </div>
 <p>switch on debugging wih own method</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-      <span class="nv">conn.config.debug = </span><span class="kc">true</span>
-      <span class="nv">conn._protocol._debugPacket = </span><span class="nf">(incoming, packet) -&gt;</span>
-        <span class="nv">dir = </span><span class="k">if</span> <span class="nx">incoming</span> <span class="k">then</span> <span class="s">&#39;&lt;--&#39;</span> <span class="k">else</span> <span class="s">&#39;--&gt;&#39;</span>
-        <span class="nv">msg = </span><span class="nx">util</span><span class="p">.</span><span class="nx">inspect</span> <span class="nx">packet</span>
-        <span class="k">switch</span> <span class="nx">packet</span><span class="p">.</span><span class="nx">constructor</span><span class="p">.</span><span class="nx">name</span>
-          <span class="k">when</span> <span class="s">&#39;ComQueryPacket&#39;</span>
-            <span class="nx">debugCmd</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">conn</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">packet</span><span class="p">.</span><span class="nx">sql</span><span class="si">}</span><span class="s">&quot;</span>
-          <span class="k">when</span> <span class="s">&#39;ResultSetHeaderPacket&#39;</span><span class="p">,</span> <span class="s">&#39;FieldPacket&#39;</span><span class="p">,</span> <span class="s">&#39;EofPacket&#39;</span>
-            <span class="nx">debugResult</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">conn</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">packet</span><span class="p">.</span><span class="nx">constructor</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="nx">msg</span><span class="si">}</span><span class="s">&quot;</span>
-          <span class="k">when</span> <span class="s">&#39;RowDataPacket&#39;</span>
-            <span class="nx">debugData</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">conn</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">msg</span><span class="si">}</span><span class="s">&quot;</span>
-          <span class="k">when</span> <span class="s">&#39;ComQuitPacket&#39;</span>
-            <span class="nx">debugPool</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">conn</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="s"> close connection&quot;</span>
-          <span class="k">else</span>
-            <span class="nx">debugCom</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">conn</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">dir</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">packet</span><span class="p">.</span><span class="nx">constructor</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="nx">msg</span><span class="si">}</span><span class="s">&quot;</span>
-      <span class="nv">conn.release = </span><span class="nf">-&gt;</span>
-        <span class="nx">debugPool</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">conn</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="s"> release connection</span>
-<span class="s">        (</span><span class="si">#{</span><span class="nx">@_pool</span><span class="p">.</span><span class="nx">_freeConnections</span><span class="p">.</span><span class="nx">length</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s">/</span><span class="si">#{</span><span class="nx">@_pool</span><span class="p">.</span><span class="nx">_allConnections</span><span class="p">.</span><span class="nx">length</span><span class="si">}</span><span class="s"> free)&quot;</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">      conn.config.debug = <span class="hljs-literal">true</span>
+      conn._protocol._debugPacket = <span class="hljs-function"><span class="hljs-params">(incoming, packet)</span> -&gt;</span>
+        dir = <span class="hljs-keyword">if</span> incoming <span class="hljs-keyword">then</span> <span class="hljs-string">'&lt;--'</span> <span class="hljs-keyword">else</span> <span class="hljs-string">'--&gt;'</span>
+        msg = util.inspect packet
+        <span class="hljs-keyword">switch</span> packet.constructor.name
+          <span class="hljs-keyword">when</span> <span class="hljs-string">'ComQueryPacket'</span>
+            debugCmd <span class="hljs-string">"<span class="hljs-subst">#{conn.name}</span> <span class="hljs-subst">#{packet.sql}</span>"</span>
+          <span class="hljs-keyword">when</span> <span class="hljs-string">'ResultSetHeaderPacket'</span>, <span class="hljs-string">'FieldPacket'</span>, <span class="hljs-string">'EofPacket'</span>
+            debugResult <span class="hljs-string">"<span class="hljs-subst">#{conn.name}</span> <span class="hljs-subst">#{packet.constructor.name}</span> <span class="hljs-subst">#{chalk.grey msg}</span>"</span>
+          <span class="hljs-keyword">when</span> <span class="hljs-string">'RowDataPacket'</span>
+            debugData <span class="hljs-string">"<span class="hljs-subst">#{conn.name}</span> <span class="hljs-subst">#{msg}</span>"</span>
+          <span class="hljs-keyword">when</span> <span class="hljs-string">'ComQuitPacket'</span>
+            debugPool <span class="hljs-string">"<span class="hljs-subst">#{conn.name}</span> close connection"</span>
+          <span class="hljs-keyword">else</span>
+            debugCom <span class="hljs-string">"<span class="hljs-subst">#{conn.name}</span> <span class="hljs-subst">#{dir}</span> <span class="hljs-subst">#{packet.constructor.name}</span> <span class="hljs-subst">#{chalk.grey msg}</span>"</span>
+      conn.release = <span class="hljs-function">-&gt;</span>
+        debugPool <span class="hljs-string">"<span class="hljs-subst">#{conn.name}</span> release connection
+        (<span class="hljs-subst">#{<span class="hljs-property">@_pool</span>._freeConnections.length+<span class="hljs-number">1</span>}</span>/<span class="hljs-subst">#{<span class="hljs-property">@_pool</span>._allConnections.length}</span> free)"</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-14" id="section-14">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-14" id="section-14"></a>
 </div>
 <p>release code copied from original function</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-        <span class="k">return</span> <span class="k">unless</span> <span class="nx">@_pool</span><span class="o">?</span> <span class="o">and</span> <span class="o">not</span> <span class="nx">@_pool</span><span class="p">.</span><span class="nx">_closed</span>
-        <span class="nx">@_pool</span><span class="p">.</span><span class="nx">releaseConnection</span> <span class="k">this</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">        <span class="hljs-keyword">return</span> <span class="hljs-keyword">unless</span> <span class="hljs-property">@_pool</span>? <span class="hljs-keyword">and</span> <span class="hljs-keyword">not</span> <span class="hljs-property">@_pool</span>._closed
+        <span class="hljs-property">@_pool</span>.releaseConnection <span class="hljs-keyword">this</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-15" id="section-15">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-15" id="section-15"></a>
 </div>
 <p>return the connection</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-      <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">conn</span>
+        <td class="code highlight">
+          <pre class="coffeescript">      cb <span class="hljs-literal">null</span>, conn
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="shortcut%20functions">
+          <div class="pilwrap" id="shortcut-functions">
   <h2>
-    <a href="#shortcut%20functions" name="shortcut%20functions" class="pilcrow">&#182;</a>
-    Shortcut functions
+    <a href="#shortcut-functions" name="shortcut-functions" class="pilcrow"></a>
+Shortcut functions
   </h2>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="update%2C%20insert%20or%20delete%20something%20and%20return%20count%20of%20changes">
+          <div class="pilwrap" id="update-insert-or-delete-something-and-return-count-of-changes">
   <h3>
-    <a href="#update%2C%20insert%20or%20delete%20something%20and%20return%20count%20of%20changes" name="update%2C%20insert%20or%20delete%20something%20and%20return%20count%20of%20changes" class="pilcrow">&#182;</a>
-    update, insert or delete something and return count of changes
+    <a href="#update-insert-or-delete-something-and-return-count-of-changes" name="update-insert-or-delete-something-and-return-count-of-changes" class="pilcrow"></a>
+update, insert or delete something and return count of changes
   </h3>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">exec: </span><span class="nf">-&gt;</span> <span class="nx">@prepare</span> <span class="nx">arguments</span><span class="p">,</span> <span class="nf">(err, conn, sql, data, cb) =&gt;</span>
-    <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-attribute">exec</span>: <span class="hljs-function">-&gt;</span> <span class="hljs-property">@prepare</span> arguments, <span class="hljs-function"><span class="hljs-params">(err, conn, sql, data, cb)</span> =&gt;</span>
+    <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-18" id="section-18">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-18" id="section-18"></a>
 </div>
 <p>run the query</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="nx">@query</span> <span class="nx">conn</span><span class="p">,</span> <span class="nx">sql</span><span class="p">,</span> <span class="nx">data</span><span class="p">,</span> <span class="nf">(err, result) -&gt;</span>
-      <span class="nx">cb</span> <span class="nx">err</span><span class="p">,</span> <span class="nx">result</span><span class="o">?</span><span class="p">.</span><span class="nx">affectedRows</span><span class="p">,</span> <span class="nx">result</span><span class="o">?</span><span class="p">.</span><span class="nx">insertId</span>
+        <td class="code highlight">
+          <pre class="coffeescript">    <span class="hljs-property">@query</span> conn, sql, data, <span class="hljs-function"><span class="hljs-params">(err, result)</span> -&gt;</span>
+      cb err, result?.affectedRows, result?.insertId
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="get%20all%20data%20as%20object">
+          <div class="pilwrap" id="get-all-data-as-object">
   <h3>
-    <a href="#get%20all%20data%20as%20object" name="get%20all%20data%20as%20object" class="pilcrow">&#182;</a>
-    get all data as object
+    <a href="#get-all-data-as-object" name="get-all-data-as-object" class="pilcrow"></a>
+get all data as object
   </h3>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">list: </span><span class="nf">-&gt;</span> <span class="nx">@prepare</span> <span class="nx">arguments</span><span class="p">,</span> <span class="nf">(err, conn, sql, data, cb) =&gt;</span>
-    <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-attribute">list</span>: <span class="hljs-function">-&gt;</span> <span class="hljs-property">@prepare</span> arguments, <span class="hljs-function"><span class="hljs-params">(err, conn, sql, data, cb)</span> =&gt;</span>
+    <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-20" id="section-20">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-20" id="section-20"></a>
 </div>
 <p>run the query</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="nx">@query</span> <span class="nx">conn</span><span class="p">,</span> <span class="nx">sql</span><span class="p">,</span> <span class="nx">data</span><span class="p">,</span> <span class="nx">cb</span>
+        <td class="code highlight">
+          <pre class="coffeescript">    <span class="hljs-property">@query</span> conn, sql, data, cb
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="get%20one%20record%20as%20object">
+          <div class="pilwrap" id="get-one-record-as-object">
   <h3>
-    <a href="#get%20one%20record%20as%20object" name="get%20one%20record%20as%20object" class="pilcrow">&#182;</a>
-    get one record as object
+    <a href="#get-one-record-as-object" name="get-one-record-as-object" class="pilcrow"></a>
+get one record as object
   </h3>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">record: </span><span class="nf">-&gt;</span> <span class="nx">@prepare</span> <span class="nx">arguments</span><span class="p">,</span> <span class="nf">(err, conn, sql, data, cb) =&gt;</span>
-    <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-attribute">record</span>: <span class="hljs-function">-&gt;</span> <span class="hljs-property">@prepare</span> arguments, <span class="hljs-function"><span class="hljs-params">(err, conn, sql, data, cb)</span> =&gt;</span>
+    <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-22" id="section-22">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-22" id="section-22"></a>
 </div>
 <p>get only one row</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="k">if</span> <span class="k">typeof</span> <span class="nx">sql</span> <span class="o">is</span> <span class="s">&#39;object&#39;</span>
-      <span class="nv">sql.limit = </span><span class="mi">1</span>
-    <span class="k">else</span> <span class="k">unless</span> <span class="nx">sql</span><span class="p">.</span><span class="nx">match</span> <span class="sr">/\slimit\s+\d/i</span>
-      <span class="nx">sql</span> <span class="o">+=</span> <span class="s">&quot; LIMIT 1&quot;</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    <span class="hljs-keyword">if</span> <span class="hljs-keyword">typeof</span> sql <span class="hljs-keyword">is</span> <span class="hljs-string">'object'</span>
+      sql.limit = <span class="hljs-number">1</span>
+    <span class="hljs-keyword">else</span> <span class="hljs-keyword">unless</span> sql.match <span class="hljs-regexp">/\slimit\s+\d/i</span>
+      sql += <span class="hljs-string">" LIMIT 1"</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-23" id="section-23">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-23" id="section-23"></a>
 </div>
 <p>run the query</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="nx">@query</span> <span class="nx">conn</span><span class="p">,</span> <span class="nx">sql</span><span class="p">,</span> <span class="nx">data</span><span class="p">,</span> <span class="nf">(err, result) -&gt;</span>
-      <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
-      <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">unless</span> <span class="nx">result</span><span class="o">?</span><span class="p">.</span><span class="nx">length</span>
-      <span class="nx">cb</span> <span class="nx">err</span><span class="p">,</span> <span class="nx">result</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <td class="code highlight">
+          <pre class="coffeescript">    <span class="hljs-property">@query</span> conn, sql, data, <span class="hljs-function"><span class="hljs-params">(err, result)</span> -&gt;</span>
+      <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
+      <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">unless</span> result?.length
+      cb err, result[<span class="hljs-number">0</span>]
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="get%20value%20of%20one%20field">
+          <div class="pilwrap" id="get-value-of-one-field">
   <h3>
-    <a href="#get%20value%20of%20one%20field" name="get%20value%20of%20one%20field" class="pilcrow">&#182;</a>
-    get value of one field
+    <a href="#get-value-of-one-field" name="get-value-of-one-field" class="pilcrow"></a>
+get value of one field
   </h3>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">value: </span><span class="nf">-&gt;</span> <span class="nx">@prepare</span> <span class="nx">arguments</span><span class="p">,</span> <span class="nf">(err, conn, sql, data, cb) =&gt;</span>
-    <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-attribute">value</span>: <span class="hljs-function">-&gt;</span> <span class="hljs-property">@prepare</span> arguments, <span class="hljs-function"><span class="hljs-params">(err, conn, sql, data, cb)</span> =&gt;</span>
+    <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-25" id="section-25">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-25" id="section-25"></a>
 </div>
 <p>get only one row</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="k">if</span> <span class="k">typeof</span> <span class="nx">sql</span> <span class="o">is</span> <span class="s">&#39;object&#39;</span>
-      <span class="nv">sql.limit = </span><span class="mi">1</span>
-    <span class="k">else</span> <span class="k">unless</span> <span class="nx">sql</span><span class="p">.</span><span class="nx">match</span> <span class="sr">/\slimit\s+\d/i</span>
-      <span class="nx">sql</span> <span class="o">+=</span> <span class="s">&quot; LIMIT 1&quot;</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    <span class="hljs-keyword">if</span> <span class="hljs-keyword">typeof</span> sql <span class="hljs-keyword">is</span> <span class="hljs-string">'object'</span>
+      sql.limit = <span class="hljs-number">1</span>
+    <span class="hljs-keyword">else</span> <span class="hljs-keyword">unless</span> sql.match <span class="hljs-regexp">/\slimit\s+\d/i</span>
+      sql += <span class="hljs-string">" LIMIT 1"</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-26" id="section-26">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-26" id="section-26"></a>
 </div>
 <p>run the query</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="nx">@query</span> <span class="nx">conn</span><span class="p">,</span> <span class="nx">sql</span><span class="p">,</span> <span class="nx">data</span><span class="p">,</span> <span class="nf">(err, result) -&gt;</span>
-      <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
-      <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">unless</span> <span class="nx">result</span><span class="o">?</span><span class="p">.</span><span class="nx">length</span>
-      <span class="nx">cb</span> <span class="nx">err</span><span class="p">,</span> <span class="nx">result</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">result</span><span class="p">[</span><span class="mi">0</span><span class="p">])[</span><span class="mi">0</span><span class="p">]]</span>
+        <td class="code highlight">
+          <pre class="coffeescript">    <span class="hljs-property">@query</span> conn, sql, data, <span class="hljs-function"><span class="hljs-params">(err, result)</span> -&gt;</span>
+      <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
+      <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">unless</span> result?.length
+      cb err, result[<span class="hljs-number">0</span>][Object.keys(result[<span class="hljs-number">0</span>])[<span class="hljs-number">0</span>]]
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="get%20value%20of%20one%20field">
+          <div class="pilwrap" id="get-value-of-one-field-1">
   <h3>
-    <a href="#get%20value%20of%20one%20field" name="get%20value%20of%20one%20field" class="pilcrow">&#182;</a>
-    get value of one field
+    <a href="#get-value-of-one-field-1" name="get-value-of-one-field-1" class="pilcrow"></a>
+get value of one field
   </h3>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">column: </span><span class="nf">-&gt;</span> <span class="nx">@prepare</span> <span class="nx">arguments</span><span class="p">,</span> <span class="nf">(err, conn, sql, data, cb) =&gt;</span>
-    <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-attribute">column</span>: <span class="hljs-function">-&gt;</span> <span class="hljs-property">@prepare</span> arguments, <span class="hljs-function"><span class="hljs-params">(err, conn, sql, data, cb)</span> =&gt;</span>
+    <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-28" id="section-28">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-28" id="section-28"></a>
 </div>
 <p>run the query</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="nx">@query</span> <span class="nx">conn</span><span class="p">,</span> <span class="nx">sql</span><span class="p">,</span> <span class="nx">data</span><span class="p">,</span> <span class="nf">(err, result) -&gt;</span>
-      <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
-      <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">unless</span> <span class="nx">result</span><span class="o">?</span><span class="p">.</span><span class="nx">length</span>
-      <span class="nx">cb</span> <span class="nx">err</span><span class="p">,</span> <span class="nx">result</span><span class="p">.</span><span class="nx">map</span> <span class="nf">(e) -&gt;</span> <span class="nx">e</span><span class="p">[</span><span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">e</span><span class="p">)[</span><span class="mi">0</span><span class="p">]]</span>
+        <td class="code highlight">
+          <pre class="coffeescript">    <span class="hljs-property">@query</span> conn, sql, data, <span class="hljs-function"><span class="hljs-params">(err, result)</span> -&gt;</span>
+      <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
+      <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">unless</span> result?.length
+      cb err, result.map (e) -&gt; e[Object.keys(e)[<span class="hljs-number">0</span>]]
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="query%20helper">
+          <div class="pilwrap" id="query-helper">
   <h2>
-    <a href="#query%20helper" name="query%20helper" class="pilcrow">&#182;</a>
-    Query helper
+    <a href="#query-helper" name="query-helper" class="pilcrow"></a>
+Query helper
   </h2>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="prepare%20parameter">
+          <div class="pilwrap" id="prepare-parameter">
   <h3>
-    <a href="#prepare%20parameter" name="prepare%20parameter" class="pilcrow">&#182;</a>
-    prepare parameter
+    <a href="#prepare-parameter" name="prepare-parameter" class="pilcrow"></a>
+prepare parameter
   </h3>
 </div>
-
-
 <p>This will also open a self closing connection if none given.</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">prepare: </span><span class="nf">(args, cb) -&gt;</span>
-    <span class="nv">args = </span><span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">slice</span><span class="p">.</span><span class="nx">call</span> <span class="nx">args</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-attribute">prepare</span>: <span class="hljs-function"><span class="hljs-params">(args, cb)</span> -&gt;</span>
+    args = Array.prototype.slice.call args
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-31" id="section-31">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-31" id="section-31"></a>
 </div>
 <p>defaultd</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="nv">conn = </span><span class="kc">null</span>
-    <span class="nv">done = </span><span class="nf">-&gt;</span>
-    <span class="k">if</span> <span class="k">typeof</span> <span class="nx">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">is</span> <span class="s">&#39;object&#39;</span> <span class="o">and</span> <span class="nx">args</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">constructor</span><span class="p">.</span><span class="nx">name</span> <span class="o">isnt</span> <span class="s">&#39;Object&#39;</span>
-      <span class="nv">conn = </span><span class="nx">args</span><span class="p">.</span><span class="nx">shift</span><span class="p">()</span>
-    <span class="nv">last = </span><span class="nx">args</span><span class="p">.</span><span class="nx">length</span> <span class="o">-</span> <span class="mi">1</span>
-    <span class="k">if</span> <span class="k">typeof</span> <span class="nx">args</span><span class="p">[</span><span class="nx">last</span><span class="p">]</span> <span class="o">is</span> <span class="s">&#39;function&#39;</span>
-      <span class="nv">done = </span><span class="nx">args</span><span class="p">.</span><span class="nx">pop</span><span class="p">()</span>
-    <span class="p">[</span><span class="nx">sql</span><span class="p">,</span> <span class="nx">data</span><span class="p">]</span> <span class="o">=</span> <span class="nx">args</span>
-    <span class="k">return</span> <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">conn</span><span class="p">,</span> <span class="nx">sql</span><span class="p">,</span> <span class="nx">data</span><span class="p">,</span> <span class="nx">done</span> <span class="k">if</span> <span class="nx">conn</span>
-    <span class="nx">@connect</span> <span class="nf">(err, conn) -&gt;</span>
-      <span class="nx">cb</span> <span class="nx">err</span><span class="p">,</span> <span class="nx">conn</span><span class="p">,</span> <span class="nx">sql</span><span class="p">,</span> <span class="nx">data</span><span class="p">,</span> <span class="nf">(err) -&gt;</span>
-        <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;MySQL Error: </span><span class="si">#{</span><span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="si">}</span><span class="s">&quot;</span> <span class="k">if</span> <span class="nx">err</span>
-        <span class="nx">conn</span><span class="p">.</span><span class="nx">release</span><span class="p">()</span>
-        <span class="nx">done</span><span class="p">.</span><span class="nx">apply</span> <span class="k">this</span><span class="p">,</span> <span class="nx">arguments</span>
+        <td class="code highlight">
+          <pre class="coffeescript">    conn = <span class="hljs-literal">null</span>
+<span class="hljs-function">    <span class="hljs-title">done</span> = -&gt;</span>
+    <span class="hljs-keyword">if</span> <span class="hljs-keyword">typeof</span> args[<span class="hljs-number">0</span>] <span class="hljs-keyword">is</span> <span class="hljs-string">'object'</span> <span class="hljs-keyword">and</span> args[<span class="hljs-number">0</span>].constructor.name <span class="hljs-keyword">isnt</span> <span class="hljs-string">'Object'</span>
+      conn = args.shift()
+    last = args.length - <span class="hljs-number">1</span>
+    <span class="hljs-keyword">if</span> <span class="hljs-keyword">typeof</span> args[last] <span class="hljs-keyword">is</span> <span class="hljs-string">'function'</span>
+      done = args.pop()
+    [sql, data] = args
+    <span class="hljs-keyword">return</span> cb <span class="hljs-literal">null</span>, conn, sql, data, done <span class="hljs-keyword">if</span> conn
+    <span class="hljs-property">@connect</span> (err, conn) -&gt;
+      cb err, conn, sql, data, <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
+        <span class="hljs-keyword">return</span> cb <span class="hljs-keyword">new</span> Error <span class="hljs-string">"MySQL Error: <span class="hljs-subst">#{err.message}</span>"</span> <span class="hljs-keyword">if</span> err
+        conn.release()
+        done.apply <span class="hljs-keyword">this</span>, arguments
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="run%20the%20query%20on%20the%20wrapped%20driver">
+          <div class="pilwrap" id="run-the-query-on-the-wrapped-driver">
   <h3>
-    <a href="#run%20the%20query%20on%20the%20wrapped%20driver" name="run%20the%20query%20on%20the%20wrapped%20driver" class="pilcrow">&#182;</a>
-    Run the query on the wrapped driver
+    <a href="#run-the-query-on-the-wrapped-driver" name="run-the-query-on-the-wrapped-driver" class="pilcrow"></a>
+Run the query on the wrapped driver
   </h3>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">query: </span><span class="nf">(conn, sql, data, cb) -&gt;</span>
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-attribute">query</span>: <span class="hljs-function"><span class="hljs-params">(conn, sql, data, cb)</span> -&gt;</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-33" id="section-33">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-33" id="section-33"></a>
 </div>
 <p>replace placeholder and interpret object structure</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="nv">sql = </span><span class="nx">@sql</span> <span class="nx">sql</span><span class="p">,</span> <span class="nx">data</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    sql = <span class="hljs-property">@sql</span> sql, data
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-34" id="section-34">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-34" id="section-34"></a>
 </div>
 <p>run the query</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="nx">conn</span><span class="p">.</span><span class="nx">query</span> <span class="nx">sql</span><span class="p">,</span> <span class="nx">data</span><span class="p">,</span> <span class="nf">(err, result) -&gt;</span>
-      <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;MySQL Error: </span><span class="si">#{</span><span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="si">}</span><span class="s"> in </span><span class="si">#{</span><span class="nx">sql</span><span class="si">}</span><span class="s">&quot;</span> <span class="k">if</span> <span class="nx">err</span>
-      <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">result</span>
+        <td class="code highlight">
+          <pre class="coffeescript">    conn.query sql, data, <span class="hljs-function"><span class="hljs-params">(err, result)</span> -&gt;</span>
+      <span class="hljs-keyword">return</span> cb <span class="hljs-keyword">new</span> Error <span class="hljs-string">"MySQL Error: <span class="hljs-subst">#{err.message}</span> in <span class="hljs-subst">#{sql}</span>"</span> <span class="hljs-keyword">if</span> err
+      cb <span class="hljs-literal">null</span>, result
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="query%20creation">
+          <div class="pilwrap" id="query-creation">
   <h2>
-    <a href="#query%20creation" name="query%20creation" class="pilcrow">&#182;</a>
-    Query creation
+    <a href="#query-creation" name="query-creation" class="pilcrow"></a>
+Query creation
   </h2>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">escape: </span><span class="nx">SqlString</span><span class="p">.</span><span class="nx">escape</span>
-  <span class="nv">escapeId: </span><span class="nx">SqlString</span><span class="p">.</span><span class="nx">escapeId</span>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-attribute">escape</span>: SqlString.escape
+  <span class="hljs-attribute">escapeId</span>: SqlString.escapeId
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="replace%20placeholder%20and%20object%20structure">
+          <div class="pilwrap" id="replace-placeholder-and-object-structure">
   <h3>
-    <a href="#replace%20placeholder%20and%20object%20structure" name="replace%20placeholder%20and%20object%20structure" class="pilcrow">&#182;</a>
-    Replace placeholder and object structure
+    <a href="#replace-placeholder-and-object-structure" name="replace-placeholder-and-object-structure" class="pilcrow"></a>
+Replace placeholder and object structure
   </h3>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">sql: </span><span class="nf">(sql, data) -&gt;</span>
-    <span class="k">if</span> <span class="k">typeof</span> <span class="nx">sql</span> <span class="o">isnt</span> <span class="s">&#39;string&#39;</span>
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-attribute">sql</span>: <span class="hljs-function"><span class="hljs-params">(sql, data)</span> -&gt;</span>
+    <span class="hljs-keyword">if</span> <span class="hljs-keyword">typeof</span> sql <span class="hljs-keyword">isnt</span> <span class="hljs-string">'string'</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-37" id="section-37">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-37" id="section-37"></a>
 </div>
 <p>object syntax</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-      <span class="nv">sql = </span><span class="nx">object2sql</span> <span class="nx">sql</span><span class="p">,</span> <span class="k">this</span>
-    <span class="k">if</span> <span class="nx">sql</span><span class="p">.</span><span class="nx">match</span> <span class="sr">/\?(?=([^&#39;]*&#39;[^&#39;]*&#39;)*[^&#39;]*$)/</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">      sql = object2sql sql, <span class="hljs-keyword">this</span>
+    <span class="hljs-keyword">if</span> sql.match <span class="hljs-regexp">/\?(?=([^']*'[^']*')*[^']*$)/</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-38" id="section-38">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-38" id="section-38"></a>
 </div>
 <p>placeholder</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-      <span class="k">return</span> <span class="nx">SqlString</span><span class="p">.</span><span class="nx">format</span> <span class="nx">sql</span><span class="p">,</span> <span class="nx">data</span>
-    <span class="nx">sql</span>
+        <td class="code highlight">
+          <pre class="coffeescript">      <span class="hljs-keyword">return</span> SqlString.format sql, data
+    sql
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="exports">
+          <div class="pilwrap" id="exports">
   <h2>
-    <a href="#exports" name="exports" class="pilcrow">&#182;</a>
-    Exports
+    <a href="#exports" name="exports" class="pilcrow"></a>
+Exports
   </h2>
 </div>
-
-
 <p>The mysql class is exported directly.</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">module.exports = </span><span class="nx">Mysql</span>
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript"><span class="hljs-built_in">module</span>.exports = Mysql
+
+</pre>
         </td>
       </tr>
+    
   </tbody>
 </table>
+
   </div>
 </body>
 </html>

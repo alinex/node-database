@@ -6,20 +6,31 @@
   <link rel="stylesheet" media="all" href="../doc-style.css" />
   <script src="../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../", thisFile = "home/alex/github/node-database/src/configSchemacoffee", defaultSidebar = true;
+    var relativeDir = "../";
+    var thisFile = "home/alex/github/node-database/src/configSchema.coffee";
+    var defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
-</head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0" /></head
 <body>
   <nav>
-<div class="logo"><a href="http://alinex.github.io" onmouseover="lllogo.src='https://alinex.github.io/images/Alinex-200.png'" onmouseout="lllogo.src='https://alinex.github.io/images/Alinex-black-200.png'">
-  <img name="lllogo" src="https://alinex.github.io/images/Alinex-black-200.png" width="150" title="Alinex Universe Homepage" />
+<div class="logo"><a href="http://alinex.github.io"
+  onmouseover="logo.src='https://alinex.github.io/images/Alinex-200.png'"
+  onmouseout="logo.src='https://alinex.github.io/images/Alinex-black-200.png'">
+  <img name="logo" src="https://alinex.github.io/images/Alinex-black-200.png"
+    width="150" title="Alinex Universe Homepage" />
   </a>
-  <img src="http://alinex.github.io/images/Alinex-200.png" style="display:none" alt="preloading" />
+  <img src="http://alinex.github.io/images/Alinex-200.png"
+    style="display:none" alt="preloading" />
 </div>
 <div class="links">
-  <a href="http://alinex.github.io/blog" class="btn btn-primary"><span class="glyphicon-cog"></span> Blog</a>
-  <a href="http://alinex.github.io/code.html" class="btn btn-warning"><span class="glyphicon-pencil"></span> Code</a>
+  <a href="http://alinex.github.io/blog"
+    class="btn btn-primary"><span class="glyphicon-pencil"></span> Blog</a>
+  <a href="http://alinex.github.io/develop"
+    class="btn btn-primary"><span class="glyphicon-book"></span> Develop</a>
+  <a href="http://alinex.github.io/code.html"
+    class="btn btn-warning"><span class="glyphicon-cog"></span> Code</a>
 </div>
 </nav><div id="sidebar_wrapper">
     <div id="sidebar_switch">
@@ -28,298 +39,312 @@
     </div>
     <div id="tree"></div>
     <div id="headings">
+
       <div class="heading h1">
-        <a href="#check%20definitions">Check definitions</a>
+        <a href="#check-definitions">Check definitions</a>
       </div>
+
       <div class="heading h2">
-        <a href="#ssh%20settings">SSH Settings</a>
+        <a href="#ssh-settings">SSH Settings</a>
       </div>
+
       <div class="heading h2">
-        <a href="#mysql%20database">Mysql Database</a>
+        <a href="#mysql-database">Mysql Database</a>
       </div>
+
       <div class="heading h2">
-        <a href="#mysql%20database">Mysql Database</a>
+        <a href="#mysql-database-1">Mysql Database</a>
       </div>
+
       <div class="heading h2">
-        <a href="#export%20objects">Export objects</a>
+        <a href="#export-objects">Export objects</a>
       </div>
+
     </div>
   </div>
   <div id="sidebar-toggle"></div>
-  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-database" title="Fork me on GitHub"></a><div class="background highlight"></div>
+  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-database" title="Fork me on GitHub"></a>
+    <div class="background highlight"></div>
 <table cellpadding="0" cellspacing="0">
   <tbody>
+    
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="check%20definitions">
+          <div class="pilwrap" id="check-definitions">
   <h1>
-    <a href="#check%20definitions" name="check%20definitions" class="pilcrow">&#182;</a>
-    Check definitions
+    <a href="#check-definitions" name="check-definitions" class="pilcrow"></a>
+Check definitions
   </h1>
 </div>
-
-
 <p>This contains configuration definitions for the
 <a href="http://alinex.github.io/node-validator">alinex-validator</a>.</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre></pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="ssh%20settings">
+          <div class="pilwrap" id="ssh-settings">
   <h2>
-    <a href="#ssh%20settings" name="ssh%20settings" class="pilcrow">&#182;</a>
-    SSH Settings
+    <a href="#ssh-settings" name="ssh-settings" class="pilcrow"></a>
+SSH Settings
   </h2>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">ssh =</span>
-  <span class="nv">title: </span><span class="s">&quot;Remote Server&quot;</span>
-  <span class="nv">description: </span><span class="s">&quot;a remote server ssh connection setup&quot;</span>
-  <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
-  <span class="nv">allowedKeys: </span><span class="kc">true</span>
-  <span class="nv">mandatoryKeys: </span><span class="p">[</span><span class="s">&#39;host&#39;</span><span class="p">,</span> <span class="s">&#39;port&#39;</span><span class="p">,</span> <span class="s">&#39;username&#39;</span><span class="p">]</span>
-  <span class="nv">keys:</span>
-    <span class="nv">host:</span>
-      <span class="nv">title: </span><span class="s">&quot;Hostname or IP Address&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;the hostname or IP address to connect to&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;or&#39;</span>
-      <span class="o">or:</span> <span class="p">[</span>
-        <span class="nv">type: </span><span class="s">&#39;hostname&#39;</span>
-      <span class="p">,</span>
-        <span class="nv">type: </span><span class="s">&#39;ipaddr&#39;</span>
-      <span class="p">]</span>
-    <span class="nv">port:</span>
-      <span class="nv">title: </span><span class="s">&quot;Port Number&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;the port on which to connect using ssh protocol&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;port&#39;</span>
-      <span class="nv">default: </span><span class="mi">22</span>
-    <span class="nv">username:</span>
-      <span class="nv">title: </span><span class="s">&quot;Username&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;the username to use for the connection&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
-    <span class="nv">password:</span>
-      <span class="nv">title: </span><span class="s">&quot;Password&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;the password to use for connecting&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
-      <span class="nv">optional: </span><span class="kc">true</span>
-    <span class="nv">privateKey:</span>
-      <span class="nv">title: </span><span class="s">&quot;Private Key&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;the private key file to use for OpenSSH authentication&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
-    <span class="nv">passphrase:</span>
-      <span class="nv">title: </span><span class="s">&quot;Passphrase&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;the passphrase used to decrypt an encrypted private key&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
-    <span class="nv">localHostname:</span>
-      <span class="nv">title: </span><span class="s">&quot;Local Hostname&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;the host used for hostbased user authentication&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
-    <span class="nv">localUsername:</span>
-      <span class="nv">title: </span><span class="s">&quot;Local User&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;the username used for hostbased user authentication&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
-    <span class="nv">keepaliveInterval:</span>
-      <span class="nv">title: </span><span class="s">&quot;Keepalive&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;the interval for the keepalive packets to be send&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;interval&#39;</span>
-      <span class="nv">unit: </span><span class="s">&#39;ms&#39;</span>
-      <span class="nv">default: </span><span class="mi">1000</span>
-    <span class="nv">readyTimeout:</span>
-      <span class="nv">title: </span><span class="s">&quot;Ready TImeout&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;the time to wait for the ssh handshake to succeed&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;interval&#39;</span>
-      <span class="nv">unit: </span><span class="s">&#39;ms&#39;</span>
-      <span class="nv">default: </span><span class="mi">20000</span>
-    <span class="nv">debug:</span>
-      <span class="nv">title: </span><span class="s">&quot;Extended Debug&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;the DEBUG=exec.ssh messages are extended with server communication&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;boolean&#39;</span>
+        <td class="code highlight">
+          <pre class="coffeescript">ssh =
+  <span class="hljs-attribute">title</span>: <span class="hljs-string">"Remote Server"</span>
+  <span class="hljs-attribute">description</span>: <span class="hljs-string">"a remote server ssh connection setup"</span>
+  <span class="hljs-attribute">type</span>: <span class="hljs-string">'object'</span>
+  <span class="hljs-attribute">allowedKeys</span>: <span class="hljs-literal">true</span>
+  <span class="hljs-attribute">mandatoryKeys</span>: [<span class="hljs-string">'host'</span>, <span class="hljs-string">'port'</span>, <span class="hljs-string">'username'</span>]
+  <span class="hljs-attribute">keys</span>:
+    <span class="hljs-attribute">host</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Hostname or IP Address"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the hostname or IP address to connect to"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'or'</span>
+      <span class="hljs-attribute">or</span>: [
+        <span class="hljs-attribute">type</span>: <span class="hljs-string">'hostname'</span>
+      ,
+        <span class="hljs-attribute">type</span>: <span class="hljs-string">'ipaddr'</span>
+      ]
+    <span class="hljs-attribute">port</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Port Number"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the port on which to connect using ssh protocol"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'port'</span>
+      <span class="hljs-attribute">default</span>: <span class="hljs-number">22</span>
+    <span class="hljs-attribute">username</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Username"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the username to use for the connection"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+    <span class="hljs-attribute">password</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Password"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the password to use for connecting"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+      <span class="hljs-attribute">optional</span>: <span class="hljs-literal">true</span>
+    <span class="hljs-attribute">privateKey</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Private Key"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the private key file to use for OpenSSH authentication"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+    <span class="hljs-attribute">passphrase</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Passphrase"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the passphrase used to decrypt an encrypted private key"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+    <span class="hljs-attribute">localHostname</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Local Hostname"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the host used for hostbased user authentication"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+    <span class="hljs-attribute">localUsername</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Local User"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the username used for hostbased user authentication"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+    <span class="hljs-attribute">keepaliveInterval</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Keepalive"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the interval for the keepalive packets to be send"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'interval'</span>
+      <span class="hljs-attribute">unit</span>: <span class="hljs-string">'ms'</span>
+      <span class="hljs-attribute">default</span>: <span class="hljs-number">1000</span>
+    <span class="hljs-attribute">readyTimeout</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Ready TImeout"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the time to wait for the ssh handshake to succeed"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'interval'</span>
+      <span class="hljs-attribute">unit</span>: <span class="hljs-string">'ms'</span>
+      <span class="hljs-attribute">default</span>: <span class="hljs-number">20000</span>
+    <span class="hljs-attribute">debug</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Extended Debug"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the DEBUG=exec.ssh messages are extended with server communication"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'boolean'</span>
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="mysql%20database">
+          <div class="pilwrap" id="mysql-database">
   <h2>
-    <a href="#mysql%20database" name="mysql%20database" class="pilcrow">&#182;</a>
-    Mysql Database
+    <a href="#mysql-database" name="mysql-database" class="pilcrow"></a>
+Mysql Database
   </h2>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">mysql =</span>
-  <span class="nv">title: </span><span class="s">&quot;Mysql Access&quot;</span>
-  <span class="nv">description: </span><span class="s">&quot;the settings used to connect to the mysql database&quot;</span>
-  <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
-  <span class="nv">allowedKeys: </span><span class="kc">true</span>
-  <span class="nv">keys:</span>
-    <span class="nv">type:</span>
-      <span class="nv">title: </span><span class="s">&quot;Type&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;the type of database server&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
-      <span class="nv">lowerCase: </span><span class="kc">true</span>
-      <span class="nv">values: </span><span class="p">[</span><span class="s">&#39;mysql&#39;</span><span class="p">]</span>
-    <span class="nv">host:</span>
-      <span class="nv">title: </span><span class="s">&quot;Hostname&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;the hostname or ip address to connect to&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;hostname&#39;</span>
-      <span class="nv">default: </span><span class="s">&#39;localhost&#39;</span>
-    <span class="nv">port:</span>
-      <span class="nv">title: </span><span class="s">&quot;Port&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;the port, the database is listening&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;integer&#39;</span>
-      <span class="nv">default: </span><span class="mi">3306</span>
-    <span class="nv">database:</span>
-      <span class="nv">title: </span><span class="s">&quot;Database Name&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;the name of the database to use&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
-    <span class="nv">user:</span>
-      <span class="nv">title: </span><span class="s">&quot;Username&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;the name used to log into the database&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
-    <span class="nv">password:</span>
-      <span class="nv">title: </span><span class="s">&quot;Password&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;the password to login&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
-      <span class="nv">optional: </span><span class="kc">true</span>
-    <span class="nv">charset:</span>
-      <span class="nv">title: </span><span class="s">&quot;Default Charset&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;the charset used if no other given&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
-      <span class="nv">optional: </span><span class="kc">true</span>
-    <span class="nv">timezone:</span>
-      <span class="nv">title: </span><span class="s">&quot;Timezone&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;the timezone to use&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
-      <span class="nv">optional: </span><span class="kc">true</span>
-    <span class="nv">connectTimeout:</span>
-      <span class="nv">title: </span><span class="s">&quot;Connection Timeout&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;the time till a connection should be established&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;interval&#39;</span>
-      <span class="nv">unit: </span><span class="s">&#39;ms&#39;</span>
-      <span class="nv">optional: </span><span class="kc">true</span>
+        <td class="code highlight">
+          <pre class="coffeescript">mysql =
+  <span class="hljs-attribute">title</span>: <span class="hljs-string">"Mysql Access"</span>
+  <span class="hljs-attribute">description</span>: <span class="hljs-string">"the settings used to connect to the mysql database"</span>
+  <span class="hljs-attribute">type</span>: <span class="hljs-string">'object'</span>
+  <span class="hljs-attribute">allowedKeys</span>: <span class="hljs-literal">true</span>
+  <span class="hljs-attribute">keys</span>:
+    <span class="hljs-attribute">type</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Type"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the type of database server"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+      <span class="hljs-attribute">lowerCase</span>: <span class="hljs-literal">true</span>
+      <span class="hljs-attribute">values</span>: [<span class="hljs-string">'mysql'</span>]
+    <span class="hljs-attribute">host</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Hostname"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the hostname or ip address to connect to"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'hostname'</span>
+      <span class="hljs-attribute">default</span>: <span class="hljs-string">'localhost'</span>
+    <span class="hljs-attribute">port</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Port"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the port, the database is listening"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'integer'</span>
+      <span class="hljs-attribute">default</span>: <span class="hljs-number">3306</span>
+    <span class="hljs-attribute">database</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Database Name"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the name of the database to use"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+    <span class="hljs-attribute">user</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Username"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the name used to log into the database"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+    <span class="hljs-attribute">password</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Password"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the password to login"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+      <span class="hljs-attribute">optional</span>: <span class="hljs-literal">true</span>
+    <span class="hljs-attribute">charset</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Default Charset"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the charset used if no other given"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+      <span class="hljs-attribute">optional</span>: <span class="hljs-literal">true</span>
+    <span class="hljs-attribute">timezone</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Timezone"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the timezone to use"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+      <span class="hljs-attribute">optional</span>: <span class="hljs-literal">true</span>
+    <span class="hljs-attribute">connectTimeout</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Connection Timeout"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the time till a connection should be established"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'interval'</span>
+      <span class="hljs-attribute">unit</span>: <span class="hljs-string">'ms'</span>
+      <span class="hljs-attribute">optional</span>: <span class="hljs-literal">true</span>
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="mysql%20database">
+          <div class="pilwrap" id="mysql-database-1">
   <h2>
-    <a href="#mysql%20database" name="mysql%20database" class="pilcrow">&#182;</a>
-    Mysql Database
+    <a href="#mysql-database-1" name="mysql-database-1" class="pilcrow"></a>
+Mysql Database
   </h2>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">postgresql =</span>
-  <span class="nv">title: </span><span class="s">&quot;PostgreSQL Access&quot;</span>
-  <span class="nv">description: </span><span class="s">&quot;the settings used to connect to the postgres database&quot;</span>
-  <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
-  <span class="nv">allowedKeys: </span><span class="kc">true</span>
-  <span class="nv">keys:</span>
-    <span class="nv">type:</span>
-      <span class="nv">title: </span><span class="s">&quot;Type&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;the type of database server&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
-      <span class="nv">lowerCase: </span><span class="kc">true</span>
-      <span class="nv">values: </span><span class="p">[</span><span class="s">&#39;postgresql&#39;</span><span class="p">]</span>
-    <span class="nv">host:</span>
-      <span class="nv">title: </span><span class="s">&quot;Hostname&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;the hostname or ip address to connect to&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;hostname&#39;</span>
-      <span class="nv">default: </span><span class="s">&#39;localhost&#39;</span>
-    <span class="nv">port:</span>
-      <span class="nv">title: </span><span class="s">&quot;Port&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;the port, the database is listening&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;integer&#39;</span>
-      <span class="nv">default: </span><span class="mi">5432</span>
-    <span class="nv">database:</span>
-      <span class="nv">title: </span><span class="s">&quot;Database Name&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;the name of the database to use&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
-    <span class="nv">user:</span>
-      <span class="nv">title: </span><span class="s">&quot;Username&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;the name used to log into the database&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
-    <span class="nv">password:</span>
-      <span class="nv">title: </span><span class="s">&quot;Password&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;the password to login&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
-      <span class="nv">optional: </span><span class="kc">true</span>
-    <span class="nv">connectTimeout:</span>
-      <span class="nv">title: </span><span class="s">&quot;Connection Timeout&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;the time till a connection should be established&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;interval&#39;</span>
-      <span class="nv">unit: </span><span class="s">&#39;ms&#39;</span>
-      <span class="nv">optional: </span><span class="kc">true</span>
+        <td class="code highlight">
+          <pre class="coffeescript">postgresql =
+  <span class="hljs-attribute">title</span>: <span class="hljs-string">"PostgreSQL Access"</span>
+  <span class="hljs-attribute">description</span>: <span class="hljs-string">"the settings used to connect to the postgres database"</span>
+  <span class="hljs-attribute">type</span>: <span class="hljs-string">'object'</span>
+  <span class="hljs-attribute">allowedKeys</span>: <span class="hljs-literal">true</span>
+  <span class="hljs-attribute">keys</span>:
+    <span class="hljs-attribute">type</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Type"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the type of database server"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+      <span class="hljs-attribute">lowerCase</span>: <span class="hljs-literal">true</span>
+      <span class="hljs-attribute">values</span>: [<span class="hljs-string">'postgresql'</span>]
+    <span class="hljs-attribute">host</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Hostname"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the hostname or ip address to connect to"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'hostname'</span>
+      <span class="hljs-attribute">default</span>: <span class="hljs-string">'localhost'</span>
+    <span class="hljs-attribute">port</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Port"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the port, the database is listening"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'integer'</span>
+      <span class="hljs-attribute">default</span>: <span class="hljs-number">5432</span>
+    <span class="hljs-attribute">database</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Database Name"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the name of the database to use"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+    <span class="hljs-attribute">user</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Username"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the name used to log into the database"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+    <span class="hljs-attribute">password</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Password"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the password to login"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+      <span class="hljs-attribute">optional</span>: <span class="hljs-literal">true</span>
+    <span class="hljs-attribute">connectTimeout</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Connection Timeout"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the time till a connection should be established"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'interval'</span>
+      <span class="hljs-attribute">unit</span>: <span class="hljs-string">'ms'</span>
+      <span class="hljs-attribute">optional</span>: <span class="hljs-literal">true</span>
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="export%20objects">
+          <div class="pilwrap" id="export-objects">
   <h2>
-    <a href="#export%20objects" name="export%20objects" class="pilcrow">&#182;</a>
-    Export objects
+    <a href="#export-objects" name="export-objects" class="pilcrow"></a>
+Export objects
   </h2>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">module.exports =</span>
-  <span class="nv">title: </span><span class="s">&quot;Connections&quot;</span>
-  <span class="nv">description: </span><span class="s">&quot;the database connections&quot;</span>
-  <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
-  <span class="nv">entries: </span><span class="p">[</span>
-    <span class="nv">title: </span><span class="s">&quot;Connection&quot;</span>
-    <span class="nv">description: </span><span class="s">&quot;the connection to one database&quot;</span>
-    <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
-    <span class="nv">allowedKeys: </span><span class="kc">true</span>
-    <span class="nv">mandatoryKeys: </span><span class="p">[</span><span class="s">&#39;server&#39;</span><span class="p">]</span>
-    <span class="nv">keys:</span>
-      <span class="nv">ssh: </span><span class="nx">ssh</span>
-      <span class="nv">server:</span>
-        <span class="nv">title: </span><span class="s">&quot;Access&quot;</span>
-        <span class="nv">description: </span><span class="s">&quot;the settings used to connect to the database&quot;</span>
-        <span class="nv">type: </span><span class="s">&#39;or&#39;</span>
-        <span class="o">or:</span> <span class="p">[</span><span class="nx">mysql</span><span class="p">,</span> <span class="nx">postgresql</span><span class="p">]</span>
-      <span class="nv">pool:</span>
-        <span class="nv">title: </span><span class="s">&quot;Connection Pool&quot;</span>
-        <span class="nv">description: </span><span class="s">&quot;the connection pool&quot;</span>
-        <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
-        <span class="nv">allowedKeys: </span><span class="kc">true</span>
-        <span class="nv">keys:</span>
-          <span class="nv">limit:</span>
-            <span class="nv">title: </span><span class="s">&quot;Connection Pool Limit&quot;</span>
-            <span class="nv">description: </span><span class="s">&quot;the maximum number of parallel used connections&quot;</span>
-            <span class="nv">type: </span><span class="s">&#39;integer&#39;</span>
-            <span class="nv">default: </span><span class="mi">10</span>
-          <span class="nv">cluster:</span>
-            <span class="nv">title: </span><span class="s">&quot;Cluster&quot;</span>
-            <span class="nv">description: </span><span class="s">&quot;the clusters to which this database belongs&quot;</span>
-            <span class="nv">type: </span><span class="s">&#39;array&#39;</span>
-            <span class="nv">toArray: </span><span class="kc">true</span>
-            <span class="nv">entries:</span>
-              <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
-              <span class="nv">minLength: </span><span class="mi">3</span>
-  <span class="p">]</span>
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript"><span class="hljs-built_in">module</span>.exports =
+  <span class="hljs-attribute">title</span>: <span class="hljs-string">"Connections"</span>
+  <span class="hljs-attribute">description</span>: <span class="hljs-string">"the database connections"</span>
+  <span class="hljs-attribute">type</span>: <span class="hljs-string">'object'</span>
+  <span class="hljs-attribute">entries</span>: [
+    <span class="hljs-attribute">title</span>: <span class="hljs-string">"Connection"</span>
+    <span class="hljs-attribute">description</span>: <span class="hljs-string">"the connection to one database"</span>
+    <span class="hljs-attribute">type</span>: <span class="hljs-string">'object'</span>
+    <span class="hljs-attribute">allowedKeys</span>: <span class="hljs-literal">true</span>
+    <span class="hljs-attribute">mandatoryKeys</span>: [<span class="hljs-string">'server'</span>]
+    <span class="hljs-attribute">keys</span>:
+      <span class="hljs-attribute">ssh</span>: ssh
+      <span class="hljs-attribute">server</span>:
+        <span class="hljs-attribute">title</span>: <span class="hljs-string">"Access"</span>
+        <span class="hljs-attribute">description</span>: <span class="hljs-string">"the settings used to connect to the database"</span>
+        <span class="hljs-attribute">type</span>: <span class="hljs-string">'or'</span>
+        <span class="hljs-attribute">or</span>: [mysql, postgresql]
+      <span class="hljs-attribute">pool</span>:
+        <span class="hljs-attribute">title</span>: <span class="hljs-string">"Connection Pool"</span>
+        <span class="hljs-attribute">description</span>: <span class="hljs-string">"the connection pool"</span>
+        <span class="hljs-attribute">type</span>: <span class="hljs-string">'object'</span>
+        <span class="hljs-attribute">allowedKeys</span>: <span class="hljs-literal">true</span>
+        <span class="hljs-attribute">keys</span>:
+          <span class="hljs-attribute">limit</span>:
+            <span class="hljs-attribute">title</span>: <span class="hljs-string">"Connection Pool Limit"</span>
+            <span class="hljs-attribute">description</span>: <span class="hljs-string">"the maximum number of parallel used connections"</span>
+            <span class="hljs-attribute">type</span>: <span class="hljs-string">'integer'</span>
+            <span class="hljs-attribute">default</span>: <span class="hljs-number">10</span>
+          <span class="hljs-attribute">cluster</span>:
+            <span class="hljs-attribute">title</span>: <span class="hljs-string">"Cluster"</span>
+            <span class="hljs-attribute">description</span>: <span class="hljs-string">"the clusters to which this database belongs"</span>
+            <span class="hljs-attribute">type</span>: <span class="hljs-string">'array'</span>
+            <span class="hljs-attribute">toArray</span>: <span class="hljs-literal">true</span>
+            <span class="hljs-attribute">entries</span>:
+              <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+              <span class="hljs-attribute">minLength</span>: <span class="hljs-number">3</span>
+  ]
+
+</pre>
         </td>
       </tr>
+    
   </tbody>
 </table>
+
   </div>
 </body>
 </html>

@@ -6,20 +6,31 @@
   <link rel="stylesheet" media="all" href="../doc-style.css" />
   <script src="../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../", thisFile = "home/alex/github/node-database/src/object2sqlcoffee", defaultSidebar = true;
+    var relativeDir = "../";
+    var thisFile = "home/alex/github/node-database/src/object2sql.coffee";
+    var defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
-</head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0" /></head
 <body>
   <nav>
-<div class="logo"><a href="http://alinex.github.io" onmouseover="lllogo.src='https://alinex.github.io/images/Alinex-200.png'" onmouseout="lllogo.src='https://alinex.github.io/images/Alinex-black-200.png'">
-  <img name="lllogo" src="https://alinex.github.io/images/Alinex-black-200.png" width="150" title="Alinex Universe Homepage" />
+<div class="logo"><a href="http://alinex.github.io"
+  onmouseover="logo.src='https://alinex.github.io/images/Alinex-200.png'"
+  onmouseout="logo.src='https://alinex.github.io/images/Alinex-black-200.png'">
+  <img name="logo" src="https://alinex.github.io/images/Alinex-black-200.png"
+    width="150" title="Alinex Universe Homepage" />
   </a>
-  <img src="http://alinex.github.io/images/Alinex-200.png" style="display:none" alt="preloading" />
+  <img src="http://alinex.github.io/images/Alinex-200.png"
+    style="display:none" alt="preloading" />
 </div>
 <div class="links">
-  <a href="http://alinex.github.io/blog" class="btn btn-primary"><span class="glyphicon-cog"></span> Blog</a>
-  <a href="http://alinex.github.io/code.html" class="btn btn-warning"><span class="glyphicon-pencil"></span> Code</a>
+  <a href="http://alinex.github.io/blog"
+    class="btn btn-primary"><span class="glyphicon-pencil"></span> Blog</a>
+  <a href="http://alinex.github.io/develop"
+    class="btn btn-primary"><span class="glyphicon-book"></span> Develop</a>
+  <a href="http://alinex.github.io/code.html"
+    class="btn btn-warning"><span class="glyphicon-cog"></span> Code</a>
 </div>
 </nav><div id="sidebar_wrapper">
     <div id="sidebar_switch">
@@ -28,629 +39,665 @@
     </div>
     <div id="tree"></div>
     <div id="headings">
+
       <div class="heading h1">
-        <a href="#object%20to%20sql%20%20mapping">Object to SQL  Mapping</a>
+        <a href="#object-to-sql-mapping">Object to SQL  Mapping</a>
       </div>
+
       <div class="heading h2">
-        <a href="#node%20modules">Node Modules</a>
+        <a href="#node-modules">Node Modules</a>
       </div>
+
       <div class="heading h2">
-        <a href="#general%20helpers">General Helpers</a>
+        <a href="#general-helpers">General Helpers</a>
       </div>
+
       <div class="heading h3">
-        <a href="#escape%20value%20or%20id">Escape Value or ID</a>
+        <a href="#escape-value-or-id">Escape Value or ID</a>
       </div>
+
       <div class="heading h3">
-        <a href="#escape%20id">Escape ID</a>
+        <a href="#escape-id">Escape ID</a>
       </div>
+
       <div class="heading h2">
         <a href="#functions">Functions</a>
       </div>
+
       <div class="heading h3">
         <a href="#comparison">Comparison</a>
       </div>
+
       <div class="heading h3">
-        <a href="#group%20functions">Group functions</a>
+        <a href="#group-functions">Group functions</a>
       </div>
+
       <div class="heading h3">
         <a href="#special">Special</a>
       </div>
+
       <div class="heading h2">
-        <a href="#conversion%20of%20subparts">Conversion of Subparts</a>
+        <a href="#conversion-of-subparts">Conversion of Subparts</a>
       </div>
+
       <div class="heading h3">
-        <a href="#select%20field">SELECT field</a>
+        <a href="#select-field">SELECT field</a>
       </div>
+
       <div class="heading h3">
-        <a href="#from%20table">FROM table</a>
+        <a href="#from-table">FROM table</a>
       </div>
+
       <div class="heading h3">
-        <a href="#where%20condition">WHERE condition</a>
+        <a href="#where-condition">WHERE condition</a>
       </div>
+
       <div class="heading h2">
-        <a href="#conversion%20of%20sql%20parts">Conversion of SQL Parts</a>
+        <a href="#conversion-of-sql-parts">Conversion of SQL Parts</a>
       </div>
+
       <div class="heading h4">
         <a href="#from">FROM</a>
       </div>
+
       <div class="heading h4">
-        <a href="#from">FROM</a>
+        <a href="#from-1">FROM</a>
       </div>
+
       <div class="heading h3">
         <a href="#distinct">DISTINCT</a>
       </div>
+
       <div class="heading h2">
-        <a href="#conversion%20of%20main%20types">Conversion of Main Types</a>
+        <a href="#conversion-of-main-types">Conversion of Main Types</a>
       </div>
+
       <div class="heading h3">
         <a href="#select">SELECT</a>
       </div>
+
       <div class="heading h3">
         <a href="#update">UPDATE</a>
       </div>
+
       <div class="heading h3">
         <a href="#insert">INSERT</a>
       </div>
+
       <div class="heading h3">
         <a href="#delete">DELETE</a>
       </div>
+
       <div class="heading h2">
         <a href="#conversion">Conversion</a>
       </div>
+
     </div>
   </div>
   <div id="sidebar-toggle"></div>
-  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-database" title="Fork me on GitHub"></a><div class="background highlight"></div>
+  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-database" title="Fork me on GitHub"></a>
+    <div class="background highlight"></div>
 <table cellpadding="0" cellspacing="0">
   <tbody>
+    
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="object%20to%20sql%20%20mapping">
+          <div class="pilwrap" id="object-to-sql-mapping">
   <h1>
-    <a href="#object%20to%20sql%20%20mapping" name="object%20to%20sql%20%20mapping" class="pilcrow">&#182;</a>
-    Object to SQL  Mapping
+    <a href="#object-to-sql-mapping" name="object-to-sql-mapping" class="pilcrow"></a>
+Object to SQL  Mapping
   </h1>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre></pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="node%20modules">
+          <div class="pilwrap" id="node-modules">
   <h2>
-    <a href="#node%20modules" name="node%20modules" class="pilcrow">&#182;</a>
-    Node Modules
+    <a href="#node-modules" name="node-modules" class="pilcrow"></a>
+Node Modules
   </h2>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-3" id="section-3">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
 </div>
 <p>include base modules</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">debug = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;debug&#39;</span><span class="p">)(</span><span class="s">&#39;db&#39;</span><span class="p">)</span>
-<span class="nv">chalk = </span><span class="nx">require</span> <span class="s">&#39;chalk&#39;</span>
-<span class="p">{</span><span class="nx">string</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span> <span class="s">&#39;alinex-util&#39;</span>
+        <td class="code highlight">
+          <pre class="coffeescript">debug = <span class="hljs-built_in">require</span>(<span class="hljs-string">'debug'</span>)(<span class="hljs-string">'db'</span>)
+chalk = <span class="hljs-built_in">require</span> <span class="hljs-string">'chalk'</span>
+{string} = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-util'</span>
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="general%20helpers">
+          <div class="pilwrap" id="general-helpers">
   <h2>
-    <a href="#general%20helpers" name="general%20helpers" class="pilcrow">&#182;</a>
-    General Helpers
+    <a href="#general-helpers" name="general-helpers" class="pilcrow"></a>
+General Helpers
   </h2>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="escape%20value%20or%20id">
+          <div class="pilwrap" id="escape-value-or-id">
   <h3>
-    <a href="#escape%20value%20or%20id" name="escape%20value%20or%20id" class="pilcrow">&#182;</a>
-    Escape Value or ID
+    <a href="#escape-value-or-id" name="escape-value-or-id" class="pilcrow"></a>
+Escape Value or ID
   </h3>
 </div>
-
-
 <ul>
-<li>? =>  keep placeholder</li>
-<li>@... => escape as ID</li>
+<li>? =&gt;  keep placeholder</li>
+<li>@... =&gt; escape as ID</li>
 <li>else escape value</li>
 </ul>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">escape = </span><span class="nf">(value, driver) -&gt;</span>
-  <span class="k">if</span> <span class="nx">value</span> <span class="o">is</span> <span class="s">&#39;?&#39;</span>
-    <span class="nx">value</span>
-  <span class="k">else</span> <span class="k">if</span> <span class="nx">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">is</span> <span class="s">&#39;@&#39;</span>
-    <span class="nx">driver</span><span class="p">.</span><span class="nx">escapeId</span> <span class="nx">value</span><span class="p">[</span><span class="mi">1</span><span class="p">..]</span>
-  <span class="k">else</span>
-    <span class="nx">driver</span><span class="p">.</span><span class="nx">escape</span> <span class="nx">value</span>
+        <td class="code highlight">
+          <pre class="coffeescript"><span class="hljs-function"><span class="hljs-title">escape</span> = <span class="hljs-params">(value, driver)</span> -&gt;</span>
+  <span class="hljs-keyword">if</span> value <span class="hljs-keyword">is</span> <span class="hljs-string">'?'</span>
+    value
+  <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> value[<span class="hljs-number">0</span>] <span class="hljs-keyword">is</span> <span class="hljs-string">'@'</span>
+    driver.escapeId value[<span class="hljs-number">1.</span>.]
+  <span class="hljs-keyword">else</span>
+    driver.escape value
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="escape%20id">
+          <div class="pilwrap" id="escape-id">
   <h3>
-    <a href="#escape%20id" name="escape%20id" class="pilcrow">&#182;</a>
-    Escape ID
+    <a href="#escape-id" name="escape-id" class="pilcrow"></a>
+Escape ID
   </h3>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">escapeId = </span><span class="nf">(value, driver) -&gt;</span>
-  <span class="k">if</span> <span class="nx">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">is</span> <span class="s">&#39;@&#39;</span>
-    <span class="nx">driver</span><span class="p">.</span><span class="nx">escapeId</span> <span class="nx">value</span><span class="p">[</span><span class="mi">1</span><span class="p">..]</span>
-  <span class="k">else</span>
-    <span class="nx">driver</span><span class="p">.</span><span class="nx">escapeId</span> <span class="nx">value</span>
+        <td class="code highlight">
+          <pre class="coffeescript"><span class="hljs-function"><span class="hljs-title">escapeId</span> = <span class="hljs-params">(value, driver)</span> -&gt;</span>
+  <span class="hljs-keyword">if</span> value[<span class="hljs-number">0</span>] <span class="hljs-keyword">is</span> <span class="hljs-string">'@'</span>
+    driver.escapeId value[<span class="hljs-number">1.</span>.]
+  <span class="hljs-keyword">else</span>
+    driver.escapeId value
 
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="functions">
+          <div class="pilwrap" id="functions">
   <h2>
-    <a href="#functions" name="functions" class="pilcrow">&#182;</a>
-    Functions
+    <a href="#functions" name="functions" class="pilcrow"></a>
+Functions
   </h2>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">func =</span>
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">func =
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="comparison">
+          <div class="pilwrap" id="comparison">
   <h3>
-    <a href="#comparison" name="comparison" class="pilcrow">&#182;</a>
-    Comparison
+    <a href="#comparison" name="comparison" class="pilcrow"></a>
+Comparison
   </h3>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">eq: </span><span class="nf">(obj, driver) -&gt;</span> <span class="s">&quot;= </span><span class="si">#{</span><span class="nx">field</span> <span class="nx">obj</span><span class="p">,</span> <span class="nx">driver</span><span class="si">}</span><span class="s">&quot;</span>
-  <span class="nv">ne: </span><span class="nf">(obj, driver) -&gt;</span>  <span class="s">&quot;&lt;&gt; </span><span class="si">#{</span><span class="nx">field</span> <span class="nx">obj</span><span class="p">,</span> <span class="nx">driver</span><span class="si">}</span><span class="s">&quot;</span>
-  <span class="nv">gt: </span><span class="nf">(obj, driver) -&gt;</span>  <span class="s">&quot;&gt; </span><span class="si">#{</span><span class="nx">field</span> <span class="nx">obj</span><span class="p">,</span> <span class="nx">driver</span><span class="si">}</span><span class="s">&quot;</span>
-  <span class="nv">lt: </span><span class="nf">(obj, driver) -&gt;</span>  <span class="s">&quot;&lt; </span><span class="si">#{</span><span class="nx">field</span> <span class="nx">obj</span><span class="p">,</span> <span class="nx">driver</span><span class="si">}</span><span class="s">&quot;</span>
-  <span class="nv">ge: </span><span class="nf">(obj, driver) -&gt;</span>  <span class="s">&quot;&gt;= </span><span class="si">#{</span><span class="nx">field</span> <span class="nx">obj</span><span class="p">,</span> <span class="nx">driver</span><span class="si">}</span><span class="s">&quot;</span>
-  <span class="nv">le: </span><span class="nf">(obj, driver) -&gt;</span>  <span class="s">&quot;&lt;= </span><span class="si">#{</span><span class="nx">field</span> <span class="nx">obj</span><span class="p">,</span> <span class="nx">driver</span><span class="si">}</span><span class="s">&quot;</span>
-  <span class="nv">like: </span><span class="nf">(obj, driver) -&gt;</span>  <span class="s">&quot;LIKE </span><span class="si">#{</span><span class="nx">field</span> <span class="nx">obj</span><span class="p">,</span> <span class="nx">driver</span><span class="si">}</span><span class="s">&quot;</span>
-  <span class="k">in</span><span class="o">:</span> <span class="nf">(obj, driver) -&gt;</span>  <span class="s">&quot;IN(</span><span class="si">#{</span><span class="nx">field</span> <span class="nx">obj</span><span class="p">,</span> <span class="nx">driver</span><span class="si">}</span><span class="s">)&quot;</span>
-  <span class="nv">between: </span><span class="nf">(obj, driver) -&gt;</span>
-    <span class="s">&quot;BETWEEN </span><span class="si">#{</span><span class="nx">field</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">min</span><span class="p">,</span> <span class="nx">driver</span><span class="si">}</span><span class="s"> AND </span><span class="si">#{</span><span class="nx">field</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">max</span><span class="p">,</span> <span class="nx">driver</span><span class="si">}</span><span class="s">&quot;</span>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-attribute">eq</span>: <span class="hljs-function"><span class="hljs-params">(obj, driver)</span> -&gt;</span> <span class="hljs-string">"= <span class="hljs-subst">#{field obj, driver}</span>"</span>
+  <span class="hljs-attribute">ne</span>: <span class="hljs-function"><span class="hljs-params">(obj, driver)</span> -&gt;</span>  <span class="hljs-string">"&lt;&gt; <span class="hljs-subst">#{field obj, driver}</span>"</span>
+  <span class="hljs-attribute">gt</span>: <span class="hljs-function"><span class="hljs-params">(obj, driver)</span> -&gt;</span>  <span class="hljs-string">"&gt; <span class="hljs-subst">#{field obj, driver}</span>"</span>
+  <span class="hljs-attribute">lt</span>: <span class="hljs-function"><span class="hljs-params">(obj, driver)</span> -&gt;</span>  <span class="hljs-string">"&lt; <span class="hljs-subst">#{field obj, driver}</span>"</span>
+  <span class="hljs-attribute">ge</span>: <span class="hljs-function"><span class="hljs-params">(obj, driver)</span> -&gt;</span>  <span class="hljs-string">"&gt;= <span class="hljs-subst">#{field obj, driver}</span>"</span>
+  <span class="hljs-attribute">le</span>: <span class="hljs-function"><span class="hljs-params">(obj, driver)</span> -&gt;</span>  <span class="hljs-string">"&lt;= <span class="hljs-subst">#{field obj, driver}</span>"</span>
+  <span class="hljs-attribute">like</span>: <span class="hljs-function"><span class="hljs-params">(obj, driver)</span> -&gt;</span>  <span class="hljs-string">"LIKE <span class="hljs-subst">#{field obj, driver}</span>"</span>
+  <span class="hljs-attribute">in</span>: <span class="hljs-function"><span class="hljs-params">(obj, driver)</span> -&gt;</span>  <span class="hljs-string">"IN(<span class="hljs-subst">#{field obj, driver}</span>)"</span>
+  <span class="hljs-attribute">between</span>: <span class="hljs-function"><span class="hljs-params">(obj, driver)</span> -&gt;</span>
+    <span class="hljs-string">"BETWEEN <span class="hljs-subst">#{field obj.min, driver}</span> AND <span class="hljs-subst">#{field obj.max, driver}</span>"</span>
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="group%20functions">
+          <div class="pilwrap" id="group-functions">
   <h3>
-    <a href="#group%20functions" name="group%20functions" class="pilcrow">&#182;</a>
-    Group functions
+    <a href="#group-functions" name="group-functions" class="pilcrow"></a>
+Group functions
   </h3>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">count: </span><span class="nf">(obj, driver, as) -&gt;</span> <span class="s">&quot;COUNT(</span><span class="si">#{</span><span class="nx">field</span> <span class="nx">obj</span><span class="p">,</span> <span class="nx">driver</span><span class="p">,</span> <span class="nx">as</span><span class="si">}</span><span class="s">)&quot;</span>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-attribute">count</span>: <span class="hljs-function"><span class="hljs-params">(obj, driver, as)</span> -&gt;</span> <span class="hljs-string">"COUNT(<span class="hljs-subst">#{field obj, driver, as}</span>)"</span>
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="special">
+          <div class="pilwrap" id="special">
   <h3>
-    <a href="#special" name="special" class="pilcrow">&#182;</a>
-    Special
+    <a href="#special" name="special" class="pilcrow"></a>
+Special
   </h3>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">value: </span><span class="nf">(obj, driver) -&gt;</span> <span class="s">&quot;= </span><span class="si">#{</span><span class="nx">escape</span> <span class="nx">obj</span><span class="p">,</span> <span class="nx">driver</span><span class="si">}</span><span class="s">&quot;</span>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-attribute">value</span>: <span class="hljs-function"><span class="hljs-params">(obj, driver)</span> -&gt;</span> <span class="hljs-string">"= <span class="hljs-subst">#{escape obj, driver}</span>"</span>
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="conversion%20of%20subparts">
+          <div class="pilwrap" id="conversion-of-subparts">
   <h2>
-    <a href="#conversion%20of%20subparts" name="conversion%20of%20subparts" class="pilcrow">&#182;</a>
-    Conversion of Subparts
+    <a href="#conversion-of-subparts" name="conversion-of-subparts" class="pilcrow"></a>
+Conversion of Subparts
   </h2>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="select%20field">
+          <div class="pilwrap" id="select-field">
   <h3>
-    <a href="#select%20field" name="select%20field" class="pilcrow">&#182;</a>
-    SELECT field
+    <a href="#select-field" name="select-field" class="pilcrow"></a>
+SELECT field
   </h3>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">field = </span><span class="nf">(obj, driver, as = true) -&gt;</span>
-  <span class="k">switch</span>
-    <span class="k">when</span> <span class="nx">obj</span> <span class="o">is</span> <span class="s">&#39;*&#39;</span>
-      <span class="nx">obj</span>
-    <span class="k">when</span> <span class="k">typeof</span> <span class="nx">obj</span> <span class="o">is</span> <span class="s">&#39;string&#39;</span>
-      <span class="k">if</span> <span class="nx">string</span><span class="p">.</span><span class="nx">ends</span> <span class="nx">obj</span><span class="p">,</span> <span class="s">&#39;.*&#39;</span>
-        <span class="nx">escape</span><span class="p">(</span><span class="nx">obj</span><span class="p">[</span><span class="mi">0</span><span class="p">..</span><span class="o">-</span><span class="mi">3</span><span class="p">],</span> <span class="nx">driver</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39;.*&#39;</span>
-      <span class="k">else</span>
-        <span class="nx">escape</span> <span class="nx">obj</span><span class="p">,</span> <span class="nx">driver</span>
-    <span class="k">when</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">isArray</span> <span class="nx">obj</span>
-      <span class="nx">obj</span><span class="p">.</span><span class="nx">map</span> <span class="nf">(e) -&gt;</span> <span class="nx">field</span> <span class="nx">e</span><span class="p">,</span> <span class="nx">driver</span><span class="p">,</span> <span class="nx">as</span>
-      <span class="p">.</span><span class="nx">join</span> <span class="s">&#39;, &#39;</span>
-    <span class="k">when</span> <span class="k">typeof</span> <span class="nx">obj</span> <span class="o">is</span> <span class="s">&#39;object&#39;</span>
-      <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span> <span class="nx">obj</span>
-      <span class="p">.</span><span class="nx">map</span> <span class="nf">(k) -&gt;</span>
-        <span class="k">if</span> <span class="nx">k</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">is</span> <span class="s">&#39;$&#39;</span>
-          <span class="nx">func</span><span class="p">[</span><span class="nx">k</span><span class="p">[</span><span class="mi">1</span><span class="p">..]]</span> <span class="nx">obj</span><span class="p">[</span><span class="nx">k</span><span class="p">],</span> <span class="nx">driver</span>
-        <span class="k">else</span> <span class="k">if</span> <span class="nx">as</span>
-          <span class="nx">field</span><span class="p">(</span><span class="nx">obj</span><span class="p">[</span><span class="nx">k</span><span class="p">],</span> <span class="nx">driver</span><span class="p">,</span> <span class="kc">false</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39; AS &#39;</span> <span class="o">+</span> <span class="nx">escapeId</span> <span class="nx">k</span><span class="p">,</span> <span class="nx">driver</span>
-        <span class="k">else</span>
-          <span class="nx">escapeId</span><span class="p">(</span><span class="nx">k</span><span class="p">,</span> <span class="nx">driver</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39; &#39;</span> <span class="o">+</span> <span class="nx">field</span><span class="p">(</span><span class="nx">obj</span><span class="p">[</span><span class="nx">k</span><span class="p">],</span> <span class="nx">driver</span><span class="p">,</span> <span class="nx">as</span><span class="p">)</span>
-      <span class="p">.</span><span class="nx">join</span> <span class="s">&#39;, &#39;</span>
-    <span class="k">else</span>
-      <span class="nx">escape</span> <span class="nx">obj</span><span class="p">,</span> <span class="nx">driver</span>
+        <td class="code highlight">
+          <pre class="coffeescript"><span class="hljs-function"><span class="hljs-title">field</span> = <span class="hljs-params">(obj, driver, as = <span class="hljs-literal">true</span>)</span> -&gt;</span>
+  <span class="hljs-keyword">switch</span>
+    <span class="hljs-keyword">when</span> obj <span class="hljs-keyword">is</span> <span class="hljs-string">'*'</span>
+      obj
+    <span class="hljs-keyword">when</span> <span class="hljs-keyword">typeof</span> obj <span class="hljs-keyword">is</span> <span class="hljs-string">'string'</span>
+      <span class="hljs-keyword">if</span> string.ends obj, <span class="hljs-string">'.*'</span>
+        escape(obj[<span class="hljs-number">0.</span>.-<span class="hljs-number">3</span>], driver) + <span class="hljs-string">'.*'</span>
+      <span class="hljs-keyword">else</span>
+        escape obj, driver
+    <span class="hljs-keyword">when</span> Array.isArray obj
+      obj.map (e) -&gt; field e, driver, as
+      .join <span class="hljs-string">', '</span>
+    <span class="hljs-keyword">when</span> <span class="hljs-keyword">typeof</span> obj <span class="hljs-keyword">is</span> <span class="hljs-string">'object'</span>
+      Object.keys obj
+      .map (k) -&gt;
+        <span class="hljs-keyword">if</span> k[<span class="hljs-number">0</span>] <span class="hljs-keyword">is</span> <span class="hljs-string">'$'</span>
+          func[k[<span class="hljs-number">1.</span>.]] obj[k], driver
+        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> as
+          field(obj[k], driver, <span class="hljs-literal">false</span>) + <span class="hljs-string">' AS '</span> + escapeId k, driver
+        <span class="hljs-keyword">else</span>
+          escapeId(k, driver) + <span class="hljs-string">' '</span> + field(obj[k], driver, as)
+      .join <span class="hljs-string">', '</span>
+    <span class="hljs-keyword">else</span>
+      escape obj, driver
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="from%20table">
+          <div class="pilwrap" id="from-table">
   <h3>
-    <a href="#from%20table" name="from%20table" class="pilcrow">&#182;</a>
-    FROM table
+    <a href="#from-table" name="from-table" class="pilcrow"></a>
+FROM table
   </h3>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">table = </span><span class="nf">(obj, driver) -&gt;</span>
-  <span class="nv">sql = </span><span class="k">switch</span>
-    <span class="k">when</span> <span class="k">typeof</span> <span class="nx">obj</span> <span class="o">is</span> <span class="s">&#39;string&#39;</span>
-      <span class="nx">escape</span> <span class="nx">obj</span><span class="p">,</span> <span class="nx">driver</span>
-    <span class="k">when</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">isArray</span> <span class="nx">obj</span>
-      <span class="nx">obj</span><span class="p">.</span><span class="nx">map</span> <span class="nf">(e) -&gt;</span> <span class="nx">table</span> <span class="nx">e</span><span class="p">,</span> <span class="nx">driver</span>
-      <span class="p">.</span><span class="nx">join</span> <span class="s">&#39;, &#39;</span>
-    <span class="k">else</span> <span class="c1"># object</span>
-      <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span> <span class="nx">obj</span>
-      <span class="p">.</span><span class="nx">map</span> <span class="nf">(k) -&gt;</span>
-        <span class="nv">base = </span><span class="nx">k</span>
-        <span class="nv">e = </span><span class="nx">obj</span><span class="p">[</span><span class="nx">k</span><span class="p">]</span>
-        <span class="k">if</span> <span class="k">typeof</span> <span class="nx">e</span> <span class="o">is</span> <span class="s">&#39;string&#39;</span>
-          <span class="k">return</span> <span class="nx">escape</span><span class="p">(</span><span class="nx">e</span><span class="p">,</span> <span class="nx">driver</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39; AS &#39;</span> <span class="o">+</span> <span class="nx">escapeId</span> <span class="nx">k</span><span class="p">,</span> <span class="nx">driver</span>
-        <span class="nv">sub = </span><span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span> <span class="nx">e</span>
-        <span class="nv">as = </span><span class="s">&#39;&#39;</span>
-        <span class="k">unless</span> <span class="s">&#39;join&#39;</span> <span class="k">in</span> <span class="nx">sub</span> <span class="o">and</span> <span class="s">&#39;on&#39;</span> <span class="k">in</span> <span class="nx">sub</span>
-          <span class="nv">as = </span><span class="s">&#39; AS &#39;</span> <span class="o">+</span> <span class="nx">escapeId</span> <span class="nx">k</span><span class="p">,</span> <span class="nx">driver</span>
-          <span class="nv">k = </span><span class="nx">sub</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-          <span class="nv">e = </span><span class="nx">e</span><span class="p">[</span><span class="nx">k</span><span class="p">]</span>
-        <span class="nv">join = </span><span class="s">&quot;</span><span class="si">#{</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">join</span> <span class="o">?</span> <span class="s">&#39;left&#39;</span><span class="p">).</span><span class="nx">toUpperCase</span><span class="p">()</span><span class="si">}</span><span class="s"> JOIN </span><span class="si">#{</span><span class="nx">escapeId</span> <span class="nx">k</span><span class="p">,</span> <span class="nx">driver</span><span class="si">}#{</span><span class="nx">as</span><span class="si">}</span><span class="s">&quot;</span>
-        <span class="nx">join</span> <span class="o">+=</span> <span class="s">&quot; ON </span><span class="si">#{</span><span class="nx">condition</span> <span class="nx">e</span><span class="p">.</span><span class="nx">on</span><span class="p">,</span> <span class="nx">driver</span><span class="p">,</span> <span class="nx">base</span><span class="si">}</span><span class="s">&quot;</span> <span class="k">if</span> <span class="nx">e</span><span class="p">.</span><span class="nx">on</span><span class="o">?</span>
-      <span class="p">.</span><span class="nx">join</span> <span class="s">&#39;, &#39;</span>
-  <span class="nx">sql</span><span class="p">.</span><span class="nx">replace</span> <span class="sr">/,( [A-Z]+ JOIN)/</span><span class="p">,</span> <span class="s">&#39;$1&#39;</span>
+        <td class="code highlight">
+          <pre class="coffeescript"><span class="hljs-function"><span class="hljs-title">table</span> = <span class="hljs-params">(obj, driver)</span> -&gt;</span>
+  sql = <span class="hljs-keyword">switch</span>
+    <span class="hljs-keyword">when</span> <span class="hljs-keyword">typeof</span> obj <span class="hljs-keyword">is</span> <span class="hljs-string">'string'</span>
+      escape obj, driver
+    <span class="hljs-keyword">when</span> Array.isArray obj
+      obj.map (e) -&gt; table e, driver
+      .join <span class="hljs-string">', '</span>
+    <span class="hljs-keyword">else</span> <span class="hljs-comment"># object</span>
+      Object.keys obj
+      .map (k) -&gt;
+        base = k
+        e = obj[k]
+        <span class="hljs-keyword">if</span> <span class="hljs-keyword">typeof</span> e <span class="hljs-keyword">is</span> <span class="hljs-string">'string'</span>
+          <span class="hljs-keyword">return</span> escape(e, driver) + <span class="hljs-string">' AS '</span> + escapeId k, driver
+        sub = Object.keys e
+        as = <span class="hljs-string">''</span>
+        <span class="hljs-keyword">unless</span> <span class="hljs-string">'join'</span> <span class="hljs-keyword">in</span> sub <span class="hljs-keyword">and</span> <span class="hljs-string">'on'</span> <span class="hljs-keyword">in</span> sub
+          as = <span class="hljs-string">' AS '</span> + escapeId k, driver
+          k = sub[<span class="hljs-number">0</span>]
+          e = e[k]
+        join = <span class="hljs-string">"<span class="hljs-subst">#{(e.join ? <span class="hljs-string">'left'</span>).toUpperCase()}</span> JOIN <span class="hljs-subst">#{escapeId k, driver}</span><span class="hljs-subst">#{as}</span>"</span>
+        join += <span class="hljs-string">" ON <span class="hljs-subst">#{condition e.<span class="hljs-literal">on</span>, driver, base}</span>"</span> <span class="hljs-keyword">if</span> e.<span class="hljs-literal">on</span>?
+      .join <span class="hljs-string">', '</span>
+  sql.replace <span class="hljs-regexp">/,( [A-Z]+ JOIN)/</span>, <span class="hljs-string">'$1'</span>
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="where%20condition">
+          <div class="pilwrap" id="where-condition">
   <h3>
-    <a href="#where%20condition" name="where%20condition" class="pilcrow">&#182;</a>
-    WHERE condition
+    <a href="#where-condition" name="where-condition" class="pilcrow"></a>
+WHERE condition
   </h3>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">condition = </span><span class="nf">(obj, driver, base) -&gt;</span>
-  <span class="k">switch</span>
-    <span class="k">when</span> <span class="k">typeof</span> <span class="nx">obj</span> <span class="o">is</span> <span class="s">&#39;string&#39;</span>
-      <span class="s">&quot;ISSET </span><span class="si">#{</span><span class="nx">escape</span> <span class="nx">obj</span><span class="p">,</span> <span class="nx">driver</span><span class="si">}</span><span class="s">&quot;</span>
-    <span class="k">when</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">isArray</span> <span class="nx">obj</span>
-      <span class="nx">obj</span><span class="p">.</span><span class="nx">map</span> <span class="nf">(e) -&gt;</span> <span class="nx">condition</span> <span class="nx">e</span><span class="p">,</span> <span class="nx">driver</span><span class="p">,</span> <span class="nx">base</span>
-      <span class="p">.</span><span class="nx">join</span> <span class="s">&#39; AND &#39;</span>
-    <span class="k">else</span> <span class="c1"># object</span>
-      <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span> <span class="nx">obj</span>
-      <span class="p">.</span><span class="nx">map</span> <span class="nf">(k) -&gt;</span>
-        <span class="nx">escapeId</span><span class="p">(</span><span class="s">&quot;</span><span class="si">#{</span><span class="k">if</span> <span class="nx">base</span> <span class="k">then</span> <span class="nx">base</span><span class="o">+</span><span class="s">&#39;.&#39;</span> <span class="k">else</span> <span class="s">&#39;&#39;</span><span class="si">}#{</span><span class="nx">k</span><span class="si">}</span><span class="s">&quot;</span><span class="p">,</span> <span class="nx">driver</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39; = &#39;</span> <span class="o">+</span> <span class="nx">escape</span><span class="p">(</span><span class="nx">obj</span><span class="p">[</span><span class="nx">k</span><span class="p">],</span> <span class="nx">driver</span><span class="p">)</span>
-      <span class="p">.</span><span class="nx">join</span> <span class="s">&#39; AND &#39;</span>
+        <td class="code highlight">
+          <pre class="coffeescript"><span class="hljs-function"><span class="hljs-title">condition</span> = <span class="hljs-params">(obj, driver, base)</span> -&gt;</span>
+  <span class="hljs-keyword">switch</span>
+    <span class="hljs-keyword">when</span> <span class="hljs-keyword">typeof</span> obj <span class="hljs-keyword">is</span> <span class="hljs-string">'string'</span>
+      <span class="hljs-string">"ISSET <span class="hljs-subst">#{escape obj, driver}</span>"</span>
+    <span class="hljs-keyword">when</span> Array.isArray obj
+      obj.map (e) -&gt; condition e, driver, base
+      .join <span class="hljs-string">' AND '</span>
+    <span class="hljs-keyword">else</span> <span class="hljs-comment"># object</span>
+      Object.keys obj
+      .map (k) -&gt;
+        escapeId(<span class="hljs-string">"<span class="hljs-subst">#{<span class="hljs-keyword">if</span> base <span class="hljs-keyword">then</span> base+<span class="hljs-string">'.'</span> <span class="hljs-keyword">else</span> <span class="hljs-string">''</span>}</span><span class="hljs-subst">#{k}</span>"</span>, driver) + <span class="hljs-string">' = '</span> + escape(obj[k], driver)
+      .join <span class="hljs-string">' AND '</span>
 
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="conversion%20of%20sql%20parts">
+          <div class="pilwrap" id="conversion-of-sql-parts">
   <h2>
-    <a href="#conversion%20of%20sql%20parts" name="conversion%20of%20sql%20parts" class="pilcrow">&#182;</a>
-    Conversion of SQL Parts
+    <a href="#conversion-of-sql-parts" name="conversion-of-sql-parts" class="pilcrow"></a>
+Conversion of SQL Parts
   </h2>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="from">
+          <div class="pilwrap" id="from">
   <h4>
-    <a href="#from" name="from" class="pilcrow">&#182;</a>
-    FROM
+    <a href="#from" name="from" class="pilcrow"></a>
+FROM
   </h4>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">from = </span><span class="nf">(obj, driver) -&gt;</span> <span class="s">&quot; FROM </span><span class="si">#{</span><span class="nx">table</span> <span class="nx">obj</span><span class="p">,</span> <span class="nx">driver</span><span class="si">}</span><span class="s">&quot;</span>
+        <td class="code highlight">
+          <pre class="coffeescript"><span class="hljs-function"><span class="hljs-title">from</span> = <span class="hljs-params">(obj, driver)</span> -&gt;</span> <span class="hljs-string">" FROM <span class="hljs-subst">#{table obj, driver}</span>"</span>
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="from">
+          <div class="pilwrap" id="from-1">
   <h4>
-    <a href="#from" name="from" class="pilcrow">&#182;</a>
-    FROM
+    <a href="#from-1" name="from-1" class="pilcrow"></a>
+FROM
   </h4>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">where = </span><span class="nf">(obj, driver) -&gt;</span> <span class="s">&quot; WHERE </span><span class="si">#{</span><span class="nx">condition</span> <span class="nx">obj</span><span class="p">,</span> <span class="nx">driver</span><span class="si">}</span><span class="s">&quot;</span>
+        <td class="code highlight">
+          <pre class="coffeescript"><span class="hljs-function"><span class="hljs-title">where</span> = <span class="hljs-params">(obj, driver)</span> -&gt;</span> <span class="hljs-string">" WHERE <span class="hljs-subst">#{condition obj, driver}</span>"</span>
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="distinct">
+          <div class="pilwrap" id="distinct">
   <h3>
-    <a href="#distinct" name="distinct" class="pilcrow">&#182;</a>
-    DISTINCT
+    <a href="#distinct" name="distinct" class="pilcrow"></a>
+DISTINCT
   </h3>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">distinct = </span><span class="nf">(obj) -&gt;</span>
-  <span class="k">if</span> <span class="nx">obj</span><span class="o">?</span> <span class="k">then</span> <span class="s">&quot; DISTINCT&quot;</span> <span class="k">else</span> <span class="s">&#39;&#39;</span>
+        <td class="code highlight">
+          <pre class="coffeescript"><span class="hljs-function"><span class="hljs-title">distinct</span> = <span class="hljs-params">(obj)</span> -&gt;</span>
+  <span class="hljs-keyword">if</span> obj? <span class="hljs-keyword">then</span> <span class="hljs-string">" DISTINCT"</span> <span class="hljs-keyword">else</span> <span class="hljs-string">''</span>
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="conversion%20of%20main%20types">
+          <div class="pilwrap" id="conversion-of-main-types">
   <h2>
-    <a href="#conversion%20of%20main%20types" name="conversion%20of%20main%20types" class="pilcrow">&#182;</a>
-    Conversion of Main Types
+    <a href="#conversion-of-main-types" name="conversion-of-main-types" class="pilcrow"></a>
+Conversion of Main Types
   </h2>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
+        <td class="code highlight">
+          <pre class="coffeescript">
+type =
 
-<span class="nv">type =</span>
-
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="select">
+          <div class="pilwrap" id="select">
   <h3>
-    <a href="#select" name="select" class="pilcrow">&#182;</a>
-    SELECT
+    <a href="#select" name="select" class="pilcrow"></a>
+SELECT
   </h3>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">select: </span><span class="nf">(obj, driver) -&gt;</span>
-    <span class="nv">sql = </span><span class="s">&quot;SELECT&quot;</span>
-    <span class="nx">sql</span> <span class="o">+=</span> <span class="nx">distinct</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">distinct</span><span class="p">,</span> <span class="nx">driver</span>
-    <span class="nx">sql</span> <span class="o">+=</span> <span class="s">&quot; </span><span class="si">#{</span><span class="nx">field</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">select</span><span class="p">,</span> <span class="nx">driver</span><span class="si">}</span><span class="s">&quot;</span>
-    <span class="nx">sql</span> <span class="o">+=</span> <span class="nx">from</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">from</span><span class="p">,</span> <span class="nx">driver</span> <span class="k">if</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">from</span>
-    <span class="nx">sql</span> <span class="o">+=</span> <span class="nx">where</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">where</span><span class="p">,</span> <span class="nx">driver</span> <span class="k">if</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">where</span>
-    <span class="nx">sql</span> <span class="o">+=</span> <span class="s">&#39;;&#39;</span>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-attribute">select</span>: <span class="hljs-function"><span class="hljs-params">(obj, driver)</span> -&gt;</span>
+    sql = <span class="hljs-string">"SELECT"</span>
+    sql += distinct obj.distinct, driver
+    sql += <span class="hljs-string">" <span class="hljs-subst">#{field obj.select, driver}</span>"</span>
+    sql += from obj.from, driver <span class="hljs-keyword">if</span> obj.from
+    sql += where obj.where, driver <span class="hljs-keyword">if</span> obj.where
+    sql += <span class="hljs-string">';'</span>
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="update">
+          <div class="pilwrap" id="update">
   <h3>
-    <a href="#update" name="update" class="pilcrow">&#182;</a>
-    UPDATE
+    <a href="#update" name="update" class="pilcrow"></a>
+UPDATE
   </h3>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">update: </span><span class="nf">(obj, driver) -&gt;</span>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-attribute">update</span>: <span class="hljs-function"><span class="hljs-params">(obj, driver)</span> -&gt;</span>
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="insert">
+          <div class="pilwrap" id="insert">
   <h3>
-    <a href="#insert" name="insert" class="pilcrow">&#182;</a>
-    INSERT
+    <a href="#insert" name="insert" class="pilcrow"></a>
+INSERT
   </h3>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">insert: </span><span class="nf">(obj, driver) -&gt;</span>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-attribute">insert</span>: <span class="hljs-function"><span class="hljs-params">(obj, driver)</span> -&gt;</span>
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="delete">
+          <div class="pilwrap" id="delete">
   <h3>
-    <a href="#delete" name="delete" class="pilcrow">&#182;</a>
-    DELETE
+    <a href="#delete" name="delete" class="pilcrow"></a>
+DELETE
   </h3>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="k">delete</span><span class="o">:</span> <span class="nf">(obj, driver) -&gt;</span>
-    <span class="nv">sql = </span><span class="s">&quot;DELETE&quot;</span>
-    <span class="nx">sql</span> <span class="o">+=</span> <span class="nx">from</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">from</span><span class="p">,</span> <span class="nx">driver</span>
-    <span class="nx">sql</span> <span class="o">+=</span> <span class="s">&#39;;&#39;</span>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-attribute">delete</span>: <span class="hljs-function"><span class="hljs-params">(obj, driver)</span> -&gt;</span>
+    sql = <span class="hljs-string">"DELETE"</span>
+    sql += from obj.from, driver
+    sql += <span class="hljs-string">';'</span>
 
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="conversion">
+          <div class="pilwrap" id="conversion">
   <h2>
-    <a href="#conversion" name="conversion" class="pilcrow">&#182;</a>
-    Conversion
+    <a href="#conversion" name="conversion" class="pilcrow"></a>
+Conversion
   </h2>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-
-<span class="nv">module.exports = </span><span class="nf">(obj, driver) -&gt;</span>
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">
+<span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-params">(obj, driver)</span> -&gt;</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-25" id="section-25">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-25" id="section-25"></a>
 </div>
 <p>validate</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="k">if</span> <span class="nx">debug</span><span class="p">.</span><span class="nx">enabled</span>
-    <span class="nv">validator = </span><span class="nx">require</span> <span class="s">&#39;alinex-validator&#39;</span>
-    <span class="nx">validator</span><span class="p">.</span><span class="nx">check</span>
-      <span class="nv">name: </span><span class="s">&#39;sqlObject&#39;</span>
-      <span class="nv">value: </span><span class="nx">obj</span>
-      <span class="nv">schema: </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;./object2sql_schema&#39;</span><span class="p">).</span><span class="nx">schema</span>
-    <span class="p">,</span> <span class="nf">(err) -&gt;</span>
-      <span class="nx">debug</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">red</span> <span class="s">&quot;Error in SQL Object: </span><span class="si">#{</span><span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="si">}</span><span class="s">&quot;</span> <span class="k">if</span> <span class="nx">err</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-keyword">if</span> debug.enabled
+    validator = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-validator'</span>
+    validator.check
+      <span class="hljs-attribute">name</span>: <span class="hljs-string">'sqlObject'</span>
+      <span class="hljs-attribute">value</span>: obj
+      <span class="hljs-attribute">schema</span>: <span class="hljs-built_in">require</span>(<span class="hljs-string">'./object2sql_schema'</span>).schema
+    , <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
+      debug chalk.red <span class="hljs-string">"Error in SQL Object: <span class="hljs-subst">#{err.message}</span>"</span> <span class="hljs-keyword">if</span> err
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-26" id="section-26">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-26" id="section-26"></a>
 </div>
 <p>select main type</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="k">for</span> <span class="nx">name</span> <span class="k">in</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span> <span class="nx">type</span>
-    <span class="k">continue</span> <span class="k">unless</span> <span class="nx">obj</span><span class="p">[</span><span class="nx">name</span><span class="p">]</span><span class="o">?</span>
-    <span class="k">return</span> <span class="nx">type</span><span class="p">[</span><span class="nx">name</span><span class="p">]</span> <span class="nx">obj</span><span class="p">,</span> <span class="nx">driver</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-keyword">for</span> name <span class="hljs-keyword">in</span> Object.keys type
+    <span class="hljs-keyword">continue</span> <span class="hljs-keyword">unless</span> obj[name]?
+    <span class="hljs-keyword">return</span> type[name] obj, driver
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-27" id="section-27">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-27" id="section-27"></a>
 </div>
 <p>default handling of unknown names</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="p">(</span><span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span> <span class="nx">obj</span>
-  <span class="p">.</span><span class="nx">map</span> <span class="nf">(e) -&gt;</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">e</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">obj</span><span class="p">[</span><span class="nx">e</span><span class="p">]</span><span class="si">}</span><span class="s">&quot;</span>
-  <span class="p">.</span><span class="nx">join</span> <span class="s">&#39; &#39;</span>
-  <span class="p">)</span> <span class="o">+</span> <span class="s">&#39;;&#39;</span>
 
-<span class="nv">module.exports.schema = </span><span class="nf">-&gt;</span> <span class="nx">require</span> <span class="s">&#39;./object2sql_schema&#39;</span>
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  (Object.keys obj
+  .map (e) -&gt; <span class="hljs-string">"<span class="hljs-subst">#{e}</span> <span class="hljs-subst">#{obj[e]}</span>"</span>
+  .join <span class="hljs-string">' '</span>
+  ) + <span class="hljs-string">';'</span>
+
+<span class="hljs-built_in">module</span>.exports.schema = <span class="hljs-function">-&gt;</span> <span class="hljs-built_in">require</span> <span class="hljs-string">'./object2sql_schema'</span>
+
+</pre>
         </td>
       </tr>
+    
   </tbody>
 </table>
+
   </div>
 </body>
 </html>

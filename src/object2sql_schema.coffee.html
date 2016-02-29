@@ -6,20 +6,31 @@
   <link rel="stylesheet" media="all" href="../doc-style.css" />
   <script src="../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../", thisFile = "home/alex/github/node-database/src/object2sql_schemacoffee", defaultSidebar = true;
+    var relativeDir = "../";
+    var thisFile = "home/alex/github/node-database/src/object2sql_schema.coffee";
+    var defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
-</head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0" /></head
 <body>
   <nav>
-<div class="logo"><a href="http://alinex.github.io" onmouseover="lllogo.src='https://alinex.github.io/images/Alinex-200.png'" onmouseout="lllogo.src='https://alinex.github.io/images/Alinex-black-200.png'">
-  <img name="lllogo" src="https://alinex.github.io/images/Alinex-black-200.png" width="150" title="Alinex Universe Homepage" />
+<div class="logo"><a href="http://alinex.github.io"
+  onmouseover="logo.src='https://alinex.github.io/images/Alinex-200.png'"
+  onmouseout="logo.src='https://alinex.github.io/images/Alinex-black-200.png'">
+  <img name="logo" src="https://alinex.github.io/images/Alinex-black-200.png"
+    width="150" title="Alinex Universe Homepage" />
   </a>
-  <img src="http://alinex.github.io/images/Alinex-200.png" style="display:none" alt="preloading" />
+  <img src="http://alinex.github.io/images/Alinex-200.png"
+    style="display:none" alt="preloading" />
 </div>
 <div class="links">
-  <a href="http://alinex.github.io/blog" class="btn btn-primary"><span class="glyphicon-cog"></span> Blog</a>
-  <a href="http://alinex.github.io/code.html" class="btn btn-warning"><span class="glyphicon-pencil"></span> Code</a>
+  <a href="http://alinex.github.io/blog"
+    class="btn btn-primary"><span class="glyphicon-pencil"></span> Blog</a>
+  <a href="http://alinex.github.io/develop"
+    class="btn btn-primary"><span class="glyphicon-book"></span> Develop</a>
+  <a href="http://alinex.github.io/code.html"
+    class="btn btn-warning"><span class="glyphicon-cog"></span> Code</a>
 </div>
 </nav><div id="sidebar_wrapper">
     <div id="sidebar_switch">
@@ -28,305 +39,325 @@
     </div>
     <div id="tree"></div>
     <div id="headings">
+
       <div class="heading h1">
-        <a href="#object%20to%20sql%20%20mapping">Object to SQL  Mapping</a>
+        <a href="#object-to-sql-mapping">Object to SQL  Mapping</a>
       </div>
+
       <div class="heading h2">
-        <a href="#conversion%20of%20subparts">Conversion of Subparts</a>
+        <a href="#conversion-of-subparts">Conversion of Subparts</a>
       </div>
+
       <div class="heading h3">
-        <a href="#select%20fields">SELECT fields</a>
+        <a href="#select-fields">SELECT fields</a>
       </div>
+
       <div class="heading h3">
         <a href="#distinct">DISTINCT</a>
       </div>
+
       <div class="heading h3">
-        <a href="#join%20definition%20for%20tables">join definition for tables</a>
+        <a href="#join-definition-for-tables">join definition for tables</a>
       </div>
+
       <div class="heading h3">
-        <a href="#from%20table">FROM table</a>
+        <a href="#from-table">FROM table</a>
       </div>
+
       <div class="heading h2">
-        <a href="#conversion%20of%20main%20types">Conversion of Main Types</a>
+        <a href="#conversion-of-main-types">Conversion of Main Types</a>
       </div>
+
       <div class="heading h3">
         <a href="#select">SELECT</a>
       </div>
+
       <div class="heading h2">
         <a href="#complete">Complete</a>
       </div>
+
     </div>
   </div>
   <div id="sidebar-toggle"></div>
-  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-database" title="Fork me on GitHub"></a><div class="background highlight"></div>
+  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-database" title="Fork me on GitHub"></a>
+    <div class="background highlight"></div>
 <table cellpadding="0" cellspacing="0">
   <tbody>
+    
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="object%20to%20sql%20%20mapping">
+          <div class="pilwrap" id="object-to-sql-mapping">
   <h1>
-    <a href="#object%20to%20sql%20%20mapping" name="object%20to%20sql%20%20mapping" class="pilcrow">&#182;</a>
-    Object to SQL  Mapping
+    <a href="#object-to-sql-mapping" name="object-to-sql-mapping" class="pilcrow"></a>
+Object to SQL  Mapping
   </h1>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre></pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">
+
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="conversion%20of%20subparts">
+          <div class="pilwrap" id="conversion-of-subparts">
   <h2>
-    <a href="#conversion%20of%20subparts" name="conversion%20of%20subparts" class="pilcrow">&#182;</a>
-    Conversion of Subparts
+    <a href="#conversion-of-subparts" name="conversion-of-subparts" class="pilcrow"></a>
+Conversion of Subparts
   </h2>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="select%20fields">
+          <div class="pilwrap" id="select-fields">
   <h3>
-    <a href="#select%20fields" name="select%20fields" class="pilcrow">&#182;</a>
-    SELECT fields
+    <a href="#select-fields" name="select-fields" class="pilcrow"></a>
+SELECT fields
   </h3>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">field =</span>
-  <span class="nv">title: </span><span class="s">&quot;Fields&quot;</span>
-  <span class="nv">description: </span><span class="s">&quot;the list of fields to return&quot;</span>
-  <span class="nv">type: </span><span class="s">&#39;or&#39;</span>
-  <span class="o">or:</span> <span class="p">[</span>
-    <span class="nv">title: </span><span class="s">&quot;Field&quot;</span>
-    <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
-  <span class="p">,</span>
-    <span class="nv">title: </span><span class="s">&quot;List of Fields&quot;</span>
-    <span class="nv">type: </span><span class="s">&#39;array&#39;</span>
-    <span class="nv">entries:</span>
-      <span class="nv">type: </span><span class="s">&#39;or&#39;</span>
-      <span class="o">or:</span> <span class="p">[</span>
-        <span class="nv">title: </span><span class="s">&quot;Field&quot;</span>
-        <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
-      <span class="p">,</span>
-        <span class="nv">title: </span><span class="s">&quot;Named Fields&quot;</span>
-        <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
-        <span class="nv">entries: </span><span class="p">[</span>
-          <span class="nv">title: </span><span class="s">&quot;Value&quot;</span>
-          <span class="nv">key: </span><span class="sr">/^\$/</span>
-          <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
-        <span class="p">,</span>
-          <span class="nv">title: </span><span class="s">&quot;Field&quot;</span>
-          <span class="nv">key: </span><span class="sr">/^[^$]/</span>
-          <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
-        <span class="p">]</span>
-      <span class="p">]</span>
-  <span class="p">,</span>
-    <span class="nv">title: </span><span class="s">&quot;Named Fields&quot;</span>
-    <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
-    <span class="nv">entries: </span><span class="p">[</span>
-      <span class="nv">key: </span><span class="sr">/^\$/</span>
-      <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
-    <span class="p">,</span>
-      <span class="nv">key: </span><span class="sr">/^[^$]/</span>
-      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
-    <span class="p">]</span>
-  <span class="p">]</span>
+        <td class="code highlight">
+          <pre class="coffeescript">field =
+  <span class="hljs-attribute">title</span>: <span class="hljs-string">"Fields"</span>
+  <span class="hljs-attribute">description</span>: <span class="hljs-string">"the list of fields to return"</span>
+  <span class="hljs-attribute">type</span>: <span class="hljs-string">'or'</span>
+  <span class="hljs-attribute">or</span>: [
+    <span class="hljs-attribute">title</span>: <span class="hljs-string">"Field"</span>
+    <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+  ,
+    <span class="hljs-attribute">title</span>: <span class="hljs-string">"List of Fields"</span>
+    <span class="hljs-attribute">type</span>: <span class="hljs-string">'array'</span>
+    <span class="hljs-attribute">entries</span>:
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'or'</span>
+      <span class="hljs-attribute">or</span>: [
+        <span class="hljs-attribute">title</span>: <span class="hljs-string">"Field"</span>
+        <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+      ,
+        <span class="hljs-attribute">title</span>: <span class="hljs-string">"Named Fields"</span>
+        <span class="hljs-attribute">type</span>: <span class="hljs-string">'object'</span>
+        <span class="hljs-attribute">entries</span>: [
+          <span class="hljs-attribute">title</span>: <span class="hljs-string">"Value"</span>
+          <span class="hljs-attribute">key</span>: <span class="hljs-regexp">/^\$/</span>
+          <span class="hljs-attribute">type</span>: <span class="hljs-string">'object'</span>
+        ,
+          <span class="hljs-attribute">title</span>: <span class="hljs-string">"Field"</span>
+          <span class="hljs-attribute">key</span>: <span class="hljs-regexp">/^[^$]/</span>
+          <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+        ]
+      ]
+  ,
+    <span class="hljs-attribute">title</span>: <span class="hljs-string">"Named Fields"</span>
+    <span class="hljs-attribute">type</span>: <span class="hljs-string">'object'</span>
+    <span class="hljs-attribute">entries</span>: [
+      <span class="hljs-attribute">key</span>: <span class="hljs-regexp">/^\$/</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'object'</span>
+    ,
+      <span class="hljs-attribute">key</span>: <span class="hljs-regexp">/^[^$]/</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+    ]
+  ]
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="distinct">
+          <div class="pilwrap" id="distinct">
   <h3>
-    <a href="#distinct" name="distinct" class="pilcrow">&#182;</a>
-    DISTINCT
+    <a href="#distinct" name="distinct" class="pilcrow"></a>
+DISTINCT
   </h3>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">distinct =</span>
-  <span class="nv">title: </span><span class="s">&quot;Distinct Row&quot;</span>
-  <span class="nv">description: </span><span class="s">&quot;a flag triggering remove of duplicate results&quot;</span>
-  <span class="nv">type: </span><span class="s">&#39;boolean&#39;</span>
+        <td class="code highlight">
+          <pre class="coffeescript">distinct =
+  <span class="hljs-attribute">title</span>: <span class="hljs-string">"Distinct Row"</span>
+  <span class="hljs-attribute">description</span>: <span class="hljs-string">"a flag triggering remove of duplicate results"</span>
+  <span class="hljs-attribute">type</span>: <span class="hljs-string">'boolean'</span>
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="join%20definition%20for%20tables">
+          <div class="pilwrap" id="join-definition-for-tables">
   <h3>
-    <a href="#join%20definition%20for%20tables" name="join%20definition%20for%20tables" class="pilcrow">&#182;</a>
-    join definition for tables
+    <a href="#join-definition-for-tables" name="join-definition-for-tables" class="pilcrow"></a>
+join definition for tables
   </h3>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">join =</span>
-  <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
-  <span class="nv">allowedKeys: </span><span class="kc">true</span>
-  <span class="nv">keys:</span>
-    <span class="nv">join:</span>
-      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
-      <span class="nv">list: </span><span class="p">[</span><span class="s">&#39;left&#39;</span><span class="p">,</span> <span class="s">&#39;right&#39;</span><span class="p">,</span> <span class="s">&#39;inner&#39;</span><span class="p">,</span> <span class="s">&#39;outer&#39;</span><span class="p">]</span>
-    <span class="kc">on</span><span class="o">:</span>
-      <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
-      <span class="nv">entries: </span><span class="p">[</span>
-        <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
-      <span class="p">]</span>
+        <td class="code highlight">
+          <pre class="coffeescript">join =
+  <span class="hljs-attribute">type</span>: <span class="hljs-string">'object'</span>
+  <span class="hljs-attribute">allowedKeys</span>: <span class="hljs-literal">true</span>
+  <span class="hljs-attribute">keys</span>:
+    <span class="hljs-attribute">join</span>:
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+      <span class="hljs-attribute">list</span>: [<span class="hljs-string">'left'</span>, <span class="hljs-string">'right'</span>, <span class="hljs-string">'inner'</span>, <span class="hljs-string">'outer'</span>]
+    <span class="hljs-attribute">on</span>:
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'object'</span>
+      <span class="hljs-attribute">entries</span>: [
+        <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+      ]
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="from%20table">
+          <div class="pilwrap" id="from-table">
   <h3>
-    <a href="#from%20table" name="from%20table" class="pilcrow">&#182;</a>
-    FROM table
+    <a href="#from-table" name="from-table" class="pilcrow"></a>
+FROM table
   </h3>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">table =</span>
-  <span class="nv">title: </span><span class="s">&quot;Tables&quot;</span>
-  <span class="nv">description: </span><span class="s">&quot;the table data will be retrieved&quot;</span>
-  <span class="nv">type: </span><span class="s">&#39;or&#39;</span>
-  <span class="o">or:</span> <span class="p">[</span>
-    <span class="nv">title: </span><span class="s">&quot;Table&quot;</span>
-    <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
-  <span class="p">,</span>
-    <span class="nv">title: </span><span class="s">&quot;List of Tables&quot;</span>
-    <span class="nv">type: </span><span class="s">&#39;array&#39;</span>
-    <span class="nv">entries:</span>
-      <span class="nv">type: </span><span class="s">&#39;or&#39;</span>
-      <span class="o">or:</span> <span class="p">[</span>
-        <span class="nv">title: </span><span class="s">&quot;Table&quot;</span>
-        <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
-      <span class="p">,</span>
-        <span class="nv">title: </span><span class="s">&quot;Table Object&quot;</span>
-        <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
-        <span class="nv">entries: </span><span class="p">[</span>
-          <span class="nv">type: </span><span class="s">&#39;or&#39;</span>
-          <span class="o">or:</span> <span class="p">[</span>
-            <span class="nx">join</span>
-          <span class="p">,</span>
-            <span class="nv">title: </span><span class="s">&quot;Named Table&quot;</span>
-            <span class="nv">type: </span><span class="s">&#39;or&#39;</span>
-            <span class="o">or:</span> <span class="p">[</span>
-              <span class="nx">join</span>
-            <span class="p">,</span>
-              <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
-            <span class="p">]</span>
-          <span class="p">]</span>
-        <span class="p">]</span>
-      <span class="p">]</span>
-  <span class="p">,</span>
-    <span class="nv">title: </span><span class="s">&quot;Table Object&quot;</span>
-    <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
-    <span class="nv">entries: </span><span class="p">[</span>
-      <span class="nv">type: </span><span class="s">&#39;or&#39;</span>
-      <span class="o">or:</span> <span class="p">[</span>
-        <span class="nx">join</span>
-      <span class="p">,</span>
-        <span class="nv">title: </span><span class="s">&quot;Named Table&quot;</span>
-        <span class="nv">type: </span><span class="s">&#39;or&#39;</span>
-        <span class="o">or:</span> <span class="p">[</span>
-          <span class="nx">join</span>
-        <span class="p">,</span>
-          <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
-        <span class="p">]</span>
-      <span class="p">]</span>
-    <span class="p">]</span>
-  <span class="p">]</span>
+        <td class="code highlight">
+          <pre class="coffeescript">table =
+  <span class="hljs-attribute">title</span>: <span class="hljs-string">"Tables"</span>
+  <span class="hljs-attribute">description</span>: <span class="hljs-string">"the table data will be retrieved"</span>
+  <span class="hljs-attribute">type</span>: <span class="hljs-string">'or'</span>
+  <span class="hljs-attribute">or</span>: [
+    <span class="hljs-attribute">title</span>: <span class="hljs-string">"Table"</span>
+    <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+  ,
+    <span class="hljs-attribute">title</span>: <span class="hljs-string">"List of Tables"</span>
+    <span class="hljs-attribute">type</span>: <span class="hljs-string">'array'</span>
+    <span class="hljs-attribute">entries</span>:
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'or'</span>
+      <span class="hljs-attribute">or</span>: [
+        <span class="hljs-attribute">title</span>: <span class="hljs-string">"Table"</span>
+        <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+      ,
+        <span class="hljs-attribute">title</span>: <span class="hljs-string">"Table Object"</span>
+        <span class="hljs-attribute">type</span>: <span class="hljs-string">'object'</span>
+        <span class="hljs-attribute">entries</span>: [
+          <span class="hljs-attribute">type</span>: <span class="hljs-string">'or'</span>
+          <span class="hljs-attribute">or</span>: [
+            join
+          ,
+            <span class="hljs-attribute">title</span>: <span class="hljs-string">"Named Table"</span>
+            <span class="hljs-attribute">type</span>: <span class="hljs-string">'or'</span>
+            <span class="hljs-attribute">or</span>: [
+              join
+            ,
+              <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+            ]
+          ]
+        ]
+      ]
+  ,
+    <span class="hljs-attribute">title</span>: <span class="hljs-string">"Table Object"</span>
+    <span class="hljs-attribute">type</span>: <span class="hljs-string">'object'</span>
+    <span class="hljs-attribute">entries</span>: [
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'or'</span>
+      <span class="hljs-attribute">or</span>: [
+        join
+      ,
+        <span class="hljs-attribute">title</span>: <span class="hljs-string">"Named Table"</span>
+        <span class="hljs-attribute">type</span>: <span class="hljs-string">'or'</span>
+        <span class="hljs-attribute">or</span>: [
+          join
+        ,
+          <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+        ]
+      ]
+    ]
+  ]
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="conversion%20of%20main%20types">
+          <div class="pilwrap" id="conversion-of-main-types">
   <h2>
-    <a href="#conversion%20of%20main%20types" name="conversion%20of%20main%20types" class="pilcrow">&#182;</a>
-    Conversion of Main Types
+    <a href="#conversion-of-main-types" name="conversion-of-main-types" class="pilcrow"></a>
+Conversion of Main Types
   </h2>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="select">
+          <div class="pilwrap" id="select">
   <h3>
-    <a href="#select" name="select" class="pilcrow">&#182;</a>
-    SELECT
+    <a href="#select" name="select" class="pilcrow"></a>
+SELECT
   </h3>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">select =</span>
-  <span class="nv">title: </span><span class="s">&quot;Selection&quot;</span>
-  <span class="nv">description: </span><span class="s">&quot;the setup of what to retrieve from the database&quot;</span>
-  <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
-  <span class="nv">allowedKeys: </span><span class="kc">true</span>
-  <span class="nv">mandatoryKeys: </span><span class="p">[</span><span class="s">&#39;select&#39;</span><span class="p">]</span>
-  <span class="nv">keys:</span>
-    <span class="nv">select: </span><span class="nx">field</span>
-    <span class="nv">distinct: </span><span class="nx">distinct</span>
-    <span class="nv">from: </span><span class="nx">table</span>
-    <span class="k">while</span><span class="o">:</span>
-      <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
+        <td class="code highlight">
+          <pre class="coffeescript">select =
+  <span class="hljs-attribute">title</span>: <span class="hljs-string">"Selection"</span>
+  <span class="hljs-attribute">description</span>: <span class="hljs-string">"the setup of what to retrieve from the database"</span>
+  <span class="hljs-attribute">type</span>: <span class="hljs-string">'object'</span>
+  <span class="hljs-attribute">allowedKeys</span>: <span class="hljs-literal">true</span>
+  <span class="hljs-attribute">mandatoryKeys</span>: [<span class="hljs-string">'select'</span>]
+  <span class="hljs-attribute">keys</span>:
+    <span class="hljs-attribute">select</span>: field
+    <span class="hljs-attribute">distinct</span>: distinct
+    <span class="hljs-attribute">from</span>: table
+    <span class="hljs-attribute">while</span>:
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'object'</span>
 
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="complete">
+          <div class="pilwrap" id="complete">
   <h2>
-    <a href="#complete" name="complete" class="pilcrow">&#182;</a>
-    Complete
+    <a href="#complete" name="complete" class="pilcrow"></a>
+Complete
   </h2>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
+        <td class="code highlight">
+          <pre class="coffeescript">
+<span class="hljs-built_in">module</span>.exports.schema =
+  <span class="hljs-attribute">title</span>: <span class="hljs-string">"SQL Object"</span>
+  <span class="hljs-attribute">selection</span>: <span class="hljs-string">"the SQL as object notation"</span>
+  <span class="hljs-attribute">type</span>: <span class="hljs-string">'or'</span>
+  <span class="hljs-attribute">or</span>: [select]
 
-<span class="nv">module.exports.schema =</span>
-  <span class="nv">title: </span><span class="s">&quot;SQL Object&quot;</span>
-  <span class="nv">selection: </span><span class="s">&quot;the SQL as object notation&quot;</span>
-  <span class="nv">type: </span><span class="s">&#39;or&#39;</span>
-  <span class="o">or:</span> <span class="p">[</span><span class="nx">select</span><span class="p">]</span>
-</pre></div>
+</pre>
         </td>
       </tr>
+    
   </tbody>
 </table>
+
   </div>
 </body>
 </html>
