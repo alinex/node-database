@@ -171,8 +171,7 @@ debugError = <span class="hljs-built_in">require</span>(<span class="hljs-string
 chalk = <span class="hljs-built_in">require</span> <span class="hljs-string">'chalk'</span>
 util = <span class="hljs-built_in">require</span> <span class="hljs-string">'util'</span>
 mysql = <span class="hljs-built_in">require</span> <span class="hljs-string">'mysql'</span>
-SqlString = <span class="hljs-built_in">require</span> <span class="hljs-string">'mysql/lib/protocol/SqlString'</span>
-</pre>
+SqlString = <span class="hljs-built_in">require</span> <span class="hljs-string">'mysql/lib/protocol/SqlString'</span></pre>
         </td>
       </tr>
     
@@ -185,8 +184,7 @@ SqlString = <span class="hljs-built_in">require</span> <span class="hljs-string"
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">{object} = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-util'</span>
-</pre>
+          <pre class="coffeescript">{object} = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-util'</span></pre>
         </td>
       </tr>
     
@@ -199,9 +197,7 @@ SqlString = <span class="hljs-built_in">require</span> <span class="hljs-string"
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">object2sql = <span class="hljs-built_in">require</span> <span class="hljs-string">'../object2sql'</span>
-
-</pre>
+          <pre class="coffeescript">object2sql = <span class="hljs-built_in">require</span> <span class="hljs-string">'../object2sql'</span></pre>
         </td>
       </tr>
     
@@ -216,9 +212,7 @@ Database class
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Mysql</span></span>
-
-</pre>
+          <pre class="coffeescript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Mysql</span></span></pre>
         </td>
       </tr>
     
@@ -256,8 +250,7 @@ better use the <code>instance()</code> method which implements the factory patte
   <span class="hljs-attribute">close</span>: <span class="hljs-function"><span class="hljs-params">(cb = -&gt; )</span> -&gt;</span>
     <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">unless</span> <span class="hljs-property">@pool</span>?
     debugPool <span class="hljs-string">"close connection pool for <span class="hljs-subst">#{<span class="hljs-property">@name</span>}</span>"</span>
-    <span class="hljs-property">@pool</span>.end (err) =&gt;
-</pre>
+    <span class="hljs-property">@pool</span>.end (err) =&gt;</pre>
         </td>
       </tr>
     
@@ -271,9 +264,7 @@ better use the <code>instance()</code> method which implements the factory patte
         </td>
         <td class="code highlight">
           <pre class="coffeescript">      <span class="hljs-property">@pool</span> = <span class="hljs-literal">null</span>
-      cb err
-
-</pre>
+      cb err</pre>
         </td>
       </tr>
     
@@ -288,8 +279,7 @@ Get connection
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-attribute">connect</span>: <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
-</pre>
+          <pre class="coffeescript">  <span class="hljs-attribute">connect</span>: <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span></pre>
         </td>
       </tr>
     
@@ -317,8 +307,7 @@ Get connection
           debugError <span class="hljs-string">"<span class="hljs-subst">#{conn.name}</span> uncatched <span class="hljs-subst">#{err}</span> on connection"</span>
       <span class="hljs-property">@pool</span>.<span class="hljs-literal">on</span> <span class="hljs-string">'enqueue'</span>, <span class="hljs-function">=&gt;</span>
         name = chalk.grey <span class="hljs-string">"[<span class="hljs-subst">#{<span class="hljs-property">@name</span>}</span>]"</span>
-        debugPool <span class="hljs-string">"<span class="hljs-subst">#{name}</span> waiting for connection"</span>
-</pre>
+        debugPool <span class="hljs-string">"<span class="hljs-subst">#{name}</span> waiting for connection"</span></pre>
         </td>
       </tr>
     
@@ -339,8 +328,7 @@ Get connection
         <span class="hljs-keyword">return</span> setTimeout =&gt;
           <span class="hljs-property">@connect</span> cb
         , <span class="hljs-number">1000</span> <span class="hljs-comment"># wait a second fbefore retry</span>
-      debugPool <span class="hljs-string">"<span class="hljs-subst">#{conn.name}</span> acquired connection"</span>
-</pre>
+      debugPool <span class="hljs-string">"<span class="hljs-subst">#{conn.name}</span> acquired connection"</span></pre>
         </td>
       </tr>
     
@@ -370,8 +358,7 @@ Get connection
             debugCom <span class="hljs-string">"<span class="hljs-subst">#{conn.name}</span> <span class="hljs-subst">#{dir}</span> <span class="hljs-subst">#{packet.constructor.name}</span> <span class="hljs-subst">#{chalk.grey msg}</span>"</span>
       conn.release = <span class="hljs-function">-&gt;</span>
         debugPool <span class="hljs-string">"<span class="hljs-subst">#{conn.name}</span> release connection
-        (<span class="hljs-subst">#{<span class="hljs-property">@_pool</span>._freeConnections.length+<span class="hljs-number">1</span>}</span>/<span class="hljs-subst">#{<span class="hljs-property">@_pool</span>._allConnections.length}</span> free)"</span>
-</pre>
+        (<span class="hljs-subst">#{<span class="hljs-property">@_pool</span>._freeConnections.length+<span class="hljs-number">1</span>}</span>/<span class="hljs-subst">#{<span class="hljs-property">@_pool</span>._allConnections.length}</span> free)"</span></pre>
         </td>
       </tr>
     
@@ -385,8 +372,7 @@ Get connection
         </td>
         <td class="code highlight">
           <pre class="coffeescript">        <span class="hljs-keyword">return</span> <span class="hljs-keyword">unless</span> <span class="hljs-property">@_pool</span>? <span class="hljs-keyword">and</span> <span class="hljs-keyword">not</span> <span class="hljs-property">@_pool</span>._closed
-        <span class="hljs-property">@_pool</span>.releaseConnection <span class="hljs-keyword">this</span>
-</pre>
+        <span class="hljs-property">@_pool</span>.releaseConnection <span class="hljs-keyword">this</span></pre>
         </td>
       </tr>
     
@@ -399,9 +385,7 @@ Get connection
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">      cb <span class="hljs-literal">null</span>, conn
-
-</pre>
+          <pre class="coffeescript">      cb <span class="hljs-literal">null</span>, conn</pre>
         </td>
       </tr>
     
@@ -432,8 +416,7 @@ update, insert or delete something and return count of changes
         </td>
         <td class="code highlight">
           <pre class="coffeescript">  <span class="hljs-attribute">exec</span>: <span class="hljs-function">-&gt;</span> <span class="hljs-property">@prepare</span> arguments, <span class="hljs-function"><span class="hljs-params">(err, conn, sql, data, cb)</span> =&gt;</span>
-    <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
-</pre>
+    <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err</pre>
         </td>
       </tr>
     
@@ -447,9 +430,7 @@ update, insert or delete something and return count of changes
         </td>
         <td class="code highlight">
           <pre class="coffeescript">    <span class="hljs-property">@query</span> conn, sql, data, <span class="hljs-function"><span class="hljs-params">(err, result)</span> -&gt;</span>
-      cb err, result?.affectedRows, result?.insertId
-
-</pre>
+      cb err, result?.affectedRows, result?.insertId</pre>
         </td>
       </tr>
     
@@ -465,8 +446,7 @@ get all data as object
         </td>
         <td class="code highlight">
           <pre class="coffeescript">  <span class="hljs-attribute">list</span>: <span class="hljs-function">-&gt;</span> <span class="hljs-property">@prepare</span> arguments, <span class="hljs-function"><span class="hljs-params">(err, conn, sql, data, cb)</span> =&gt;</span>
-    <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
-</pre>
+    <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err</pre>
         </td>
       </tr>
     
@@ -479,9 +459,7 @@ get all data as object
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">    <span class="hljs-property">@query</span> conn, sql, data, cb
-
-</pre>
+          <pre class="coffeescript">    <span class="hljs-property">@query</span> conn, sql, data, cb</pre>
         </td>
       </tr>
     
@@ -497,8 +475,7 @@ get one record as object
         </td>
         <td class="code highlight">
           <pre class="coffeescript">  <span class="hljs-attribute">record</span>: <span class="hljs-function">-&gt;</span> <span class="hljs-property">@prepare</span> arguments, <span class="hljs-function"><span class="hljs-params">(err, conn, sql, data, cb)</span> =&gt;</span>
-    <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
-</pre>
+    <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err</pre>
         </td>
       </tr>
     
@@ -514,8 +491,7 @@ get one record as object
           <pre class="coffeescript">    <span class="hljs-keyword">if</span> <span class="hljs-keyword">typeof</span> sql <span class="hljs-keyword">is</span> <span class="hljs-string">'object'</span>
       sql.limit = <span class="hljs-number">1</span>
     <span class="hljs-keyword">else</span> <span class="hljs-keyword">unless</span> sql.match <span class="hljs-regexp">/\slimit\s+\d/i</span>
-      sql += <span class="hljs-string">" LIMIT 1"</span>
-</pre>
+      sql += <span class="hljs-string">" LIMIT 1"</span></pre>
         </td>
       </tr>
     
@@ -531,9 +507,7 @@ get one record as object
           <pre class="coffeescript">    <span class="hljs-property">@query</span> conn, sql, data, <span class="hljs-function"><span class="hljs-params">(err, result)</span> -&gt;</span>
       <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
       <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">unless</span> result?.length
-      cb err, result[<span class="hljs-number">0</span>]
-
-</pre>
+      cb err, result[<span class="hljs-number">0</span>]</pre>
         </td>
       </tr>
     
@@ -549,8 +523,7 @@ get value of one field
         </td>
         <td class="code highlight">
           <pre class="coffeescript">  <span class="hljs-attribute">value</span>: <span class="hljs-function">-&gt;</span> <span class="hljs-property">@prepare</span> arguments, <span class="hljs-function"><span class="hljs-params">(err, conn, sql, data, cb)</span> =&gt;</span>
-    <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
-</pre>
+    <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err</pre>
         </td>
       </tr>
     
@@ -566,8 +539,7 @@ get value of one field
           <pre class="coffeescript">    <span class="hljs-keyword">if</span> <span class="hljs-keyword">typeof</span> sql <span class="hljs-keyword">is</span> <span class="hljs-string">'object'</span>
       sql.limit = <span class="hljs-number">1</span>
     <span class="hljs-keyword">else</span> <span class="hljs-keyword">unless</span> sql.match <span class="hljs-regexp">/\slimit\s+\d/i</span>
-      sql += <span class="hljs-string">" LIMIT 1"</span>
-</pre>
+      sql += <span class="hljs-string">" LIMIT 1"</span></pre>
         </td>
       </tr>
     
@@ -583,9 +555,7 @@ get value of one field
           <pre class="coffeescript">    <span class="hljs-property">@query</span> conn, sql, data, <span class="hljs-function"><span class="hljs-params">(err, result)</span> -&gt;</span>
       <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
       <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">unless</span> result?.length
-      cb err, result[<span class="hljs-number">0</span>][Object.keys(result[<span class="hljs-number">0</span>])[<span class="hljs-number">0</span>]]
-
-</pre>
+      cb err, result[<span class="hljs-number">0</span>][Object.keys(result[<span class="hljs-number">0</span>])[<span class="hljs-number">0</span>]]</pre>
         </td>
       </tr>
     
@@ -601,8 +571,7 @@ get value of one field
         </td>
         <td class="code highlight">
           <pre class="coffeescript">  <span class="hljs-attribute">column</span>: <span class="hljs-function">-&gt;</span> <span class="hljs-property">@prepare</span> arguments, <span class="hljs-function"><span class="hljs-params">(err, conn, sql, data, cb)</span> =&gt;</span>
-    <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
-</pre>
+    <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err</pre>
         </td>
       </tr>
     
@@ -618,9 +587,7 @@ get value of one field
           <pre class="coffeescript">    <span class="hljs-property">@query</span> conn, sql, data, <span class="hljs-function"><span class="hljs-params">(err, result)</span> -&gt;</span>
       <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
       <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">unless</span> result?.length
-      cb err, result.map (e) -&gt; e[Object.keys(e)[<span class="hljs-number">0</span>]]
-
-</pre>
+      cb err, result.map (e) -&gt; e[Object.keys(e)[<span class="hljs-number">0</span>]]</pre>
         </td>
       </tr>
     
@@ -652,8 +619,7 @@ prepare parameter
         </td>
         <td class="code highlight">
           <pre class="coffeescript">  <span class="hljs-attribute">prepare</span>: <span class="hljs-function"><span class="hljs-params">(args, cb)</span> -&gt;</span>
-    args = Array.prototype.slice.call args
-</pre>
+    args = Array.prototype.slice.call args</pre>
         </td>
       </tr>
     
@@ -679,9 +645,7 @@ prepare parameter
       cb err, conn, sql, data, <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
         <span class="hljs-keyword">return</span> cb <span class="hljs-keyword">new</span> Error <span class="hljs-string">"MySQL Error: <span class="hljs-subst">#{err.message}</span>"</span> <span class="hljs-keyword">if</span> err
         conn.release()
-        done.apply <span class="hljs-keyword">this</span>, arguments
-
-</pre>
+        done.apply <span class="hljs-keyword">this</span>, arguments</pre>
         </td>
       </tr>
     
@@ -696,8 +660,7 @@ Run the query on the wrapped driver
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-attribute">query</span>: <span class="hljs-function"><span class="hljs-params">(conn, sql, data, cb)</span> -&gt;</span>
-</pre>
+          <pre class="coffeescript">  <span class="hljs-attribute">query</span>: <span class="hljs-function"><span class="hljs-params">(conn, sql, data, cb)</span> -&gt;</span></pre>
         </td>
       </tr>
     
@@ -710,8 +673,7 @@ Run the query on the wrapped driver
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">    sql = <span class="hljs-property">@sql</span> sql, data
-</pre>
+          <pre class="coffeescript">    sql = <span class="hljs-property">@sql</span> sql, data</pre>
         </td>
       </tr>
     
@@ -726,9 +688,7 @@ Run the query on the wrapped driver
         <td class="code highlight">
           <pre class="coffeescript">    conn.query sql, data, <span class="hljs-function"><span class="hljs-params">(err, result)</span> -&gt;</span>
       <span class="hljs-keyword">return</span> cb <span class="hljs-keyword">new</span> Error <span class="hljs-string">"MySQL Error: <span class="hljs-subst">#{err.message}</span> in <span class="hljs-subst">#{sql}</span>"</span> <span class="hljs-keyword">if</span> err
-      cb <span class="hljs-literal">null</span>, result
-
-</pre>
+      cb <span class="hljs-literal">null</span>, result</pre>
         </td>
       </tr>
     
@@ -744,9 +704,7 @@ Query creation
         </td>
         <td class="code highlight">
           <pre class="coffeescript">  <span class="hljs-attribute">escape</span>: SqlString.escape
-  <span class="hljs-attribute">escapeId</span>: SqlString.escapeId
-
-</pre>
+  <span class="hljs-attribute">escapeId</span>: SqlString.escapeId</pre>
         </td>
       </tr>
     
@@ -762,8 +720,7 @@ Replace placeholder and object structure
         </td>
         <td class="code highlight">
           <pre class="coffeescript">  <span class="hljs-attribute">sql</span>: <span class="hljs-function"><span class="hljs-params">(sql, data)</span> -&gt;</span>
-    <span class="hljs-keyword">if</span> <span class="hljs-keyword">typeof</span> sql <span class="hljs-keyword">isnt</span> <span class="hljs-string">'string'</span>
-</pre>
+    <span class="hljs-keyword">if</span> <span class="hljs-keyword">typeof</span> sql <span class="hljs-keyword">isnt</span> <span class="hljs-string">'string'</span></pre>
         </td>
       </tr>
     
@@ -777,8 +734,7 @@ Replace placeholder and object structure
         </td>
         <td class="code highlight">
           <pre class="coffeescript">      sql = object2sql sql, <span class="hljs-keyword">this</span>
-    <span class="hljs-keyword">if</span> sql.match <span class="hljs-regexp">/\?(?=([^']*'[^']*')*[^']*$)/</span>
-</pre>
+    <span class="hljs-keyword">if</span> sql.match <span class="hljs-regexp">/\?(?=([^']*'[^']*')*[^']*$)/</span></pre>
         </td>
       </tr>
     
@@ -792,9 +748,7 @@ Replace placeholder and object structure
         </td>
         <td class="code highlight">
           <pre class="coffeescript">      <span class="hljs-keyword">return</span> SqlString.format sql, data
-    sql
-
-</pre>
+    sql</pre>
         </td>
       </tr>
     
@@ -810,9 +764,7 @@ Exports
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript"><span class="hljs-built_in">module</span>.exports = Mysql
-
-</pre>
+          <pre class="coffeescript"><span class="hljs-built_in">module</span>.exports = Mysql</pre>
         </td>
       </tr>
     

@@ -141,8 +141,7 @@ Node Modules
           <pre class="coffeescript">
 debug = <span class="hljs-built_in">require</span>(<span class="hljs-string">'debug'</span>)(<span class="hljs-string">'database'</span>)
 chalk = <span class="hljs-built_in">require</span> <span class="hljs-string">'chalk'</span>
-fspath = <span class="hljs-built_in">require</span> <span class="hljs-string">'path'</span>
-</pre>
+fspath = <span class="hljs-built_in">require</span> <span class="hljs-string">'path'</span></pre>
         </td>
       </tr>
     
@@ -157,8 +156,7 @@ fspath = <span class="hljs-built_in">require</span> <span class="hljs-string">'p
         <td class="code highlight">
           <pre class="coffeescript">config = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-config'</span>
 async = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-async'</span>
-{object} = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-util'</span>
-</pre>
+{object} = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-util'</span></pre>
         </td>
       </tr>
     
@@ -171,9 +169,7 @@ async = <span class="hljs-built_in">require</span> <span class="hljs-string">'al
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">schema = <span class="hljs-built_in">require</span> <span class="hljs-string">'./configSchema'</span>
-
-</pre>
+          <pre class="coffeescript">schema = <span class="hljs-built_in">require</span> <span class="hljs-string">'./configSchema'</span></pre>
         </td>
       </tr>
     
@@ -216,8 +212,7 @@ Initialization
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">exports.setup = setup = async.once <span class="hljs-keyword">this</span>, <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
-</pre>
+          <pre class="coffeescript">exports.setup = setup = async.once <span class="hljs-keyword">this</span>, <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span></pre>
         </td>
       </tr>
     
@@ -230,8 +225,7 @@ Initialization
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  config.register <span class="hljs-literal">false</span>, fspath.dirname __dirname
-</pre>
+          <pre class="coffeescript">  config.register <span class="hljs-literal">false</span>, fspath.dirname __dirname</pre>
         </td>
       </tr>
     
@@ -244,9 +238,7 @@ Initialization
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  config.setSchema <span class="hljs-string">'/database'</span>, schema, cb
-
-</pre>
+          <pre class="coffeescript">  config.setSchema <span class="hljs-string">'/database'</span>, schema, cb</pre>
         </td>
       </tr>
     
@@ -260,8 +252,7 @@ Initialization
         </td>
         <td class="code highlight">
           <pre class="coffeescript">exports.init = init = async.once <span class="hljs-keyword">this</span>, <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
-  debug <span class="hljs-string">"initialize"</span>
-</pre>
+  debug <span class="hljs-string">"initialize"</span></pre>
         </td>
       </tr>
     
@@ -276,9 +267,7 @@ Initialization
         <td class="code highlight">
           <pre class="coffeescript">  setup (err) -&gt;
     <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
-    config.init cb
-
-</pre>
+    config.init cb</pre>
         </td>
       </tr>
     
@@ -313,8 +302,7 @@ Config instance anywhere.</p>
           <pre class="coffeescript">instances = {}
 exports.instance = instance = <span class="hljs-function"><span class="hljs-params">(name, cb)</span> -&gt;</span>
   init (err) -&gt;
-    <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
-</pre>
+    <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err</pre>
         </td>
       </tr>
     
@@ -331,8 +319,7 @@ exports.instance = instance = <span class="hljs-function"><span class="hljs-para
       <span class="hljs-keyword">return</span> cb <span class="hljs-keyword">new</span> Error <span class="hljs-string">"Could not initialize database class without alias."</span> <span class="hljs-keyword">unless</span> name
       debug <span class="hljs-string">"create <span class="hljs-subst">#{name}</span> connection"</span>
       conf = config.get <span class="hljs-string">"/database/<span class="hljs-subst">#{name}</span>"</span>
-      <span class="hljs-keyword">return</span> cb <span class="hljs-keyword">new</span> Error <span class="hljs-string">"No database for name '<span class="hljs-subst">#{name}</span>' defined"</span> <span class="hljs-keyword">unless</span> conf?
-</pre>
+      <span class="hljs-keyword">return</span> cb <span class="hljs-keyword">new</span> Error <span class="hljs-string">"No database for name '<span class="hljs-subst">#{name}</span>' defined"</span> <span class="hljs-keyword">unless</span> conf?</pre>
         </td>
       </tr>
     
@@ -380,9 +367,7 @@ load driver</p>
         <td class="code highlight">
           <pre class="coffeescript">        instances[name] = <span class="hljs-keyword">new</span> Driver name, conf
         cb <span class="hljs-literal">null</span>, instances[name]
-    cb <span class="hljs-literal">null</span>, instances[name]
-
-</pre>
+    cb <span class="hljs-literal">null</span>, instances[name]</pre>
         </td>
       </tr>
     
@@ -410,9 +395,7 @@ exports.value = <span class="hljs-function"><span class="hljs-params">(name, que
     <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
     <span class="hljs-keyword">unless</span> db[fn]?
       <span class="hljs-keyword">return</span> cb <span class="hljs-keyword">new</span> Error <span class="hljs-string">"The <span class="hljs-subst">#{db.constructor.name}</span> driver didn't support the <span class="hljs-subst">#{fn}</span>() method."</span>
-    db[fn] query, data, cb
-
-</pre>
+    db[fn] query, data, cb</pre>
         </td>
       </tr>
     
@@ -431,9 +414,7 @@ Shutdown
   debug <span class="hljs-string">"Close all database connections..."</span>
   async.each Object.keys(instances), <span class="hljs-function"><span class="hljs-params">(name, cb)</span> -&gt;</span>
     instances[name].close cb
-  , cb
-
-</pre>
+  , cb</pre>
         </td>
       </tr>
     
@@ -450,8 +431,7 @@ Open SSH Tunnel if needed
         <td class="code highlight">
           <pre class="coffeescript"><span class="hljs-function"><span class="hljs-title">tunnel</span> = <span class="hljs-params">(conf, cb)</span> -&gt;</span>
   conf.access = conf.server
-  <span class="hljs-keyword">return</span> cb <span class="hljs-literal">null</span>, conf <span class="hljs-keyword">unless</span> conf.ssh
-</pre>
+  <span class="hljs-keyword">return</span> cb <span class="hljs-literal">null</span>, conf <span class="hljs-keyword">unless</span> conf.ssh</pre>
         </td>
       </tr>
     
@@ -473,9 +453,7 @@ Open SSH Tunnel if needed
   , <span class="hljs-function"><span class="hljs-params">(err, tunnel)</span> -&gt;</span>
     <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
     conf.access = object.extend {}, conf.server, tunnel.setup
-    cb <span class="hljs-literal">null</span>, conf
-
-</pre>
+    cb <span class="hljs-literal">null</span>, conf</pre>
         </td>
       </tr>
     
