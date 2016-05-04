@@ -20,4 +20,4 @@ before_script:
   - mysql -e 'create database test_db;'
   - psql -c 'create database test_db;' -U postgres
 after_success:
-   - COVERALLS_SERVICE_NAME=travis-ci COVERALLS_REPO_TOKEN=7lmtywEWb8VitLviZro6EfJTu4Kfy0mXI node_modules/.bin/builder -c test --coverage --coveralls
+   - COVERALLS_SERVICE_NAME=travis-ci COVERALLS_REPO_TOKEN=7lmtywEWb8VitLviZro6EfJTu4Kfy0mXI node_modules/.bin/builder test --coveralls
