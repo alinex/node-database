@@ -13,10 +13,9 @@ debugData = require('debug')('database:data')
 debugCom = require('debug')('database:com')
 debugError = require('debug')('database:error')
 chalk = require 'chalk'
-util = require 'util'
 pg = require 'pg'
 # require alinex modules
-{object} = require 'alinex-util'
+util = require 'alinex-util'
 # loading helper modules
 object2sql = require '../object2sql'
 
@@ -53,7 +52,7 @@ class Postgresql
 
   # ### Get connection
   connect: (cb) ->
-    setup = object.extend
+    setup = util.extend
       application_name: process.title
       fallback_application_name: 'alinex-database'
     , @conf.access

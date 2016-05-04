@@ -7,7 +7,7 @@
 # include base modules
 debug = require('debug')('db')
 chalk = require 'chalk'
-{string} = require 'alinex-util'
+util = require 'alinex-util'
 
 # General Helpers
 # -------------------------------------------------
@@ -62,7 +62,7 @@ field = (obj, driver, as = true) ->
     when obj is '*'
       obj
     when typeof obj is 'string'
-      if string.ends obj, '.*'
+      if util.string.ends obj, '.*'
         escape(obj[0..-3], driver) + '.*'
       else
         escape obj, driver

@@ -15,11 +15,11 @@
 
 debug = require('debug')('database')
 chalk = require 'chalk'
+async = require 'async'
 fspath = require 'path'
 # include more alinex modules
 config = require 'alinex-config'
-async = require 'alinex-async'
-{object} = require 'alinex-util'
+util = require 'alinex-util'
 # internal helpers
 schema = require './configSchema'
 
@@ -29,14 +29,14 @@ schema = require './configSchema'
 # ### Initialization
 
 # set the modules config paths and validation schema
-exports.setup = setup = async.once this, (cb) ->
+exports.setup = setup = util.function.once this, (cb) ->
   # set module search path
   config.register false, fspath.dirname __dirname
   # add schema for module's configuration
   config.setSchema '/database', schema, cb
 
 # set the modules config paths, validation schema and initialize the configuration
-exports.init = init = async.once this, (cb) ->
+exports.init = init = util.function.once this, (cb) ->
   debug "initialize"
   # set module search path
   setup (err) ->
@@ -111,5 +111,5 @@ tunnel = (conf, cb) ->
       port: conf.server.port
   , (err, tunnel) ->
     return cb err if err
-    conf.access = object.extend {}, conf.server, tunnel.setup
+    conf.access = util.extend 'MODE CLONE', conf.server, tunnel.setup
     cb null, conf

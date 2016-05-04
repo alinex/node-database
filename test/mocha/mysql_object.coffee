@@ -2,9 +2,9 @@ chai = require 'chai'
 expect = chai.expect
 ### eslint-env node, mocha ###
 
+async = require 'async'
 database = require '../../src/index'
-async = require 'alinex-async'
-{string, array, object} = require 'alinex-util'
+util= require 'alinex-util'
 
 describe "Mysql object", ->
 
@@ -134,11 +134,11 @@ describe "Mysql object", ->
       , null
       , "SELECT `name`, `age` FROM `person`;"
       , example.person.data.map((e) ->
-          n = {}
-          for k, v of e
-            n[k] = v if k in ['name', 'age']
-          n
-        )
+        n = {}
+        for k, v of e
+          n[k] = v if k in ['name', 'age']
+        n
+      )
       , cb
     it "should get fields with alias", (cb) ->
       list
@@ -149,11 +149,11 @@ describe "Mysql object", ->
       , null
       , "SELECT `name` AS `Name`, `age` AS `Age` FROM `person`;"
       , example.person.data.map((e) ->
-          n = {}
-          for k, v of e
-            n[string.ucFirst k] = v if k in ['name', 'age']
-          n
-        )
+        n = {}
+        for k, v of e
+          n[util.string.ucFirst k] = v if k in ['name', 'age']
+        n
+      )
       , cb
     it "should read multiple tables", (cb) ->
       list
@@ -166,7 +166,7 @@ describe "Mysql object", ->
           n = []
           for a in example.address.data
             for p in example.person.data
-              o = object.extend {}, p, a
+              o = util.extend 'MODE CLONE', p, a
               o.comment ?= null # add because missing else
               n.push o
           n
@@ -185,7 +185,7 @@ describe "Mysql object", ->
           n = []
           for a in example.address.data
             for p in example.person.data
-              o = object.extend {}, p, a
+              o = util.extend 'MODE CLONE', p, a
               o.comment ?= null # add because missing else
               n.push o
           n
@@ -201,7 +201,7 @@ describe "Mysql object", ->
         from: '@address'
       , null
       , "SELECT DISTINCT `person_id` FROM `address`;"
-      , array.unique(
+      , util.array.unique(
         example.address.data.map((e) -> e.person_id)
         ).map((e) -> return {person_id: e})
       , cb
@@ -264,7 +264,7 @@ describe "Mysql object", ->
           n = []
           for a in example.address.data
             for p in example.person.data
-              o = object.extend {}, p, a
+              o = util.extend 'MODE CLONE', p, a
               o.comment ?= null # add because missing else
               n.push o
           n
@@ -290,7 +290,8 @@ describe "Mysql object", ->
               on:            # join criteria
                 person_id: '@Person.id'
       , null
-      , "SELECT * FROM `person` AS `Person` LEFT JOIN `address` AS `Address` ON `Address`.`person_id` = `Person`.`id`;"
+      , "SELECT * FROM `person` AS `Person` LEFT JOIN `address` AS `Address`
+        ON `Address`.`person_id` = `Person`.`id`;"
       , (
         ->
           n = []
@@ -298,12 +299,12 @@ describe "Mysql object", ->
             found = false
             for a in example.address.data
               continue unless a.person_id is p.id
-              o = object.extend {}, p, a
+              o = util.extend 'MODE CLONE', p, a
               o.comment ?= null # add because missing else
               n.push o
               found = true
             unless found
-              o = object.clone p
+              o = util.clone p
               o.comment ?= null # add because missing else
               for k of example.address.struct
                 o[k] = null # add because missing else
@@ -332,12 +333,12 @@ describe "Mysql object", ->
             found = false
             for a in example.address.data
               continue unless a.person_id is p.id
-              o = object.extend {}, p, a
+              o = util.extend 'MODE CLONE', p, a
               o.comment ?= null # add because missing else
               n.push o
               found = true
             unless found
-              o = object.clone p
+              o = util.clone p
               o.comment ?= null # add because missing else
               for k of example.address.struct
                 o[k] = null # add because missing else

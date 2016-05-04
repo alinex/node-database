@@ -14,11 +14,10 @@ debugData = require('debug')('database:data')
 debugCom = require('debug')('database:com')
 debugError = require('debug')('database:error')
 chalk = require 'chalk'
-util = require 'util'
 mysql = require 'mysql'
 SqlString = require 'mysql/lib/protocol/SqlString'
 # require alinex modules
-{object} = require 'alinex-util'
+util = require 'alinex-util'
 # loading helper modules
 object2sql = require '../object2sql'
 
@@ -48,7 +47,7 @@ class Mysql
     # instantiate pool if not already done
     unless @pool?
       debugPool "initialize connection pool for #{@name}"
-      setup = object.extend
+      setup = util.extend
         connectionLimit: @conf.pool?.limit
         multipleStatements: true
       , @conf.access
