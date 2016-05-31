@@ -7,7 +7,7 @@
   <script src="../doc-filelist.js"></script>
   <script>
     var relativeDir = "../";
-    var thisFile = "home/alex/github/node-database/src/object2sql.coffee";
+    var thisFile = "src/object2sql.coffee";
     var defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
@@ -182,7 +182,7 @@ Node Modules
         <td class="code highlight">
           <pre class="coffeescript">debug = <span class="hljs-built_in">require</span>(<span class="hljs-string">'debug'</span>)(<span class="hljs-string">'db'</span>)
 chalk = <span class="hljs-built_in">require</span> <span class="hljs-string">'chalk'</span>
-{string} = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-util'</span></pre>
+util = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-util'</span></pre>
         </td>
       </tr>
     
@@ -272,15 +272,15 @@ Comparison
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-attribute">eq</span>: <span class="hljs-function"><span class="hljs-params">(obj, driver)</span> -&gt;</span> <span class="hljs-string">"= <span class="hljs-subst">#{field obj, driver}</span>"</span>
-  <span class="hljs-attribute">ne</span>: <span class="hljs-function"><span class="hljs-params">(obj, driver)</span> -&gt;</span>  <span class="hljs-string">"&lt;&gt; <span class="hljs-subst">#{field obj, driver}</span>"</span>
-  <span class="hljs-attribute">gt</span>: <span class="hljs-function"><span class="hljs-params">(obj, driver)</span> -&gt;</span>  <span class="hljs-string">"&gt; <span class="hljs-subst">#{field obj, driver}</span>"</span>
-  <span class="hljs-attribute">lt</span>: <span class="hljs-function"><span class="hljs-params">(obj, driver)</span> -&gt;</span>  <span class="hljs-string">"&lt; <span class="hljs-subst">#{field obj, driver}</span>"</span>
-  <span class="hljs-attribute">ge</span>: <span class="hljs-function"><span class="hljs-params">(obj, driver)</span> -&gt;</span>  <span class="hljs-string">"&gt;= <span class="hljs-subst">#{field obj, driver}</span>"</span>
-  <span class="hljs-attribute">le</span>: <span class="hljs-function"><span class="hljs-params">(obj, driver)</span> -&gt;</span>  <span class="hljs-string">"&lt;= <span class="hljs-subst">#{field obj, driver}</span>"</span>
-  <span class="hljs-attribute">like</span>: <span class="hljs-function"><span class="hljs-params">(obj, driver)</span> -&gt;</span>  <span class="hljs-string">"LIKE <span class="hljs-subst">#{field obj, driver}</span>"</span>
-  <span class="hljs-attribute">in</span>: <span class="hljs-function"><span class="hljs-params">(obj, driver)</span> -&gt;</span>  <span class="hljs-string">"IN(<span class="hljs-subst">#{field obj, driver}</span>)"</span>
-  <span class="hljs-attribute">between</span>: <span class="hljs-function"><span class="hljs-params">(obj, driver)</span> -&gt;</span>
+          <pre class="coffeescript">  eq: <span class="hljs-function"><span class="hljs-params">(obj, driver)</span> -&gt;</span> <span class="hljs-string">"= <span class="hljs-subst">#{field obj, driver}</span>"</span>
+  ne: <span class="hljs-function"><span class="hljs-params">(obj, driver)</span> -&gt;</span>  <span class="hljs-string">"&lt;&gt; <span class="hljs-subst">#{field obj, driver}</span>"</span>
+  gt: <span class="hljs-function"><span class="hljs-params">(obj, driver)</span> -&gt;</span>  <span class="hljs-string">"&gt; <span class="hljs-subst">#{field obj, driver}</span>"</span>
+  lt: <span class="hljs-function"><span class="hljs-params">(obj, driver)</span> -&gt;</span>  <span class="hljs-string">"&lt; <span class="hljs-subst">#{field obj, driver}</span>"</span>
+  ge: <span class="hljs-function"><span class="hljs-params">(obj, driver)</span> -&gt;</span>  <span class="hljs-string">"&gt;= <span class="hljs-subst">#{field obj, driver}</span>"</span>
+  le: <span class="hljs-function"><span class="hljs-params">(obj, driver)</span> -&gt;</span>  <span class="hljs-string">"&lt;= <span class="hljs-subst">#{field obj, driver}</span>"</span>
+  like: <span class="hljs-function"><span class="hljs-params">(obj, driver)</span> -&gt;</span>  <span class="hljs-string">"LIKE <span class="hljs-subst">#{field obj, driver}</span>"</span>
+  in: <span class="hljs-function"><span class="hljs-params">(obj, driver)</span> -&gt;</span>  <span class="hljs-string">"IN(<span class="hljs-subst">#{field obj, driver}</span>)"</span>
+  between: <span class="hljs-function"><span class="hljs-params">(obj, driver)</span> -&gt;</span>
     <span class="hljs-string">"BETWEEN <span class="hljs-subst">#{field obj.min, driver}</span> AND <span class="hljs-subst">#{field obj.max, driver}</span>"</span></pre>
         </td>
       </tr>
@@ -296,7 +296,7 @@ Group functions
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-attribute">count</span>: <span class="hljs-function"><span class="hljs-params">(obj, driver, as)</span> -&gt;</span> <span class="hljs-string">"COUNT(<span class="hljs-subst">#{field obj, driver, as}</span>)"</span></pre>
+          <pre class="coffeescript">  count: <span class="hljs-function"><span class="hljs-params">(obj, driver, as)</span> -&gt;</span> <span class="hljs-string">"COUNT(<span class="hljs-subst">#{field obj, driver, as}</span>)"</span></pre>
         </td>
       </tr>
     
@@ -311,7 +311,7 @@ Special
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-attribute">value</span>: <span class="hljs-function"><span class="hljs-params">(obj, driver)</span> -&gt;</span> <span class="hljs-string">"= <span class="hljs-subst">#{escape obj, driver}</span>"</span></pre>
+          <pre class="coffeescript">  value: <span class="hljs-function"><span class="hljs-params">(obj, driver)</span> -&gt;</span> <span class="hljs-string">"= <span class="hljs-subst">#{escape obj, driver}</span>"</span></pre>
         </td>
       </tr>
     
@@ -346,8 +346,8 @@ SELECT field
     <span class="hljs-keyword">when</span> obj <span class="hljs-keyword">is</span> <span class="hljs-string">'*'</span>
       obj
     <span class="hljs-keyword">when</span> <span class="hljs-keyword">typeof</span> obj <span class="hljs-keyword">is</span> <span class="hljs-string">'string'</span>
-      <span class="hljs-keyword">if</span> string.ends obj, <span class="hljs-string">'.*'</span>
-        escape(obj[<span class="hljs-number">0.</span>.-<span class="hljs-number">3</span>], driver) + <span class="hljs-string">'.*'</span>
+      <span class="hljs-keyword">if</span> util.string.ends obj, <span class="hljs-string">'.*'</span>
+        escape(obj[<span class="hljs-number">0.</span>.<span class="hljs-number">-3</span>], driver) + <span class="hljs-string">'.*'</span>
       <span class="hljs-keyword">else</span>
         escape obj, driver
     <span class="hljs-keyword">when</span> Array.isArray obj
@@ -520,7 +520,7 @@ SELECT
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-attribute">select</span>: <span class="hljs-function"><span class="hljs-params">(obj, driver)</span> -&gt;</span>
+          <pre class="coffeescript">  select: <span class="hljs-function"><span class="hljs-params">(obj, driver)</span> -&gt;</span>
     sql = <span class="hljs-string">"SELECT"</span>
     sql += distinct obj.distinct, driver
     sql += <span class="hljs-string">" <span class="hljs-subst">#{field obj.select, driver}</span>"</span>
@@ -541,7 +541,7 @@ UPDATE
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-attribute">update</span>: <span class="hljs-function"><span class="hljs-params">(obj, driver)</span> -&gt;</span></pre>
+          <pre class="coffeescript">  update: <span class="hljs-function"><span class="hljs-params">(obj, driver)</span> -&gt;</span></pre>
         </td>
       </tr>
     
@@ -556,7 +556,7 @@ INSERT
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-attribute">insert</span>: <span class="hljs-function"><span class="hljs-params">(obj, driver)</span> -&gt;</span></pre>
+          <pre class="coffeescript">  insert: <span class="hljs-function"><span class="hljs-params">(obj, driver)</span> -&gt;</span></pre>
         </td>
       </tr>
     
@@ -571,7 +571,7 @@ DELETE
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-attribute">delete</span>: <span class="hljs-function"><span class="hljs-params">(obj, driver)</span> -&gt;</span>
+          <pre class="coffeescript">  delete: <span class="hljs-function"><span class="hljs-params">(obj, driver)</span> -&gt;</span>
     sql = <span class="hljs-string">"DELETE"</span>
     sql += from obj.from, driver
     sql += <span class="hljs-string">';'</span></pre>
@@ -606,9 +606,9 @@ Conversion
           <pre class="coffeescript">  <span class="hljs-keyword">if</span> debug.enabled
     validator = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-validator'</span>
     validator.check
-      <span class="hljs-attribute">name</span>: <span class="hljs-string">'sqlObject'</span>
-      <span class="hljs-attribute">value</span>: obj
-      <span class="hljs-attribute">schema</span>: <span class="hljs-built_in">require</span>(<span class="hljs-string">'./object2sql_schema'</span>).schema
+      name: <span class="hljs-string">'sqlObject'</span>
+      value: obj
+      schema: <span class="hljs-built_in">require</span>(<span class="hljs-string">'./object2sql_schema'</span>).schema
     , <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
       debug chalk.red <span class="hljs-string">"Error in SQL Object: <span class="hljs-subst">#{err.message}</span>"</span> <span class="hljs-keyword">if</span> err</pre>
         </td>

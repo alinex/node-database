@@ -7,7 +7,7 @@
   <script src="doc-filelist.js"></script>
   <script>
     var relativeDir = "";
-    var thisFile = "home/alex/github/node-database/README.md";
+    var thisFile = "README.md";
     var defaultSidebar = true;
   </script>
   <script src="doc-script.js"></script>
@@ -145,7 +145,7 @@ and usable with query language builder.</p>
 </ul>
 <blockquote>
 <p>It is one of the modules of the <a href="http://alinex.github.io/code.html">Alinex Universe</a>
-following the code standards defined in the <a href="http://alinex.github.io/node-alinex">General Docs</a>.</p>
+following the code standards defined in the <a href="http://alinex.github.io/develop">General Docs</a>.</p>
 </blockquote>
 <div class="pilwrap" id="install">
   <h2>
@@ -163,7 +163,7 @@ Install
 <p>And update it to the latest version later:</p>
 <pre><code class="sh">npm update alinex-config --save
 </code></pre>
-<p>Always have a look at the latest <a href="Changelog.md.html.html">changes</a>.</p>
+<p>Always have a look at the latest <a href="Changelog.md.html">changes</a>.</p>
 <div class="pilwrap" id="usage">
   <h2>
     <a href="#usage" name="usage" class="pilcrow"></a>
@@ -273,45 +273,45 @@ implement some common behavior here.</p>
 Configuration
   </h2>
 </div>
-<pre><code class="yaml"># Database setup
-# =================================================
+<pre><code class="yaml"><span class="hljs-comment"># Database setup</span>
+<span class="hljs-comment"># =================================================</span>
 
-# Specific database
-# -------------------------------------------------
+<span class="hljs-comment"># Specific database</span>
+<span class="hljs-comment"># -------------------------------------------------</span>
 &lt;name&gt;:
 
-  # optional you may use a ssh tunnel to connect through
-  ssh:
+  <span class="hljs-comment"># optional you may use a ssh tunnel to connect through</span>
+<span class="hljs-attr">  ssh:</span>
 
-    # hostname or ip to connect to
-    host: localhost
-    # connection port
-    port:  ssh
-    # user to login as
-    username: alex
-    # (optionally) private key for login
-    privateKey: &lt;&lt;&lt;file:///home/alex/.ssh/id_rsa&gt;&gt;&gt;
+    <span class="hljs-comment"># hostname or ip to connect to</span>
+<span class="hljs-attr">    host:</span> localhost
+    <span class="hljs-comment"># connection port</span>
+<span class="hljs-attr">    port:</span>  ssh
+    <span class="hljs-comment"># user to login as</span>
+<span class="hljs-attr">    username:</span> alex
+    <span class="hljs-comment"># (optionally) private key for login</span>
+<span class="hljs-attr">    privateKey:</span> &lt;&lt;&lt;file:///home/alex/.ssh/id_rsa&gt;&gt;<span class="hljs-string">&gt;
     # time for sending keepalive packets
-    keepaliveInterval: 1s
-    #debug: true
+</span><span class="hljs-attr">    keepaliveInterval:</span> <span class="hljs-number">1</span>s
+    <span class="hljs-comment">#debug: true</span>
 
-  # database server
-  server:
+  <span class="hljs-comment"># database server</span>
+<span class="hljs-attr">  server:</span>
 
-    # type of database (mysql, postgresql, sqlite, mongodb, elasticsearch)
-    type: mysql
+    <span class="hljs-comment"># type of database (mysql, postgresql, sqlite, mongodb, elasticsearch)</span>
+<span class="hljs-attr">    type:</span> mysql
 
-    # the host and port of the database, if no port given the default for
-    # this type is used
-    host: &lt;&lt;&lt;env://MYSQL_HOST | localhost&gt;&gt;&gt;
+    <span class="hljs-comment"># the host and port of the database, if no port given the default for</span>
+    <span class="hljs-comment"># this type is used</span>
+<span class="hljs-attr">    host:</span> &lt;&lt;&lt;env://MYSQL_HOST | localhost&gt;&gt;<span class="hljs-string">&gt;
     #port: &lt;&lt;&lt;env://MYSQL_PORT | 3306&gt;&gt;&gt;
 
     # name of the database or catalog
-    database: &lt;&lt;&lt;env://MYSQL_DATABASE | test&gt;&gt;&gt;
+</span><span class="hljs-attr">    database:</span> &lt;&lt;&lt;env://MYSQL_DATABASE | test&gt;&gt;<span class="hljs-string">&gt;
 
     # authentication on the database server
-    user: &lt;&lt;&lt;env://MYSQL_USER | test&gt;&gt;&gt;
-    password: &lt;&lt;&lt;env://MYSQL_PASSWORD | &gt;&gt;&gt;
+</span><span class="hljs-attr">    user:</span> &lt;&lt;&lt;env://MYSQL_USER | test&gt;&gt;<span class="hljs-string">&gt;
+</span><span class="hljs-attr">    password:</span> &lt;&lt;&lt;env://MYSQL_PASSWORD | &gt;&gt;<span class="hljs-string">&gt;
 
     # specific database settings
     #charset: UTF8_GENERAL_CI
@@ -321,10 +321,10 @@ Configuration
     #connectTimeout: 10s
 
   # specific settings for pooling
-  pool:
+</span><span class="hljs-attr">  pool:</span>
 
-    # limit the parallel connections
-    limit: 2
+    <span class="hljs-comment"># limit the parallel connections</span>
+<span class="hljs-attr">    limit:</span> <span class="hljs-number">2</span>
 </code></pre>
 <div class="pilwrap" id="databases">
   <h2>
@@ -375,8 +375,8 @@ in an array. They will be automatically be replaced with their correct escaped v
 <p>This will also format the date database specific. And you may also replace with
 objects:</p>
 <pre><code class="coffee">conn.query <span class="hljs-string">'INSERT INTO address SET ?'</span>,
-  <span class="hljs-attribute">name</span>: <span class="hljs-string">'Alf'</span>
-  <span class="hljs-attribute">age</span>: <span class="hljs-number">56</span>
+  name: <span class="hljs-string">'Alf'</span>
+  age: <span class="hljs-number">56</span>
 </code></pre>
 <div class="pilwrap" id="object-to-query-language">
   <h2>
@@ -408,11 +408,11 @@ Relational Databases
 <p>Here you define your query like an object. The structure looks much like the
 SQL dialect itself to make it easy:</p>
 <pre><code class="coffee">  conn.query
-    <span class="hljs-attribute">select</span>: <span class="hljs-string">'*'</span>
-    <span class="hljs-attribute">from</span>: <span class="hljs-string">'@person'</span>
-    <span class="hljs-attribute">where</span>:
-      <span class="hljs-attribute">age</span>: <span class="hljs-number">30</span>
-      <span class="hljs-attribute">name</span>: <span class="hljs-string">'Alf'</span>
+    select: <span class="hljs-string">'*'</span>
+    from: <span class="hljs-string">'@person'</span>
+    where:
+      age: <span class="hljs-number">30</span>
+      name: <span class="hljs-string">'Alf'</span>
   <span class="hljs-comment"># SQL: SELECT * FROM `person` WHERE `age` = 30 AND `name` = 'Alf'</span>
 </code></pre>
 <p>The object notation is easier to read and can be created step by step.
@@ -426,23 +426,23 @@ SELECT
   </h4>
 </div>
 <p>First you can define a single value defining what you want.</p>
-<pre><code class="yaml">select: '@name'       # column name
-select: '*'           # all columns
-select: '@person.*'   # all columns of table person
+<pre><code class="yaml"><span class="hljs-attr">select:</span> <span class="hljs-string">'@name'</span>       <span class="hljs-comment"># column name</span>
+<span class="hljs-attr">select:</span> <span class="hljs-string">'*'</span>           <span class="hljs-comment"># all columns</span>
+<span class="hljs-attr">select:</span> <span class="hljs-string">'@person.*'</span>   <span class="hljs-comment"># all columns of table person</span>
 </code></pre>
 <p>Or give an array with multiple values:</p>
-<pre><code class="yaml">select: ['@name', '@age'] # fields array
+<pre><code class="yaml"><span class="hljs-attr">select:</span> [<span class="hljs-string">'@name'</span>, <span class="hljs-string">'@age'</span>] <span class="hljs-comment"># fields array</span>
 </code></pre>
 <p>To give each column a specific alias name use an object:</p>
-<pre><code class="yaml">select:
-  PersonName: '@name'
+<pre><code class="yaml"><span class="hljs-attr">select:</span>
+<span class="hljs-attr">  PersonName:</span> <span class="hljs-string">'@name'</span>
 </code></pre>
 <p>And at last you may also use functions:</p>
-<pre><code class="yaml">select:
-  $count: '*'
-select:
-  PersonName:
-    $count: '*'
+<pre><code class="yaml"><span class="hljs-attr">select:</span>
+  $count: <span class="hljs-string">'*'</span>
+<span class="hljs-attr">select:</span>
+<span class="hljs-attr">  PersonName:</span>
+    $count: <span class="hljs-string">'*'</span>
 </code></pre>
 <div class="pilwrap" id="distinct">
   <h4>
@@ -451,7 +451,7 @@ DISTINCT
   </h4>
 </div>
 <p>If set the query will only return distinct (different) records:</p>
-<pre><code class="yaml">distinct: true
+<pre><code class="yaml"><span class="hljs-attr">distinct:</span> <span class="hljs-literal">true</span>
 </code></pre>
 <div class="pilwrap" id="from">
   <h4>
@@ -460,36 +460,36 @@ FROM
   </h4>
 </div>
 <p>Give the tables or catalogs to use.</p>
-<pre><code class="yaml">from: '@person'
+<pre><code class="yaml"><span class="hljs-attr">from:</span> <span class="hljs-string">'@person'</span>
 </code></pre>
 <p>Or as an array (using a full join):</p>
-<pre><code class="yaml">from: ['@person', '@address']
+<pre><code class="yaml"><span class="hljs-attr">from:</span> [<span class="hljs-string">'@person'</span>, <span class="hljs-string">'@address'</span>]
 </code></pre>
 <p>Also this may be named:</p>
-<pre><code class="yaml">form:
-  Person: @person
+<pre><code class="yaml"><span class="hljs-attr">form:</span>
+<span class="hljs-attr">  Person:</span> @person
 </code></pre>
 <p>And with specific joins:</p>
-<pre><code class="yaml">from:
-  Person: @person
-  Address:
-    address:
-      join: 'left'   # left, right, outer, inner
-      on:            # join criteria
-        ID: '@person.addressID'
-        age:
-          $gt: 5
-# same defined as array
-from: [
-  '@person'
+<pre><code class="yaml"><span class="hljs-attr">from:</span>
+<span class="hljs-attr">  Person:</span> @person
+<span class="hljs-attr">  Address:</span>
+<span class="hljs-attr">    address:</span>
+<span class="hljs-attr">      join:</span> <span class="hljs-string">'left'</span>   <span class="hljs-comment"># left, right, outer, inner</span>
+<span class="hljs-attr">      on:</span>            <span class="hljs-comment"># join criteria</span>
+<span class="hljs-attr">        ID:</span> <span class="hljs-string">'@person.addressID'</span>
+<span class="hljs-attr">        age:</span>
+          $gt: <span class="hljs-number">5</span>
+<span class="hljs-comment"># same defined as array</span>
+<span class="hljs-attr">from:</span> [
+  <span class="hljs-string">'@person'</span>
 ,
-  Address:
-    address:
-      join: 'left'   # left, right, outer, inner
-      on:            # join criteria
-        ID: '@Person.addressID'
-        age:
-          $gt: 5
+<span class="hljs-attr">  Address:</span>
+<span class="hljs-attr">    address:</span>
+<span class="hljs-attr">      join:</span> <span class="hljs-string">'left'</span>   <span class="hljs-comment"># left, right, outer, inner</span>
+<span class="hljs-attr">      on:</span>            <span class="hljs-comment"># join criteria</span>
+<span class="hljs-attr">        ID:</span> <span class="hljs-string">'@Person.addressID'</span>
+<span class="hljs-attr">        age:</span>
+          $gt: <span class="hljs-number">5</span>
 ]
 </code></pre>
 <div class="pilwrap" id="where">
@@ -500,13 +500,13 @@ WHERE
 </div>
 <p>Constraints can be defined using where. If no operator is given the field is
 checked against equality to the given value:</p>
-<pre><code class="yaml">where:
-  age: 30
+<pre><code class="yaml"><span class="hljs-attr">where:</span>
+<span class="hljs-attr">  age:</span> <span class="hljs-number">30</span>
 </code></pre>
 <p>But you also can give any comparison operator of the ones listed below:</p>
-<pre><code class="yaml">where:
-  age:
-    $gt: 30
+<pre><code class="yaml"><span class="hljs-attr">where:</span>
+<span class="hljs-attr">  age:</span>
+    $gt: <span class="hljs-number">30</span>
 </code></pre>
 <div class="pilwrap" id="functions">
   <h4>

@@ -7,7 +7,7 @@
   <script src="../doc-filelist.js"></script>
   <script>
     var relativeDir = "../";
-    var thisFile = "home/alex/github/node-database/src/index.coffee";
+    var thisFile = "src/index.coffee";
     var defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
@@ -141,6 +141,7 @@ Node Modules
           <pre class="coffeescript">
 debug = <span class="hljs-built_in">require</span>(<span class="hljs-string">'debug'</span>)(<span class="hljs-string">'database'</span>)
 chalk = <span class="hljs-built_in">require</span> <span class="hljs-string">'chalk'</span>
+async = <span class="hljs-built_in">require</span> <span class="hljs-string">'async'</span>
 fspath = <span class="hljs-built_in">require</span> <span class="hljs-string">'path'</span></pre>
         </td>
       </tr>
@@ -155,8 +156,7 @@ fspath = <span class="hljs-built_in">require</span> <span class="hljs-string">'p
         </td>
         <td class="code highlight">
           <pre class="coffeescript">config = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-config'</span>
-async = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-async'</span>
-{object} = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-util'</span></pre>
+util = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-util'</span></pre>
         </td>
       </tr>
     
@@ -212,7 +212,7 @@ Initialization
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">exports.setup = setup = async.once <span class="hljs-keyword">this</span>, <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span></pre>
+          <pre class="coffeescript">exports.setup = setup = util.function.once <span class="hljs-keyword">this</span>, <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span></pre>
         </td>
       </tr>
     
@@ -251,7 +251,7 @@ Initialization
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">exports.init = init = async.once <span class="hljs-keyword">this</span>, <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
+          <pre class="coffeescript">exports.init = init = util.function.once <span class="hljs-keyword">this</span>, <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
   debug <span class="hljs-string">"initialize"</span></pre>
         </td>
       </tr>
@@ -446,13 +446,13 @@ Open SSH Tunnel if needed
         <td class="code highlight">
           <pre class="coffeescript">  sshtunnel = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-sshtunnel'</span>
   sshtunnel
-    <span class="hljs-attribute">ssh</span>: conf.ssh
-    <span class="hljs-attribute">tunnel</span>:
-      <span class="hljs-attribute">host</span>: conf.server.host
-      <span class="hljs-attribute">port</span>: conf.server.port
+    ssh: conf.ssh
+    tunnel:
+      host: conf.server.host
+      port: conf.server.port
   , <span class="hljs-function"><span class="hljs-params">(err, tunnel)</span> -&gt;</span>
     <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
-    conf.access = object.extend {}, conf.server, tunnel.setup
+    conf.access = util.extend <span class="hljs-string">'MODE CLONE'</span>, conf.server, tunnel.setup
     cb <span class="hljs-literal">null</span>, conf</pre>
         </td>
       </tr>

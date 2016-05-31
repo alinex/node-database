@@ -7,7 +7,7 @@
   <script src="../doc-filelist.js"></script>
   <script>
     var relativeDir = "../";
-    var thisFile = "home/alex/github/node-database/src/object2sql_schema.coffee";
+    var thisFile = "src/object2sql_schema.coffee";
     var defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
@@ -127,42 +127,42 @@ SELECT fields
         </td>
         <td class="code highlight">
           <pre class="coffeescript">field =
-  <span class="hljs-attribute">title</span>: <span class="hljs-string">"Fields"</span>
-  <span class="hljs-attribute">description</span>: <span class="hljs-string">"the list of fields to return"</span>
-  <span class="hljs-attribute">type</span>: <span class="hljs-string">'or'</span>
-  <span class="hljs-attribute">or</span>: [
-    <span class="hljs-attribute">title</span>: <span class="hljs-string">"Field"</span>
-    <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+  title: <span class="hljs-string">"Fields"</span>
+  description: <span class="hljs-string">"the list of fields to return"</span>
+  type: <span class="hljs-string">'or'</span>
+  or: [
+    title: <span class="hljs-string">"Field"</span>
+    type: <span class="hljs-string">'string'</span>
   ,
-    <span class="hljs-attribute">title</span>: <span class="hljs-string">"List of Fields"</span>
-    <span class="hljs-attribute">type</span>: <span class="hljs-string">'array'</span>
-    <span class="hljs-attribute">entries</span>:
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'or'</span>
-      <span class="hljs-attribute">or</span>: [
-        <span class="hljs-attribute">title</span>: <span class="hljs-string">"Field"</span>
-        <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+    title: <span class="hljs-string">"List of Fields"</span>
+    type: <span class="hljs-string">'array'</span>
+    entries:
+      type: <span class="hljs-string">'or'</span>
+      or: [
+        title: <span class="hljs-string">"Field"</span>
+        type: <span class="hljs-string">'string'</span>
       ,
-        <span class="hljs-attribute">title</span>: <span class="hljs-string">"Named Fields"</span>
-        <span class="hljs-attribute">type</span>: <span class="hljs-string">'object'</span>
-        <span class="hljs-attribute">entries</span>: [
-          <span class="hljs-attribute">title</span>: <span class="hljs-string">"Value"</span>
-          <span class="hljs-attribute">key</span>: <span class="hljs-regexp">/^\$/</span>
-          <span class="hljs-attribute">type</span>: <span class="hljs-string">'object'</span>
+        title: <span class="hljs-string">"Named Fields"</span>
+        type: <span class="hljs-string">'object'</span>
+        entries: [
+          title: <span class="hljs-string">"Value"</span>
+          key: <span class="hljs-regexp">/^\$/</span>
+          type: <span class="hljs-string">'object'</span>
         ,
-          <span class="hljs-attribute">title</span>: <span class="hljs-string">"Field"</span>
-          <span class="hljs-attribute">key</span>: <span class="hljs-regexp">/^[^$]/</span>
-          <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+          title: <span class="hljs-string">"Field"</span>
+          key: <span class="hljs-regexp">/^[^$]/</span>
+          type: <span class="hljs-string">'string'</span>
         ]
       ]
   ,
-    <span class="hljs-attribute">title</span>: <span class="hljs-string">"Named Fields"</span>
-    <span class="hljs-attribute">type</span>: <span class="hljs-string">'object'</span>
-    <span class="hljs-attribute">entries</span>: [
-      <span class="hljs-attribute">key</span>: <span class="hljs-regexp">/^\$/</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'object'</span>
+    title: <span class="hljs-string">"Named Fields"</span>
+    type: <span class="hljs-string">'object'</span>
+    entries: [
+      key: <span class="hljs-regexp">/^\$/</span>
+      type: <span class="hljs-string">'object'</span>
     ,
-      <span class="hljs-attribute">key</span>: <span class="hljs-regexp">/^[^$]/</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+      key: <span class="hljs-regexp">/^[^$]/</span>
+      type: <span class="hljs-string">'string'</span>
     ]
   ]</pre>
         </td>
@@ -180,9 +180,9 @@ DISTINCT
         </td>
         <td class="code highlight">
           <pre class="coffeescript">distinct =
-  <span class="hljs-attribute">title</span>: <span class="hljs-string">"Distinct Row"</span>
-  <span class="hljs-attribute">description</span>: <span class="hljs-string">"a flag triggering remove of duplicate results"</span>
-  <span class="hljs-attribute">type</span>: <span class="hljs-string">'boolean'</span></pre>
+  title: <span class="hljs-string">"Distinct Row"</span>
+  description: <span class="hljs-string">"a flag triggering remove of duplicate results"</span>
+  type: <span class="hljs-string">'boolean'</span></pre>
         </td>
       </tr>
     
@@ -198,16 +198,16 @@ join definition for tables
         </td>
         <td class="code highlight">
           <pre class="coffeescript">join =
-  <span class="hljs-attribute">type</span>: <span class="hljs-string">'object'</span>
-  <span class="hljs-attribute">allowedKeys</span>: <span class="hljs-literal">true</span>
-  <span class="hljs-attribute">keys</span>:
-    <span class="hljs-attribute">join</span>:
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-      <span class="hljs-attribute">list</span>: [<span class="hljs-string">'left'</span>, <span class="hljs-string">'right'</span>, <span class="hljs-string">'inner'</span>, <span class="hljs-string">'outer'</span>]
-    <span class="hljs-attribute">on</span>:
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'object'</span>
-      <span class="hljs-attribute">entries</span>: [
-        <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+  type: <span class="hljs-string">'object'</span>
+  allowedKeys: <span class="hljs-literal">true</span>
+  keys:
+    join:
+      type: <span class="hljs-string">'string'</span>
+      list: [<span class="hljs-string">'left'</span>, <span class="hljs-string">'right'</span>, <span class="hljs-string">'inner'</span>, <span class="hljs-string">'outer'</span>]
+    on:
+      type: <span class="hljs-string">'object'</span>
+      entries: [
+        type: <span class="hljs-string">'string'</span>
       ]</pre>
         </td>
       </tr>
@@ -224,52 +224,52 @@ FROM table
         </td>
         <td class="code highlight">
           <pre class="coffeescript">table =
-  <span class="hljs-attribute">title</span>: <span class="hljs-string">"Tables"</span>
-  <span class="hljs-attribute">description</span>: <span class="hljs-string">"the table data will be retrieved"</span>
-  <span class="hljs-attribute">type</span>: <span class="hljs-string">'or'</span>
-  <span class="hljs-attribute">or</span>: [
-    <span class="hljs-attribute">title</span>: <span class="hljs-string">"Table"</span>
-    <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+  title: <span class="hljs-string">"Tables"</span>
+  description: <span class="hljs-string">"the table data will be retrieved"</span>
+  type: <span class="hljs-string">'or'</span>
+  or: [
+    title: <span class="hljs-string">"Table"</span>
+    type: <span class="hljs-string">'string'</span>
   ,
-    <span class="hljs-attribute">title</span>: <span class="hljs-string">"List of Tables"</span>
-    <span class="hljs-attribute">type</span>: <span class="hljs-string">'array'</span>
-    <span class="hljs-attribute">entries</span>:
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'or'</span>
-      <span class="hljs-attribute">or</span>: [
-        <span class="hljs-attribute">title</span>: <span class="hljs-string">"Table"</span>
-        <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+    title: <span class="hljs-string">"List of Tables"</span>
+    type: <span class="hljs-string">'array'</span>
+    entries:
+      type: <span class="hljs-string">'or'</span>
+      or: [
+        title: <span class="hljs-string">"Table"</span>
+        type: <span class="hljs-string">'string'</span>
       ,
-        <span class="hljs-attribute">title</span>: <span class="hljs-string">"Table Object"</span>
-        <span class="hljs-attribute">type</span>: <span class="hljs-string">'object'</span>
-        <span class="hljs-attribute">entries</span>: [
-          <span class="hljs-attribute">type</span>: <span class="hljs-string">'or'</span>
-          <span class="hljs-attribute">or</span>: [
+        title: <span class="hljs-string">"Table Object"</span>
+        type: <span class="hljs-string">'object'</span>
+        entries: [
+          type: <span class="hljs-string">'or'</span>
+          or: [
             join
           ,
-            <span class="hljs-attribute">title</span>: <span class="hljs-string">"Named Table"</span>
-            <span class="hljs-attribute">type</span>: <span class="hljs-string">'or'</span>
-            <span class="hljs-attribute">or</span>: [
+            title: <span class="hljs-string">"Named Table"</span>
+            type: <span class="hljs-string">'or'</span>
+            or: [
               join
             ,
-              <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+              type: <span class="hljs-string">'string'</span>
             ]
           ]
         ]
       ]
   ,
-    <span class="hljs-attribute">title</span>: <span class="hljs-string">"Table Object"</span>
-    <span class="hljs-attribute">type</span>: <span class="hljs-string">'object'</span>
-    <span class="hljs-attribute">entries</span>: [
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'or'</span>
-      <span class="hljs-attribute">or</span>: [
+    title: <span class="hljs-string">"Table Object"</span>
+    type: <span class="hljs-string">'object'</span>
+    entries: [
+      type: <span class="hljs-string">'or'</span>
+      or: [
         join
       ,
-        <span class="hljs-attribute">title</span>: <span class="hljs-string">"Named Table"</span>
-        <span class="hljs-attribute">type</span>: <span class="hljs-string">'or'</span>
-        <span class="hljs-attribute">or</span>: [
+        title: <span class="hljs-string">"Named Table"</span>
+        type: <span class="hljs-string">'or'</span>
+        or: [
           join
         ,
-          <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+          type: <span class="hljs-string">'string'</span>
         ]
       ]
     ]
@@ -304,17 +304,17 @@ SELECT
         </td>
         <td class="code highlight">
           <pre class="coffeescript">select =
-  <span class="hljs-attribute">title</span>: <span class="hljs-string">"Selection"</span>
-  <span class="hljs-attribute">description</span>: <span class="hljs-string">"the setup of what to retrieve from the database"</span>
-  <span class="hljs-attribute">type</span>: <span class="hljs-string">'object'</span>
-  <span class="hljs-attribute">allowedKeys</span>: <span class="hljs-literal">true</span>
-  <span class="hljs-attribute">mandatoryKeys</span>: [<span class="hljs-string">'select'</span>]
-  <span class="hljs-attribute">keys</span>:
-    <span class="hljs-attribute">select</span>: field
-    <span class="hljs-attribute">distinct</span>: distinct
-    <span class="hljs-attribute">from</span>: table
-    <span class="hljs-attribute">while</span>:
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'object'</span></pre>
+  title: <span class="hljs-string">"Selection"</span>
+  description: <span class="hljs-string">"the setup of what to retrieve from the database"</span>
+  type: <span class="hljs-string">'object'</span>
+  allowedKeys: <span class="hljs-literal">true</span>
+  mandatoryKeys: [<span class="hljs-string">'select'</span>]
+  keys:
+    select: field
+    distinct: distinct
+    from: table
+    while:
+      type: <span class="hljs-string">'object'</span></pre>
         </td>
       </tr>
     
@@ -331,10 +331,10 @@ Complete
         <td class="code highlight">
           <pre class="coffeescript">
 <span class="hljs-built_in">module</span>.exports.schema =
-  <span class="hljs-attribute">title</span>: <span class="hljs-string">"SQL Object"</span>
-  <span class="hljs-attribute">selection</span>: <span class="hljs-string">"the SQL as object notation"</span>
-  <span class="hljs-attribute">type</span>: <span class="hljs-string">'or'</span>
-  <span class="hljs-attribute">or</span>: [select]</pre>
+  title: <span class="hljs-string">"SQL Object"</span>
+  selection: <span class="hljs-string">"the SQL as object notation"</span>
+  type: <span class="hljs-string">'or'</span>
+  or: [select]</pre>
         </td>
       </tr>
     
