@@ -191,6 +191,11 @@ module.exports =
         type: 'object'
         allowedKeys: true
         keys:
+          min:
+            title: "Connection Pool Minimum Size"
+            description: "the minimum number of connections held to use"
+            type: 'integer'
+            default: 0
           limit:
             title: "Connection Pool Limit"
             description: "the maximum number of parallel used connections"
