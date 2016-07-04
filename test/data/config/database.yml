@@ -70,9 +70,26 @@ test-ssh:
     limit: 2
 
 
-# DB over ssh
+# Problems connecting to db
 # -------------------------------------------------
-problem-ssh:
+problem-mysql:
+  server:
+    type: mysql
+    host: unknown-server-name.access
+    port: 3306
+    database: test
+    user: <<<env://MYSQL_USER | test>>>
+    password: <<<env://MYSQL_PASSWORD | >>>
+problem-postgresql:
+  server:
+    type: postgresql
+    host: unknown-server-name.access
+    port: 3306
+    database: test
+    user: <<<env://MYSQL_USER | test>>>
+    password: <<<env://MYSQL_PASSWORD | >>>
+
+problem-ssh-host:
 
   ssh:
     # hostname or ip to connect to
@@ -88,7 +105,7 @@ problem-ssh:
     #debug: true
 
   server:
-    type: mysql
+    type: postgresql
     host: 127.0.0.1
     port: 3306
     database: test

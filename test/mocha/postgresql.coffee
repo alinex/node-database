@@ -4,7 +4,7 @@ expect = chai.expect
 
 database = require '../../src/index'
 
-describe.only "PostgreSQL", ->
+describe "PostgreSQL", ->
 
   after (done) ->
     database.instance 'test-postgresql', (err, db) ->

@@ -57,19 +57,18 @@ class Postgresql
   connect: (cb) ->
     unless @pool?
       debugPool "initialize connection pool for #{@name}" +
-        chalk.grey " (pool 0/#{@conf.pool.limit})"
+        chalk.grey " (pool 0/#{@conf.pool?.limit})"
       setup = util.extend
         application_name: process.title
         fallback_application_name: 'alinex-database'
-        min: @conf.pool.min
-        max: @conf.pool.limit
+        min: @conf.pool?.min
+        max: @conf.pool?.limit
       , @conf.access
       @pool = new pg.Pool setup
-    else
     @pool.connect (err, conn, done) =>
       if err
         done err
-        debugError "#{conn.name} error #{err.message}"
+        debugError "#{chalk.grey @name} error #{err.message}"
         err.message += " at #{@name}"
         return cb err
       if conn.alinex?

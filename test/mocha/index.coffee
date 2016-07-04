@@ -34,15 +34,33 @@ describe "Base", ->
         expect(err, 'config error').to.exist
         cb()
 
-  describe.skip "connect problems", ->
+  describe.only "connect problems", ->
+    @timeout 50000
 
-    it "should allow connections to database", (done) ->
-      database.instance 'test-mysql', (err, db) ->
-        throw err if err
-        db.connect (err, conn) ->
-          expect(err, 'error on connection').to.not.exist
-          conn.query 'SELECT 2 + 2 AS solution', (err, rows) ->
-            throw err if err
-            console.log 'The database calculated 2+2 =', rows[0].solution
-            conn.release()
-            db.close done
+    it "should fail on undefined server", (done) ->
+      database.instance 'problem-not-defined', (err) ->
+        expect(err).to.exist
+        done()
+
+    it "should fail on wrong mysql server", (done) ->
+      database.instance 'problem-postgresql', (err, db) ->
+        db.connect (err) ->
+          expect(err).to.exist
+          done()
+
+    it "should fail on wrong postgresql server", (done) ->
+      database.instance 'problem-postgresql', (err, db) ->
+        db.connect (err) ->
+          expect(err).to.exist
+          done()
+
+
+
+
+    it "should fail on wrong ssh server", (done) ->
+      database.instance 'problem-ssh-host', (err, db) ->
+        db.connect (err) ->
+          console.log '--------'
+          console.log err
+          expect(err).to.exist
+          done()
