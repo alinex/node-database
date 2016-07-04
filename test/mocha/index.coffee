@@ -33,3 +33,16 @@ describe "Base", ->
       database.instance 'not-existent-db', (err) ->
         expect(err, 'config error').to.exist
         cb()
+
+  describe.skip "connect problems", ->
+
+    it "should allow connections to database", (done) ->
+      database.instance 'test-mysql', (err, db) ->
+        throw err if err
+        db.connect (err, conn) ->
+          expect(err, 'error on connection').to.not.exist
+          conn.query 'SELECT 2 + 2 AS solution', (err, rows) ->
+            throw err if err
+            console.log 'The database calculated 2+2 =', rows[0].solution
+            conn.release()
+            db.close done

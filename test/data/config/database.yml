@@ -68,3 +68,32 @@ test-ssh:
 
   pool:
     limit: 2
+
+
+# DB over ssh
+# -------------------------------------------------
+problem-ssh:
+
+  ssh:
+    # hostname or ip to connect to
+    host: unknown-server-name.access
+    # connection port
+    port:  ssh
+    # user to login as
+    username: alex
+    # (optionally) private key for login
+    privateKey: <<<file:///home/alex/.ssh/id_rsa>>>
+    # time for sending keepalive packets
+    keepaliveInterval: 1s
+    #debug: true
+
+  server:
+    type: mysql
+    host: 127.0.0.1
+    port: 3306
+    database: test
+    user: <<<env://MYSQL_USER | test>>>
+    password: <<<env://MYSQL_PASSWORD | >>>
+    #charset: UTF8_GENERAL_CI
+    #timezone: local
+    #connectTimeout: 10s
