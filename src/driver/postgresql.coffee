@@ -14,10 +14,8 @@ debugCom = require('debug')('database:com')
 debugError = require('debug')('database:error')
 chalk = require 'chalk'
 pg = require 'pg'
-# Native not tested, yet
-# > sudo apt-get install -y libpq-dev
-# > npm install pq-native
-#pg = pg.native ? pg
+# use native if available
+pg = pg.native ? pg
 
 # require alinex modules
 util = require 'alinex-util'
@@ -101,7 +99,7 @@ class Postgresql
             if err
               debugError "#{conn.name} #{chalk.grey err.message}"
             if result?
-              if result.fields.length
+              if result.fields?.length
                 debugResult "#{conn.name} fields: #{util.inspect result.fields}"
               if result.rows.length
                 debugData "#{conn.name} #{util.inspect row}" for row in result.rows

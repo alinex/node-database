@@ -42,6 +42,17 @@ npm update alinex-config --save
 
 Always have a look at the latest [changes](Changelog.md).
 
+### PostgreSQL Native Driver
+
+To use the faster native driver you only have to install it:
+
+``` sh
+sudo apt-get install -y libpq-dev
+npm install -g pq-native
+```
+
+It is used automatically if installed.
+
 
 Usage
 -------------------------------------------------
@@ -204,7 +215,8 @@ Configuration
 
   # specific settings for pooling
   pool:
-
+    # initial size of the pool (only postgresql)
+    min: 0
     # limit the parallel connections
     limit: 2
 ```
