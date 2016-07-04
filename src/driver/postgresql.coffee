@@ -14,6 +14,11 @@ debugCom = require('debug')('database:com')
 debugError = require('debug')('database:error')
 chalk = require 'chalk'
 pg = require 'pg'
+# Native not tested, yet
+# > sudo apt-get install -y libpq-dev
+# > npm install pq-native
+# pg = pg.native ? pg
+
 # require alinex modules
 util = require 'alinex-util'
 # loading helper modules
@@ -57,9 +62,10 @@ class Postgresql
       fallback_application_name: 'alinex-database'
     , @conf.access
 #    console.log 'client', util.inspect client, {depth:null}
-    pool = pg.pools.getOrCreate setup
-    debugPool "#{chalk.grey @name} retrieve connection" +
-      chalk.grey " (pool #{pool.availableObjectsCount()}/#{pool.getPoolSize()})"
+    pool = new pg.Pool()
+#    console.log pool.pool._count, pool.pool._availableObjects.length
+#    debugPool "#{chalk.grey @name} retrieve connection" +
+#      chalk.grey " (pool #{pool.availableObjectsCount()}/#{pool.getPoolSize()})"
     pg.connect setup, (err, conn, done) =>
       if err
         done err
@@ -67,17 +73,17 @@ class Postgresql
         err.message += " at #{@name}"
         return cb err
       if conn.alinex?
-        debugPool "#{conn.name} reuse connection" +
-          chalk.grey " (pool #{pool.availableObjectsCount()}/#{pool.getPoolSize()})"
+#        debugPool "#{conn.name} reuse connection" +
+#          chalk.grey " (pool #{pool.availableObjectsCount()}/#{pool.getPoolSize()})"
         return cb null, conn
       conn.name = chalk.grey "[#{@name}##{++@connectionNum}]" unless conn.name?
-      debugPool "#{conn.name} opened new connection" +
-        chalk.grey " (pool #{pool.availableObjectsCount()}/#{pool.getPoolSize()})"
+#      debugPool "#{conn.name} opened new connection" +
+#        chalk.grey " (pool #{pool.availableObjectsCount()}/#{pool.getPoolSize()})"
       # add debugging
       conn.release = ->
         done()
-        debugPool "#{conn.name} release connection" +
-          chalk.grey " (pool #{pool.availableObjectsCount()}/#{pool.getPoolSize()})"
+#        debugPool "#{conn.name} release connection" +
+#          chalk.grey " (pool #{pool.availableObjectsCount()}/#{pool.getPoolSize()})"
       conn.on 'error', (err) ->
         done err
         debugError "#{conn.name} failure #{err.message}"
