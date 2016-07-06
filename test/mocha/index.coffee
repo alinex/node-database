@@ -54,13 +54,7 @@ describe "Base", ->
           expect(err).to.exist
           done()
 
-
-
-
     it "should fail on wrong ssh server", (done) ->
       database.instance 'problem-ssh-host', (err, db) ->
-        db.connect (err) ->
-          console.log '--------'
-          console.log err
-          expect(err).to.exist
-          done()
+        expect(err).to.exist
+        done()
