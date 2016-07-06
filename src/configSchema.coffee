@@ -7,7 +7,8 @@
 # -------------------------------------------------
 ssh =
   title: "Remote Server"
-  description: "a remote server ssh connection setup"
+  description: "a remote server for ssh tunneling"
+#  type: 'array'
   type: 'object'
   allowedKeys: true
   mandatoryKeys: ['host', 'port', 'username']
