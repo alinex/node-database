@@ -34,7 +34,7 @@
   },
   "dependencies": {
     "alinex-config": "^1.1.6",
-    "alinex-sshtunnel": "^1.1.1",
+    "alinex-sshtunnel": "^1.2.0",
     "alinex-util": "^2.3.1",
     "async": "^2.0.0-rc.3",
     "chalk": "^1.1.3",
