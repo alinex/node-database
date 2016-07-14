@@ -21,7 +21,6 @@ describe "Base", ->
       @timeout 4000
       database.init (err) ->
         expect(err, 'init error').to.not.exist
-        config = require 'alinex-config'
         config.init (err) ->
           expect(err, 'load error').to.not.exist
           conf = config.get '/database'
