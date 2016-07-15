@@ -16,7 +16,7 @@ The main features are:
 - connections through automatic ssh tunnels
 - object to query language bridge
 
-> It is one of the modules of the [Alinex Universe](http://alinex.github.io/code.html)
+> It is one of the modules of the [Alinex Namespace](http://alinex.github.io/code.html)
 > following the code standards defined in the [General Docs](http://alinex.github.io/develop).
 
 
