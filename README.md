@@ -1,9 +1,39 @@
-Package: alinex-database
+Alinex Database: Readme
 =================================================
 
-[![Build Status](https://travis-ci.org/alinex/node-database.svg?branch=master)](https://travis-ci.org/alinex/node-database)
-[![Coverage Status](https://coveralls.io/repos/alinex/node-database/badge.png?branch=master)](https://coveralls.io/r/alinex/node-database?branch=master)
-[![Dependency Status](https://gemnasium.com/alinex/node-database.png)](https://gemnasium.com/alinex/node-database)
+[![GitHub watchers](
+  https://img.shields.io/github/watchers/alinex/node-database.svg?style=social&label=Watch&maxAge=2592000)](
+  https://github.com/alinex/node-database/subscription)
+<!-- {.hidden-small} -->
+[![GitHub stars](
+  https://img.shields.io/github/stars/alinex/node-database.svg?style=social&label=Star&maxAge=2592000)](
+  https://github.com/alinex/node-database)
+[![GitHub forks](
+  https://img.shields.io/github/forks/alinex/node-database.svg?style=social&label=Fork&maxAge=2592000)](
+  https://github.com/alinex/node-database)
+<!-- {.hidden-small} -->
+<!-- {p:.right} -->
+
+[![npm package](
+  https://img.shields.io/npm/v/alinex-database.svg?maxAge=2592000&label=latest%20version)](
+  https://www.npmjs.com/package/alinex-database)
+[![latest version](
+  https://img.shields.io/npm/l/alinex-database.svg?maxAge=2592000)](
+  #license)
+<!-- {.hidden-small} -->
+[![Travis status](
+  https://img.shields.io/travis/alinex/node-database.svg?maxAge=2592000&label=develop)](
+  https://travis-ci.org/alinex/node-database)
+[![Coveralls status](
+  https://img.shields.io/coveralls/alinex/node-database.svg?maxAge=2592000)](
+  https://coveralls.io/r/alinex/node-database?branch=master)
+[![Gemnasium status](
+  https://img.shields.io/gemnasium/alinex/node-database.svg?maxAge=2592000)](
+  https://gemnasium.com/alinex/node-database)
+[![GitHub issues](
+  https://img.shields.io/github/issues/alinex/node-database.svg?maxAge=2592000)](
+  https://github.com/alinex/node-database/issues)
+<!-- {.hidden-small} -->
 
 The database module allows connections to different databases easy configurable
 and usable with query language builder.
@@ -16,8 +46,12 @@ The main features are:
 - connections through automatic ssh tunnels
 - object to query language bridge
 
-> It is one of the modules of the [Alinex Namespace](http://alinex.github.io/code.html)
-> following the code standards defined in the [General Docs](http://alinex.github.io/develop).
+> It is one of the modules of the [Alinex Namespace](https://alinex.github.io/code.html)
+> following the code standards defined in the [General Docs](https://alinex.github.io/develop).
+
+__Read the complete documentation under
+[https://alinex.github.io/node-database](https://alinex.github.io/node-database).__
+<!-- {p: .hidden} -->
 
 
 Install
@@ -442,6 +476,24 @@ __Group functions__
 __Special__
 
 - value - used if value is needed on the left side of operator
+
+
+Debugging
+-------------------------------------------------
+If you have any problems you may debug the code with the predefined flags. It uses
+the debug module to let you define what to debug.
+
+Call it with the DEBUG environment variable set to the types you want to debug.
+The most valueable flags will be:
+
+    DEBUG=database           # general information and checking schema
+    DEBUG=database:cmd       # to show sql commands
+    DEBUG=database:data      # to show the data transferred
+
+You can also combine them using comma or use only DEBUG=* to show all.
+
+Additional value checking will be done if the debugging for the general `database`
+is enabled.
 
 
 License
