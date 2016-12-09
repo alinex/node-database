@@ -196,66 +196,6 @@ For large data sets, please use the native streaming possibilities till we can
 implement some common behavior here.
 
 
-Configuration
--------------------------------------------------
-
-``` yaml
-# Database setup
-# =================================================
-
-# Specific database
-# -------------------------------------------------
-<name>:
-
-  # optional you may use a ssh tunnel to connect through
-  ssh:
-
-    # hostname or ip to connect to
-    host: localhost
-    # connection port
-    port:  ssh
-    # user to login as
-    username: alex
-    # (optionally) private key for login
-    privateKey: <<<file:///home/alex/.ssh/id_rsa>>>
-    # time for sending keepalive packets
-    keepaliveInterval: 1s
-    #debug: true
-
-  # database server
-  server:
-
-    # type of database (mysql, postgresql, sqlite, mongodb, elasticsearch)
-    type: mysql
-
-    # the host and port of the database, if no port given the default for
-    # this type is used
-    host: <<<env://MYSQL_HOST | localhost>>>
-    #port: <<<env://MYSQL_PORT | 3306>>>
-
-    # name of the database or catalog
-    database: <<<env://MYSQL_DATABASE | test>>>
-
-    # authentication on the database server
-    user: <<<env://MYSQL_USER | test>>>
-    password: <<<env://MYSQL_PASSWORD | >>>
-
-    # specific database settings
-    #charset: UTF8_GENERAL_CI
-    #timezone: local
-
-    # timeout settings
-    #connectTimeout: 10s
-
-  # specific settings for pooling
-  pool:
-    # initial size of the pool (only postgresql)
-    min: 0
-    # limit the parallel connections
-    limit: 2
-```
-
-
 Databases
 -------------------------------------------------
 
@@ -272,7 +212,7 @@ directly on the retrieved connections.
 
 You can also use ? and ?? placeholder syntax from the driver.
 
-Here you need to know that if you use '*' as field specifier the same name may
+Here you need to know that if you use * as field specifier the same name may
 occur multiple times in the result set, so that they override each over in the
 resulting object and the last one will be visible. To prevent this specify this
 columns with an alias name.
@@ -287,8 +227,10 @@ You can use the native $1... placeholder syntax or the common supported '?' synt
 from the driver.
 
 
-Placeholder Syntax
+Query Language
 -------------------------------------------------
+
+### Placeholder Syntax
 You may write your query like done normal as string but instead inserting the
 values and esacaping them you may use `?` as a placeholder and give your values
 in an array. They will be automatically be replaced with their correct escaped value.
@@ -309,173 +251,10 @@ conn.query 'INSERT INTO address SET ?',
   age: 56
 ```
 
+### Object Language
 
-Object to Query Language
--------------------------------------------------
-
-The next possibility is to use a complete object notation instead of a string.
-
-
-### General Notation
-
-To make the notation clean and prevent misleading situations the values have to
-be prefixed with:
-
-- @... for names like table and fields
-- $... for functions
-- ? used as value will be a placeholder like before and used with the given dataset
-
-All other values are used as is and quoted or converted like needed.
-
-
-### Relational Databases
-
-Here you define your query like an object. The structure looks much like the
-SQL dialect itself to make it easy:
-
-``` coffee
-  conn.query
-    select: '*'
-    from: '@person'
-    where:
-      age: 30
-      name: 'Alf'
-  # SQL: SELECT * FROM `person` WHERE `age` = 30 AND `name` = 'Alf'
-```
-
-The object notation is easier to read and can be created step by step.
-Also the object will be validated if run with `DEBUG=database*` flag.
-
-The following description will explain all the possible keys (uppermost level)
-of the object structure you give to create the SQL string.
-
-
-#### SELECT
-
-First you can define a single value defining what you want.
-
-``` yaml
-select: '@name'       # column name
-select: '*'           # all columns
-select: '@person.*'   # all columns of table person
-```
-
-Or give an array with multiple values:
-
-``` yaml
-select: ['@name', '@age'] # fields array
-```
-
-To give each column a specific alias name use an object:
-
-``` yaml
-select:
-  PersonName: '@name'
-```
- And at last you may also use functions:
-
-``` yaml
-select:
-  $count: '*'
-select:
-  PersonName:
-    $count: '*'
-```
-
-#### DISTINCT
-
-If set the query will only return distinct (different) records:
-
-``` yaml
-distinct: true
-```
-
-#### FROM
-
-Give the tables or catalogs to use.
-
-``` yaml
-from: '@person'
-```
-
-Or as an array (using a full join):
-
-``` yaml
-from: ['@person', '@address']
-```
-
-Also this may be named:
-
-``` yaml
-form:
-  Person: @person
-```
-
-And with specific joins:
-
-``` yaml
-from:
-  Person: @person
-  Address:
-    address:
-      join: 'left'   # left, right, outer, inner
-      on:            # join criteria
-        ID: '@person.addressID'
-        age:
-          $gt: 5
-# same defined as array
-from: [
-  '@person'
-,
-  Address:
-    address:
-      join: 'left'   # left, right, outer, inner
-      on:            # join criteria
-        ID: '@Person.addressID'
-        age:
-          $gt: 5
-]
-```
-
-#### WHERE
-
-Constraints can be defined using where. If no operator is given the field is
-checked against equality to the given value:
-
-``` yaml
-where:
-  age: 30
-```
-
-But you also can give any comparison operator of the ones listed below:
-
-``` yaml
-where:
-  age:
-    $gt: 30
-```
-
-#### Functions
-
-__Comparison__
-
-- eq - equal
-- ne - not equal
-- gt - greater than
-- lt - lower than
-- ge - greater or equal
-- le - lower or equal
-- like - like given pattern
-- in - in list of values
-- between - the given 'min' and 'max' values
-
-__Group functions__
-
-- count - number of entries
-
-__Special__
-
-- value - used if value is needed on the left side of operator
+The next possibility is to use a complete object notation instead of a string as
+a query. See {@link src/object-lang.md}
 
 
 Debugging

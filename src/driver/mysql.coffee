@@ -36,7 +36,7 @@ class Mysql
 
   close: (cb = -> ) ->
     return cb() unless @pool?
-    debugPool "close connection pool for #{@name}"
+    debugPool "close connection pool for #{@name}" if debugPool.enabled
     @pool.end (err) =>
       # remove pool instance to be reopened on next use
       @pool = null
@@ -46,31 +46,32 @@ class Mysql
   connect: (cb) ->
     # instantiate pool if not already done
     unless @pool?
-      debugPool "initialize connection pool for #{@name}"
+      debugPool "initialize connection pool for #{@name}" if debugPool.enabled
       setup = util.extend
         connectionLimit: @conf.pool?.limit
         multipleStatements: true
       , @conf.access
-      debugPool chalk.grey "set pool limit to #{setup.connectionLimit}" if setup.connectionLimit
+      if debugPool.enabled and setup.connectionLimit
+        debugPool chalk.grey "set pool limit to #{setup.connectionLimit}"
       @pool = mysql.createPool setup
       @pool.on 'connection', (conn) =>
         conn.name = chalk.grey "[#{@name}##{conn._socket._handle.fd}]"
-        debugPool "#{conn.name} open connection"
+        debugPool "#{conn.name} open connection" if debugPool.enabled
         conn.on 'error', (err) ->
-          debugError "#{conn.name} uncatched #{err} on connection"
+          debugError "#{conn.name} uncatched #{err} on connection" if debugError.enabled
       @pool.on 'enqueue', =>
         name = chalk.grey "[#{@name}]"
-        debugPool "#{name} waiting for connection"
+        debugPool "#{name} waiting for connection" if debugPool.enabled
     # get the connection
     @pool.getConnection (err, conn) =>
       if err
-        debugError chalk.grey("[#{@name}]") + " #{err} while connecting"
+        debugError chalk.grey("[#{@name}]") + " #{err} while connecting" if debugError.enabled
         if @tries > 2 # max retries to get a connection
           return cb new Error "#{err.message} while connecting to #{@name} database"
         return setTimeout =>
           @connect cb
         , 1000 # wait a second fbefore retry
-      debugPool "#{conn.name} acquired connection"
+      debugPool "#{conn.name} acquired connection" if debugPool.enabled
       # switch on debugging wih own method
       conn.config.debug = true
       conn._protocol._debugPacket = (incoming, packet) ->
@@ -78,18 +79,21 @@ class Mysql
         msg = util.inspect packet
         switch packet.constructor.name
           when 'ComQueryPacket'
-            debugCmd "#{conn.name} #{packet.sql}"
+            debugCmd "#{conn.name} #{packet.sql}" if debugCmd.enabled
           when 'ResultSetHeaderPacket', 'FieldPacket', 'EofPacket'
-            debugResult "#{conn.name} #{packet.constructor.name} #{chalk.grey msg}"
+            if debugResult.enabled
+              debugResult "#{conn.name} #{packet.constructor.name} #{chalk.grey msg}"
           when 'RowDataPacket'
-            debugData "#{conn.name} #{msg}"
+            debugData "#{conn.name} #{msg}" if debugData.enabled
           when 'ComQuitPacket'
-            debugPool "#{conn.name} close connection"
+            debugPool "#{conn.name} close connection" if debugPool.enabled
           else
-            debugCom "#{conn.name} #{dir} #{packet.constructor.name} #{chalk.grey msg}"
+            if debugCom.enabled
+              debugCom "#{conn.name} #{dir} #{packet.constructor.name} #{chalk.grey msg}"
       conn.release = ->
-        debugPool "#{conn.name} release connection
-        (#{@_pool._freeConnections.length+1}/#{@_pool._allConnections.length} free)"
+        if debugPool.enabled
+          debugPool "#{conn.name} release connection
+          (#{@_pool._freeConnections.length+1}/#{@_pool._allConnections.length} free)"
         # release code copied from original function
         return unless @_pool? and not @_pool._closed
         @_pool.releaseConnection this

@@ -56,14 +56,14 @@ exports.instance = instance = (name, cb) ->
     # start initializing, if not done
     unless instances[name]?
       return cb new Error "Could not initialize database class without alias." unless name
-      debug "create #{name} connection"
+      debug "create #{name} connection" if debug.enabled
       conf = config.get "/database/#{name}"
       return cb new Error "No database for name '#{name}' defined" unless conf?
       # open tunnel
       return tunnel conf, (err, conf) ->
         return cb err if err
         debug chalk.grey "#{conf.server.type}://#{conf.server.host}:#{conf.server.port}/\
-        #{conf.server.database} as #{conf.server.user}"
+        #{conf.server.database} as #{conf.server.user}" if debug.enabled
         # load driver
         try
           Driver = require "./driver/#{conf.server.type}"

@@ -47,7 +47,7 @@ class Postgresql
 
   close: (cb = -> ) ->
     return cb() unless @pool?
-    debugPool "close connection pool for #{@name}"
+    debugPool "close connection pool for #{@name}" if debugPool.enabled
     @pool.end (err) =>
       # remove pool instance to be reopened on next use
       @pool = null
@@ -56,8 +56,9 @@ class Postgresql
   # ### Get connection
   connect: (cb) ->
     unless @pool?
-      debugPool "initialize connection pool for #{@name}" +
-        chalk.grey " (pool 0/#{@conf.pool?.limit})"
+      if debugPool.enabled
+        debugPool "initialize connection pool for #{@name}" +
+          chalk.grey " (pool 0/#{@conf.pool?.limit})"
       setup = util.extend
         application_name: process.title
         fallback_application_name: 'alinex-database'
@@ -68,40 +69,45 @@ class Postgresql
     @pool.connect (err, conn, done) =>
       if err
         done err
-        debugError "#{chalk.grey @name} error #{err.message}"
+        debugError "#{chalk.grey @name} error #{err.message}" if debugError.enabled
         err.message += " at #{@name}"
         return cb err
       if conn.alinex?
-        debugPool "#{chalk.grey @name} reuse connection" +
-          chalk.grey " (pool #{@pool.pool._count}/#{@conf.pool.limit})"
+        if debugPool.enabled
+          debugPool "#{chalk.grey @name} reuse connection" +
+            chalk.grey " (pool #{@pool.pool._count}/#{@conf.pool.limit})"
         return cb null, conn
-      debugPool "#{chalk.grey @name} opened new connection" +
-        chalk.grey " (pool #{@pool.pool._count}/#{@conf.pool.limit})"
+      if debugPool.enabled
+        debugPool "#{chalk.grey @name} opened new connection" +
+          chalk.grey " (pool #{@pool.pool._count}/#{@conf.pool.limit})"
       conn.name = chalk.grey "[#{@name}##{++@connectionNum}]" unless conn.name?
       # add debugging
       conn.release = ->
         done()
       conn.on 'error', (err) ->
         done err
-        debugError "#{conn.name} failure #{err.message}"
+        debugError "#{conn.name} failure #{err.message}" if debugError.enabled
       query = conn.query
       conn.query = (sql, data, cb) ->
         unless typeof cb is 'function'
           cb = data
           data = null
         data = [data] if typeof data is 'string'
-        debugCmd "#{conn.name} #{sql}#{
-          if data then chalk.grey(' with ') + util.inspect(data).replace /\s+/g, ' ' else ''
-          }"
+        if debugCmd.enabled
+          debugCmd "#{conn.name} #{sql}#{
+            if data then chalk.grey(' with ') + util.inspect(data).replace /\s+/g, ' ' else ''
+            }"
         if cb
           query.apply conn, [sql, data, (err, result) ->
             if err
-              debugError "#{conn.name} #{chalk.grey err.message}"
+              debugError "#{conn.name} #{chalk.grey err.message}" if debugError.enabled
             if result?
               if result.fields?.length
-                debugResult "#{conn.name} fields: #{util.inspect result.fields}"
+                if debugResult.enabled
+                  debugResult "#{conn.name} fields: #{util.inspect result.fields}"
               if result.rows.length
-                debugData "#{conn.name} #{util.inspect row}" for row in result.rows
+                if debugData.enabled
+                  debugData "#{conn.name} #{util.inspect row}" for row in result.rows
 #              console.log result
             cb err, result
           ]
@@ -111,11 +117,11 @@ class Postgresql
         fn = query.apply conn, [sql, data]
         if debugCmd.enabled or debugData.enabled or debugResult.enabled or debugError.enabled
           fn.on? 'row', (row) ->
-            debugData "#{conn.name} #{row}"
+            debugData "#{conn.name} #{row}" if debugData.enabled
           fn.on? 'error', (err) ->
-            debugError "#{conn.name} #{chalk.red.bold err.message}"
+            debugError "#{conn.name} #{chalk.red.bold err.message}" if debugError.enabled
           fn.on? 'end', ->
-            debugCom chalk.grey "#{conn.name} end query"
+            debugCom chalk.grey "#{conn.name} end query" if debugCom.enabled
         fn
         if debugCom.enabled
           conn.on 'drain', ->
