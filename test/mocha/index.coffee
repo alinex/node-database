@@ -8,7 +8,7 @@ database.setup ->
   config.pushOrigin
     uri: "#{__dirname}/../data/config/database.yml"
 
-describe "Base", ->
+describe.only "Base", ->
 
   describe "config", ->
 
@@ -33,7 +33,7 @@ describe "Base", ->
         expect(err, 'config error').to.exist
         cb()
 
-  describe.only "connect problems", ->
+  describe "connect problems", ->
     @timeout 50000
 
     it "should fail on undefined server", (done) ->

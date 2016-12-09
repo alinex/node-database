@@ -1,6 +1,8 @@
-# Mysql access
-# =================================================
-# This package will give you an easy and robust way to access mysql databases.
+###
+Database Access - API Usage
+=================================================
+###
+
 
 # https://github.com/Finanzchef24-GmbH/tunnel-ssh/blob/master/index.js -> copy
 # https://github.com/felixge/node-mysql/ -> use
@@ -20,22 +22,30 @@ fspath = require 'path'
 # include more alinex modules
 config = require 'alinex-config'
 util = require 'alinex-util'
+ssh = null # load on demand
 # internal helpers
 schema = require './configSchema'
+
 
 # Setup and Initialization
 # -------------------------------------------------
 
-# ### Initialization
+###
+set the modules config paths and validation schema
 
-# set the modules config paths and validation schema
+@param {Function(Error)} cb callback after done
+###
 exports.setup = setup = util.function.once this, (cb) ->
   # set module search path
   config.register false, fspath.dirname __dirname
   # add schema for module's configuration
   config.setSchema '/database', schema, cb
 
-# set the modules config paths, validation schema and initialize the configuration
+###
+set the modules config paths, validation schema and initialize the configuration
+
+@param {Function(Error)} cb callback after done
+###
 exports.init = init = util.function.once this, (cb) ->
   debug "initialize"
   # set module search path
@@ -43,13 +53,19 @@ exports.init = init = util.function.once this, (cb) ->
     return cb err if err
     config.init cb
 
+
 # Create Instances
 # -------------------------------------------------
 
-# ### Factory
-# Get an instance for the name. This enables the system to use the same
-# Config instance anywhere.
+# @type {Object<Database>} named list of database connections
+#
 instances = {}
+
+# Get an instance for the name. This enables the system to use the same
+# database instance anywhere.
+#
+# @param {String} name the alias for the database connection configuration
+# @param {Function(Error, Database)} cb with an `Error` or the `Database` instance
 exports.instance = instance = (name, cb) ->
   init (err) ->
     return cb err if err
@@ -73,6 +89,8 @@ exports.instance = instance = (name, cb) ->
         instances[name] = new Driver name, conf
         cb null, instances[name]
     cb null, instances[name]
+
+
 
 #for fn in ['exec', 'list', 'record', 'column', 'value']
 #  exports[fn] = (name, query, data, cb) -> call fn, name, query, data, cb
@@ -104,9 +122,9 @@ tunnel = (conf, cb) ->
   conf.access = conf.server
   return cb null, conf unless conf.ssh
   # load ssh modules
-  sshtunnel = require 'alinex-sshtunnel'
-  sshtunnel
-    ssh: conf.ssh
+  ssh ?= require 'alinex-ssh'
+  ssh.tunnel
+    server: conf.ssh
     tunnel:
       host: conf.server.host
       port: conf.server.port

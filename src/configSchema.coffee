@@ -1,73 +1,28 @@
-# Check definitions
-# =================================================
-# This contains configuration definitions for the
-# [alinex-validator](http://alinex.github.io/node-validator).
+###
+Configuration
+===================================================
+To configure this module to your needs, please make a new configuration file for `/database`
+context. To do so you may copy the base settings from `src/config/database.yml` into
+`var/local/config/database.yml` and change it's values or put it into your applications
+configuration directory.
 
-# SSH Settings
-# -------------------------------------------------
-ssh =
-  title: "Remote Server"
-  description: "a remote server for ssh tunneling"
-#  type: 'array'
-  type: 'object'
-  allowedKeys: true
-  mandatoryKeys: ['host', 'port', 'username']
-  keys:
-    host:
-      title: "Hostname or IP Address"
-      description: "the hostname or IP address to connect to"
-      type: 'or'
-      or: [
-        type: 'hostname'
-      ,
-        type: 'ipaddr'
-      ]
-    port:
-      title: "Port Number"
-      description: "the port on which to connect using ssh protocol"
-      type: 'port'
-      default: 22
-    username:
-      title: "Username"
-      description: "the username to use for the connection"
-      type: 'string'
-    password:
-      title: "Password"
-      description: "the password to use for connecting"
-      type: 'string'
-      optional: true
-    privateKey:
-      title: "Private Key"
-      description: "the private key file to use for OpenSSH authentication"
-      type: 'string'
-    passphrase:
-      title: "Passphrase"
-      description: "the passphrase used to decrypt an encrypted private key"
-      type: 'string'
-    localHostname:
-      title: "Local Hostname"
-      description: "the host used for hostbased user authentication"
-      type: 'string'
-    localUsername:
-      title: "Local User"
-      description: "the username used for hostbased user authentication"
-      type: 'string'
-    keepaliveInterval:
-      title: "Keepalive"
-      description: "the interval for the keepalive packets to be send"
-      type: 'interval'
-      unit: 'ms'
-      default: 1000
-    readyTimeout:
-      title: "Ready TImeout"
-      description: "the time to wait for the ssh handshake to succeed"
-      type: 'interval'
-      unit: 'ms'
-      default: 20000
-    debug:
-      title: "Extended Debug"
-      description: "the DEBUG=exec.ssh messages are extended with server communication"
-      type: 'boolean'
+Like supported by {@link alinex-config} you only have to
+write the settings which differ from the defaults.
+
+You may additionaly write the ssh connection details within the `/ssh/server`
+section described under {@link alinex-ssh/src/configSchema.coffee}.
+
+
+/database
+------------------------------------------------------
+{@schema #}
+###
+
+
+# Node Modules
+# -------------------------------------------------------
+sshSchema = require 'alinex-ssh/lib/configSchema'
+
 
 # Mysql Database
 # -------------------------------------------------
@@ -123,7 +78,8 @@ mysql =
       unit: 'ms'
       optional: true
 
-# Mysql Database
+
+# Postgresql Database
 # -------------------------------------------------
 postgresql =
   title: "PostgreSQL Access"
@@ -167,6 +123,7 @@ postgresql =
       unit: 'ms'
       optional: true
 
+
 # Export objects
 # -------------------------------------------------
 module.exports =
@@ -175,12 +132,23 @@ module.exports =
   type: 'object'
   entries: [
     title: "Connection"
-    description: "the connection to one database"
+    description: "the connection to one database (key used as reference)"
     type: 'object'
     allowedKeys: true
     mandatoryKeys: ['server']
     keys:
-      ssh: ssh
+      ssh:
+        title: "SSH Connection"
+        description: "the ssh connection to use"
+        type: 'or'
+        or: [
+          title: "SSH Connection Reference"
+          description: "the reference name for an defined ssh connection under
+          {@link alinex-ssh/src/configSchema.coffee}"
+          type: 'string'
+          list: '<<<data:///ssh/server>>>'
+        , sshSchema.keys.server.entries[0]
+        ]
       server:
         title: "Access"
         description: "the settings used to connect to the database"
@@ -204,7 +172,7 @@ module.exports =
             default: 10
           cluster:
             title: "Cluster"
-            description: "the clusters to which this database belongs"
+            description: "the cluster to which this database belongs"
             type: 'array'
             toArray: true
             entries:
