@@ -15,7 +15,7 @@ describe "Mysql", ->
 
   describe "driver", ->
 
-    it "should allow connections to database", (done) ->
+    it.only "should allow connections to database", (done) ->
       database.instance 'test-mysql', (err, db) ->
         throw err if err
         db.connect (err, conn) ->

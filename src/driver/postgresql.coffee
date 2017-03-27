@@ -200,6 +200,7 @@ class Postgresql
   # -------------------------------------------------
 
   # ### prepare parameter
+  # conn, sql, data, cb
   # This will also open a self closing connection if none given.
   prepare: (args, cb) ->
     args = Array.prototype.slice.call args

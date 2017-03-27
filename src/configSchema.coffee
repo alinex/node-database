@@ -154,6 +154,10 @@ module.exports =
         description: "the settings used to connect to the database"
         type: 'or'
         or: [mysql, postgresql]
+      access:
+        title: "Auto calculated Settings"
+        description: "the runtime settings used, do not set this manually"
+        type: 'object'
       pool:
         title: "Connection Pool"
         description: "the connection pool"

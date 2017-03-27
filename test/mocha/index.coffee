@@ -8,7 +8,7 @@ database.setup ->
   config.pushOrigin
     uri: "#{__dirname}/../data/config/database.yml"
 
-describe.only "Base", ->
+describe "Base", ->
 
   describe "config", ->
 
