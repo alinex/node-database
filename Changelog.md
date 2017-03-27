@@ -4,6 +4,25 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.1.0 (2017-03-27)
+-------------------------------------------------
+- Allow all tests to run.
+- Upgrade alinex-util@2.5.1, pg@6.1.5, alinex-validator@2.1.2, async@2.2.0, debug@2.6.3, mysql@2.13.0, alinex-builder@2.4.1
+- Update alinex-util@2.5.1, alinex-validator@2.1.2, portfinder@1.0.13, async@2.2.0, debug@2.6.3, alinex-builder@2.4.1
+- Replace alinex-sshtunnel with newer alinex-ssh.
+- Calculate debug strings only if enabled.
+- Restructure for new documentation.
+- Rename links to Alinex Namespace.
+- Add copyright sign.
+- Smaller typo fixes.
+- return error if problems establishing the tunnel.
+- Upgrade alinex-sshtunnel@1.2.0
+- Test simple failure calls.
+- Use pg-native automatically.
+- Enable pool with additional min setting.
+- Remove pool debugging to fix for pg@6.0.0
+- Upgraded to alinex-config@1.1.6, alinex-validator@1.6.6, alinex-util@2.3.1, mysql@2.11.1, alinex-builder@2.1.13, pg@6.0.1
+
 Version 1.0.1 (2016-05-06)
 -------------------------------------------------
 - Update util and async calls.
