@@ -35,16 +35,16 @@
   "dependencies": {
     "alinex-config": "^1.4.1",
     "alinex-ssh": "^2.1.2",
-    "alinex-util": "^2.5.0",
-    "async": "^2.1.4",
+    "alinex-util": "^2.5.1",
+    "async": "^2.2.0",
     "chalk": "^1.1.3",
-    "debug": "^2.3.3",
-    "mysql": "^2.12.0",
-    "pg": "^6.1.0"
+    "debug": "^2.6.3",
+    "mysql": "^2.13.0",
+    "pg": "^6.1.5"
   },
   "devDependencies": {
-    "alinex-builder": "^2.3.9",
-    "alinex-validator": "^2.1.1",
+    "alinex-builder": "^2.4.1",
+    "alinex-validator": "^2.1.2",
     "chai": "^3.5.0"
   },
   "optionalDependencies": {},
