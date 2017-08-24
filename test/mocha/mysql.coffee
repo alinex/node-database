@@ -26,7 +26,7 @@ describe "Mysql", ->
             conn.release()
             db.close done
 
-    it "should allow connections through ssh", (done) ->
+    it.skip "should allow connections through ssh", (done) ->
       @timeout 30000
       database.instance 'test-ssh', (err, db) ->
         throw err if err
