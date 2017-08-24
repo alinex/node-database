@@ -130,6 +130,8 @@ class Postgresql
             debugCom chalk.magenta "#{conn.name} error: #{err.message}"
           conn.on 'notice', (msg) ->
             debugCom chalk.grey "#{conn.name} notice: #{msg}"
+          conn.on 'notification', (msg) ->
+            debugCom chalk.grey "#{conn.name} notification: #{msg}"
         conn.alinex = true
       cb null, conn
 
