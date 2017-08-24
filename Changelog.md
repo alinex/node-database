@@ -4,6 +4,13 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.1.1 (2017-08-24)
+-------------------------------------------------
+Update pg driver version
+
+- Update pg version
+- Add notification type in postgres
+
 Version 1.1.0 (2017-03-27)
 -------------------------------------------------
 - Allow all tests to run.
