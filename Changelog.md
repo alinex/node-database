@@ -4,6 +4,10 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.1.2 (2017-11-14)
+-------------------------------------------------
+- Update pg module
+
 Version 1.1.1 (2017-08-24)
 -------------------------------------------------
 Update pg driver version
