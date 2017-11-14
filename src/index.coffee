@@ -101,6 +101,7 @@ exports.column = (name, query, data, cb) -> call 'column', name, query, data, cb
 exports.value = (name, query, data, cb) -> call 'value', name, query, data, cb
 
 call = (fn, name, query, data, cb) ->
+  debug "Get #{fn} from #{name}"
   unless typeof cb is 'function'
     cb = data
     data = null

@@ -75,11 +75,11 @@ class Postgresql
       if conn.alinex?
         if debugPool.enabled
           debugPool "#{chalk.grey @name} reuse connection" +
-            chalk.grey " (pool #{@pool.pool._count}/#{@conf.pool.limit})"
+            chalk.grey " (pool #{@pool._idle.length}/#{@conf.pool.limit})"
         return cb null, conn
       if debugPool.enabled
         debugPool "#{chalk.grey @name} opened new connection" +
-          chalk.grey " (pool #{@pool.pool._count}/#{@conf.pool.limit})"
+          chalk.grey " (pool #{@pool._idle.length}/#{@conf.pool.limit})"
       conn.name = chalk.grey "[#{@name}##{++@connectionNum}]" unless conn.name?
       # add debugging
       conn.release = ->
